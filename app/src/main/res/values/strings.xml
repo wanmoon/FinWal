@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FinWal</string>
+    <string name="emptystr" />
 </resources>
