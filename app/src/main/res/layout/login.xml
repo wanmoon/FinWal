@@ -1,72 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:gravity="center_vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:id="@+id/imageLogo"
+        android:layout_width="0dp"
+        android:layout_height="144dp"
+        app:srcCompat="@mipmap/logo"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.102"
+        android:layout_marginTop="8dp" />
+
+
+    <EditText
+
+        android:id="@+id/editTextUsername"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
-        android:weightSum="7">
+        android:ems="10"
+        android:inputType="text"
+        android:text="Username"
+        tools:layout_conversion_absoluteX="26dp"
+        tools:layout_conversion_absoluteY="288dp"
+        tools:layout_conversion_absoluteWidth="331dp"
+        tools:layout_conversion_absoluteHeight="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintVertical_bias="0.443" />
 
-        <ImageView
-            android:id="@+id/imageLogo"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            app:srcCompat="@mipmap/logo" />
+    <EditText
+
+        android:id="@+id/editTextPassword"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="Password"
+        tools:layout_conversion_absoluteX="26dp"
+        tools:layout_conversion_absoluteY="336dp"
+        tools:layout_conversion_absoluteWidth="331dp"
+        tools:layout_conversion_absoluteHeight="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintVertical_bias="0.592" />
+
+    <Button
+        android:id="@+id/btnForgetPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forget password ?"
+        android:textSize="12dp"
+        android:background="@android:color/transparent"
+        tools:layout_conversion_absoluteX="142dp"
+        tools:layout_conversion_absoluteY="384dp"
+        tools:layout_conversion_absoluteWidth="99dp"
+        tools:layout_conversion_absoluteHeight="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.659" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:text="LOG IN"
+        android:textSize="16dp"
+        android:background="@color/buttonColor"
+        tools:layout_conversion_absoluteX="132dp"
+        tools:layout_conversion_absoluteY="398dp"
+        tools:layout_conversion_absoluteWidth="120dp"
+        tools:layout_conversion_absoluteHeight="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.733" />
+
+    <Button
+        android:id="@+id/btnDHAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an account ?"
+        android:textSize="12dp"
+        android:background="@android:color/transparent"
+        tools:layout_conversion_absoluteX="127dp"
+        tools:layout_conversion_absoluteY="433dp"
+        tools:layout_conversion_absoluteWidth="130dp"
+        tools:layout_conversion_absoluteHeight="14dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.787" />
 
 
-        <EditText
-
-            android:id="@+id/editTextUsername"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Username"
-            android:layout_gravity="center"/>
-
-        <EditText
-
-            android:id="@+id/editTextPassword"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:text="Password"
-            android:layout_gravity="center"/>
-
-        <Button
-            android:id="@+id/btnForgetPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forget password ?"
-            android:layout_gravity="center"
-            android:textSize="12dp"
-            android:background="@android:color/transparent"/>
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="120dp"
-            android:layout_height="35dp"
-            android:text="LOG IN"
-            android:layout_gravity="center"
-            android:textSize="16dp"
-            android:background="@color/buttonColor"/>
-
-        <Button
-            android:id="@+id/btnDHAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Don't have an account ?"
-            android:layout_gravity="center"
-            android:textSize="12dp"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -80,54 +80,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        public void  promptSpeechInput(){
-            Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault());
-            i.putExtra(RecognizerIntent.EXTRA_PROMPT, "say something");
+    public void  promptSpeechInput(){
+        Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault());
+        i.putExtra(RecognizerIntent.EXTRA_PROMPT, "say something");
 
-                try{
-                    startActivityForResult(i, 100);
-                }
-                catch (ActivityNotFoundException a)
-                {
-                    Toast.makeText(MainActivity.this ,"Sorry your deive dosen't suppose language", Toast.LENGTH_LONG).show();
-                }
-
-        }
-
-        public void onActivityResult(int request_code , int result_code , Intent i){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            mbtnStatus = (TextView)findViewById(R.id.btnStatus);
-            super.onActivityResult(request_code,result_code,i);
-
-            switch(request_code){
-                case 100: if(result_code == RESULT_OK &&  i != null)
-                {
-                    ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    resultTEXT.setText(result.get(0));
-                    String val = result.get(0).toString();
-                    DatabaseReference databaseReference = database.getReference();
-                    databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            String value = dataSnapshot.getValue(String.class);
-                            mbtnStatus.setText("Cetegory is " + value);
-                            Log.d("", "value is" + value);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.w("", "Failed to read value.");
-                        }
-                    }
-                    );
-
-                }
-
-                    break;
+            try{
+                startActivityForResult(i, 100);
             }
+            catch (ActivityNotFoundException a)
+            {
+                Toast.makeText(MainActivity.this ,"Sorry your deive dosen't suppose language", Toast.LENGTH_LONG).show();
+            }
+
+    }
+
+    public void onActivityResult(int request_code , int result_code , Intent i){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mbtnStatus = (TextView)findViewById(R.id.btnStatus);
+        super.onActivityResult(request_code,result_code,i);
+
+        switch(request_code){
+            case 100: if(result_code == RESULT_OK &&  i != null)
+            {
+                ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                resultTEXT.setText(result.get(0));
+                String val = result.get(0).toString();
+                DatabaseReference databaseReference = database.getReference();
+                databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String value = dataSnapshot.getValue(String.class);
+                        mbtnStatus.setText("Cetegory is " + value);
+                        Log.d("", "value is" + value);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("", "Failed to read value.");
+                    }
+                }
+                );
+
+            }
+
+                break;
         }
+    }
 
 
 }
