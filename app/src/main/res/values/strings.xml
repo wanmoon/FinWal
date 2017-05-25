@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">FinWal</string>
-    <string name="emptystr" />
+    <string name="action_menu">Menu</string>
+    <string name="emptystr"></string>
+    <string name="action_search">Search</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_settings">Settings</string>/>
+    <color name="colorbgactionbar">#3399CC</color>
+
 </resources>
