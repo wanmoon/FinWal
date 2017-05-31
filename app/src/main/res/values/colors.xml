@@ -5,5 +5,8 @@
     <color name="colorAccent">#8eb4fb</color>
 
     <color name="buttonColor">#66CC00</color>
-    <color name="backgroundColor">#AED6F1</color>
+    <color name="backgroundColor">#bbdefb</color>
+    <color name="color_bg_actionbar">#3399CC</color>
+
+
 </resources>
