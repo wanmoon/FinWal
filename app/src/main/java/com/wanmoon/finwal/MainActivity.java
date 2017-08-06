@@ -1,139 +1,118 @@
 package com.wanmoon.finwal;
 
-import android.content.ActivityNotFoundException;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.speech.RecognizerIntent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import static com.wanmoon.finwal.R.id.btnStatus;
-import static com.wanmoon.finwal.R.id.imageButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 
-public class MainActivity extends AppCompatActivity {
-    private TextView mbtnStatus;
-    private EditText btnInput;
-    private TextView resultTEXT;
-    private ImageButton imageButton;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
+
+    private Button buttonRegister;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private TextView textViewSignIn;
+
+    private ProgressDialog progressDialog;
+
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        resultTEXT = (TextView)findViewById(R.id.TvResult);
-        imageButton = (ImageButton)findViewById(R.id.imageButton);
+        setContentView(R.layout.signup);
 
-
-    }
-
-
-
-    public void imageButton(View view){
-
-        promptSpeechInput();
-
-
-
-    }
-
-    public void btnClickme(View v) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
-        btnInput = (EditText)findViewById(R.id.btnInput); // get word from input button
-        mbtnStatus = (TextView)findViewById(R.id.btnStatus);
-        String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
-
-
-        DatabaseReference databaseReference = database.getReference();
-        databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String value = dataSnapshot.getValue(String.class);
-                mbtnStatus.setText("Cetegory is " + value);
-                Log.d("", "value is" + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("", "Failed to read value.");
-            }
-        });
-
-    }
-
-    public void  promptSpeechInput(){
-        Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        i.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault());
-        i.putExtra(RecognizerIntent.EXTRA_PROMPT, "say something");
-
-            try{
-                startActivityForResult(i, 100);
-            }
-            catch (ActivityNotFoundException a)
-            {
-                Toast.makeText(MainActivity.this ,"Sorry your deive dosen't suppose language", Toast.LENGTH_LONG).show();
-            }
-
-    }
-
-    public void onActivityResult(int request_code , int result_code , Intent i){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mbtnStatus = (TextView)findViewById(R.id.btnStatus);
-        super.onActivityResult(request_code,result_code,i);
-
-        switch(request_code){
-            case 100: if(result_code == RESULT_OK &&  i != null)
-            {
-                ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                resultTEXT.setText(result.get(0));
-                String val = result.get(0).toString();
-                DatabaseReference databaseReference = database.getReference();
-                databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String value = dataSnapshot.getValue(String.class);
-                        mbtnStatus.setText("Cetegory is " + value);
-                        Log.d("", "value is" + value);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("", "Failed to read value.");
-                    }
-                }
-                );
-
-            }
-
-                break;
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() != null){
+            finish();
+            startActivity(new Intent(MainActivity.this, Home.class));
         }
+
+
+
+        progressDialog = new ProgressDialog(this);
+
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+
+        buttonRegister.setOnClickListener(this);
+        textViewSignIn.setOnClickListener(this);
+
+
+    }
+
+    private void registerUser(){
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if(TextUtils.isEmpty(email)){
+            // email is empty
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            //stopping the function execution further
+            return;
+        }
+
+        if(TextUtils.isEmpty(password)){
+            // password is empty
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            //stopping the function execution further
+            return;
+        }
+        // if validation are ok
+        // we will first show a progressbar
+
+        progressDialog.setMessage("Registering User...");
+        progressDialog.show();
+
+        firebaseAuth.createUserWithEmailAndPassword(email,password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            //user is successfully registered and logged in , start home here
+                            Toast.makeText(MainActivity.this,"Register Successfully", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(getApplicationContext(), Home.class));
+                        }else{
+                            Toast.makeText(MainActivity.this,"Could not register.. please try again ", Toast.LENGTH_LONG).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(v == buttonRegister ){
+            registerUser();
+        }
+
+        if(v == textViewSignIn){
+            // will open login activity here
+            Intent i=new Intent(getApplicationContext(),Login.class);
+            startActivity(i);
+
+        }
+
+
+    }
 }
 
 

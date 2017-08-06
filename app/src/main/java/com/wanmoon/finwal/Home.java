@@ -11,12 +11,21 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 /**
  * Created by pimpischaya on 5/25/2017 AD.
  */
 
 public class Home extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
+    private TextView textViewUserEmail;
+    private Button buttonLogout;
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close, fab_backward, fab_forward;
@@ -30,6 +39,30 @@ public class Home extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+       /* if(firebaseAuth.getCurrentUser()!= null){
+            finish();
+           startActivity(new Intent(getApplicationContext(), Login.class));
+        }*/
+
+
+
+        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+        textViewUserEmail.setText("Welcome " + user.getEmail());
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
+
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.signOut();
+                Intent i=new Intent(getApplicationContext(),Login.class);
+                startActivity(i);
+            }
+
+        });
 
 
         fab_plus =(FloatingActionButton)findViewById(R.id.fab_plus);
