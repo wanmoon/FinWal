@@ -35,7 +35,7 @@ public class SpeechToText extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.speechtotext);
         resultTEXT = (TextView)findViewById(R.id.TvResult);
         imageButton = (ImageButton)findViewById(R.id.imageButton);
 
