@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:text="E-Mail"
+        android:hint="E-Mail"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         android:layout_marginStart="26dp"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="Password"
+        android:hint="Password"
         android:layout_marginStart="26dp"
         android:layout_marginEnd="26dp"
         tools:layout_constraintRight_creator="1"
@@ -117,6 +117,7 @@
         tools:layout_conversion_absoluteX="127dp"
         tools:layout_conversion_absoluteY="433dp"
         app:layout_constraintHorizontal_bias="0.502" />
+
 
 
 </android.support.constraint.ConstraintLayout>

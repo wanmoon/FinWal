@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
-        //buttonForgotPassword = (Button) findViewById(R.id.buttonForgotPassword);
+        buttonForgotPassword = (Button) findViewById(R.id.buttonForgotPassword);
 
         // home remove when finish
         buttonHome = (Button) findViewById(R.id.buttonHome);
@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         buttonSignIn.setOnClickListener(this);
         textViewSignUp.setOnClickListener(this);
-        //buttonForgotPassword.setOnClickListener(this);
+        buttonForgotPassword.setOnClickListener(this);
 
 
     }
@@ -124,10 +124,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(new Intent(this, MainActivity.class));
 
         }
-       /* if(v == buttonForgotPassword){
+        if(v == buttonForgotPassword){
 
 
-        }*/
+        }
 
     }
 }

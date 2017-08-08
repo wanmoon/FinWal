@@ -26,12 +26,14 @@ public class Home extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
     private Button buttonLogout;
+    private Button buttonGoal;
+    private Button buttonBill;
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close, fab_backward, fab_forward;
     boolean isopen = false;
 
-    Button button;
+    //Button button;
 
 
     @Override
@@ -43,7 +45,7 @@ public class Home extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-       /* if(firebaseAuth.getCurrentUser()!= null){
+        /*if(firebaseAuth.getCurrentUser()!= null){
             finish();
            startActivity(new Intent(getApplicationContext(), Login.class));
         }*/
@@ -53,6 +55,8 @@ public class Home extends AppCompatActivity {
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome " + user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonGoal = (Button) findViewById(R.id.buttonGoal);
+        buttonBill = (Button) findViewById(R.id.buttonBill);
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +67,25 @@ public class Home extends AppCompatActivity {
             }
 
         });
+
+        buttonGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(),Goal.class);
+                startActivity(i);
+            }
+
+        });
+        buttonBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getApplicationContext(),Billing.class);
+                startActivity(i);
+            }
+
+        });
+
+
 
 
         fab_plus =(FloatingActionButton)findViewById(R.id.fab_plus);
@@ -140,7 +163,6 @@ public class Home extends AppCompatActivity {
         int id = item.getItemId();
 
         // ตรวจสอบค่า ว่า เป็น id ใด  แล้วเรียกใช้ method ที่เราสร้างขึ้น
-        // ในตัวอย่างนี้ เราจะส่งค่าข้อความเข้าไปใน method
         switch (id) {
             case R.id.action_search:
                 showMyText("Search");

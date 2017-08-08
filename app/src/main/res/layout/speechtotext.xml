@@ -61,7 +61,7 @@
             android:layout_marginRight="11dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/emptystr" />
+             />
 
         <ImageButton
             android:id="@+id/imageButton"
