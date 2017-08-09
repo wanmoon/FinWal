@@ -4,9 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#8eb4fb</color>
 
-    <color name="buttonColor">#66cc00</color>
+
     <color name="backgroundColor">#bbdefb</color>
     <color name="color_bg_actionbar">#3399CC</color>
+    <color name="buttonColorGreen">#66cc00</color>
     <color name="buttonColorRed">#b71c1c</color>
+    <color name="buttonColorGrey">#607D8B</color>
+    <color name="buttonColorWhite">#FFFFFF</color>
 
 </resources>

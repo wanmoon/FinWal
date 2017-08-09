@@ -104,7 +104,7 @@
         android:layout_height="35dp"
         android:text="SIGN IN"
         android:textSize="16dp"
-        android:background="@color/buttonColor"
+        android:background="@color/buttonColorGreen"
         tools:layout_conversion_absoluteX="132dp"
         tools:layout_conversion_absoluteY="398dp"
         tools:layout_conversion_absoluteWidth="120dp"

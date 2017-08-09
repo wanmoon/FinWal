@@ -8,6 +8,7 @@
         android:id="@+id/action_menu"
         android:icon="@mipmap/ic_menu_white_24dp"
         android:title="@string/action_menu"
+        android:gravity = "center_horizontal"
         app:showAsAction="always" />
 
     <item android:id="@+id/action_search"

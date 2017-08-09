@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@color/buttonColor"
+            android:background="@color/buttonColorGreen"
             android:text="LOG OUT"
             app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintLeft_toLeftOf="parent"
