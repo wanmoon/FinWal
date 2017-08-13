@@ -90,7 +90,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         // if validation are ok
         // we will first show a progressbar
 
-        progressDialog.setMessage("Registering User...");
+        progressDialog.setMessage("Login...");
         progressDialog.show();
 
 

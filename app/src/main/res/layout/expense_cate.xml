@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="EXPENSE"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonBill"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Bill"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonEducation"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Education"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonEntertainment"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="1dp"
+                    android:text="Entertainment"
+                    android:textSize="6.5dp" />
+
+                <Button
+                    android:id="@+id/buttonFood"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Food and Drink"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonShopping"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Shopping"
+                    android:textSize="8dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/buttonTransport"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Transport"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonTravel"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Travel"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonFamilyExpense"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Family and Personal"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonHealthCare"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="4dp"
+                    android:text="Healthcare"
+                    android:textSize="8dp" />
+
+                <Button
+                    android:id="@+id/buttonSaving"
+                    android:layout_width="60dp"
+                    android:layout_height="34dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_button"
+                    android:padding="5dp"
+                    android:text="Saving and Investment"
+                    android:textSize="8dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
