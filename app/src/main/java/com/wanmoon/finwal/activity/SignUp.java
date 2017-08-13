@@ -1,4 +1,4 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.support.v7.app.AppCompatActivity;
 

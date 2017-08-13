@@ -2,14 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Home">
+    tools:context=".activity.Home">
 
-    <item
-        android:id="@+id/action_menu"
-        android:icon="@mipmap/ic_menu_white_24dp"
-        android:title="@string/action_menu"
-        android:gravity = "center_horizontal"
-        app:showAsAction="always" />
 
     <item android:id="@+id/action_search"
         android:icon="@mipmap/ic_search_white_24dp"

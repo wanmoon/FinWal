@@ -1,4 +1,4 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.wanmoon.finwal.R;
 
 /**
  * Created by pimpischaya on 8/7/2017 AD.

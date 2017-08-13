@@ -1,4 +1,4 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wanmoon.finwal.R;
 
 /**
  * Created by pimpischaya on 8/6/2017 AD.
@@ -27,7 +28,7 @@ public class ForgotPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.forgetpassword);
+        setContentView(R.layout.forgotpassword);
         etMail = (EditText) findViewById(R.id.editTextEmail);
         buttonResetPassword = (Button) findViewById(R.id.buttonResetPassword);
 

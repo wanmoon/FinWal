@@ -2,21 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Goal">
+    tools:context=".activity.Goal">
 
 
     <item
         android:id="@+id/action_name"
-
         android:title="@string/name_goal"
         app:showAsAction="always"
         android:layout_height="match_parent"
         android:layout_width="match_parent" />
 
     <item
-        android:id="@+id/action_plus"
-        android:icon="@mipmap/ic_action_plus"
-        android:title="@string/action_plus"
+        android:id="@+id/action_add"
+        android:icon="@mipmap/ic_add_white_24dp"
+        android:title="@string/action_add"
         android:layout_alignParentRight="true"
         app:showAsAction="always" />
 

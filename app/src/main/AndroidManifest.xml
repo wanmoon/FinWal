@@ -10,26 +10,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Login" />
-        <activity android:name=".Home" />
-        <activity android:name=".SpeechToText" />
-        <activity android:name=".AddTransaction"/>
-        <activity android:name=".DetailDaily"/>
-        <activity android:name=".Billing"/>
-        <activity android:name=".NewBill"/>
-        <activity android:name=".Goal"/>
-        <activity android:name=".NewGoal"/>
-        <activity android:name=".ForgotPassword"/>
-
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.Home" />
+        <activity android:name=".activity.SpeechToText" />
+        <activity android:name=".activity.AddTransaction" />
+        <activity android:name=".activity.DetailDaily" />
+        <activity android:theme="@style/ThemeActionBar"
+            android:name=".activity.Billing" />
+        <activity android:name=".activity.NewBill" />
+        <activity android:theme="@style/ThemeActionBar"
+            android:name=".activity.Goal" />
+        <activity android:name=".activity.NewGoal" />
+        <activity android:name=".activity.ForgotPassword" />
     </application>
 
 </manifest>

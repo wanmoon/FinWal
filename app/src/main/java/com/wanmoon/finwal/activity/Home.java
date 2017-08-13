@@ -1,9 +1,14 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,19 +20,28 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.wanmoon.finwal.R;
 
 
 /**
  * Created by pimpischaya on 5/25/2017 AD.
  */
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity  {
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
     private Button buttonLogout;
     private Button buttonGoal;
     private Button buttonBill;
+
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private Toolbar mToolbar;
+
+    FragmentTransaction fragmentTransaction;
+    NavigationView navigationView;
+
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close, fab_backward, fab_forward;
@@ -51,6 +65,30 @@ public class Home extends AppCompatActivity {
         }*/
 
 
+//        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.add(R.id.content_frame, new Billing());
+//        fragmentTransaction.commit();
+//        getSupportActionBar().setTitle("ddd");
+//
+//        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.nav_billing:
+//                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                        fragmentTransaction.replace(R.id.content_frame, new Billing());
+//                        fragmentTransaction.commit();
+//                        item.setChecked(true);
+//                        //mDrawerLayout.closeDrawer();
+//                        break;
+//
+//
+//                }
+//                return false;
+//            }
+//        });
+
 
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome " + user.getEmail());
@@ -58,11 +96,22 @@ public class Home extends AppCompatActivity {
         buttonGoal = (Button) findViewById(R.id.buttonGoal);
         buttonBill = (Button) findViewById(R.id.buttonBill);
 
+        mToolbar = (Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseAuth.signOut();
-                Intent i=new Intent(getApplicationContext(),Login.class);
+                Intent i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
             }
 
@@ -71,7 +120,7 @@ public class Home extends AppCompatActivity {
         buttonGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getApplicationContext(),Goal.class);
+                Intent i = new Intent(getApplicationContext(), Goal.class);
                 startActivity(i);
             }
 
@@ -79,19 +128,17 @@ public class Home extends AppCompatActivity {
         buttonBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getApplicationContext(),Billing.class);
+                Intent i = new Intent(getApplicationContext(), Billing.class);
                 startActivity(i);
             }
 
         });
 
 
-
-
-        fab_plus =(FloatingActionButton)findViewById(R.id.fab_plus);
-        fab_speech =(FloatingActionButton)findViewById(R.id.fab_speech);
-        fab_scan =(FloatingActionButton)findViewById(R.id.fab_scan);
-        fab_typing =(FloatingActionButton)findViewById(R.id.fab_typing);
+        fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
+        fab_speech = (FloatingActionButton) findViewById(R.id.fab_speech);
+        fab_scan = (FloatingActionButton) findViewById(R.id.fab_scan);
+        fab_typing = (FloatingActionButton) findViewById(R.id.fab_typing);
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         fab_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
@@ -128,14 +175,14 @@ public class Home extends AppCompatActivity {
         fab_speech.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getApplicationContext(),SpeechToText.class);
+                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
                 startActivity(i);
             }
         });
         fab_typing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(getApplicationContext(),AddTransaction.class);
+                Intent i = new Intent(getApplicationContext(), AddTransaction.class);
                 startActivity(i);
             }
         });
@@ -144,37 +191,30 @@ public class Home extends AppCompatActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
 
     }
 
-    public void showMyText(String myText){
-        // สร้าง instance สำหรับเรียกใช้งาน TextView
-        // TextView myShowText = (TextView) findViewById(R.id.my_text);
-       // myShowText.setText(myText);  // แสดงค่าที่ส่งเข้ามา
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // เก็บค่า id ของปุ่ม action butoon ที่กดเลือก
+
         int id = item.getItemId();
 
-        // ตรวจสอบค่า ว่า เป็น id ใด  แล้วเรียกใช้ method ที่เราสร้างขึ้น
-        switch (id) {
-            case R.id.action_search:
-                showMyText("Search");
-                return true;
-            case R.id.action_refresh:
-                showMyText("Refresh");
-                return true;
-            case R.id.action_settings:
-                showMyText("Settings");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true;
+
         }
+
+        return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
 }

@@ -1,4 +1,4 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.wanmoon.finwal.R;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
