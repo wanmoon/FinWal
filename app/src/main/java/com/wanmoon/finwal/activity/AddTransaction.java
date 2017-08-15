@@ -1,4 +1,4 @@
-package com.wanmoon.finwal;
+package com.wanmoon.finwal.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.Timer;
 
-
+import com.wanmoon.finwal.R;
 /**
  * Created by pimpischaya on 5/27/2017 AD.
  */
@@ -57,8 +57,10 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private int getHowMuch;
     private Timer timeCloseDialog;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // Get the view from addtransaction.xml
         setContentView(R.layout.addtransaction);

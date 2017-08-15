@@ -59,18 +59,21 @@ public class SpeechToText extends AppCompatActivity {
 
         btnInput = (EditText)findViewById(R.id.btnInput); // get word from input button
         mbtnStatus = (TextView)findViewById(R.id.btnStatus);
-        String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
+         final String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
 
 
         DatabaseReference databaseReference = database.getReference();
-        databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String value = dataSnapshot.getValue(String.class);
-                mbtnStatus.setText("Cetegory is " + value);
-                Log.d("", "value is" + value);
-            }
+                        String value = dataSnapshot.getValue(String.class);
+
+                        mbtnStatus.setText("Cetegory is " + value);
+                        //Log.d("", "value is" + value);
+                    }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -108,7 +111,7 @@ public class SpeechToText extends AppCompatActivity {
                 resultTEXT.setText(result.get(0));
                 String val = result.get(0).toString();
                 DatabaseReference databaseReference = database.getReference();
-                databaseReference.child(""+val).addValueEventListener(new ValueEventListener() {
+                databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
                                                                           @Override
                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                                               String value = dataSnapshot.getValue(String.class);
