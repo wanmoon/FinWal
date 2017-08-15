@@ -1,11 +1,11 @@
 package com.wanmoon.finwal.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.wanmoon.finwal.R;
 
@@ -13,45 +13,35 @@ import com.wanmoon.finwal.R;
  * Created by pimpischaya on 8/8/2017 AD.
  */
 
-public class Billing extends Fragment {
+public class Billing extends AppCompatActivity {
 
-    View myView;
 
-    @NonNull
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        myView = inflater.inflate(R.layout.billing, container, false);
 
-        return myView;
+
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.billing);
+
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.billing_menu, menu);
+        return super.onCreateOptionsMenu(menu);
 
-//    protected void onCreate(Bundle savedInstanceState) {
-//
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.billing);
-//
-//    }
-//
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.billing_menu, menu);
-//        return super.onCreateOptionsMenu(menu);
-//
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.action_add:
-//                Intent i=new Intent(getApplicationContext(),NewBill.class);
-//                startActivity(i);
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                Intent i=new Intent(getApplicationContext(),NewBill.class);
+                startActivity(i);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

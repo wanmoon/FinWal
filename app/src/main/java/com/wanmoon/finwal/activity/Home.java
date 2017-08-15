@@ -65,31 +65,6 @@ public class Home extends AppCompatActivity  {
         }*/
 
 
-//        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.content_frame, new Billing());
-//        fragmentTransaction.commit();
-//        getSupportActionBar().setTitle("ddd");
-//
-//        navigationView = (NavigationView) findViewById(R.id.navigation_view);
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.nav_billing:
-//                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                        fragmentTransaction.replace(R.id.content_frame, new Billing());
-//                        fragmentTransaction.commit();
-//                        item.setChecked(true);
-//                        //mDrawerLayout.closeDrawer();
-//                        break;
-//
-//
-//                }
-//                return false;
-//            }
-//        });
-
-
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         textViewUserEmail.setText("Welcome " + user.getEmail());
         buttonLogout = (Button) findViewById(R.id.buttonLogout);

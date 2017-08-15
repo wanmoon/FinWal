@@ -34,14 +34,8 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-
-
-//            Intent intent = new Intent(getBaseContext(), DetailDaily.class);
-//            intent.putExtra("EXTRA_SESSION_ID", EditText.editTextTransaction);
-//            startActivity(intent);
-
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Home.class);
+            Intent i=new Intent(getApplicationContext(),DetailDaily.class);
             startActivity(i);
 
         }

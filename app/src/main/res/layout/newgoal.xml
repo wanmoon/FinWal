@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:gravity="center_vertical"
-    tools:context="com.wanmoon.finwal.activity.Home">
+    tools:context="com.wanmoon.finwal.activity.NewGoal">
 
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_width="295dp"
         android:layout_height="47dp"
         android:ems="10"
-        android:hint= "What is my new bill?"
+        android:hint= "What is my goal?"
         tools:layout_constraintBottom_creator="1"
         android:layout_marginStart="40dp"
         app:layout_constraintBottom_toBottomOf="parent"

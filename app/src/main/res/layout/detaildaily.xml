@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:gravity="center_vertical"
-    tools:context="com.wanmoon.finwal.activity.Home">
+    tools:context="com.wanmoon.finwal.activity.DetailDaily">
 
     <EditText
         android:id="@+id/editTextTransactionTitle"

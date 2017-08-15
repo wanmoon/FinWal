@@ -11,9 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Timer;
-
 import com.wanmoon.finwal.R;
+
+import java.util.Timer;
 /**
  * Created by pimpischaya on 5/27/2017 AD.
  */

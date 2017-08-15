@@ -26,11 +26,14 @@ import java.util.Locale;
  * Created by pimpischaya on 5/27/2017 AD.
  */
 
-public class SpeechToText extends AppCompatActivity {
-    private TextView mbtnStatus;
+public class SpeechToText extends AppCompatActivity implements View.OnClickListener{
+    private TextView textViewStatus;
     private EditText btnInput;
     private TextView resultTEXT;
     private ImageButton imageButton;
+
+    private TextView textViewFinish;
+    private TextView textViewCancel;
 
 
     @Override
@@ -39,6 +42,12 @@ public class SpeechToText extends AppCompatActivity {
         setContentView(R.layout.speechtotext);
         resultTEXT = (TextView)findViewById(R.id.TvResult);
         imageButton = (ImageButton)findViewById(R.id.imageButton);
+
+        // button cancel and finish
+        textViewFinish = (TextView)findViewById(R.id.textViewFinish);
+        textViewCancel = (TextView)findViewById(R.id.textViewCancel);
+        textViewFinish.setOnClickListener(this);
+        textViewCancel.setOnClickListener(this);
 
 
     }
@@ -49,39 +58,38 @@ public class SpeechToText extends AppCompatActivity {
 
         promptSpeechInput();
 
-
-
     }
 
-    public void btnClickme(View v) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-
-        btnInput = (EditText)findViewById(R.id.btnInput); // get word from input button
-        mbtnStatus = (TextView)findViewById(R.id.btnStatus);
-         final String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
-
-
-        DatabaseReference databaseReference = database.getReference();
-        databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        String value = dataSnapshot.getValue(String.class);
-
-                        mbtnStatus.setText("Cetegory is " + value);
-                        //Log.d("", "value is" + value);
-                    }
-
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w("", "Failed to read value.");
-            }
-        });
-
-    }
+//    public void btnClickme(View v) {
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+//
+//       // btnInput = (EditText)findViewById(R.id.btnInput); // get word from input button
+//        textViewStatus = (TextView)findViewById(R.id.textViewStatus);
+//         final String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
+//
+//
+//        DatabaseReference databaseReference = database.getReference();
+//
+//        databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                        String value = dataSnapshot.getValue(String.class);
+//
+//                textViewStatus.setText("Cetegory is " + value);
+//                        //Log.d("", "value is" + value);
+//                    }
+//
+//
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.w("", "Failed to read value.");
+//            }
+//        });
+//
+//    }
 
     public void  promptSpeechInput(){
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -94,14 +102,14 @@ public class SpeechToText extends AppCompatActivity {
         }
         catch (ActivityNotFoundException a)
         {
-            Toast.makeText(SpeechToText.this ,"Sorry your deive dosen't suppose language", Toast.LENGTH_LONG).show();
+            Toast.makeText(SpeechToText.this ,"Sorry your device don't suppose language", Toast.LENGTH_LONG).show();
         }
 
     }
 
     public void onActivityResult(int request_code , int result_code , Intent i){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mbtnStatus = (TextView)findViewById(R.id.btnStatus);
+        textViewStatus = (TextView)findViewById(R.id.textViewStatus);
         super.onActivityResult(request_code,result_code,i);
 
         switch(request_code){
@@ -115,7 +123,7 @@ public class SpeechToText extends AppCompatActivity {
                                                                           @Override
                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
                                                                               String value = dataSnapshot.getValue(String.class);
-                                                                              mbtnStatus.setText("Cetegory is " + value);
+                                                                              textViewStatus.setText("Cetegory is " + value);
                                                                               Log.d("", "value is" + value);
                                                                           }
 
@@ -129,6 +137,23 @@ public class SpeechToText extends AppCompatActivity {
             }
 
                 break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == textViewFinish){
+
+            // will open login activity here
+            Intent i=new Intent(getApplicationContext(),Home.class);
+            startActivity(i);
+
+        }
+        if(v == textViewCancel){
+            // will open login activity here
+            Intent i=new Intent(getApplicationContext(), Home.class);
+            startActivity(i);
+
         }
     }
 
