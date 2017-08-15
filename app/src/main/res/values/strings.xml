@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">FinWal</string>
     <string name="action_menu">Menu</string>
     <string name="action_search">Search</string>
     <string name="action_refresh">Refresh</string>
@@ -10,9 +10,10 @@
 
     <string name="open">Open</string>/>
     <string name="close">Close</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
-
-
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
 </resources>

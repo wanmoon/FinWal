@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){
             finish();
-            startActivity(new Intent(MainActivity.this, Home.class));
+            startActivity(new Intent(MainActivity.this, Main2Activity.class));
         }
 
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             //user is successfully registered and logged in , start home here
                             Toast.makeText(MainActivity.this,"Register Successfully", Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(getApplicationContext(), Home.class));
+                            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
                         }else{
                             Toast.makeText(MainActivity.this,"Could not register.. please try again ", Toast.LENGTH_LONG).show();
                         }

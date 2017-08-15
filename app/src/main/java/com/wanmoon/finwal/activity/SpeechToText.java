@@ -145,13 +145,13 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         if(v == textViewFinish){
 
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Home.class);
+            Intent i=new Intent(getApplicationContext(),Main2Activity.class);
             startActivity(i);
 
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
+            Intent i=new Intent(getApplicationContext(), Main2Activity.class);
             startActivity(i);
 
         }
