@@ -67,6 +67,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
         textViewFinish = (TextView) findViewById(R.id.textViewFinish);
         textViewCancel = (TextView) findViewById(R.id.textViewCancel);
+        textViewFinish.setOnClickListener(this);
+        textViewCancel.setOnClickListener(this);
 
         editTextTransaction = (EditText) findViewById(R.id.editTextTransaction);
         editTextHowmuch = (EditText) findViewById(R.id.editTextHowmuch);
