@@ -56,7 +56,7 @@ public class DetailDaily extends AppCompatActivity implements View.OnClickListen
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
         }

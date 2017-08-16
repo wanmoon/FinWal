@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }
                     }

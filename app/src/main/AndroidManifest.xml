@@ -11,7 +11,7 @@
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.SignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.Login" />
-        <activity android:name=".activity.Home" />
+        <activity android:name=".activity.ForgotPassword" />
+        <activity android:name=".activity.MainActivity"/>
         <activity android:name=".activity.SpeechToText" />
         <activity android:name=".activity.AddTransaction" />
         <activity android:name=".activity.DetailDaily" />
@@ -27,8 +28,8 @@
         <activity android:name=".activity.NewBill" />
         <activity android:name=".activity.Goal" />
         <activity android:name=".activity.NewGoal" />
-        <activity android:name=".activity.ForgotPassword" />
-        <activity android:name=".activity.Main2Activity" />
+
+
 
     </application>
 
