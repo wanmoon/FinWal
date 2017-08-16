@@ -24,10 +24,11 @@
         <activity android:name=".activity.SpeechToText" />
         <activity android:name=".activity.AddTransaction" />
         <activity android:name=".activity.DetailDaily" />
-        <activity android:name=".activity.Billing" />
         <activity android:name=".activity.NewBill" />
         <activity android:name=".activity.Goal" />
         <activity android:name=".activity.NewGoal" />
+
+
 
 
 
