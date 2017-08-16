@@ -66,6 +66,7 @@ public class Billing extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_billing, container, false);
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,8 +108,12 @@ public class Billing extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+
+
     public interface OnItemSelectedListener {
+
     }
+
 
 //    @SuppressWarnings("StatementWithEmptyBody")
 //    @Override
@@ -121,5 +126,6 @@ public class Billing extends Fragment {
 //
 //        }
 //        return true;
-//    }
+
+
 }

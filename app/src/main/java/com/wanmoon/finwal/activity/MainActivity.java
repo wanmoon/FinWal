@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,14 +16,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , Billing.OnItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
+            , Goal.OnFragmentInteractionListener{
+
+
     private FirebaseAuth firebaseAuth;
+    private TextView textViewUserEmail;
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close, fab_backward, fab_forward;
@@ -37,6 +43,9 @@ public class MainActivity extends AppCompatActivity
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+
+//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+//        textViewUserEmail.setText("Welcome " + user.getEmail());
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -139,9 +148,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -157,14 +166,17 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_billing, BillingFragment);
+            transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
 
         } else if (id == R.id.nav_dashboard) {
 
 
         } else if (id == R.id.nav_goal){
-            startActivity(new Intent(this, Goal.class));
+            Goal GoalFragment = new Goal();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, GoalFragment);
+            transaction.commit();
 
         }else if (id == R.id.nav_logout) {
             firebaseAuth.signOut();
@@ -176,5 +188,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

@@ -5,19 +5,26 @@
     tools:context=".activity.Home">
 
 
-    <item android:id="@+id/action_search"
-        android:icon="@mipmap/ic_search_white_24dp"
-        android:title="@string/action_search"
-        app:showAsAction="always"/>
+    <!--<item android:id="@+id/action_search"-->
+        <!--android:icon="@mipmap/ic_search_white_24dp"-->
+        <!--android:title="@string/action_search"-->
+        <!--app:showAsAction="always"/>-->
 
-    <item android:id="@+id/action_refresh"
-        android:icon="@mipmap/ic_refresh_white_24dp"
-        android:title="@string/action_refresh"
-        app:showAsAction="always"/>
+    <!--<item android:id="@+id/action_refresh"-->
+        <!--android:icon="@mipmap/ic_refresh_white_24dp"-->
+        <!--android:title="@string/action_refresh"-->
+        <!--app:showAsAction="always"/>-->
 
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never" />
+    <!--<item android:id="@+id/action_settings"-->
+        <!--android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="never" />-->
+
+    <item
+        android:id="@+id/action_add"
+        android:icon="@mipmap/ic_add_white_24dp"
+        android:title="@string/action_add"
+        android:layout_alignParentRight="true"
+        app:showAsAction="always" />
 </menu>
