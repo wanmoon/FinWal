@@ -1,28 +1,26 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.wanmoon.finwal.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Billing.OnFragmentInteractionListener} interface
+ * {@link Dashboard.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Billing#newInstance} factory method to
+ * Use the {@link Dashboard#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Billing extends Fragment {
+public class Dashboard extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -34,7 +32,7 @@ public class Billing extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Billing() {
+    public Dashboard() {
         // Required empty public constructor
     }
 
@@ -44,11 +42,11 @@ public class Billing extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Billing.
+     * @return A new instance of fragment Dashboard.
      */
     // TODO: Rename and change types and number of parameters
-    public static Billing newInstance(String param1, String param2) {
-        Billing fragment = new Billing();
+    public static Dashboard newInstance(String param1, String param2) {
+        Dashboard fragment = new Dashboard();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -70,30 +68,13 @@ public class Billing extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_billing, container, false);
+        return inflater.inflate(R.layout.fragment_dashboard, container, false);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.billing_menu, menu);
+        //inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add) {
-            Intent intent = new Intent(getActivity(), NewBill.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -133,7 +114,4 @@ public class Billing extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
 }

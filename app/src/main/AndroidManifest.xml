@@ -20,17 +20,12 @@
         </activity>
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.ForgotPassword" />
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SpeechToText" />
         <activity android:name=".activity.AddTransaction" />
         <activity android:name=".activity.DetailDaily" />
         <activity android:name=".activity.NewBill" />
         <activity android:name=".activity.NewGoal" />
-
-
-
-
-
     </application>
 
 </manifest>

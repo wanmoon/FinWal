@@ -89,14 +89,7 @@ public class Home extends AppCompatActivity  {
 
         });
 
-        buttonGoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Goal.class);
-                startActivity(i);
-            }
 
-        });
         buttonBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

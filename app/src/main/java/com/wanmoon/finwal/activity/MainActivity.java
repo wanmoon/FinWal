@@ -24,14 +24,14 @@ import com.wanmoon.finwal.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
-            , Goal.OnFragmentInteractionListener{
+           , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener {
 
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
-    Animation fab_open, fab_close, fab_backward, fab_forward;
+    Animation fab_open, fab_close,  fab_backward, fab_forward;
     boolean isopen = false;
 
 
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        //getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -164,12 +164,17 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             startActivity(new Intent(this, MainActivity.class));
         } else if (id == R.id.nav_billing) {
+
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
 
         } else if (id == R.id.nav_dashboard) {
+            Dashboard DashboardFragment = new Dashboard();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, DashboardFragment);
+            transaction.commit();
 
 
         } else if (id == R.id.nav_goal){

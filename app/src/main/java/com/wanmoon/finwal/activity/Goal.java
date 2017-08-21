@@ -1,10 +1,14 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,6 +63,7 @@ public class Goal extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -66,6 +71,26 @@ public class Goal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_goal, container, false);
+    }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.goal_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_add) {
+            Intent intent = new Intent(getActivity(), NewGoal.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,8 +130,5 @@ public class Goal extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public interface OnItemSelectedListener {
     }
 }
