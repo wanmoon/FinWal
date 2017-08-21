@@ -117,44 +117,52 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             {
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
-                String val = result.get(0).toString();
-                DatabaseReference databaseReference = database.getReference();
-                databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                          @Override
-                                                                          public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                              String value = dataSnapshot.getValue(String.class);
-                                                                              textViewStatus.setText("Cetegory is " + value);
-                                                                              Log.d("", "value is" + value);
-                                                                          }
 
-                                                                          @Override
-                                                                          public void onCancelled(DatabaseError databaseError) {
-                                                                              Log.w("", "Failed to read value.");
-                                                                          }
-                                                                      }
-                );
+                String val = result.get(0).toString();
+                String[] test = {"ค่าไฟ","ต้มยำ"};
+                for(int j=0;j<test.length;j++) {
+                    if (val.matches(".*" + test[j] + ".*") == true) {
+
+                        DatabaseReference databaseReference = database.getReference();
+                        databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                @Override
+                                                                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                    String value = dataSnapshot.getValue(String.class);
+                                                                                                                                    textViewStatus.setText("Cetegory is " + value);
+                                                                                                                                    Log.d("", "value is" + value);
+                                                                                                                                }
+
+                            @Override
+                                                                                                                                public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                    Log.w("", "Failed to read value.");
+                                                                                                                                }
+                                                                                                                            }
+
+                        );
+                    }
+                }
+
+                }
+
+                    break;
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v == textViewFinish){
+
+                // will open login activity here
+                Intent i=new Intent(getApplicationContext(),Home.class);
+                startActivity(i);
 
             }
+            if(v == textViewCancel){
+                // will open login activity here
+                Intent i=new Intent(getApplicationContext(), Home.class);
+                startActivity(i);
 
-                break;
+            }
         }
+
     }
-
-    @Override
-    public void onClick(View v) {
-        if(v == textViewFinish){
-
-            // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Home.class);
-            startActivity(i);
-
-        }
-        if(v == textViewCancel){
-            // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
-            startActivity(i);
-
-        }
-    }
-
-}
