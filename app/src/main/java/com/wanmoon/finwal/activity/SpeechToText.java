@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
-
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -26,12 +26,13 @@ import java.util.Locale;
  * Created by pimpischaya on 5/27/2017 AD.
  */
 
+
 public class SpeechToText extends AppCompatActivity implements View.OnClickListener{
     private TextView textViewStatus;
     private EditText btnInput;
     private TextView resultTEXT;
     private ImageButton imageButton;
-
+    private static String val = "";
     private TextView textViewFinish;
     private TextView textViewCancel;
 
@@ -110,6 +111,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int request_code , int result_code , Intent i){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         textViewStatus = (TextView)findViewById(R.id.textViewStatus);
+
         super.onActivityResult(request_code,result_code,i);
 
         switch(request_code){
@@ -118,7 +120,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
 
-                String val = result.get(0).toString();
+                 val = result.get(0).toString();
                 String[] test = {"ค่าไฟ","ต้มยำ"};
                 for(int j=0;j<test.length;j++) {
                     if (val.matches(".*" + test[j] + ".*") == true) {
@@ -146,6 +148,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
                     break;
             }
+
         }
 
         @Override
@@ -164,10 +167,9 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
             }
         }
-        public static void keepPrice(String val){
-
-
+        public List keepPrice(){
             val = val.replaceAll("[^0-9]+", " ");
-        }
-
+            List price = Arrays.asList(val.trim().split(" "));
+            return price;
+    }
     }
