@@ -58,6 +58,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
 
     }
+    private boolean isPasswordValid(String password) {
+        //TODO: Replace this with your own logic
+        return password.length() >=6 ;
+    }
 
     private void registerUser(){
         String email = editTextEmail.getText().toString().trim();
@@ -76,6 +80,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
             //stopping the function execution further
             return;
         }
+        if(!isPasswordValid(password)){
+            // password is empty
+            Toast.makeText(this, "Password must have more than 6", Toast.LENGTH_LONG).show();
+            //stopping the function execution further
+            return;
+        }
+
         // if validation are ok
         // we will first show a progressbar
 

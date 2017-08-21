@@ -1,4 +1,5 @@
 package com.wanmoon.finwal.activity;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,11 +41,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-      /*  if(firebaseAuth.getCurrentUser() != null){
-            finish();
-            startActivity(new Intent(this, Home.class));
-        }
-*/
+
 
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -64,6 +61,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+
     //login method
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
@@ -76,12 +74,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
+        if(TextUtils.isEmpty(password)  ){
             // password is empty
             Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
             //stopping the function execution further
             return;
         }
+
+
+
         // if validation are ok
         // we will first show a progressbar
 
@@ -99,8 +100,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }
+
+
+
                     }
                 });
+
+//        firebaseAuth.signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful()) {
+//                            progressDialog.dismiss();
+//                            FirebaseUser currUser = firebaseAuth.getCurrentUser();
+//                            establishUI(currUser);
+//                        } else {
+//                            progressDialog.dismiss();
+//                            establishUI(null);
+//                            Snackbar.make(view, "Unable to login, Please try again in a few moments",Snackbar.LENGTH_LONG).show();
+//                        }
+//
+//                    }
+//                });
+
     }
 
 
@@ -113,7 +135,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
         if (v == textViewSignUp) {
             finish();
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, SignUp.class));
 
         }
         if(v == buttonForgotPassword){

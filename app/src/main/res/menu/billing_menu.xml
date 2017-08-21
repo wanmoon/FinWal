@@ -8,7 +8,6 @@ tools:context=".activity.Billing">
     <item
         android:id="@+id/action_name"
         android:title="@string/name_billing"
-        android:layout_centerVertical="true"
         app:showAsAction="always" />
 
     <item

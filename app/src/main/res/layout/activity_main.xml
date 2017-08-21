@@ -24,6 +24,14 @@
         app:menu="@menu/activity_main_drawer" />
 
 
+    <TextView
+        android:id="@+id/textViewUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="60dp"
+        android:text="My Wallet" />
+
+
 
 
 
