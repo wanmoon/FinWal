@@ -20,18 +20,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by pimpischaya on 5/27/2017 AD.
  */
 
+
 public class SpeechToText extends AppCompatActivity implements View.OnClickListener{
     private TextView textViewStatus;
     private EditText btnInput;
     private TextView resultTEXT;
     private ImageButton imageButton;
-
+    private static String val = "";
     private TextView textViewFinish;
     private TextView textViewCancel;
 
@@ -110,6 +113,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int request_code , int result_code , Intent i){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         textViewStatus = (TextView)findViewById(R.id.textViewStatus);
+
         super.onActivityResult(request_code,result_code,i);
 
         switch(request_code){
@@ -117,27 +121,36 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             {
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
-                String val = result.get(0).toString();
-                DatabaseReference databaseReference = database.getReference();
-                databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                          @Override
-                                                                          public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                              String value = dataSnapshot.getValue(String.class);
-                                                                              textViewStatus.setText("Cetegory is " + value);
-                                                                              Log.d("", "value is" + value);
-                                                                          }
 
-                                                                          @Override
-                                                                          public void onCancelled(DatabaseError databaseError) {
-                                                                              Log.w("", "Failed to read value.");
-                                                                          }
-                                                                      }
-                );
+                val = result.get(0).toString();
+                String[] test = {"ค่าไฟ","ต้มยำ"};
+                for(int j=0;j<test.length;j++) {
+                    if (val.matches(".*" + test[j] + ".*") == true) {
+
+                        DatabaseReference databaseReference = database.getReference();
+                        databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                   @Override
+                                                                                                                                   public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                       String value = dataSnapshot.getValue(String.class);
+                                                                                                                                       textViewStatus.setText("Cetegory is " + value);
+                                                                                                                                       Log.d("", "value is" + value);
+                                                                                                                                   }
+
+                                                                                                                                   @Override
+                                                                                                                                   public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                       Log.w("", "Failed to read value.");
+                                                                                                                                   }
+                                                                                                                               }
+
+                        );
+                    }
+                }
 
             }
 
                 break;
         }
+
     }
 
     @Override
@@ -145,16 +158,20 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         if(v == textViewFinish){
 
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Home.class);
+            Intent i=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(i);
 
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
         }
     }
-
+    public List keepPrice(){
+        val = val.replaceAll("[^0-9]+", " ");
+        List price = Arrays.asList(val.trim().split(" "));
+        return price;
+    }
 }
