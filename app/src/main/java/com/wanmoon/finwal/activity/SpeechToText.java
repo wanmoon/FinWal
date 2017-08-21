@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.Arrays;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -163,6 +163,11 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 startActivity(i);
 
             }
+        }
+        public static void keepPrice(String val){
+
+
+            val = val.replaceAll("[^0-9]+", " ");
         }
 
     }
