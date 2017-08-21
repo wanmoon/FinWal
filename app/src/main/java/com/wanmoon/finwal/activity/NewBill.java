@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
+import com.wanmoon.finwal.R;
 
 /**
  * Created by pimpischaya on 8/8/2017 AD.
@@ -41,7 +42,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener{
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
         }

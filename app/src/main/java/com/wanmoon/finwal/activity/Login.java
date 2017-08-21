@@ -30,8 +30,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button buttonForgotPassword;
 
 
-    private Button buttonHome;
-
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
@@ -55,9 +53,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         textViewSignUp = (TextView) findViewById(R.id.textViewSignUp);
         buttonForgotPassword = (Button) findViewById(R.id.buttonForgotPassword);
 
-        // home remove when finish
-        buttonHome = (Button) findViewById(R.id.buttonHome);
-        buttonHome.setOnClickListener(this);
 
 
         progressDialog = new ProgressDialog(this);
@@ -101,7 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             finish();
-                            startActivity(new Intent(getApplicationContext(), Home.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         }
                     }
@@ -112,10 +107,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //when click in the activity
     @Override
     public void onClick(View v) {
-        if (v == buttonHome) {
-            startActivity(new Intent(this, Home.class));
-
-        }
         if (v == buttonSignIn){
             userLogin();
 

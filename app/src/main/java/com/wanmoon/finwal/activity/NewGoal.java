@@ -40,13 +40,13 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 //            startActivity(intent);
 
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Home.class);
+            Intent i=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(i);
 
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Home.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
         }

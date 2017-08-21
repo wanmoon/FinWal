@@ -71,9 +71,6 @@ public class Home extends AppCompatActivity  {
         buttonGoal = (Button) findViewById(R.id.buttonGoal);
         buttonBill = (Button) findViewById(R.id.buttonBill);
 
-        mToolbar = (Toolbar) findViewById(R.id.nav_action);
-        setSupportActionBar(mToolbar);
-
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -92,14 +89,7 @@ public class Home extends AppCompatActivity  {
 
         });
 
-        buttonGoal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Goal.class);
-                startActivity(i);
-            }
 
-        });
         buttonBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
