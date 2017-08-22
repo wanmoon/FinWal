@@ -2,6 +2,7 @@ package com.wanmoon.finwal.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,8 @@ import com.wanmoon.finwal.R;
 
 
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener{
+public class SignUp extends AppCompatActivity implements View.OnClickListener
+        , Home.OnFragmentInteractionListener {
 
 
     private Button buttonRegister;
@@ -101,7 +103,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
                             //user is successfully registered and logged in , start home here
                             Toast.makeText(SignUp.this,"Register Successfully", Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), Profile.class));
                         }else{
                             Toast.makeText(SignUp.this,"Could not register.. please try again ", Toast.LENGTH_LONG).show();
                         }
@@ -124,6 +126,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener{
 
         }
 
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

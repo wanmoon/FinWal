@@ -24,6 +24,7 @@
             android:icon="@mipmap/ic_power_settings_new_white_24dp"
             android:title="Log out"
             />
+
     </group>
 
     <!--<item android:title="Communicate">-->

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,11 +25,14 @@ import com.wanmoon.finwal.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
-           , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener {
+           , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener
+           , Home.OnFragmentInteractionListener{
 
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
+    private TextView textViewEdit;
+
 
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close,  fab_backward, fab_forward;
@@ -39,17 +43,25 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        Home HomeFragment = new Home();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, HomeFragment);
+        transaction.commit();
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+
+
 //        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
 //        textViewUserEmail.setText("Welcome " + user.getEmail());
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
         fab_speech = (FloatingActionButton) findViewById(R.id.fab_speech);
@@ -119,8 +131,24 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerview = navigationView.getHeaderView(0);
+        textViewUserEmail = (TextView)headerview.findViewById(R.id.textViewUserEmail);
+        textViewUserEmail.setText("Welcome " + user.getEmail());
+
+        LinearLayout header = (LinearLayout) headerview.findViewById(R.id.nav_header_main);
+        header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+               // Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                drawer.closeDrawer(GravityCompat.START);
+                Intent i = new Intent(getApplicationContext(), Profile.class);
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -145,7 +173,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
@@ -164,7 +191,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            startActivity(new Intent(this, MainActivity.class));
+            //startActivity(new Intent(this, H.class));
+            Home HomeFragment = new Home();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, HomeFragment);
+            transaction.commit();
         } else if (id == R.id.nav_billing) {
 
             Billing BillingFragment = new Billing();
@@ -185,7 +216,7 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, GoalFragment);
             transaction.commit();
 
-        }else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout){
             firebaseAuth.signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);

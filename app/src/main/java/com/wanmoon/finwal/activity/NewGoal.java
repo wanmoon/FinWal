@@ -33,21 +33,17 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-
-
-//            Intent intent = new Intent(getBaseContext(), DetailDaily.class);
-//            intent.putExtra("EXTRA_SESSION_ID", EditText.editTextTransaction);
-//            startActivity(intent);
-
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),MainActivity.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
 
         }
         if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
 
         }
     }

@@ -38,11 +38,13 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener{
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
+
         }
         if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
 
         }
     }

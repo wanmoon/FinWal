@@ -1,184 +1,150 @@
 package com.wanmoon.finwal.activity;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
-
 /**
- * Created by pimpischaya on 5/25/2017 AD.
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link Billing.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link Billing#newInstance} factory method to
+ * create an instance of this fragment.
  */
-
-public class Home extends AppCompatActivity  {
+public class Home extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
-    private Button buttonLogout;
-    private Button buttonGoal;
-    private Button buttonBill;
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
-    private Toolbar mToolbar;
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
-    FragmentTransaction fragmentTransaction;
-    NavigationView navigationView;
+    private OnFragmentInteractionListener mListener;
 
+    public Home() {
+        // Required empty public constructor
+    }
 
-    FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
-    Animation fab_open, fab_close, fab_backward, fab_forward;
-    boolean isopen = false;
-
-    //Button button;
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Billing.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Home newInstance(String param1, String param2) {
+        Home fragment = new Home();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home);
 
-
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        /*if(firebaseAuth.getCurrentUser()!= null){
-            finish();
-           startActivity(new Intent(getApplicationContext(), Login.class));
-        }*/
 
 
-        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-        textViewUserEmail.setText("Welcome " + user.getEmail());
-        buttonLogout = (Button) findViewById(R.id.buttonLogout);
-        buttonGoal = (Button) findViewById(R.id.buttonGoal);
-        buttonBill = (Button) findViewById(R.id.buttonBill);
-
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebaseAuth.signOut();
-                Intent i = new Intent(getApplicationContext(), Login.class);
-                startActivity(i);
-            }
-
-        });
-
-
-        buttonBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Billing.class);
-                startActivity(i);
-            }
-
-        });
-
-
-        fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
-        fab_speech = (FloatingActionButton) findViewById(R.id.fab_speech);
-        fab_scan = (FloatingActionButton) findViewById(R.id.fab_scan);
-        fab_typing = (FloatingActionButton) findViewById(R.id.fab_typing);
-        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-        fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
-        fab_backward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
-        fab_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
-        fab_plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isopen) {
-                    fab_speech.startAnimation(fab_close);
-                    fab_scan.startAnimation(fab_close);
-                    fab_typing.startAnimation(fab_close);
-                    fab_plus.startAnimation(fab_backward);
-                    fab_speech.setClickable(false);
-                    fab_scan.setClickable(false);
-                    fab_typing.setClickable(true);
-                    isopen = false;
-
-                } else {
-                    fab_speech.startAnimation(fab_open);
-                    fab_scan.startAnimation(fab_open);
-                    fab_typing.startAnimation(fab_open);
-                    fab_plus.startAnimation(fab_backward);
-                    fab_speech.setClickable(true);
-                    fab_scan.setClickable(true);
-                    fab_typing.setClickable(true);
-                    isopen = true;
-
-
-                }
-            }
-        });
-
-        fab_speech.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SpeechToText.class);
-                startActivity(i);
-            }
-        });
-        fab_typing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddTransaction.class);
-                startActivity(i);
-            }
-        });
-
-
+        setHasOptionsMenu(true);
     }
 
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
+//        textViewUserEmail.setText("Welcome " + user.getEmail());
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // inflater.inflate(R.menu.billing_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
 
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-
-        }
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_add) {
+//            Intent intent = new Intent(getActivity(), NewBill.class);
+//            startActivity(intent);
+//        }
 
         return super.onOptionsItemSelected(item);
     }
 
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 
 
 

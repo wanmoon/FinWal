@@ -48,16 +48,15 @@ public class DetailDaily extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
 
-            // will open login activity here
-//            Intent i=new Intent(getApplicationContext(),Goal.class);
-//            startActivity(i);
 
         }
         if(v == textViewCancel){
-            // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
 
         }
     }

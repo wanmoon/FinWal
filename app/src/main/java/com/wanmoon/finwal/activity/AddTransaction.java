@@ -330,7 +330,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
         if (v == textViewFinish) {
             addTransaction();
-
             // will open login activity here
             Intent i = new Intent(getApplicationContext(), DetailDaily.class);
             startActivity(i);
@@ -340,6 +339,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             // will open login activity here
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
         }
     }
 }
