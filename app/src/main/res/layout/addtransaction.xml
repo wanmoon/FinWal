@@ -65,16 +65,17 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.109"
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.317" />
 
 
     <Button
         android:id="@+id/buttonPlus"
-        android:layout_width="42dp"
-        android:layout_height="38dp"
-        android:background="@drawable/round_button"
+        android:layout_width="55dp"
+        android:layout_height="46dp"
+        android:background="@drawable/round_button_green"
         android:padding="10dp"
-        android:text="+"
+        android:text="income"
+        android:textSize="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -83,16 +84,17 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintVertical_bias="0.317" />
+        app:layout_constraintHorizontal_bias="0.549"
+        app:layout_constraintVertical_bias="0.358" />
 
     <Button
         android:id="@+id/buttonMinus"
-        android:layout_width="42dp"
-        android:layout_height="38dp"
-        android:background="@drawable/round_button"
+        android:layout_width="55dp"
+        android:layout_height="46dp"
+        android:background="@drawable/round_button_red"
         android:padding="10dp"
-        android:text="-"
+        android:text="expense"
+        android:textSize="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -101,8 +103,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.73"
-        app:layout_constraintVertical_bias="0.317" />
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintVertical_bias="0.36" />
 
     <EditText
         android:id="@+id/editTextHowmuch"
@@ -120,7 +122,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.364" />
 
     <TextView
         android:id="@+id/textViewTransaction"
@@ -131,13 +133,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:textSize="18dp"
+        android:gravity="center"
         android:text="Transaction : Choose + or - "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintVertical_bias="0.56" />
 
     <TextView
         android:id="@+id/textViewCategories"
@@ -148,11 +151,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:textSize="18dp"
+        android:gravity="center"
         android:text="Categories : Type of transaction"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintVertical_bias="0.653" />
 
 </android.support.constraint.ConstraintLayout>

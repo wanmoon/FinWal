@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.fragment_container, HomeFragment);
         transaction.commit();
 
+        //centerTitle();
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -227,9 +229,46 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+    // set name of ActionBar
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+        //setTitle("My FinWal");
+
+    }
+//    private void centerTitle() {
+//        ArrayList<View> textViews = new ArrayList<>();
+//
+//        getWindow().getDecorView().findViewsWithText(textViews, getTitle(), View.FIND_VIEWS_WITH_TEXT);
+//
+//        if(textViews.size() > 0) {
+//            AppCompatTextView appCompatTextView = null;
+//            if(textViews.size() == 1) {
+//                appCompatTextView = (AppCompatTextView) textViews.get(0);
+//            } else {
+//                for(View v : textViews) {
+//                    if(v.getParent() instanceof Toolbar) {
+//                        appCompatTextView = (AppCompatTextView) v;
+//                        break;
+//                    }
+//                }
+//            }
+//
+//            if(appCompatTextView != null) {
+//                ViewGroup.LayoutParams params = appCompatTextView.getLayoutParams();
+//                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//                appCompatTextView.setLayoutParams(params);
+//                appCompatTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//            }
+//        }
+//    }
+
+
+
+
 }

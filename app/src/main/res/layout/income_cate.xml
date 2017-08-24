@@ -31,7 +31,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Salary"
             android:textSize="8dp" />
@@ -44,7 +44,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Gift"
             android:textSize="8dp" />
@@ -57,7 +57,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Loan"
             android:textSize="8dp" />
@@ -70,7 +70,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Family and Personal"
             android:textSize="8dp" />
@@ -83,7 +83,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/round_button"
+            android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Extra income"
             android:textSize="8dp" />

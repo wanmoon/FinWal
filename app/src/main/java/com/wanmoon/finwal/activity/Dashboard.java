@@ -64,6 +64,14 @@ public class Dashboard extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    public void onResume(){
+        super.onResume();
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle("Dashboard");
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

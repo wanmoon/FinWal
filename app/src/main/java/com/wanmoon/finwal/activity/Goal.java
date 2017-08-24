@@ -66,6 +66,14 @@ public class Goal extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    public void onResume(){
+        super.onResume();
+        // Set title bar
+        ((MainActivity) getActivity())
+                .setActionBarTitle("Goal");
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

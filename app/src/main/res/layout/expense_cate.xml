@@ -42,7 +42,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Bill"
                     android:textSize="8dp" />
@@ -55,7 +55,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Education"
                     android:textSize="8dp" />
@@ -68,7 +68,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="1dp"
                     android:text="Entertainment"
                     android:textSize="6.5dp" />
@@ -81,7 +81,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Food and Drink"
                     android:textSize="8dp" />
@@ -94,7 +94,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Shopping"
                     android:textSize="8dp" />
@@ -114,7 +114,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Transport"
                     android:textSize="8dp" />
@@ -127,7 +127,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Travel"
                     android:textSize="8dp" />
@@ -140,7 +140,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Family and Personal"
                     android:textSize="8dp" />
@@ -153,7 +153,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="4dp"
                     android:text="Healthcare"
                     android:textSize="8dp" />
@@ -166,7 +166,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/round_button"
+                    android:background="@drawable/round_button_red"
                     android:padding="5dp"
                     android:text="Saving and Investment"
                     android:textSize="8dp" />

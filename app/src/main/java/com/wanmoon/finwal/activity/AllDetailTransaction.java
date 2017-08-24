@@ -25,7 +25,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Get the view from new_activity.xml
-        setContentView(R.layout.detaildaily);
+        setContentView(R.layout.alldetailtransaction);
 
         /*Intent intent = getIntent();
         String s = intent.getStringExtra(AddTransaction.EXTRA_MESSAGE);
