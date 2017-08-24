@@ -74,12 +74,13 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
+    //connect DB
     String response = null;
     getHttp http = new getHttp();
-
-    private final String TAG = "AddTransactionActivity"; //for log
-
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+    //for log
+    private final String TAG = "AddTransactionActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -360,7 +361,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
             // will open login activity here
 
-            Intent i = new Intent(getApplicationContext(), DetailDaily.class);
+            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
             startActivity(i);
 
         }
@@ -384,6 +385,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         return response;
     }
 
+    // ** must have for connect DB
     public class getHttp {
         OkHttpClient client = new OkHttpClient();
 

@@ -13,7 +13,7 @@ import com.wanmoon.finwal.R;
  * Created by pimpischaya on 8/7/2017 AD.
  */
 
-public class DetailDaily extends AppCompatActivity implements View.OnClickListener{
+public class AllDetailTransaction extends AppCompatActivity implements View.OnClickListener{
 
     private EditText editTextTransactionTitle;
     private EditText editTextTime;

@@ -26,7 +26,7 @@
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SpeechToText" />
         <activity android:name=".activity.AddTransaction" />
-        <activity android:name=".activity.DetailDaily" />
+        <activity android:name=".activity.AllDetailTransaction" />
         <activity android:name=".activity.NewBill" />
         <activity android:name=".activity.NewGoal" />
         <activity android:name=".activity.Profile"></activity>
