@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -11,9 +12,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
+import java.io.IOException;
 import java.util.Timer;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by pimpischaya on 5/27/2017 AD.
  */
@@ -23,9 +34,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private EditText editTextHowmuch;
     private TextView textViewFinish;
     private TextView textViewCancel;
+
     //button income || expense
     private Button buttonPlus;
     private Button buttonMinus;
+
     //button income
     private Button buttonSalary;
     private Button buttonLoan;
@@ -57,11 +70,22 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private int getHowMuch;
     private Timer timeCloseDialog;
 
+    //get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+
+    String response = null;
+    getHttp http = new getHttp();
+
+    private final String TAG = "AddTransactionActivity"; //for log
+
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         // Get the view from addtransaction.xml
         setContentView(R.layout.addtransaction);
 
@@ -300,37 +324,42 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    public void addTransaction() {
+    public void addTransaction(String cust_id) {
         getTransac = editTextTransaction.getText().toString();
         getHowMuch = Integer.parseInt(editTextHowmuch.getText().toString());
 
-        /*AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("My Transaction");
-        alert.setMessage(getTransac+"\n"+getHowMuch+" Baht\n"+transaction+" : "+cate);
-        alert.setCancelable(true);
+        Log.d(TAG,"get transac, getmoney");
 
-        final AlertDialog closedialog = alert.create();
-
-        closedialog.show();
-
-        timeCloseDialog = new Timer();
-        timeCloseDialog.schedule(new TimerTask() {
-            public void run() {
-                closedialog.dismiss();
-                timeCloseDialog.cancel(); //this will cancel the timer of the system
-            }
-        }, 10000); // the timer will count 5 seconds....
-*/
-
-
+        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
+        Log.d(TAG,"end addTransactionToDB");
     }
 
     @Override
     public void onClick(View v) {
 
         if (v == textViewFinish) {
-            addTransaction();
+            addTransaction(cust_id);
+
+            Toast.makeText(AddTransaction.this,"Already Add Transaction", Toast.LENGTH_LONG).show();
+            Log.d(TAG,"insert success");
+
+//            //dialog
+//            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//            alert.setTitle("My Transaction");
+//            alert.setMessage(getTransac+"\n"+getHowMuch+" Baht\n"+transaction+" : "+cate);
+//            alert.setCancelable(true);
+//            final AlertDialog closedialog = alert.create();
+//            closedialog.show();
+//            timeCloseDialog = new Timer();
+//            timeCloseDialog.schedule(new TimerTask() {
+//                public void run() {
+//                    closedialog.dismiss();
+//                    timeCloseDialog.cancel(); //this will cancel the timer of the system
+//                }
+//            }, 400000); // the timer will count 40 seconds....
+
             // will open login activity here
+
             Intent i = new Intent(getApplicationContext(), DetailDaily.class);
             startActivity(i);
 
@@ -340,6 +369,40 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
 
+        }
+    }
+
+    public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){
+        try {
+            Log.d(TAG,"start transaction");
+            http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public class getHttp {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG,"onResponse");
+                }
+            });
+            //return response.body().string();
         }
     }
 }
