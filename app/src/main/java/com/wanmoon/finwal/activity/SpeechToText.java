@@ -14,14 +14,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.Arrays;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
-
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,6 +40,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private static String val = "";
     private TextView textViewFinish;
     private TextView textViewCancel;
+    private TextView textViewFood;
+    private TextView textViewEnt;
+    private TextView textViewEdu;
+    private TextView textViewShop;
 
     private Dialog incomeCate;
     private Dialog expenseCate;
@@ -75,6 +79,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +92,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
+
 
 
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
@@ -168,28 +174,39 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
                         DatabaseReference databaseReference = database.getReference();
                         databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                                   @Override
-                                                                                                                                   public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                       String value = dataSnapshot.getValue(String.class);
-                                                                                                                                       textViewStatus.setText("Cetegory is " + value);
-                                                                                                                                       Log.d("", "value is" + value);
-                                                                                                                                   }
-
-                                                                                                                                   @Override
-                                                                                                                                   public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                       Log.w("", "Failed to read value.");
-                                                                                                                                   }
-                                                                                                                               }
-
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String value = dataSnapshot.getValue(String.class);
+                                textViewStatus.setText("Cetegory is " + value);
+                                Log.d("", "value is" + value);
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w("", "Failed to read value.");
+                            }
+                        }
                         );
+                        buttonMinus.setVisibility(View.INVISIBLE);
+                        buttonPlus.setVisibility(View.INVISIBLE);
+                    } else {
+                        if(val.matches(".*" + test[j] + ".*") == false ){
+
+                                button();
+
+
+                        }
                     }
+
+
+
                 }
-                button();
+
+
 
 
             }
 
-                break;
+
         }
 
     }
@@ -427,19 +444,14 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-
-             //will open login activity here
+            //will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
-
-
         }
         if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
-
-
         }
     }
     public List keepPrice(){
