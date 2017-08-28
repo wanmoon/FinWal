@@ -13,8 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,9 +42,7 @@ public class Home extends android.support.v4.app.Fragment {
 
     private static View rootView;
     private OnFragmentInteractionListener mListener;
-    private SeekBar mSeekBarX, mSeekBarY;
-    private TextView tvX, tvY;
-    //private PieChart mPieChart;
+
 
 
     private View mView;
@@ -97,7 +93,17 @@ public class Home extends android.support.v4.app.Fragment {
 
 
 
+
+
     }
+
+    public void onResume(){
+        super.onResume();
+        // Set title bar
+        ((MainActivity) getActivity()).setActionBarTitle("My FinWal");
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +128,7 @@ public class Home extends android.support.v4.app.Fragment {
 
         double[] values = {13.6, 86.4 };
         String[] colors = {
-                "#66cc00", "#e60000",
+                "#66cc00", "#ff4d4d",
         };
 
 
@@ -154,17 +160,16 @@ public class Home extends android.support.v4.app.Fragment {
                            DefaultRenderer renderer) {
 
         if (null == mGraphView) {
-            mGraphView =
-                    ChartFactory.getPieChartView(getActivity(), series, renderer);
+            mGraphView = ChartFactory.getPieChartView(getActivity(), series, renderer);
 
-            RelativeLayout container =
-                    (RelativeLayout) mView.findViewById(R.id.graph_container);
+            RelativeLayout container = (RelativeLayout) mView.findViewById(R.id.graph_container);
 
             container.addView(mGraphView);
         } else {
             mGraphView.repaint();
         }
     }
+
 
 
 

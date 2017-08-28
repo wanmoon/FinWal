@@ -235,6 +235,8 @@ public class MainActivity extends AppCompatActivity
     // set name of ActionBar
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+        //title.setGravity(Gravity.CENTER);
+       // getSupportActionBar().setDisplayShowTitleEnabled(true);
 
     }
 
