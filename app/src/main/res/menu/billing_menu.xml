@@ -5,6 +5,10 @@ xmlns:tools="http://schemas.android.com/tools"
 tools:context=".activity.Billing">
 
 
+    <item
+        android:id="@+id/action_name"
+        android:title="@string/name_billing"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_add"
@@ -12,6 +16,9 @@ tools:context=".activity.Billing">
         android:title="@string/action_add"
         android:layout_alignParentRight="true"
         app:showAsAction="always" />
+
+
+
 
 
 </menu>

@@ -44,6 +44,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private TextView textViewEnt;
     private TextView textViewEdu;
     private TextView textViewShop;
+    private TextView textPrice;
 
     private Dialog incomeCate;
     private Dialog expenseCate;
@@ -92,6 +93,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
+
+        textPrice = (TextView)findViewById(R.id.textPrice);
 
 
 
@@ -178,6 +181,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 String value = dataSnapshot.getValue(String.class);
                                 textViewStatus.setText("Cetegory is " + value);
+                                textPrice.setText(keepPrice()+"");
                                 Log.d("", "value is" + value);
                             }
                             @Override
