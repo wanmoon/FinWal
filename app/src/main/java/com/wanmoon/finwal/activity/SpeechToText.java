@@ -167,6 +167,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         switch(request_code){
             case 100: if(result_code == RESULT_OK &&  i != null)
             {
+                textViewStatus.setVisibility(View.INVISIBLE);
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
 
@@ -180,6 +181,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 String value = dataSnapshot.getValue(String.class);
+                                textViewStatus.setVisibility(View.VISIBLE);
                                 textViewStatus.setText("Cetegory is " + value);
                                 textPrice.setText(keepPrice()+"");
                                 Log.d("", "value is" + value);
