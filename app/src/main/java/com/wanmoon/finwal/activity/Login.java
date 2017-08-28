@@ -83,6 +83,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
 
+
         // if validation are ok
         // we will first show a progressbar
 
@@ -106,23 +107,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                     }
                 });
-
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(task.isSuccessful()) {
-//                            progressDialog.dismiss();
-//                            FirebaseUser currUser = firebaseAuth.getCurrentUser();
-//                            establishUI(currUser);
-//                        } else {
-//                            progressDialog.dismiss();
-//                            establishUI(null);
-//                            Snackbar.make(view, "Unable to login, Please try again in a few moments",Snackbar.LENGTH_LONG).show();
-//                        }
-//
-//                    }
-//                });
 
     }
 

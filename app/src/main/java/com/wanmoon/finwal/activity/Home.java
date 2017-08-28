@@ -1,6 +1,8 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,11 +12,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,20 +34,30 @@ import com.wanmoon.finwal.R;
  * Use the {@link Billing#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Home extends Fragment {
+public class Home extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private FirebaseAuth firebaseAuth;
-    private TextView textViewUserEmail;
+
+    private static View rootView;
+    private OnFragmentInteractionListener mListener;
+    private SeekBar mSeekBarX, mSeekBarY;
+    private TextView tvX, tvY;
+    //private PieChart mPieChart;
+
+
+    private View mView;
+    private GraphicalView mGraphView;
+    private Typeface tf;
+
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     public Home() {
         // Required empty public constructor
@@ -59,6 +79,7 @@ public class Home extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -72,18 +93,80 @@ public class Home extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-
         setHasOptionsMenu(true);
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
-//        textViewUserEmail.setText("Welcome " + user.getEmail());
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        //return inflater.inflate(R.layout.fragment_home, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        mView = rootView;
+        initData();
+
+        return rootView;
+
+
     }
+
+    private void initData() {
+
+        String[] codename = {
+                "Income", "Expense"
+        };
+
+        double[] values = {13.6, 86.4 };
+        String[] colors = {
+                "#66cc00", "#e60000",
+        };
+
+
+        CategorySeries series = new CategorySeries("Android Platform Version");
+        int length = codename.length;
+        for (int i = 0; i < length; i++) {
+            series.add(codename[i], values[i]);
+        }
+
+        DefaultRenderer renderer = new DefaultRenderer();
+        for (int i = 0; i <  codename.length; i++) {
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(Color.parseColor(colors[i]));
+            renderer.addSeriesRenderer(seriesRenderer);
+        }
+
+        renderer.setChartTitleTextSize(60);
+        //renderer.setChartTitle("Android Platform Version");
+        renderer.setLabelsTextSize(40);
+        renderer.setLabelsColor(Color.GRAY);
+        renderer.setLegendTextSize(30);
+
+        drawChart(series, renderer);
+
+
+    }
+
+    private void drawChart(CategorySeries series,
+                           DefaultRenderer renderer) {
+
+        if (null == mGraphView) {
+            mGraphView =
+                    ChartFactory.getPieChartView(getActivity(), series, renderer);
+
+            RelativeLayout container =
+                    (RelativeLayout) mView.findViewById(R.id.graph_container);
+
+            container.addView(mGraphView);
+        } else {
+            mGraphView.repaint();
+        }
+    }
+
+
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.billing_menu, menu);
@@ -93,7 +176,6 @@ public class Home extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
-
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 

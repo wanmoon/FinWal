@@ -13,7 +13,7 @@ public class UserInformation {
     public String gender;
 
 
-    public UserInformation(String email, String name, String address, String phoneNumber){
+    public UserInformation(String email, String name, String address, String phoneNumber, String gender){
         this.email = email;
         this.name = name;
         this.address = address;
@@ -24,4 +24,31 @@ public class UserInformation {
     public UserInformation(){
 
     }
+
+
+    public String getAddress(){
+        return address;
+    }
+
+    public String getname(){
+        return name;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+
+    public void setAddress(String address){
+        this.address = address;
+    }
+
+    public void setname(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
 }

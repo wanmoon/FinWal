@@ -29,6 +29,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignIn;
+    private Button buttonForgotPassword;
 
     private ProgressDialog progressDialog;
 
@@ -54,9 +55,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignIn = (TextView) findViewById(R.id.textViewSignIn);
+        buttonForgotPassword = (Button) findViewById(R.id.buttonForgotPassword);
 
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
+        buttonForgotPassword.setOnClickListener(this);
 
 
     }
@@ -88,6 +91,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             //stopping the function execution further
             return;
         }
+
 
         // if validation are ok
         // we will first show a progressbar
@@ -123,6 +127,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             // will open login activity here
             Intent i=new Intent(getApplicationContext(),Login.class);
             startActivity(i);
+
+        }
+        if(v == buttonForgotPassword){
+            finish();
+            startActivity(new Intent(this, ForgotPassword.class));
 
         }
 
