@@ -341,8 +341,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         if (v == textViewFinish) {
             addTransaction(cust_id);
 
-            Toast.makeText(AddTransaction.this,"Already Add Transaction", Toast.LENGTH_LONG).show();
-            Log.d(TAG,"insert success");
+//            Toast.makeText(AddTransaction.this,"Already Add Transaction", Toast.LENGTH_LONG).show();
+//            Log.d(TAG,"insert success");
 
 //            //dialog
 //            AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -361,8 +361,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
             // will open login activity here
 
-            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
-            startActivity(i);
+//            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+//            startActivity(i);
 
         }
         if (v == textViewCancel) {
@@ -402,9 +402,12 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG,"onResponse");
+                    Log.d(TAG,"insert success");
+
+                    Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+                    startActivity(i);
                 }
             });
-            //return response.body().string();
         }
     }
 }

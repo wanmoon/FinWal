@@ -1,5 +1,5 @@
 <?php
-echo "start\n";
+//echo "start\n";
 $servername = "localhost";
 $username = "root";
 $password = "DmA3@AF3";
@@ -15,7 +15,7 @@ mysqli_set_charset($conn,"utf8");
 if (!$conn) {
   die('Could not connect: ' . mysqli_connect_error());
 } else {
-	echo "connect\n";
+//	echo "connect\n";
 }
 
 $cust_id = $_GET["cust_id"];
