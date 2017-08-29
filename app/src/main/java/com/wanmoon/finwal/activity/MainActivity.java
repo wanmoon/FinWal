@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
+    private TextView textViewTitle;
 
 
 
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        textViewTitle = (TextView) findViewById(R.id.toolbar_title);
 
 
         fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
@@ -233,11 +235,8 @@ public class MainActivity extends AppCompatActivity
 
 
     // set name of ActionBar
-    public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
-        //title.setGravity(Gravity.CENTER);
-       // getSupportActionBar().setDisplayShowTitleEnabled(true);
-
+    public void setTitle(String title) {
+        textViewTitle.setText(title);
     }
 
 

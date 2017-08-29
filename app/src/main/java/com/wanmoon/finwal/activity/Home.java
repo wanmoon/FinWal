@@ -92,15 +92,7 @@ public class Home extends android.support.v4.app.Fragment {
         setHasOptionsMenu(true);
 
 
-
-
-
-    }
-
-    public void onResume(){
-        super.onResume();
-        // Set title bar
-        ((MainActivity) getActivity()).setActionBarTitle("My FinWal");
+        ((MainActivity)getActivity()).setTitle("My FinWal");
 
     }
 

@@ -62,15 +62,10 @@ public class Dashboard extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         setHasOptionsMenu(true);
+
+        ((MainActivity)getActivity()).setTitle("Dashboard");
     }
 
-    public void onResume(){
-        super.onResume();
-        // Set title bar
-        ((MainActivity) getActivity())
-                .setActionBarTitle("Dashboard");
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

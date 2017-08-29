@@ -66,16 +66,11 @@ public class Billing extends Fragment {
         }
         setHasOptionsMenu(true);
 
+        ((MainActivity)getActivity()).setTitle("Billing");
+
 
     }
 
-    public void onResume(){
-        super.onResume();
-
-        // Set title bar
-        ((MainActivity) getActivity()).setActionBarTitle("Billing");
-
-    }
 
 
 
