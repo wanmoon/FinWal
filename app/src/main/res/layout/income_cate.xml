@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="INCOME"
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"
             android:layout_marginRight="8dp"
@@ -25,8 +25,8 @@
 
         <Button
             android:id="@+id/buttonSalary"
-            android:layout_width="60dp"
-            android:layout_height="34dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -34,12 +34,12 @@
             android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Salary"
-            android:textSize="8dp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/buttonGift"
-            android:layout_width="60dp"
-            android:layout_height="34dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -47,12 +47,12 @@
             android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Gift"
-            android:textSize="8dp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/buttonLoan"
-            android:layout_width="60dp"
-            android:layout_height="34dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -60,12 +60,12 @@
             android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Loan"
-            android:textSize="8dp" />
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/buttonFamilyIncome"
-            android:layout_width="60dp"
-            android:layout_height="34dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -73,12 +73,12 @@
             android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Family and Personal"
-            android:textSize="8dp" />
+            android:textSize="13dp" />
 
         <Button
             android:id="@+id/buttonExtra"
-            android:layout_width="60dp"
-            android:layout_height="34dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -86,7 +86,7 @@
             android:background="@drawable/round_button_green"
             android:padding="5dp"
             android:text="Extra income"
-            android:textSize="8dp" />
+            android:textSize="15dp" />
 
     </LinearLayout>
 </LinearLayout>
