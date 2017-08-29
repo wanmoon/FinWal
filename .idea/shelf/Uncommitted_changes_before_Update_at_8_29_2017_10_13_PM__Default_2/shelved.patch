@@ -1,0 +1,18 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 15424359e900af40d96e59460ed83a26dc5eb61e)
++++ .idea/misc.xml	
+@@ -1,0 +1,0 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_8_22_2017_9_03_PM__Default_.xml
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_8_22_2017_9_03_PM__Default_.xml	(revision 15424359e900af40d96e59460ed83a26dc5eb61e)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_8_22_2017_9_03_PM__Default_.xml	(revision 15424359e900af40d96e59460ed83a26dc5eb61e)
+@@ -1,4 +0,0 @@
+-<changelist name="Uncommitted_changes_before_Update_at_8_22_2017_9_03_PM__Default_" date="1503410622739" recycled="true" toDelete="true">
+-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_22_2017_9_03_PM__Default_/shelved.patch" />
+-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 8/22/2017 9:03 PM [Default]" />
+-</changelist>
+\ No newline at end of file
