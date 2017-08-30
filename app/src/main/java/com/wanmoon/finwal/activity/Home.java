@@ -91,7 +91,6 @@ public class Home extends android.support.v4.app.Fragment {
 
         setHasOptionsMenu(true);
 
-
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
     }
@@ -120,7 +119,7 @@ public class Home extends android.support.v4.app.Fragment {
 
         double[] values = {13.6, 86.4 };
         String[] colors = {
-                "#66cc00", "#ff4d4d",
+                "#39dd92", "#e54649",
         };
 
 
@@ -137,11 +136,11 @@ public class Home extends android.support.v4.app.Fragment {
             renderer.addSeriesRenderer(seriesRenderer);
         }
 
-        renderer.setChartTitleTextSize(60);
+        //renderer.setChartTitleTextSize(60);
         //renderer.setChartTitle("Android Platform Version");
         renderer.setLabelsTextSize(40);
         renderer.setLabelsColor(Color.GRAY);
-        renderer.setLegendTextSize(30);
+        renderer.setLegendTextSize(0);
 
         drawChart(series, renderer);
 

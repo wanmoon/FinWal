@@ -93,6 +93,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         }
 
 
+
+
         // if validation are ok
         // we will first show a progressbar
 
@@ -115,6 +117,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                     }
                 });
     }
+
 
 
     @Override

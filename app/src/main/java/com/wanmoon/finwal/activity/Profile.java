@@ -6,15 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
 
 import java.util.ArrayList;
@@ -24,9 +26,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "Profile";
     private FirebaseDatabase mFirebaseDatabase;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private String userID;
-    private ListView mListView;
 
 
     private FirebaseAuth firebaseAuth;
@@ -35,8 +34,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<String> mUsernames = new ArrayList<>();
 
-
-    private EditText editTextEmail;
+    String gender1 = "";
+    private TextView TextViewEmail;
     private EditText editTextName;
     private EditText editTextAddress;
     private EditText editTextPhone;
@@ -47,6 +46,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewGenderResult;
 
     private DatabaseReference databaseReference;
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+    public final String email = currentFirebaseUser.getEmail();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,97 +62,38 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         databaseReference  = mFirebaseDatabase.getInstance().getReference("users");
 
 
-
-//        userID = user.getUid();
-//
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if(user != null){
-//                    Log.d(TAG, "onAnthStateChanged:sign_in" + user.getUid());
-//                }else{
-//                    Log.d(TAG, "onAnthStateChanged:sign_out" + user.getUid());
-//
-//                }
-//            }
-//        };
-//
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                showData(dataSnapshot);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
-
-
-        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        TextViewEmail = (TextView) findViewById(R.id.textViewEmail);
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         radioButtonMale = (RadioButton) findViewById(R.id.radioButtonMale);
         radioButtonFemale = (RadioButton) findViewById(R.id.radioButtonFemale);
-        textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
-        textViewGenderResult.setEnabled(false);
+        //textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
+        //textViewGenderResult.setEnabled(false);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
 
-
+        checkName();
+        checkPhone();
+        checkAddress();
+        TextViewEmail.setText(user.getEmail());
+        checkGender();
 
 
 
 
     }
-//
-//    private void showData(DataSnapshot dataSnapshot) {
-//        for (DataSnapshot ds : dataSnapshot.getChildren()){
-//            UserInformation uInfo = new UserInformation();
-//            uInfo.setname(ds.child(userID).getValue(UserInformation.class).getname());
-//
-//            Log.d(TAG, "showData: name: " + uInfo.getname());
-//
-//            ArrayList<String> array = new ArrayList<>();
-//            array.add(uInfo.getname());
-//
-//            ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, array);
-//            mListView.setAdapter(adapter);
-//        }
-//    }
-//
-//
-//    public void onStart(){
-//        super.onStart();
-//        firebaseAuth.addAuthStateListener(mAuthListener);
-//    }
-//
-//    public void onStop(){
-//        super.onStop();
-//        if(mAuthListener != null) {
-//            firebaseAuth.removeAuthStateListener(mAuthListener);
-//        }
-//    }
-//    private void toastMessage(String message){
-//        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-//    }
 
 
     public void saveUserInformation(){
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        String email = editTextEmail.getText().toString().trim();
+       // String email = textViewEmail.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
-        String gender = textViewGenderResult.getText().toString().trim();
+        String gender = gender1;
 
 
         UserInformation userInformation = new UserInformation(email, name, address, phoneNumber, gender);
@@ -161,6 +104,107 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+
+    public void checkAddress(){
+
+        //String[] nodeFire = {"email","name","address","phoneNumber"};
+        //for(int i = 0;i<nodeFire.length;i++) {
+            databaseReference.child(cust_id).child("address").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String value = dataSnapshot.getValue(String.class);
+                    //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
+                   // for (int j = 0; j < button.length; j++) {
+                        if (value != null) {
+                            editTextAddress.setText(value);
+                     //  }
+                    }
+
+
+                }
+                @Override
+                public void onCancelled (DatabaseError databaseError){
+
+                }
+            });
+        }
+
+
+    public void checkPhone(){
+
+        //String[] nodeFire = {"email","name","address","phoneNumber"};
+        //for(int i = 0;i<nodeFire.length;i++) {
+        databaseReference.child(cust_id).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
+                // for (int j = 0; j < button.length; j++) {
+                if (value != null) {
+                    editTextPhone.setText(value);
+                    //  }
+                }
+
+
+            }
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+    public void checkName(){
+
+        //String[] nodeFire = {"email","name","address","phoneNumber"};
+        //for(int i = 0;i<nodeFire.length;i++) {
+        databaseReference.child(cust_id).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
+                // for (int j = 0; j < button.length; j++) {
+                if (value != null) {
+                    editTextName.setText(value);
+                    //  }
+                }
+
+
+            }
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+
+    public void checkGender(){
+
+        //String[] nodeFire = {"email","name","address","phoneNumber"};
+        //for(int i = 0;i<nodeFire.length;i++) {
+        databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
+                // for (int j = 0; j < button.length; j++) {
+                // if (value.matches("Male") == true) {
+                    radioButtonMale.setEnabled(false);
+                    radioButtonFemale.setEnabled(true);
+                    //  }
+                // }else {
+                    radioButtonFemale.setEnabled(true);
+                // }
+
+
+            }
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+
+            }
+        });
+    }
+
+
     public void onRadioButtonClicked(View view) {
 
         boolean checked = ((RadioButton) view).isChecked();
@@ -170,6 +214,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 if (checked)
                     //Do something when radio button is clicked
                     textViewGenderResult.setText("Male");
+                    gender1 = "Male";
                     //Toast.makeText(getApplicationContext(), "Male", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -177,6 +222,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 if (checked)
                     //Do something when radio button is clicked
                     textViewGenderResult.setText("Female");
+                    gender1 = "Female";
                     //Toast.makeText(getApplicationContext(), "Female", Toast.LENGTH_SHORT).show();
                 break;
         }
