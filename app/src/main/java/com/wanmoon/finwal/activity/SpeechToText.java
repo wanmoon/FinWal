@@ -10,49 +10,49 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Arrays;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
-import java.util.List;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by pimpischaya on 5/27/2017 AD.
  */
 
-
 public class SpeechToText extends AppCompatActivity implements View.OnClickListener{
     private TextView textViewStatus;
-    private EditText btnInput;
     private TextView resultTEXT;
-    private ImageButton imageButton;
     private static String val = "";
     private TextView textViewFinish;
     private TextView textViewCancel;
-    private TextView textViewFood;
-    private TextView textViewEnt;
-    private TextView textViewEdu;
-    private TextView textViewShop;
     private TextView textPrice;
+    public ImageButton imageButton;
 
     private Dialog incomeCate;
     private Dialog expenseCate;
 
-
     private Button buttonPlus;
     private Button buttonMinus;
-
 
     private Button buttonSalary;
     private Button buttonLoan;
@@ -72,75 +72,48 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private Button buttonHealthCare;
     private Button buttonSaving;
 
+    private int getHowMuch;
+    private String getTransac;
+
     private String transaction;
     private String cate;
 
     private TextView textViewCategories;
     private TextView textViewTransaction;
 
+    //get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
 
+    //connect DB
+    String response = null;
+    getHttp http = new getHttp();
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
+    //for log
+    private final String TAG = "SpeechToText";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.speechtotext);
         resultTEXT = (TextView)findViewById(R.id.TvResult);
-        imageButton = (ImageButton)findViewById(R.id.imageButton);
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
 
-        // button cancel and finish
+        //button cancel and finish
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
 
         textPrice = (TextView)findViewById(R.id.textPrice);
-
-
-
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
-
     }
-
-
 
     public void imageButton(View view){
-
         promptSpeechInput();
-
     }
-
-//    public void btnClickme(View v) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//
-//
-//       // btnInput = (EditText)findViewById(R.id.btnInput); // get word from input button
-//        textViewStatus = (TextView)findViewById(R.id.textViewStatus);
-//         final String val = btnInput.getText().toString(); //cast word from button to string ready for put in child method
-//
-//
-//        DatabaseReference databaseReference = database.getReference();
-//
-//        databaseReference.child("Category").child(""+val).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        String value = dataSnapshot.getValue(String.class);
-//
-//                textViewStatus.setText("Cetegory is " + value);
-//                        //Log.d("", "value is" + value);
-//                    }
-//
-//
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w("", "Failed to read value.");
-//            }
-//        });
-//
-//    }
 
     public void  promptSpeechInput(){
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -155,7 +128,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         {
             Toast.makeText(SpeechToText.this ,"Sorry your device don't suppose language", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void onActivityResult(int request_code , int result_code , Intent i){
@@ -167,7 +139,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         switch(request_code){
             case 100: if(result_code == RESULT_OK &&  i != null)
             {
-                textViewStatus.setVisibility(View.INVISIBLE);
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
 
@@ -198,23 +169,11 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                         if(val.matches(".*" + test[j] + ".*") == false ){
                                 textPrice.setText(keepPrice()+"");
                                 button();
-
-
                         }
                     }
-
-
-
                 }
-
-
-
-
             }
-
-
         }
-
     }
 
     public void button(){
@@ -235,7 +194,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
                 transaction = "Income";
                 textViewTransaction.setText("Transaction : " + transaction);
-
 
                 // income button
                 buttonGift = (Button) incomeCate.findViewById(R.id.buttonGift);
@@ -292,7 +250,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                         textViewCategories.setText("Categories : " + cate);
                     }
                 });
-
             }
         });
 
@@ -442,17 +399,22 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 });
             }
         });
-
-
     }
 
+    public void addTransaction(String cust_id) {
+        getTransac = resultTEXT.getText().toString();
+        getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
 
+        Log.d(TAG,"get transac, getmoney");
+
+        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
+        Log.d(TAG,"end addTransactionToDB");
+    }
+    
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            //will open login activity here
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
+            addTransaction(cust_id);
         }
         if(v == textViewCancel){
             // will open login activity here
@@ -463,6 +425,45 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     public List keepPrice(){
         val = val.replaceAll("[^0-9]+", " ");
         List price = Arrays.asList(val.trim().split(" "));
+
         return price;
+    }
+
+    public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){
+        try {
+            Log.d(TAG,"start transaction");
+            http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG, "onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG, "onResponse");
+                    Log.d(TAG, "insert success");
+
+                    Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+                    startActivity(i);
+                }
+            });
+        }
     }
 }

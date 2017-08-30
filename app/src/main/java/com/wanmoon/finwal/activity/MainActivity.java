@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, HomeFragment);
         transaction.commit();
-
-
+        
 
 
         firebaseAuth = FirebaseAuth.getInstance();
