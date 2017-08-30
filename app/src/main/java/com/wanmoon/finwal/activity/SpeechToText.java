@@ -410,7 +410,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
         Log.d(TAG,"end addTransactionToDB");
     }
-    
+
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
