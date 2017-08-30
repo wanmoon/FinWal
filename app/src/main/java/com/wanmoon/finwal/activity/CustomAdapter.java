@@ -69,48 +69,48 @@ public class CustomAdapter extends BaseAdapter {
         switch(arrTransaction.get(position).get("category").toString()){
             //case for income
             case "Salary"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_salary);
                 break;
             case "Gift"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_gift);
                 break;
             case "Loan"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_loan);
                 break;
             case "Family and Personal"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_personalandfamily);
                 break;
             case "Extra income"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_extraincome);
                 break;
 
             //case for expense
             case "Bill"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_bill);
                 break;
             case "Education"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_education);
                 break;
             case "Entertainment"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_entertainment);
                 break;
             case "Food and Drink"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_foodanddrink);
                 break;
             case "Shopping"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_shopping);
                 break;
             case "Transport"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_transport);
                 break;
             case "Travel"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_travel);
                 break;
             case "Healthcare"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_health);
                 break;
             case "Saving and Investment"
-                    :     imageViewCategoryIcon.setImageResource(R.drawable.common_full_open_on_phone);
+                    :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_savingandinvestment);
                 break;
 
             //same case with income

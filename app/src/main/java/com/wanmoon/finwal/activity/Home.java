@@ -1,11 +1,13 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,6 +25,14 @@ import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +58,22 @@ public class Home extends android.support.v4.app.Fragment {
     private View mView;
     private GraphicalView mGraphView;
     private Typeface tf;
+
+    private int sumIncome;
+    private int sumExpense;
+    private int balance;
+
+    //get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+
+    //connect DB
+    String response = null;
+    getHttp http = new getHttp();
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+    //for log
+    private final String TAG = "AddTransactionActivity";
 
 
 
@@ -91,6 +117,7 @@ public class Home extends android.support.v4.app.Fragment {
 
         setHasOptionsMenu(true);
 
+
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
     }
@@ -119,7 +146,7 @@ public class Home extends android.support.v4.app.Fragment {
 
         double[] values = {13.6, 86.4 };
         String[] colors = {
-                "#39dd92", "#e54649",
+                "#66cc00", "#ff4d4d",
         };
 
 
@@ -136,11 +163,11 @@ public class Home extends android.support.v4.app.Fragment {
             renderer.addSeriesRenderer(seriesRenderer);
         }
 
-        //renderer.setChartTitleTextSize(60);
+        renderer.setChartTitleTextSize(60);
         //renderer.setChartTitle("Android Platform Version");
         renderer.setLabelsTextSize(40);
         renderer.setLabelsColor(Color.GRAY);
-        renderer.setLegendTextSize(0);
+        renderer.setLegendTextSize(30);
 
         drawChart(series, renderer);
 
@@ -222,6 +249,56 @@ public class Home extends android.support.v4.app.Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public String sumIncomeToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            http.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public String sumExpenseToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            http.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG,"onResponse");
+                    Log.d(TAG,"insert success");
+
+                    Intent i = new Intent(getContext(), AllDetailTransaction.class);
+                    startActivity(i);
+                }
+            });
+        }
     }
 
 
