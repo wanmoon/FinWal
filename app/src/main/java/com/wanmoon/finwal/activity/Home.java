@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,6 +55,7 @@ public class Home extends android.support.v4.app.Fragment {
     private OnFragmentInteractionListener mListener;
 
 
+    private View bView;
 
     private View mView;
     private GraphicalView mGraphView;
@@ -74,6 +76,8 @@ public class Home extends android.support.v4.app.Fragment {
 
     //for log
     private final String TAG = "AddTransactionActivity";
+
+    private Button buttonGoal1;
 
 
 
@@ -119,6 +123,20 @@ public class Home extends android.support.v4.app.Fragment {
 
 
         ((MainActivity)getActivity()).setTitle("My FinWal");
+
+//        buttonGoal1 = (Button) bView.findViewById(R.id.buttonGoal1);
+//        buttonGoal1.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//
+//                Intent intent = new Intent(getActivity().getApplication(), AllDetailTransaction.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
 
     }
 

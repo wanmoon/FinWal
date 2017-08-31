@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +34,10 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
     private TextView textViewCancel;
     private TextView textViewFinish;
+    private Spinner spinnerSort;
+
+
+    private ArrayList<String> mspinnerSort = new ArrayList<String>();
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -61,6 +67,34 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
+
+        // spinner to sort
+        spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
+//        String[] spinnerValue = new String[]{
+//                "Category",
+//                "Time",
+//        };
+//
+//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+
+        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, mspinnerSort);
+
+        spinnerSort.setAdapter(aSpinnerSort);
+
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        createSort();
 
         Log.d(TAG, "onCreate");
 
@@ -115,6 +149,13 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 //
 //            }
 //        });
+    }
+
+    private void createSort() {
+        mspinnerSort.add("Time");
+        mspinnerSort.add("Category");
+
+
     }
 
     @Override
