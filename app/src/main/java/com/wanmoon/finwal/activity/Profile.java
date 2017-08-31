@@ -3,6 +3,7 @@ package com.wanmoon.finwal.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,22 +20,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.wanmoon.finwal.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Profile extends AppCompatActivity implements View.OnClickListener {
 
-
-    private static final String TAG = "Profile";
     private FirebaseDatabase mFirebaseDatabase;
-
-
     private FirebaseAuth firebaseAuth;
-
-
 
     private ArrayList<String> mUsernames = new ArrayList<>();
 
-    String gender1 = "";
+    public String gender1 = "";
     private TextView TextViewEmail;
     private EditText editTextName;
     private EditText editTextAddress;
@@ -45,10 +47,19 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewGenderResult;
 
+    //get current user and email
     private DatabaseReference databaseReference;
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
     public final String email = currentFirebaseUser.getEmail();
+
+    //connect DB
+    String response = null;
+    getHttp http = new getHttp();
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+    //for log
+    private static final String TAG = "Profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +68,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
         FirebaseUser user = firebaseAuth.getCurrentUser();
         databaseReference  = mFirebaseDatabase.getInstance().getReference("users");
-
 
         TextViewEmail = (TextView) findViewById(R.id.textViewEmail);
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
@@ -78,10 +87,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkAddress();
         TextViewEmail.setText(user.getEmail());
         checkGender();
-
-
-
-
     }
 
 
@@ -100,13 +105,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         databaseReference.child(user.getUid()).setValue(userInformation);
 
         Toast.makeText(this, "Information saved..", Toast.LENGTH_LONG).show();
-
-
     }
 
-
     public void checkAddress(){
-
         //String[] nodeFire = {"email","name","address","phoneNumber"};
         //for(int i = 0;i<nodeFire.length;i++) {
             databaseReference.child(cust_id).child("address").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -119,8 +120,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                             editTextAddress.setText(value);
                      //  }
                     }
-
-
                 }
                 @Override
                 public void onCancelled (DatabaseError databaseError){
@@ -144,8 +143,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     editTextPhone.setText(value);
                     //  }
                 }
-
-
             }
             @Override
             public void onCancelled (DatabaseError databaseError){
@@ -167,8 +164,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     editTextName.setText(value);
                     //  }
                 }
-
-
             }
             @Override
             public void onCancelled (DatabaseError databaseError){
@@ -194,8 +189,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                 // }else {
                     radioButtonFemale.setEnabled(true);
                 // }
-
-
             }
             @Override
             public void onCancelled (DatabaseError databaseError){
@@ -206,7 +199,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
 
     public void onRadioButtonClicked(View view) {
-
         boolean checked = ((RadioButton) view).isChecked();
         // This check which radio button was clicked
         switch (view.getId()) {
@@ -232,12 +224,48 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         if(v == buttonSave){
-
             saveUserInformation();
+            //add to db
+            addUserToDB(cust_id, email);
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
-
         }
+    }
 
+    // call : getHttp() < addUserToDB() < registerUser()
+    //insert UID to DB
+    public String addUserToDB(String cust_id, String email){
+        try {
+            Log.d(TAG,"start insert user");
+            http.run(BASE_URL + "/signup.php?cust_id=" + cust_id + "&email="+ email);
+            Log.d(TAG,"end insert user");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG,"onResponse");
+                    Log.d(TAG,"insert success");
+                }
+            });
+        }
     }
 }

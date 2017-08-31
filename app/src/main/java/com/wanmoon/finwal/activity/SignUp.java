@@ -20,10 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.wanmoon.finwal.R;
 
 
-
 public class SignUp extends AppCompatActivity implements View.OnClickListener
         , Home.OnFragmentInteractionListener {
-
 
     private Button buttonRegister;
     private EditText editTextEmail;
@@ -35,6 +33,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
     private FirebaseAuth firebaseAuth;
 
+    public String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             startActivity(new Intent(SignUp.this, MainActivity.class));
         }
 
-
-
         progressDialog = new ProgressDialog(this);
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -60,8 +57,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
         buttonRegister.setOnClickListener(this);
         textViewSignIn.setOnClickListener(this);
         buttonForgotPassword.setOnClickListener(this);
-
-
     }
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
@@ -69,8 +64,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
     }
 
     private void registerUser(){
-        String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             // email is empty
@@ -91,9 +86,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             //stopping the function execution further
             return;
         }
-
-
-
 
         // if validation are ok
         // we will first show a progressbar
@@ -118,8 +110,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                 });
     }
 
-
-
     @Override
     public void onClick(View v) {
         if(v == buttonRegister ){
@@ -130,15 +120,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
             // will open login activity here
             Intent i=new Intent(getApplicationContext(),Login.class);
             startActivity(i);
-
         }
         if(v == buttonForgotPassword){
             finish();
             startActivity(new Intent(this, ForgotPassword.class));
-
         }
-
-
     }
 
     @Override
