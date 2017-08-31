@@ -121,10 +121,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 buttonGift.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cate = buttonGift.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Income", Toast.LENGTH_LONG).show();
-                        incomeCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonGift, transaction, incomeCate, textViewCategories);
                     }
                 });
 
@@ -133,10 +130,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        cate = buttonSalary.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Income", Toast.LENGTH_LONG).show();
-                        incomeCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonSalary, transaction, incomeCate, textViewCategories);
                     }
                 });
 
@@ -144,10 +138,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 buttonLoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        cate = buttonLoan.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Income", Toast.LENGTH_LONG).show();
-                        incomeCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonLoan, transaction, incomeCate, textViewCategories);
                     }
                 });
 
@@ -156,10 +147,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        cate = buttonFamilyIncome.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Income", Toast.LENGTH_LONG).show();
-                        incomeCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonFamilyIncome, transaction, incomeCate, textViewCategories);
                     }
                 });
 
@@ -168,10 +156,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        cate = buttonExtra.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate, Toast.LENGTH_LONG).show();
-                        incomeCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonExtra, transaction, incomeCate, textViewCategories);
                     }
                 });
 
@@ -199,10 +184,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonBill.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonBill, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -211,10 +193,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick(View v){
-                        cate = buttonEducation.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonEducation, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -224,10 +203,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonEntertainment.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonEntertainment, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -237,10 +213,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonFood.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonFood, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -250,10 +223,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonShopping.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonShopping, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -263,10 +233,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonTransport.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonTransport, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -276,10 +243,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonTravel.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonTravel, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -289,10 +253,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonFamilyExpense.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate, Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonFamilyExpense, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -302,10 +263,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonHealthCare.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonHealthCare, transaction, expenseCate, textViewCategories);
                     }
                 });
 
@@ -315,14 +273,22 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        cate = buttonSaving.getText().toString();
-                        Toast.makeText(AddTransaction.this,cate + " Expense", Toast.LENGTH_LONG).show();
-                        expenseCate.cancel();
-                        textViewCategories.setText("Categories : " + cate);
+                        setTextViewCategories(cate, buttonSaving, transaction, expenseCate, textViewCategories);
                     }
                 });
             }
         });
+
+        //show textview : transaction, category
+        textViewTransaction.setVisibility(View.VISIBLE);
+        textViewCategories.setVisibility(View.VISIBLE);
+    }
+
+    public void setTextViewCategories(String getCate, Button buttonCate, String transaction, Dialog dialog, TextView textViewCategories){
+        getCate = buttonCate.getText().toString();
+        Toast.makeText(AddTransaction.this,getCate + " " + transaction, Toast.LENGTH_LONG).show();
+        dialog.cancel();
+        textViewCategories.setText("Categories : " + getCate);
     }
 
     public void addTransaction(String cust_id) {
