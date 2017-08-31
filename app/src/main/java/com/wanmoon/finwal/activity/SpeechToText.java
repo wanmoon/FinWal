@@ -151,11 +151,11 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                         databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String value = dataSnapshot.getValue(String.class);
-                                textViewStatus.setVisibility(View.VISIBLE);
-                                textViewStatus.setText("Cetegory is " + value);
+                                cate = dataSnapshot.getValue(String.class);
+                               // textViewStatus.setVisibility(View.VISIBLE);
+                                textViewCategories.setText("Cetegory is " + cate);
                                 textPrice.setText(keepPrice()+"");
-                                Log.d("", "value is" + value);
+                                Log.d("", "value is" + cate);
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
