@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +68,11 @@ public class CustomAdapter extends BaseAdapter {
             textViewCost.setTextColor(Color.parseColor("#e54649"));
         }
 
+        ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
+        imageButtonEdit.setImageResource(R.mipmap.ic_edit);
+
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
+
         //switch case for check category to set the transaction icon
         switch(arrTransaction.get(position).get("category").toString()){
             //case for income
