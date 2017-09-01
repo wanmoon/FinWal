@@ -23,9 +23,11 @@ public class CustomAdapter extends BaseAdapter {
     Context context;
     ArrayList<HashMap<String, String>> arrTransaction;
 
+
     public CustomAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
         this.context= context;
         this.arrTransaction = arrTransaction;
+
     }
 
     public int getCount() {
@@ -43,6 +45,7 @@ public class CustomAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater mInflater =
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
 
         if(view == null)
             view = mInflater.inflate(R.layout.listview_alltransaction, parent, false);

@@ -17,7 +17,9 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import okhttp3.Call;
@@ -35,6 +37,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     private TextView textViewCancel;
     private TextView textViewFinish;
     private Spinner spinnerSort;
+    String defaultTextForSpinner = "text here";
 
 
     private ArrayList<String> mspinnerSort = new ArrayList<String>();
@@ -70,18 +73,14 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
         // spinner to sort
         spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
-//        String[] spinnerValue = new String[]{
-//                "Category",
-//                "Time",
-//        };
-//
-//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-
+        String[] spinnerValue = new String[]{
+                "Category",
+                "Time",
+        };
+        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
         ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, mspinnerSort);
-
         spinnerSort.setAdapter(aSpinnerSort);
-
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -94,11 +93,13 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
             }
         });
 
-        createSort();
+        
 
         Log.d(TAG, "onCreate");
 
         getAllTransaction(cust_id);
+
+
 
         ///////////start select transaction
 
@@ -151,12 +152,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 //        });
     }
 
-    private void createSort() {
-        mspinnerSort.add("Time");
-        mspinnerSort.add("Category");
 
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -197,6 +193,8 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
         transactionList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
+
+
 
         Scanner scanner = new Scanner(allTransaction);
 
