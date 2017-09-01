@@ -74,26 +74,28 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         // spinner to sort
         spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
         String[] spinnerValue = new String[]{
-                "Category",
                 "Time",
+                "Category",
         };
         final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
         ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, mspinnerSort);
         spinnerSort.setAdapter(aSpinnerSort);
-        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+//        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//               // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
-        
+
 
         Log.d(TAG, "onCreate");
 

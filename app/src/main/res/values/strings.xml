@@ -11,12 +11,6 @@
     <string name="open">Open</string>/>
     <string name="close">Close</string>
 
-    <string-array name="spinnerSort">
-        <item>Time</item>
-        <item>Category</item>
-    </string-array>
-
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
