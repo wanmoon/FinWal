@@ -4,20 +4,20 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
-import java.util.Timer;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,6 +32,9 @@ import okhttp3.Response;
 public class AddTransaction extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextTransaction;
     private EditText editTextHowmuch;
+
+    private TextView textViewCategories;
+    private TextView textViewTransaction;
     private TextView textViewFinish;
     private TextView textViewCancel;
 
@@ -61,14 +64,14 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private Dialog incomeCate;
     private Dialog expenseCate;
 
-    private TextView textViewCategories;
-    private TextView textViewTransaction;
+    private ImageView imageViewFrame;
 
     private String transaction;
     private String cate;
     private String getTransac;
+    private String setBold;
+
     private int getHowMuch;
-    private Timer timeCloseDialog;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -101,6 +104,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         textViewTransaction = (TextView) findViewById(R.id.textViewTransaction);
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
+        imageViewFrame = (ImageView) findViewById(R.id.imageViewFrame);
+
         //transaction button : click then have popup
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonPlus.setOnClickListener(new View.OnClickListener() {
@@ -114,14 +119,19 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 incomeCate.show();
 
                 transaction = "Income";
-                textViewTransaction.setText("Transaction : " + transaction);
+                setBold = "Transaction : " + "<b>" + transaction + "</b>";
+                textViewTransaction.setText(Html.fromHtml(setBold));
 
                 // income button
                 buttonGift = (Button) incomeCate.findViewById(R.id.buttonGift);
                 buttonGift.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setTextViewCategories(cate, buttonGift, transaction, incomeCate, textViewCategories);
+                        cate = buttonGift.getText().toString();
+                        incomeCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -130,7 +140,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        setTextViewCategories(cate, buttonSalary, transaction, incomeCate, textViewCategories);
+                        cate = buttonSalary.getText().toString();
+                        incomeCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -138,7 +152,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 buttonLoan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setTextViewCategories(cate, buttonLoan, transaction, incomeCate, textViewCategories);
+                        cate = buttonLoan.getText().toString();
+                        incomeCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -147,7 +165,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        setTextViewCategories(cate, buttonFamilyIncome, transaction, incomeCate, textViewCategories);
+                        cate = buttonFamilyIncome.getText().toString();
+                        incomeCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -156,7 +178,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick (View v){
-                        setTextViewCategories(cate, buttonExtra, transaction, incomeCate, textViewCategories);
+                        cate = buttonExtra.getText().toString();
+                        incomeCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -175,7 +201,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 expenseCate.show();
 
                 transaction = "Expense";
-                textViewTransaction.setText("Transaction : " + transaction);
+                setBold = "Transaction : " + "<b>" + transaction + "</b>";
+                textViewTransaction.setText(Html.fromHtml(setBold));
 
                 //expense's button
                 buttonBill = (Button) expenseCate.findViewById(R.id.buttonBill);
@@ -184,7 +211,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonBill, transaction, expenseCate, textViewCategories);
+                        cate = buttonBill.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -193,7 +224,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 {
                     @Override
                     public void onClick(View v){
-                        setTextViewCategories(cate, buttonEducation, transaction, expenseCate, textViewCategories);
+                        cate = buttonEducation.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -203,7 +238,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonEntertainment, transaction, expenseCate, textViewCategories);
+                        cate = buttonEntertainment.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -213,7 +252,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonFood, transaction, expenseCate, textViewCategories);
+                        cate = buttonFood.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -223,7 +266,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonShopping, transaction, expenseCate, textViewCategories);
+                        cate = buttonShopping.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -233,7 +280,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonTransport, transaction, expenseCate, textViewCategories);
+                        cate = buttonTransport.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -243,7 +294,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonTravel, transaction, expenseCate, textViewCategories);
+                        cate = buttonTravel.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -253,7 +308,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonFamilyExpense, transaction, expenseCate, textViewCategories);
+                        cate = buttonFamilyExpense.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -263,7 +322,11 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonHealthCare, transaction, expenseCate, textViewCategories);
+                        cate = buttonHealthCare.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
 
@@ -273,22 +336,24 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onClick(View v)
                     {
-                        setTextViewCategories(cate, buttonSaving, transaction, expenseCate, textViewCategories);
+                        cate = buttonSaving.getText().toString();
+                        expenseCate.cancel();
+                        setBold = "Categories : " + "<b>" + cate + "</b>";
+                        textViewCategories.setText((Html.fromHtml(setBold)));
+                        visible();
                     }
                 });
             }
         });
-
-        //show textview : transaction, category
-        textViewTransaction.setVisibility(View.VISIBLE);
-        textViewCategories.setVisibility(View.VISIBLE);
     }
 
-    public void setTextViewCategories(String getCate, Button buttonCate, String transaction, Dialog dialog, TextView textViewCategories){
-        getCate = buttonCate.getText().toString();
-        Toast.makeText(AddTransaction.this,getCate + " " + transaction, Toast.LENGTH_LONG).show();
-        dialog.cancel();
-        textViewCategories.setText("Categories : " + getCate);
+    public void visible(){
+        //show textview : transaction, category
+        imageViewFrame.setVisibility(View.VISIBLE);
+        textViewTransaction.bringToFront();
+        textViewCategories.bringToFront();
+        textViewTransaction.setVisibility(View.VISIBLE);
+        textViewCategories.setVisibility(View.VISIBLE);
     }
 
     public void addTransaction(String cust_id) {

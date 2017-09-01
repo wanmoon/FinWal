@@ -17,7 +17,7 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT timestamp, description, cost, transaction, category FROM transaction WHERE cust_id='$cust_id' ORDER BY timestamp DESC";
+$sql = "SELECT TIME(timestamp) AS timestamp, description, cost, transaction, category FROM transaction WHERE cust_id='$cust_id' ORDER BY timestamp DESC";
 
 $result = $conn->query($sql);
 
