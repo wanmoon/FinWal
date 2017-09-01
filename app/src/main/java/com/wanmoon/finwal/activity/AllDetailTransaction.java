@@ -40,8 +40,6 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     String defaultTextForSpinner = "text here";
 
 
-    private ArrayList<String> mspinnerSort = new ArrayList<String>();
-
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
@@ -82,18 +80,17 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
                 android.R.layout.simple_spinner_item, mspinnerSort);
         spinnerSort.setAdapter(aSpinnerSort);
 
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+            }
 
-//        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//               // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
