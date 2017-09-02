@@ -5,10 +5,72 @@
     tools:context="com.wanmoon.finwal.activity.Dashboard">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Dashboard"
-        android:layout_gravity="center"/>
+        android:paddingBottom="10dp"
+        android:paddingEnd="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="350dp">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/PiechartIncome"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginStart="10dp"
+            />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/PiechartExpense"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:paddingBottom="10dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:foregroundGravity="right"
+            android:layout_marginStart="180dp"
+
+            />
+
+
+
+    </RelativeLayout>
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="bottom"-->
+        <!--android:paddingBottom="10dp"-->
+        <!--android:paddingEnd="10dp"-->
+        <!--android:paddingLeft="10dp"-->
+        <!--android:paddingRight="10dp">-->
+
+        <!--<com.github.mikephil.charting.charts.PieChart-->
+            <!--android:id="@+id/PiechartIncome"-->
+            <!--android:layout_width="160dp"-->
+            <!--android:layout_height="160dp"-->
+            <!--android:layout_marginEnd="20dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:paddingBottom="10dp"-->
+            <!--android:paddingEnd="10dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp" />-->
+    <!--</RelativeLayout>-->
+
 
 </FrameLayout>

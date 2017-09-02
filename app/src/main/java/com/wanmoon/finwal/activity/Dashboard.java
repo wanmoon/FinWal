@@ -1,16 +1,27 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.wanmoon.finwal.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +42,14 @@ public class Dashboard extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private final String TAG = "Dashboard";
+    private float[] yDataIncome = {10.0f, 10.0f, 20.0f, 40.0f ,20.0f};
+    private String[] xDataIncome = {"Salary", "Gift","Loan", "Family and Personal", "Extra income"};
+    private float[] yDataExpense = {10.0f, 10.0f, 20.0f, 40.0f ,20.0f};
+    private String[] xDataExpense = {"Bill", "Education","Entertainment", "Food and Drink", "Shopping"};
+    PieChart pieChart;
+    private View mView;
 
     public Dashboard() {
         // Required empty public constructor
@@ -64,14 +83,161 @@ public class Dashboard extends Fragment {
         setHasOptionsMenu(true);
 
         ((MainActivity)getActivity()).setTitle("Dashboard");
+
+        Log.d(TAG, "onCreate: Start to create chart ");
+
+
+
     }
+
+    private void initDataIncome() {
+        pieChart = (PieChart) mView.findViewById(R.id.PiechartIncome);
+
+        pieChart.setDescription("");
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("Income");
+        pieChart.setCenterTextSize(8);
+        //pieChart.setDrawEntryLabels(true);
+
+        addDataSetIncome();
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+    }
+
+
+    private void initDataExpense() {
+        pieChart = (PieChart) mView.findViewById(R.id.PiechartExpense);
+
+        pieChart.setDescription("");
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("Expense");
+        pieChart.setCenterTextSize(8);
+        //pieChart.setDrawEntryLabels(true);
+
+        addDataSetExpense();
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
+    }
+
+    private void addDataSetIncome() {
+        Log.d(TAG, "addDataSet started");
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
+
+        for (int i =0 ; i < yDataExpense.length ; i++){
+            yEntrys.add(new PieEntry(yDataExpense[i], i));
+        }
+        for (int i =0 ; i < xDataExpense.length ; i++){
+            xEntrys.add(xDataExpense[i]);
+        }
+
+        // create the dataset
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
+
+        // add color to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        colors.add(Color.CYAN);
+        colors.add(Color.YELLOW);
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+
+        pieDataSet.setColors(colors);
+
+        //add Legend to chart
+//        Legend legend = pieChart.getLegend();
+//        legend.setForm(Legend.LegendForm.CIRCLE);
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+        // create pie data object
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
+
+    private void addDataSetExpense() {
+        Log.d(TAG, "addDataSet started");
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
+
+        for (int i =0 ; i < yDataIncome.length ; i++){
+            yEntrys.add(new PieEntry(yDataIncome[i], i));
+        }
+        for (int i =0 ; i < xDataIncome.length ; i++){
+            xEntrys.add(xDataIncome[i]);
+        }
+
+        // create the dataset
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
+
+        // add color to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        colors.add(Color.CYAN);
+        colors.add(Color.YELLOW);
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+
+        pieDataSet.setColors(colors);
+
+        //add Legend to chart
+//        Legend legend = pieChart.getLegend();
+//        legend.setForm(Legend.LegendForm.CIRCLE);
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+        // create pie data object
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
+    }
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        //return inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+
+        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        mView = rootView;
+        initDataIncome();
+        initDataExpense();
+
+        return rootView;
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

@@ -14,20 +14,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.model.CategorySeries;
-import org.achartengine.renderer.DefaultRenderer;
-import org.achartengine.renderer.SimpleSeriesRenderer;
-
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -57,8 +57,7 @@ public class Home extends android.support.v4.app.Fragment {
 
     private View bView;
 
-    private View mView;
-    private GraphicalView mGraphView;
+
     private Typeface tf;
 
     private int sumIncome;
@@ -77,7 +76,14 @@ public class Home extends android.support.v4.app.Fragment {
     //for log
     private final String TAG = "AddTransactionActivity";
 
-    private Button buttonGoal1;
+    //for pie chart
+    //private final String TAG = "Dashboard";
+    private float[] yData = {10.0f, 90.0f};
+    private String[] xData = {"Income", "Expense"};
+    PieChart pieChart;
+    private View mView;
+
+
 
 
 
@@ -124,18 +130,6 @@ public class Home extends android.support.v4.app.Fragment {
 
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
-//        buttonGoal1 = (Button) bView.findViewById(R.id.buttonGoal1);
-//        buttonGoal1.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//
-//                Intent intent = new Intent(getActivity().getApplication(), AllDetailTransaction.class);
-//                startActivity(intent);
-//            }
-//        });
-
 
 
     }
@@ -158,53 +152,72 @@ public class Home extends android.support.v4.app.Fragment {
 
     private void initData() {
 
-        String[] codename = {
-                "Income", "Expense"
-        };
+        pieChart = (PieChart) mView.findViewById(R.id.PiechartIncome);
 
-        double[] values = {13.6, 86.4 };
-        String[] colors = {
-                "#66cc00", "#ff4d4d",
-        };
+        pieChart.setDescription("");
+        pieChart.setUsePercentValues(true);
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("My Finwal");
+        pieChart.setCenterTextSize(10);
+        //pieChart.setEntryLabelTextSize(16);
+        //pieChart.setDrawEntryLabels(true);
 
+        addDataSetIncome();
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
 
-        CategorySeries series = new CategorySeries("Android Platform Version");
-        int length = codename.length;
-        for (int i = 0; i < length; i++) {
-            series.add(codename[i], values[i]);
-        }
+            @Override
+            public void onNothingSelected() {
 
-        DefaultRenderer renderer = new DefaultRenderer();
-        for (int i = 0; i <  codename.length; i++) {
-            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
-            seriesRenderer.setColor(Color.parseColor(colors[i]));
-            renderer.addSeriesRenderer(seriesRenderer);
-        }
+            }
+        });
 
-        renderer.setChartTitleTextSize(60);
-        //renderer.setChartTitle("Android Platform Version");
-        renderer.setLabelsTextSize(40);
-        renderer.setLabelsColor(Color.GRAY);
-        renderer.setLegendTextSize(30);
-
-        drawChart(series, renderer);
 
 
     }
 
-    private void drawChart(CategorySeries series,
-                           DefaultRenderer renderer) {
+    private void addDataSetIncome() {
+        Log.d(TAG, "addDataSet started");
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
 
-        if (null == mGraphView) {
-            mGraphView = ChartFactory.getPieChartView(getActivity(), series, renderer);
-
-            RelativeLayout container = (RelativeLayout) mView.findViewById(R.id.graph_container);
-
-            container.addView(mGraphView);
-        } else {
-            mGraphView.repaint();
+        for (int i =0 ; i < yData.length ; i++){
+            yEntrys.add(new PieEntry(yData[i], i));
         }
+        for (int i =0 ; i < xData.length ; i++){
+            xEntrys.add(xData[i]);
+        }
+
+        // create the dataset
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(15);
+
+        // add color to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+
+        pieDataSet.setColors(colors);
+
+        //add Legend to chart
+//        Legend legend = pieChart.getLegend();
+//        legend.setForm(Legend.LegendForm.CIRCLE);
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+        // create pie data object
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
+
 
 
 
