@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,8 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,10 +45,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextName;
     private EditText editTextAddress;
     private EditText editTextPhone;
-    private RadioButton radioButtonMale;
-    private RadioButton radioButtonFemale;
     private Button buttonSave;
 
+    private Spinner spinnerGender;
     private TextView textViewGenderResult;
 
     //get current user and email
@@ -64,7 +67,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,18 +78,41 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        radioButtonMale = (RadioButton) findViewById(R.id.radioButtonMale);
-        radioButtonFemale = (RadioButton) findViewById(R.id.radioButtonFemale);
-        //textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
-        //textViewGenderResult.setEnabled(false);
+        textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
+        textViewGenderResult.setEnabled(false);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
 
+        TextViewEmail.setText(user.getEmail());
         checkName();
         checkPhone();
         checkAddress();
-        TextViewEmail.setText(user.getEmail());
         checkGender();
+
+        // spinner to sort
+        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
+        String[] spinnerValue = new String[]{
+                "Male",
+                "Female",
+        };
+        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, mspinnerSort);
+        spinnerGender.setAdapter(aSpinnerSort);
+
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                textViewGenderResult.setText(mspinnerSort.get(position));
+                 //gender1 = textViewGenderResult;
+                 Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -94,7 +120,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-       // String email = textViewEmail.getText().toString().trim();
+        // String email = textViewEmail.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
@@ -108,17 +134,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkAddress(){
-        //String[] nodeFire = {"email","name","address","phoneNumber"};
-        //for(int i = 0;i<nodeFire.length;i++) {
             databaseReference.child(cust_id).child("address").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String value = dataSnapshot.getValue(String.class);
-                    //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
-                   // for (int j = 0; j < button.length; j++) {
                         if (value != null) {
                             editTextAddress.setText(value);
-                     //  }
                     }
                 }
                 @Override
@@ -130,18 +151,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
 
     public void checkPhone(){
-
-        //String[] nodeFire = {"email","name","address","phoneNumber"};
-        //for(int i = 0;i<nodeFire.length;i++) {
         databaseReference.child(cust_id).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
-                // for (int j = 0; j < button.length; j++) {
                 if (value != null) {
                     editTextPhone.setText(value);
-                    //  }
                 }
             }
             @Override
@@ -151,18 +166,12 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         });
     }
     public void checkName(){
-
-        //String[] nodeFire = {"email","name","address","phoneNumber"};
-        //for(int i = 0;i<nodeFire.length;i++) {
         databaseReference.child(cust_id).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
-                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
-                // for (int j = 0; j < button.length; j++) {
                 if (value != null) {
                     editTextName.setText(value);
-                    //  }
                 }
             }
             @Override
@@ -173,21 +182,21 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkGender(){
-
-        //String[] nodeFire = {"email","name","address","phoneNumber"};
-        //for(int i = 0;i<nodeFire.length;i++) {
         databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String value = dataSnapshot.getValue(String.class);
+                if (value != null) {
+                    textViewGenderResult.setText(value);
+                }
                 //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
                 // for (int j = 0; j < button.length; j++) {
                 // if (value.matches("Male") == true) {
-                    radioButtonMale.setEnabled(false);
-                    radioButtonFemale.setEnabled(true);
+                    //radioButtonMale.setEnabled(false);
+                    //radioButtonFemale.setEnabled(true);
                     //  }
                 // }else {
-                    radioButtonFemale.setEnabled(true);
+                   // radioButtonFemale.setEnabled(true);
                 // }
             }
             @Override
@@ -197,28 +206,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-
-    public void onRadioButtonClicked(View view) {
-        boolean checked = ((RadioButton) view).isChecked();
-        // This check which radio button was clicked
-        switch (view.getId()) {
-            case R.id.radioButtonMale:
-                if (checked)
-                    //Do something when radio button is clicked
-                    textViewGenderResult.setText("Male");
-                    gender1 = "Male";
-                    //Toast.makeText(getApplicationContext(), "Male", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.radioButtonFemale:
-                if (checked)
-                    //Do something when radio button is clicked
-                    textViewGenderResult.setText("Female");
-                    gender1 = "Female";
-                    //Toast.makeText(getApplicationContext(), "Female", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
 
     @Override
     public void onClick(View v) {
