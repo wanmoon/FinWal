@@ -38,6 +38,10 @@ public class UserInformation {
         return phoneNumber;
     }
 
+    public String getGender(){
+        return gender;
+    }
+
 
     public void setAddress(String address){
         this.address = address;
@@ -49,6 +53,10 @@ public class UserInformation {
 
     public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setGender(String gender){
+        this.gender = gender;
     }
 
 }

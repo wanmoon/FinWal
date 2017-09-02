@@ -72,7 +72,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        databaseReference  = mFirebaseDatabase.getInstance().getReference("users");
+        databaseReference = mFirebaseDatabase.getInstance().getReference("users");
 
         TextViewEmail = (TextView) findViewById(R.id.textViewEmail);
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
@@ -87,7 +87,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkName();
         checkPhone();
         checkAddress();
-        checkGender();
+        //checkGender();
 
         // spinner to sort
         spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
@@ -104,8 +104,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 textViewGenderResult.setText(mspinnerSort.get(position));
-                 //gender1 = textViewGenderResult;
-                 Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -116,7 +115,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    public void saveUserInformation(){
+    public void saveUserInformation() {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -124,7 +123,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
-        String gender = gender1;
+        String gender = textViewGenderResult.getText().toString().trim();
 
 
         UserInformation userInformation = new UserInformation(email, name, address, phoneNumber, gender);
@@ -133,24 +132,25 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         Toast.makeText(this, "Information saved..", Toast.LENGTH_LONG).show();
     }
 
-    public void checkAddress(){
-            databaseReference.child(cust_id).child("address").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String value = dataSnapshot.getValue(String.class);
-                        if (value != null) {
-                            editTextAddress.setText(value);
-                    }
+    public void checkAddress() {
+        databaseReference.child(cust_id).child("address").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String value = dataSnapshot.getValue(String.class);
+                if (value != null) {
+                    editTextAddress.setText(value);
                 }
-                @Override
-                public void onCancelled (DatabaseError databaseError){
+            }
 
-                }
-            });
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
-    public void checkPhone(){
+    public void checkPhone() {
         databaseReference.child(cust_id).child("phoneNumber").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -159,13 +159,15 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     editTextPhone.setText(value);
                 }
             }
+
             @Override
-            public void onCancelled (DatabaseError databaseError){
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
     }
-    public void checkName(){
+
+    public void checkName() {
         databaseReference.child(cust_id).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -174,8 +176,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     editTextName.setText(value);
                 }
             }
+
             @Override
-            public void onCancelled (DatabaseError databaseError){
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -185,26 +188,49 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                if (value != null) {
-                    textViewGenderResult.setText(value);
+                final List<String> areas = new ArrayList<String>();
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+                    String areaName = areaSnapshot.child("gender").getValue(String.class);
+                    areas.add(areaName);
                 }
-                //EditText[] button = {editTextEmail, editTextName, editTextAddress, editTextPhone};
-                // for (int j = 0; j < button.length; j++) {
-                // if (value.matches("Male") == true) {
-                    //radioButtonMale.setEnabled(false);
-                    //radioButtonFemale.setEnabled(true);
-                    //  }
-                // }else {
-                   // radioButtonFemale.setEnabled(true);
-                // }
+
+                Spinner areaSpinner = (Spinner) findViewById(R.id.spinnerGender);
+                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(Profile.this, android.R.layout.simple_spinner_item, areas);
+                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                areaSpinner.setAdapter(areasAdapter);
             }
+
+
+
+
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // Is better to use a List, because you don't know the size
+//                // of the iterator returned by dataSnapshot.getChildren() to
+//                // initialize the array
+//                final List<String> areas = new ArrayList<String>();
+//
+//                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+//                    String areaName = areaSnapshot.child("gender").getValue(String.class);
+//                    areas.add(areaName);
+//                }
+//
+//                Spinner areaSpinner = (Spinner) findViewById(R.id.spinnerGender);
+//                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(Profile.this, android.R.layout.simple_spinner_item, areas);
+//                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                areaSpinner.setAdapter(areasAdapter);
+//            }
+
             @Override
-            public void onCancelled (DatabaseError databaseError){
+            public void onCancelled(DatabaseError databaseError) {
 
             }
+
         });
     }
+
+
+
 
 
     @Override
