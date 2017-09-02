@@ -74,6 +74,10 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         String[] spinnerValue = new String[]{
                 "Time",
                 "Category",
+                "Category : A-Z",
+                "Category : Most popular",
+                "Price : Low-High",
+                "Price : High-Low"
         };
         final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
         ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
