@@ -164,17 +164,18 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintVertical_bias="0.113">
 
-    <ImageButton
-        android:id="@+id/imageButtonEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/ic_edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintVertical_bias="0.016" />
+        <ImageButton
+            android:id="@+id/imageButtonEdit"
+            android:layout_width="37dp"
+            android:layout_height="54dp"
+            android:backgroundTint="@color/backgroundColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.016"
+            app:srcCompat="@mipmap/ic_mode_edit_white_24dp" />
 
     </LinearLayout>
 

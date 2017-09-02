@@ -69,7 +69,7 @@ public class CustomAdapter extends BaseAdapter {
         }
 
         ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_edit);
+        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
 
