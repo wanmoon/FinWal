@@ -96,7 +96,7 @@
         </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/PiechartIncome"
+            android:id="@+id/Piechart"
             android:layout_width="220dp"
             android:layout_height="220dp"
             android:layout_centerHorizontal="true"

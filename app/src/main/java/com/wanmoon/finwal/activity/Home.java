@@ -152,7 +152,7 @@ public class Home extends android.support.v4.app.Fragment {
 
     private void initData() {
 
-        pieChart = (PieChart) mView.findViewById(R.id.PiechartIncome);
+        pieChart = (PieChart) mView.findViewById(R.id.Piechart);
 
         pieChart.setDescription("");
         pieChart.setUsePercentValues(true);
