@@ -163,7 +163,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 cate = dataSnapshot.getValue(String.class);
                                 transaction = dataSnapshot.child("").getValue(String.class);
-                                textViewTransaction.setText("Transaction : " + transaction);
+                                textViewTransaction.setText("Transaction : " + "expense");
                                 textViewCategories.setText("Cetegory is " + cate);
                                 textPrice.setText(keepPrice()+"BATH");
                                 Log.d("", "value is" + cate);
