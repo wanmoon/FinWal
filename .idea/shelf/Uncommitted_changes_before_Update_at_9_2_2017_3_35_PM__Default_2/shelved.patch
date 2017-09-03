@@ -1,0 +1,14 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision b3446cefbc1473df28e1cfcb3adb824213fe73a6)
++++ .idea/misc.xml	
+@@ -43,4 +43,4 @@
+   <component name="ProjectType">
+     <option name="id" value="Android" />
+   </component>
+-</project>
++</project>
+\ No newline at end of file

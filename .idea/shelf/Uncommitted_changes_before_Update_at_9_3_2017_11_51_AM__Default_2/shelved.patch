@@ -1,0 +1,135 @@
+Index: app/src/main/res/layout/speechtotext.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/speechtotext.xml	(revision 34f348e88e745b045b079317e11c80e6deb20767)
++++ app/src/main/res/layout/speechtotext.xml	
+@@ -197,6 +197,15 @@
+             app:layout_constraintTop_toTopOf="parent"
+             app:layout_constraintVertical_bias="0.946" />
+ 
++        <Button
++            android:id="@+id/editOk"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:background="@android:drawable/ic_menu_send"
++            android:onClick="editOk"
++            android:text="OK"
++            tools:layout_editor_absoluteX="296dp"
++            tools:layout_editor_absoluteY="297dp" />
+ 
+ 
+ </android.support.constraint.ConstraintLayout>
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision 34f348e88e745b045b079317e11c80e6deb20767)
++++ .idea/modules.xml	
+@@ -3,8 +3,6 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+     </modules>
+   </component>
+\ No newline at end of file
+Index: app/src/main/java/com/wanmoon/finwal/activity/SpeechToText.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/wanmoon/finwal/activity/SpeechToText.java	(revision 34f348e88e745b045b079317e11c80e6deb20767)
++++ app/src/main/java/com/wanmoon/finwal/activity/SpeechToText.java	
+@@ -44,6 +44,7 @@
+     private TextView resultTEXT;
+     private static String val = "";
+     private TextView textViewFinish;
++    private Button editOk;
+     private TextView textViewCancel;
+     private TextView textPrice;
+     public ImageButton imageButton;
+@@ -105,6 +106,8 @@
+         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
+         textViewFinish.setOnClickListener(this);
+         textViewCancel.setOnClickListener(this);
++        editOk = (Button)findViewById(R.id.editOk);
++        editOk.setOnClickListener(this);
+ 
+         textPrice = (TextView)findViewById(R.id.textPrice);
+         buttonPlus = (Button) findViewById(R.id.buttonPlus);
+@@ -152,9 +155,10 @@
+                             @Override
+                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                 cate = dataSnapshot.getValue(String.class);
+-                               // textViewStatus.setVisibility(View.VISIBLE);
++                                transaction = dataSnapshot.child("").getValue(String.class);
++                                textViewTransaction.setText("Transaction : " + transaction);
+                                 textViewCategories.setText("Cetegory is " + cate);
+-                                textPrice.setText(keepPrice()+"");
++                                textPrice.setText(keepPrice()+"BATH");
+                                 Log.d("", "value is" + cate);
+                             }
+                             @Override
+@@ -167,7 +171,7 @@
+                         buttonPlus.setVisibility(View.INVISIBLE);
+                     } else {
+                         if(val.matches(".*" + test[j] + ".*") == false ){
+-                                textPrice.setText(keepPrice()+"");
++                                textPrice.setText(keepPrice()+"BATH");
+                                 button();
+                         }
+                     }
+@@ -422,6 +426,47 @@
+             startActivity(i);
+         }
+     }
++    public void onClickOk(View v){
++        if(v == editOk){
++            FirebaseDatabase database = FirebaseDatabase.getInstance();
++            //ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
++
++
++            val = resultTEXT.getText().toString();
++            String[] test = {"ค่าไฟ","ต้มยำ"};
++            for(int j=0;j<test.length;j++) {
++                if (val.matches(".*" + test[j] + ".*") == true) {
++
++                    DatabaseReference databaseReference = database.getReference();
++                    databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
++                                                                                                                               @Override
++                                                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
++                                                                                                                                   cate = dataSnapshot.getValue(String.class);
++                                                                                                                                   transaction = dataSnapshot.child("").getValue(String.class);
++                                                                                                                                   textViewTransaction.setText("Transaction : " + transaction);
++                                                                                                                                   textViewCategories.setText("Cetegory is " + cate);
++                                                                                                                                   textPrice.setText(keepPrice()+"BATH");
++                                                                                                                                   Log.d("", "value is" + cate);
++                                                                                                                               }
++                                                                                                                               @Override
++                                                                                                                               public void onCancelled(DatabaseError databaseError) {
++                                                                                                                                   Log.w("", "Failed to read value.");
++                                                                                                                               }
++                                                                                                                           }
++                    );
++                    buttonMinus.setVisibility(View.INVISIBLE);
++                    buttonPlus.setVisibility(View.INVISIBLE);
++                } else {
++                    if(val.matches(".*" + test[j] + ".*") == false ){
++                        textPrice.setText(keepPrice()+"BATH");
++                        button();
++                    }
++                }
++            }
++        }
++        }
++
++
+     public List keepPrice(){
+         val = val.replaceAll("[^0-9]+", " ");
+         List price = Arrays.asList(val.trim().split(" "));
+\ No newline at end of file

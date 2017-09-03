@@ -44,6 +44,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private TextView resultTEXT;
     private static String val = "";
     private TextView textViewFinish;
+    private Button editOk;
     private TextView textViewCancel;
     private TextView textPrice;
     public ImageButton imageButton;
@@ -105,6 +106,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
+        editOk = (Button)findViewById(R.id.editOk);
+        editOk.setOnClickListener(this);
 
         textPrice = (TextView)findViewById(R.id.textPrice);
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
@@ -152,9 +155,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 cate = dataSnapshot.getValue(String.class);
-                               // textViewStatus.setVisibility(View.VISIBLE);
+                                transaction = dataSnapshot.child("").getValue(String.class);
+                                textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
-                                textPrice.setText(keepPrice()+"");
+                                textPrice.setText(keepPrice()+"BATH");
                                 Log.d("", "value is" + cate);
                             }
                             @Override
@@ -167,7 +171,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                         buttonPlus.setVisibility(View.INVISIBLE);
                     } else {
                         if(val.matches(".*" + test[j] + ".*") == false ){
-                                textPrice.setText(keepPrice()+"");
+                                textPrice.setText(keepPrice()+"BATH");
                                 button();
                         }
                     }
@@ -422,6 +426,47 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             startActivity(i);
         }
     }
+    public void onClickOk(View v){
+        if(v == editOk){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            //ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+
+            val = resultTEXT.getText().toString();
+            String[] test = {"ค่าไฟ","ต้มยำ"};
+            for(int j=0;j<test.length;j++) {
+                if (val.matches(".*" + test[j] + ".*") == true) {
+
+                    DatabaseReference databaseReference = database.getReference();
+                    databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                               @Override
+                                                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                   cate = dataSnapshot.getValue(String.class);
+                                                                                                                                   transaction = dataSnapshot.child("").getValue(String.class);
+                                                                                                                                   textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                                   textViewCategories.setText("Cetegory is " + cate);
+                                                                                                                                   textPrice.setText(keepPrice()+"BATH");
+                                                                                                                                   Log.d("", "value is" + cate);
+                                                                                                                               }
+                                                                                                                               @Override
+                                                                                                                               public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                   Log.w("", "Failed to read value.");
+                                                                                                                               }
+                                                                                                                           }
+                    );
+                    buttonMinus.setVisibility(View.INVISIBLE);
+                    buttonPlus.setVisibility(View.INVISIBLE);
+                } else {
+                    if(val.matches(".*" + test[j] + ".*") == false ){
+                        textPrice.setText(keepPrice()+"BATH");
+                        button();
+                    }
+                }
+            }
+        }
+        }
+
+
     public List keepPrice(){
         val = val.replaceAll("[^0-9]+", " ");
         List price = Arrays.asList(val.trim().split(" "));

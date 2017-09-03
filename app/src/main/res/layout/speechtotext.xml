@@ -197,6 +197,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.946" />
 
+        <Button
+            android:id="@+id/editOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_menu_send"
+            android:onClick="editOk"
+            android:text="OK"
+            tools:layout_editor_absoluteX="296dp"
+            tools:layout_editor_absoluteY="297dp" />
 
 
 </android.support.constraint.ConstraintLayout>
