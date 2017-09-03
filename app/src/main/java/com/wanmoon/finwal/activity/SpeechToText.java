@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private Button buttonHealthCare;
     private Button buttonSaving;
 
+    private ImageView imageViewFrame;
+
     private int getHowMuch;
     private String getTransac;
 
@@ -112,6 +115,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textPrice = (TextView)findViewById(R.id.textPrice);
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
+        imageViewFrame = (ImageView) findViewById(R.id.imageViewFrame);
+
+
+        //visible();
     }
 
     public void imageButton(View view){
@@ -185,7 +192,17 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewTransaction = (TextView) findViewById(R.id.textViewTransaction);
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
+        imageViewFrame.setVisibility(View.VISIBLE);
+        buttonMinus.setVisibility(View.VISIBLE);
         buttonPlus.setVisibility(View.VISIBLE);
+        textViewTransaction.bringToFront();
+        textViewCategories.bringToFront();
+        textPrice.bringToFront();
+        textViewTransaction.setVisibility(View.VISIBLE);
+        textViewCategories.setVisibility(View.VISIBLE);
+        textPrice.setVisibility(View.VISIBLE);
+
+        //buttonPlus.setVisibility(View.VISIBLE);
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,7 +274,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        buttonMinus.setVisibility(View.VISIBLE);
+       // buttonMinus.setVisibility(View.VISIBLE);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -405,6 +422,18 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+
+
+    public void visible(){
+        //show textview : transaction, category
+        imageViewFrame.setVisibility(View.VISIBLE);
+        buttonMinus.setVisibility(View.VISIBLE);
+        buttonPlus.setVisibility(View.VISIBLE);
+        textViewTransaction.bringToFront();
+        textViewCategories.bringToFront();
+        textViewTransaction.setVisibility(View.VISIBLE);
+        textViewCategories.setVisibility(View.VISIBLE);
+    }
     public void addTransaction(String cust_id) {
         getTransac = resultTEXT.getText().toString();
         getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
