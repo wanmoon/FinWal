@@ -130,6 +130,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                        textViewCategories.setText("Cetegory is " + cate);
                                                                                                                                        textViewTransaction.setText(""+transaction);
                                                                                                                                        textPrice.setText(keepPrice()+"BATH");
+
                                                                                                                                        Log.d("", "value is" + cate);
                                                                                                                                    }
                                                                                                                                    @Override
@@ -203,7 +204,9 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 //transaction = dataSnapshot.child("").getValue(String.class);
                                 //textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
-                                textPrice.setText(keepPrice()+"BATH");
+                                textPrice.setText(keepPrice()+"");
+                                //textPrice.setText(getHowMuch+"Bath");
+
                                 Log.d("", "value is" + cate);
                             }
                             @Override
@@ -513,11 +516,12 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public List keepPrice(){
+    public String keepPrice(){
         val = val.replaceAll("[^0-9]+", " ");
         List price = Arrays.asList(val.trim().split(" "));
+        String price1 = price.toString().replace("[","").replace("]","");
 
-        return price;
+        return price1;
     }
 
     public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){
