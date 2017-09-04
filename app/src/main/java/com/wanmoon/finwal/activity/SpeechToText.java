@@ -77,9 +77,11 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private ImageView imageViewFrame;
 
     private int getHowMuch;
+    private int j;
     private String getTransac;
 
     private String transaction;
+
     private String cate;
 
     private TextView textViewCategories;
@@ -110,7 +112,57 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
         editOk = (Button)findViewById(R.id.editOk);
-        editOk.setOnClickListener(this);
+        editOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                val = resultTEXT.getText().toString();
+                final String[] test = {"ค่าไฟ","ต้มยำ"};
+                for( j=0;j<test.length;j++) {
+                    if (val.matches(".*" + test[j] + ".*") == true) {
+
+                        DatabaseReference databaseReference = database.getReference();
+                        databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                   @Override
+                                                                                                                                   public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                       cate = dataSnapshot.getValue(String.class);
+
+                                                                                                                                       FirebaseDatabase databasetran = FirebaseDatabase.getInstance();
+                                                                                                                                       DatabaseReference databaseReferencetran = databasetran.getReference();
+                                                                                                                                       databaseReferencetran.child("Category").child(test[j]+"").child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                           @Override
+                                                                                                                                           public void onDataChange(DataSnapshot dataSnapshot1) {
+                                                                                                                                               String tran = dataSnapshot1.getValue(String.class);
+                                                                                                                                               textViewTransaction.setText("Transaction : " +tran);
+                                                                                                                                           }
+
+                                                                                                                                           @Override
+                                                                                                                                           public void onCancelled(DatabaseError databaseError) {
+
+                                                                                                                                           }
+                                                                                                                                       });
+
+                                                                                                                                       textViewCategories.setText("Cetegory is " + cate);
+                                                                                                                                       textPrice.setText(keepPrice()+"BATH");
+                                                                                                                                       Log.d("", "value is" + cate);
+                                                                                                                                   }
+                                                                                                                                   @Override
+                                                                                                                                   public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                       Log.w("", "Failed to read value.");
+                                                                                                                                   }
+                                                                                                                               }
+                        );
+                        buttonMinus.setVisibility(View.INVISIBLE);
+                        buttonPlus.setVisibility(View.INVISIBLE);
+                    } else {
+                        if(val.matches(".*" + test[j] + ".*") == false ){
+                            textPrice.setText(keepPrice()+"BATH");
+                            button();
+                        }
+                    }
+                }
+            }
+        });
 
         textPrice = (TextView)findViewById(R.id.textPrice);
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
@@ -118,7 +170,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         imageViewFrame = (ImageView) findViewById(R.id.imageViewFrame);
 
 
-        //visible();
+
     }
 
     public void imageButton(View view){
@@ -162,8 +214,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 cate = dataSnapshot.getValue(String.class);
-                                transaction = dataSnapshot.child("").getValue(String.class);
-                                textViewTransaction.setText("Transaction : " + "expense");
+                                //transaction = dataSnapshot.child("").getValue(String.class);
+                                //textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
                                 textPrice.setText(keepPrice()+"BATH");
                                 Log.d("", "value is" + cate);
@@ -202,7 +254,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCategories.setVisibility(View.VISIBLE);
         textPrice.setVisibility(View.VISIBLE);
 
-        //buttonPlus.setVisibility(View.VISIBLE);
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -274,7 +325,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-       // buttonMinus.setVisibility(View.VISIBLE);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
         buttonMinus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,16 +474,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public void visible(){
-        //show textview : transaction, category
-        imageViewFrame.setVisibility(View.VISIBLE);
-        buttonMinus.setVisibility(View.VISIBLE);
-        buttonPlus.setVisibility(View.VISIBLE);
-        textViewTransaction.bringToFront();
-        textViewCategories.bringToFront();
-        textViewTransaction.setVisibility(View.VISIBLE);
-        textViewCategories.setVisibility(View.VISIBLE);
-    }
+
     public void addTransaction(String cust_id) {
         getTransac = resultTEXT.getText().toString();
         getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
@@ -443,6 +484,15 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
         Log.d(TAG,"end addTransactionToDB");
     }
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -454,47 +504,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }
+
     }
-    public void onClickOk(View v){
-        if(v == editOk){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            //ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
-
-            val = resultTEXT.getText().toString();
-            String[] test = {"ค่าไฟ","ต้มยำ"};
-            for(int j=0;j<test.length;j++) {
-                if (val.matches(".*" + test[j] + ".*") == true) {
-
-                    DatabaseReference databaseReference = database.getReference();
-                    databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                               @Override
-                                                                                                                               public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                   cate = dataSnapshot.getValue(String.class);
-                                                                                                                                   transaction = dataSnapshot.child("").getValue(String.class);
-                                                                                                                                   textViewTransaction.setText("Transaction : " + transaction);
-                                                                                                                                   textViewCategories.setText("Cetegory is " + cate);
-                                                                                                                                   textPrice.setText(keepPrice()+"BATH");
-                                                                                                                                   Log.d("", "value is" + cate);
-                                                                                                                               }
-                                                                                                                               @Override
-                                                                                                                               public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                   Log.w("", "Failed to read value.");
-                                                                                                                               }
-                                                                                                                           }
-                    );
-                    buttonMinus.setVisibility(View.INVISIBLE);
-                    buttonPlus.setVisibility(View.INVISIBLE);
-                } else {
-                    if(val.matches(".*" + test[j] + ".*") == false ){
-                        textPrice.setText(keepPrice()+"BATH");
-                        button();
-                    }
-                }
-            }
-        }
-        }
-
 
     public List keepPrice(){
         val = val.replaceAll("[^0-9]+", " ");
