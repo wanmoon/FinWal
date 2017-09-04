@@ -81,6 +81,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     private String getTransac;
 
     private String transaction;
+    private String transaction1;
 
     private String cate;
 
@@ -126,23 +127,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                    @Override
                                                                                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                                                        cate = dataSnapshot.getValue(String.class);
-
-                                                                                                                                       FirebaseDatabase databasetran = FirebaseDatabase.getInstance();
-                                                                                                                                       DatabaseReference databaseReferencetran = databasetran.getReference();
-                                                                                                                                       databaseReferencetran.child("Category").child(test[j]+"").child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                                           @Override
-                                                                                                                                           public void onDataChange(DataSnapshot dataSnapshot1) {
-                                                                                                                                               String tran = dataSnapshot1.getValue(String.class);
-                                                                                                                                               textViewTransaction.setText("Transaction : " +tran);
-                                                                                                                                           }
-
-                                                                                                                                           @Override
-                                                                                                                                           public void onCancelled(DatabaseError databaseError) {
-
-                                                                                                                                           }
-                                                                                                                                       });
-
                                                                                                                                        textViewCategories.setText("Cetegory is " + cate);
+                                                                                                                                       textViewTransaction.setText(""+transaction);
                                                                                                                                        textPrice.setText(keepPrice()+"BATH");
                                                                                                                                        Log.d("", "value is" + cate);
                                                                                                                                    }
@@ -234,6 +220,23 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 button();
                         }
                     }
+                    DatabaseReference databaseReference1 = database.getReference();
+                    databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                              @Override
+                                                                                                                              public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                  transaction1 = dataSnapshot.getValue(String.class);
+                                                                                                                                  textViewTransaction.setText("Transaction : " + transaction1);
+                                                                                                                                  Log.d("", "value is" + transaction);
+                                                                                                                              }
+
+                                                                                                                              @Override
+                                                                                                                              public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                  Log.w("", "Failed to read value.");
+                                                                                                                              }
+                                                                                                                          }
+                    );
+
+
                 }
             }
         }
@@ -484,6 +487,9 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
         Log.d(TAG,"end addTransactionToDB");
     }
+
+
+
 
 
 
