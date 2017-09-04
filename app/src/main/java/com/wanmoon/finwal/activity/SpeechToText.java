@@ -128,7 +128,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                                                        cate = dataSnapshot.getValue(String.class);
                                                                                                                                        textViewCategories.setText("Cetegory is " + cate);
-                                                                                                                                       textViewTransaction.setText(""+transaction);
+                                                                                                                                       textViewTransaction.setText(""+transaction1);
                                                                                                                                        textPrice.setText(keepPrice()+"BATH");
 
                                                                                                                                        Log.d("", "value is" + cate);
@@ -204,8 +204,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 //transaction = dataSnapshot.child("").getValue(String.class);
                                 //textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
+                                textViewTransaction.setText("Transaction : " + transaction1);
                                 textPrice.setText(keepPrice()+"");
-                                //textPrice.setText(getHowMuch+"Bath");
 
                                 Log.d("", "value is" + cate);
                             }
