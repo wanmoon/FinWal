@@ -361,7 +361,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         getHowMuch = Integer.parseInt(editTextHowmuch.getText().toString());
 
         Log.d(TAG,"get transac, getmoney");
-
         addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
         Log.d(TAG,"end addTransactionToDB");
     }
