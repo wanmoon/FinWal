@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -71,6 +72,10 @@ public class Home extends android.support.v4.app.Fragment {
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
+
+    private ImageView imageViewFrameIncome;
+    private ImageView imageViewFrameExpense;
+
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -155,11 +160,18 @@ public class Home extends android.support.v4.app.Fragment {
         sumExpenseToDB(cust_id);
         sumIncomeToDB(cust_id);
 
+        imageViewFrameIncome = (ImageView) view.findViewById(R.id.imageViewFrameIncome);
+        imageViewFrameExpense = (ImageView) view.findViewById(R.id.imageViewFrameExpense);
+
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
         Log.d(TAG,"end findviewbyid");
+
+
+
+
     }
 
     private void initData() {
@@ -237,13 +249,6 @@ public class Home extends android.support.v4.app.Fragment {
         // Handle action bar item clicks here. The action bar will
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_add) {
-//            Intent intent = new Intent(getActivity(), NewBill.class);
-//            startActivity(intent);
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -395,5 +400,7 @@ public class Home extends android.support.v4.app.Fragment {
         setWallet = "My Wallet : " + "<b>" + balance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWallet)));
         Log.d(TAG,"end settext");
+
+
     }
 }

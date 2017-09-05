@@ -10,13 +10,14 @@
     <!-- TODO: Update blank fragment layout -->
 
     <RelativeLayout
+        android:id="@+id/relative1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
+            android:id="@+id/layout_home1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_home1">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textViewEmpty"
@@ -32,65 +33,72 @@
                 android:layout_marginTop="8dp"
                 android:text="FREE CAP"
                 android:textColor="@color/buttonColorGrey"
-                android:textSize="18dp"
+                android:textSize="8dp"
                 android:textStyle="bold"
-                android:visibility="invisible"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_home2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_home1">
+
+            <TextView
+                android:id="@+id/textViewMyWallet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/buttonColorGrey"
+                android:textSize="18dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.287"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.073" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/layout_home2"
-            android:layout_below="@id/layout_home1">
-
-            <TextView
-                android:id="@+id/textViewMyWallet"
-                android:textColor="@color/buttonColorGrey"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintHorizontal_bias="0.287"
-                app:layout_constraintVertical_bias="0.073"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
         </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/Piechart"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="185dp"
+            android:layout_height="185dp"
             android:layout_below="@id/layout_home2"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="10dp"
-            android:paddingBottom="10dp"
-            android:paddingEnd="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" />
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
+
 
         <RelativeLayout
+            android:id="@+id/layout_home3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layout_home3"
             android:layout_below="@id/Piechart">
+
+            <ImageView
+                android:id="@+id/imageViewFrameIncome"
+                android:layout_width="match_parent"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/frame" />
+
 
             <TextView
                 android:id="@+id/textViewMyIncome"
@@ -98,22 +106,33 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/buttonColorGreen"
-                android:textSize="18dp" />
+                android:textSize="14dp" />
         </RelativeLayout>
 
 
         <RelativeLayout
+            android:id="@+id/layout_home4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/layout_home4"
             android:layout_below="@id/layout_home3">
+
+            <ImageView
+                android:id="@+id/imageViewFrameExpense"
+                android:layout_width="match_parent"
+                android:layout_height="@android:dimen/app_icon_size"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/frame" />
+
 
             <TextView
                 android:id="@+id/textViewMyExpense"
@@ -121,73 +140,81 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
                 android:textColor="@color/buttonColorRed"
-                android:textSize="18dp"/>
+                android:textSize="14dp" />
         </RelativeLayout>
+
+
+
     </RelativeLayout>
 
-    <android.support.constraint.ConstraintLayout
+
+
+
+    <RelativeLayout
+        android:id="@+id/relative2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative1">
+
         <TextView
             android:id="@+id/textViewGoalTitle"
             android:layout_width="39dp"
             android:layout_height="25dp"
-            android:text="Goal"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.144"
-            app:layout_constraintVertical_bias="0.698"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginTop="8dp"
+            android:text="Goal"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="186dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textViewGoalTitle"
+            android:layout_centerHorizontal="true"
+            />
 
         <TextView
             android:id="@+id/textViewNextBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="NextBill"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.153"
-            app:layout_constraintVertical_bias="0.81"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            android:textStyle="bold"
+            android:layout_below="@+id/progressBar1"
+            android:layout_centerHorizontal="true"
+            android:textSize="16dp"
+            />
 
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="186dp"
-            android:layout_height="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginRight="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintHorizontal_bias="0.263"
-            app:layout_constraintVertical_bias="0.747"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
 
-    </android.support.constraint.ConstraintLayout>
+
+    </RelativeLayout>
+
+
+
 </RelativeLayout>
