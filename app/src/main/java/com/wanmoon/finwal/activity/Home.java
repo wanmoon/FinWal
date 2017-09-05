@@ -1,12 +1,13 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -54,9 +56,7 @@ public class Home extends android.support.v4.app.Fragment {
     private static View rootView;
     private OnFragmentInteractionListener mListener;
 
-
     private View bView;
-
 
     private Typeface tf;
 
@@ -64,28 +64,32 @@ public class Home extends android.support.v4.app.Fragment {
     private int sumExpense;
     private int balance;
 
+    private String setWallet;
+    private String setIncome;
+    private String setExpense;
+
+    public TextView textViewMyWallet;
+    public TextView textViewMyIncome;
+    public TextView textViewMyExpense;
+
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
     //connect DB
     String response = null;
-    getHttp http = new getHttp();
+    getHttpIncome httpIncome = new getHttpIncome();
+    getHttpExpense httpExpense = new getHttpExpense();
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
-    private final String TAG = "AddTransactionActivity";
+    private final String TAG = "HomeActivity";
 
     //for pie chart
-    //private final String TAG = "Dashboard";
-    private float[] yData = {10.0f, 90.0f};
+    private float[] yData = {90.0f, 10.0f};
     private String[] xData = {"Income", "Expense"};
-    PieChart pieChart;
+    public PieChart pieChart;
     private View mView;
-
-
-
-
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -122,18 +126,16 @@ public class Home extends android.support.v4.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         setHasOptionsMenu(true);
 
-
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
-
-
+        Log.d(TAG,"end onCreate");
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -146,8 +148,18 @@ public class Home extends android.support.v4.app.Fragment {
         initData();
 
         return rootView;
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        sumExpenseToDB(cust_id);
+        sumIncomeToDB(cust_id);
 
+        Log.d(TAG,"start findviewbyid");
+        textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
+        textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
+        textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
+        Log.d(TAG,"end findviewbyid");
     }
 
     private void initData() {
@@ -178,9 +190,6 @@ public class Home extends android.support.v4.app.Fragment {
 
             }
         });
-
-
-
     }
 
     private void addDataSetIncome() {
@@ -218,10 +227,6 @@ public class Home extends android.support.v4.app.Fragment {
         pieChart.invalidate();
     }
 
-
-
-
-
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.billing_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
@@ -241,7 +246,6 @@ public class Home extends android.support.v4.app.Fragment {
 
         return super.onOptionsItemSelected(item);
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -285,7 +289,7 @@ public class Home extends android.support.v4.app.Fragment {
     public String sumIncomeToDB(String cust_id){
         try {
             Log.d(TAG,"start transaction");
-            http.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
+            httpIncome.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
             Log.d(TAG,"end transaction");
         } catch (IOException e) {
             e.printStackTrace();
@@ -296,9 +300,9 @@ public class Home extends android.support.v4.app.Fragment {
 
     public String sumExpenseToDB(String cust_id){
         try {
-            Log.d(TAG,"start transaction");
-            http.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
-            Log.d(TAG,"end transaction");
+            Log.d(TAG,"start show");
+            httpExpense.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
+            Log.d(TAG,"end show");
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG,"error catch");
@@ -307,7 +311,7 @@ public class Home extends android.support.v4.app.Fragment {
     }
 
     // ** must have for connect DB
-    public class getHttp {
+    public class getHttpExpense {
         OkHttpClient client = new OkHttpClient();
 
         void run(String url) throws IOException {
@@ -322,16 +326,74 @@ public class Home extends android.support.v4.app.Fragment {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG,"onResponse");
-                    Log.d(TAG,"insert success");
+                    try {
+                        String expense = response.body().string();
+                        sumExpense = Integer.parseInt(expense.trim());
+                        Log.d(TAG,"sumExpense = " + sumExpense);
 
-                    Intent i = new Intent(getContext(), AllDetailTransaction.class);
-                    startActivity(i);
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpense != 0 && sumIncome != 0) {
+                            sumBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
                 }
             });
         }
     }
 
+    public class getHttpIncome {
+        OkHttpClient client = new OkHttpClient();
 
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
 
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String income = response.body().string();
+                        sumIncome = Integer.parseInt(income.trim());
+                        Log.d(TAG,"sumIncome = " + sumIncome);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpense != 0 && sumIncome != 0) {
+                            sumBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    public void sumBalance(){
+        balance = sumIncome - sumExpense;
+        Log.d(TAG, "balance = " + balance);
+
+        Log.d(TAG,"start settext");
+        setIncome = "Total Income : " + "<b>" + sumIncome + " Baht</b>";
+        textViewMyIncome.setText((Html.fromHtml(setIncome)));
+
+        setExpense = "Total Expense : " + "<b>" + sumExpense + " Baht</b>";
+        textViewMyExpense.setText((Html.fromHtml(setExpense)));
+
+        setWallet = "My Wallet : " + "<b>" + balance + " Baht</b>";
+        textViewMyWallet.setText((Html.fromHtml(setWallet)));
+        Log.d(TAG,"end settext");
+    }
 }

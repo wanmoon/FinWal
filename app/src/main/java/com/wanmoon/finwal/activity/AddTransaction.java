@@ -399,7 +399,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             // will open login activity here
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
-
         }
     }
 

@@ -102,8 +102,6 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
         getAllTransaction(cust_id);
 
-
-
         ///////////start select transaction
 
 //        String allTransaction = getAllTransaction(cust_id);
@@ -196,9 +194,6 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
         transactionList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
-
-
-
         Scanner scanner = new Scanner(allTransaction);
 
         for(int i = 0; scanner.hasNext(); i++){
