@@ -118,7 +118,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 val = resultTEXT.getText().toString();
-                final String[] test = {"ค่าไฟ","ต้มยำ"};
+                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน"};
                 for( j=0;j<test.length;j++) {
                     if (val.matches(".*" + test[j] + ".*") == true) {
 
@@ -128,7 +128,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                    public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                                                        cate = dataSnapshot.getValue(String.class);
                                                                                                                                        textViewCategories.setText("Cetegory is " + cate);
-                                                                                                                                       textViewTransaction.setText(""+transaction1);
+                                                                                                                                       textViewTransaction.setText(""+transaction);
                                                                                                                                        textPrice.setText(keepPrice()+"BATH");
 
                                                                                                                                        Log.d("", "value is" + cate);
@@ -192,7 +192,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 resultTEXT.setText(result.get(0));
 
                 val = result.get(0).toString();
-                String[] test = {"ค่าไฟ","ต้มยำ"};
+                String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน"};
                 for(int j=0;j<test.length;j++) {
                     if (val.matches(".*" + test[j] + ".*") == true) {
 
@@ -204,8 +204,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 //transaction = dataSnapshot.child("").getValue(String.class);
                                 //textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
-                                textViewTransaction.setText("Transaction : " + transaction1);
-                                textPrice.setText(keepPrice()+"");
+                                textViewTransaction.setText("Transaction : " + transaction);
+                                textPrice.setText(keepPrice()+"Bath");
 
                                 Log.d("", "value is" + cate);
                             }
@@ -214,7 +214,23 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 Log.w("", "Failed to read value.");
                             }
                         }
+                        );DatabaseReference databaseReference1 = database.getReference();
+                        databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                  @Override
+                                                                                                                                  public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                      transaction = dataSnapshot.getValue(String.class);
+                                                                                                                                      textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                                      Log.d("", "value is" + transaction);
+                                                                                                                                  }
+
+                                                                                                                                  @Override
+                                                                                                                                  public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                      Log.w("", "Failed to read value.");
+                                                                                                                                  }
+                                                                                                                              }
                         );
+
+
                         buttonMinus.setVisibility(View.INVISIBLE);
                         buttonPlus.setVisibility(View.INVISIBLE);
                     } else {
@@ -223,21 +239,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 button();
                         }
                     }
-                    DatabaseReference databaseReference1 = database.getReference();
-                    databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                              @Override
-                                                                                                                              public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                  transaction1 = dataSnapshot.getValue(String.class);
-                                                                                                                                  textViewTransaction.setText("Transaction : " + transaction1);
-                                                                                                                                  Log.d("", "value is" + transaction);
-                                                                                                                              }
-
-                                                                                                                              @Override
-                                                                                                                              public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                  Log.w("", "Failed to read value.");
-                                                                                                                              }
-                                                                                                                          }
-                    );
 
 
                 }
