@@ -5,14 +5,31 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +50,24 @@ public class Billing extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private Spinner spinnerSort;
+    String defaultTextForSpinner = "text here";
+
+
+    //**get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+
+    //**connect DB
+    getHttp http = new getHttp();
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+    //**for log
+    private final String TAG = "Show All Billing";
+
+
+    private View mView;
 
     public Billing() {
         // Required empty public constructor
@@ -68,18 +103,140 @@ public class Billing extends Fragment {
 
         ((MainActivity)getActivity()).setTitle("Billing");
 
+//        spinnerSort = (Spinner) mView.findViewById(R.id.spinnerSort);
+//        String[] spinnerValue = new String[]{
+//                "Time",
+//                "Category",
+//                "Category : A-Z",
+//                "Category : Most popular",
+//                "Price : Low-High",
+//                "Price : High-Low"
+//        };
+//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(getActivity().getApplicationContext()
+//                , android.R.layout.simple_spinner_item, mspinnerSort);
+//        spinnerSort.setAdapter(aSpinnerSort);
+//
+//        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+
+
+
+        Log.d(TAG, "onCreate");
+
+        getAllBilling(cust_id);
+
 
     }
 
 
 
 
+
+
+    public void getAllBilling(String cust_id){
+        try {
+            Log.d(TAG,"start select");
+            http.run(BASE_URL + "/showAllBilling.php?cust_id=" + cust_id);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public void showBillingToListView(String allBilling){
+        //String allTransaction = response.body().string();
+        Log.d(TAG, "allBilling " + allBilling);
+
+        String[] transactionInfo;
+        String period;
+        String description_bill;
+        String status_bill;
+        String deadline;
+        ArrayList<HashMap<String, String>> transactionList = null;
+
+        transactionList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map;
+
+
+        Scanner scanner = new Scanner(allBilling);
+
+        for(int i = 0; scanner.hasNext(); i++){
+            String data = scanner.nextLine();
+            Log.d(TAG, "data has next " + data);
+
+            transactionInfo = data.split(",");
+
+            period = transactionInfo[0];
+            description_bill = transactionInfo[1];
+            //status_bill = transactionInfo[2];
+            deadline = transactionInfo[2];
+
+            map = new HashMap<String, String>();
+            map.put("period", period);
+            map.put("description_bill", description_bill);
+            //map.put("status_bill", status_bill);
+            map.put("deadline", deadline);
+            transactionList.add(map);
+        }
+
+
+
+        BillAdapter adapter = new BillAdapter(getContext(), transactionList);
+
+        //listview for show alltransaction
+        ListView billingListView = (ListView) getActivity().findViewById(R.id.listViewBilling);
+        billingListView.setAdapter(adapter);
+        billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    showBillingToListView(response.body().string());
+                    Log.d(TAG,"onResponse");
+                }
+            });
+        }
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_billing, container, false);
 
-        return inflater.inflate(R.layout.fragment_billing, container, false);
+        return rootView;
+
+
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
