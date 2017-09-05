@@ -140,9 +140,6 @@ public class Billing extends Fragment {
 
 
 
-
-
-
     public void getAllBilling(String cust_id){
         try {
             Log.d(TAG,"start select");

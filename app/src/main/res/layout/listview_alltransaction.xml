@@ -101,16 +101,32 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:paddingBottom="4dp"
+        android:paddingEnd="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingStart="4dp"
+        android:paddingTop="4dp"
+        android:layout_margin="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp">
 
 
         <TextView
             android:id="@+id/textViewDate"
-            android:layout_width="80dp"
+            android:layout_width="150dp"
             android:layout_height="30dp"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="44dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
+            android:layout_toStartOf="@+id/textViewCost"
             android:layout_weight="0.00"
             android:padding="2dp"
             android:paddingBottom="2dp"
@@ -120,9 +136,7 @@
             android:paddingStart="2dp"
             android:paddingTop="2dp"
             android:textColor="@color/buttonColorGrey"
-            android:textSize="12dp"
-            android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/textViewCost" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/textViewCost"
