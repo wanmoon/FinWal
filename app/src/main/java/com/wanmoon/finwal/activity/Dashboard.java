@@ -11,14 +11,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wanmoon.finwal.R;
 
 import java.util.ArrayList;
@@ -43,6 +50,20 @@ public class Dashboard extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    //for line chart
+
+    private float[] yData = {10.0f, 90.0f};
+    private String[] xData = {"Income", "Expense"};
+    LineChart lineChart;
+
+
+    private LineGraphSeries<DataPoint> series1, series2;
+
+    private ImageView imageViewFrame;
+
+
+
+    //for pie chart
     private final String TAG = "Dashboard";
     private float[] yDataIncome = {10.0f, 10.0f, 20.0f, 40.0f ,20.0f};
     private String[] xDataIncome = {"Salary", "Gift","Loan", "Family and Personal", "Extra income"};
@@ -88,10 +109,74 @@ public class Dashboard extends Fragment {
 
 
 
+
+
+    }
+
+    private void initData() {
+
+        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
+        ArrayList<String> xAXES = new ArrayList<>();
+        ArrayList<Entry> yAXESsin = new ArrayList<>();
+        ArrayList<Entry> yAXEScos = new ArrayList<>();
+        double x  = 0;
+        int numDataPoints = 1000;
+        for (int i = 0; i< numDataPoints ; i++){
+            float sinFunction = Float.parseFloat(String.valueOf(Math.sin(x)));
+            float cosFunction = Float.parseFloat(String.valueOf(Math.cos(x)));
+            x = x + 0.1;
+            yAXESsin.add(new Entry(sinFunction,i));
+            yAXEScos.add(new Entry(cosFunction,i));
+            xAXES.add(i, String.valueOf(x));
+        }
+
+        String[] xaxes = new String[xAXES.size()];
+        for (int i = 0; i< xAXES.size() ; i++){
+            xaxes[i] = xAXES.get(i).toString();
+        }
+
+        ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
+
+        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "cos");
+        lineDataSet1.setDrawCircles(false);
+        lineDataSet1.setColor(Color.GREEN);
+
+        LineDataSet lineDataSet2 = new LineDataSet(yAXEScos, "sin");
+        lineDataSet2.setDrawCircles(false);
+        lineDataSet2.setColor(Color.RED);
+
+        lineDataSets.add(lineDataSet1);
+        lineDataSets.add(lineDataSet2);
+
+        lineChart.setData(new LineData(lineDataSets));
+        lineChart.setVisibleXRangeMaximum(100f);
+
+//
+//        double x,y;
+//        x=0;
+//
+//        GraphView graph = (GraphView)  mView.findViewById(R.id.graph);
+//        series1 = new LineGraphSeries<>();
+//        series2 = new LineGraphSeries<>();
+//
+//        int numDataPoints = 500;
+//        for (int i = 0; i< numDataPoints ; i++){
+//            x = x + 0.1;
+//            y = Math.sin(x);
+//            double y2 = Math.exp(x);
+//            series1.appendData(new DataPoint(x,y), true, 60);
+//            series1.appendData(new DataPoint(x+0.001, y2), true, 60);
+//        }
+//
+//        series1.setColor(Color.GREEN);
+//        series2.setColor(Color.RED);
+//        graph.addSeries(series1);
+//        graph.addSeries(series2);
     }
 
     private void initDataIncome() {
-        pieChart = (PieChart) mView.findViewById(R.id.PiechartIncome);
+
+        pieChart = (PieChart) mView.findViewById(R.id.pieChartIncome);
 
         pieChart.setDescription("");
         pieChart.setRotationEnabled(true);
@@ -120,7 +205,7 @@ public class Dashboard extends Fragment {
 
 
     private void initDataExpense() {
-        pieChart = (PieChart) mView.findViewById(R.id.PiechartExpense);
+        pieChart = (PieChart) mView.findViewById(R.id.pieChartExpense);
 
         pieChart.setDescription("");
         pieChart.setRotationEnabled(true);
@@ -234,10 +319,20 @@ public class Dashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
+
+        visible();
+
+
         initDataIncome();
         initDataExpense();
+        initData();
 
         return rootView;
+    }
+
+    public void visible(){
+        imageViewFrame = (ImageView) mView.findViewById(R.id.imageViewFrame);
+        imageViewFrame.setVisibility(View.VISIBLE);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
