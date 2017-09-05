@@ -139,11 +139,26 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                    }
                                                                                                                                }
                         );
+                        DatabaseReference databaseReference1 = database.getReference();
+                        databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                                  @Override
+                                                                                                                                  public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                                      transaction = dataSnapshot.getValue(String.class);
+                                                                                                                                      textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                                      Log.d("", "value is" + transaction);
+                                                                                                                                  }
+
+                                                                                                                                  @Override
+                                                                                                                                  public void onCancelled(DatabaseError databaseError) {
+                                                                                                                                      Log.w("", "Failed to read value.");
+                                                                                                                                  }
+                                                                                                                              }
+                        );
                         buttonMinus.setVisibility(View.INVISIBLE);
                         buttonPlus.setVisibility(View.INVISIBLE);
                     } else {
                         if(val.matches(".*" + test[j] + ".*") == false ){
-                            textPrice.setText(keepPrice()+"BATH");
+                            textPrice.setText(keepPrice()+" BATH");
                             button();
                         }
                     }
@@ -205,7 +220,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                 //textViewTransaction.setText("Transaction : " + transaction);
                                 textViewCategories.setText("Cetegory is " + cate);
                                 textViewTransaction.setText("Transaction : " + transaction);
-                                textPrice.setText(keepPrice()+"Bath");
+                                textPrice.setText(keepPrice()+" Bath");
 
                                 Log.d("", "value is" + cate);
                             }
