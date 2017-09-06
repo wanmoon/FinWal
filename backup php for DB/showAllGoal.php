@@ -17,7 +17,7 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT ending_date, description_goal, status_goal, cost_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY deadline DESC";
+$sql = "SELECT ending_date, description_goal, status_goal, cost_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY ending_date DESC";
 
 $result = $conn->query($sql);
 
