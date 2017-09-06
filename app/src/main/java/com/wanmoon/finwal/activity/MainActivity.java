@@ -28,18 +28,13 @@ public class MainActivity extends AppCompatActivity
            , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener
            , Home.OnFragmentInteractionListener{
 
-
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
     private TextView textViewTitle;
 
-
-
-
     FloatingActionButton fab_plus, fab_speech, fab_scan, fab_typing;
     Animation fab_open, fab_close,  fab_backward, fab_forward;
     boolean isopen = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +46,11 @@ public class MainActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, HomeFragment);
         transaction.commit();
-        
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
         textViewTitle = (TextView) findViewById(R.id.toolbar_title);
-
 
         fab_plus = (FloatingActionButton) findViewById(R.id.fab_plus);
         fab_speech = (FloatingActionButton) findViewById(R.id.fab_speech);
@@ -72,7 +64,6 @@ public class MainActivity extends AppCompatActivity
         fab_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (isopen) {
                     fab_speech.startAnimation(fab_close);
                     fab_scan.startAnimation(fab_close);
@@ -82,7 +73,6 @@ public class MainActivity extends AppCompatActivity
                     fab_scan.setClickable(false);
                     fab_typing.setClickable(true);
                     isopen = false;
-
                 } else {
                     fab_speech.startAnimation(fab_open);
                     fab_scan.startAnimation(fab_open);
@@ -92,8 +82,6 @@ public class MainActivity extends AppCompatActivity
                     fab_scan.setClickable(true);
                     fab_typing.setClickable(true);
                     isopen = true;
-
-
                 }
             }
         });
@@ -120,15 +108,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -148,10 +132,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -193,6 +174,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -205,7 +187,6 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, DashboardFragment);
             transaction.commit();
 
-
         } else if (id == R.id.nav_goal){
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -216,26 +197,21 @@ public class MainActivity extends AppCompatActivity
             firebaseAuth.signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
-
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
 
-
     // set name of ActionBar
     public void setTitle(String title) {
         textViewTitle.setText(title);
     }
-
-
-
 
 }

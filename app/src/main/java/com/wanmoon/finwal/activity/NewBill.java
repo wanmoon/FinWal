@@ -73,7 +73,6 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
 
-
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
 
@@ -167,7 +166,6 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener
         }
         return response;
     }
-
 
     // ** must have for connect DB
     public class getHttp {

@@ -173,7 +173,7 @@ public class Home extends android.support.v4.app.Fragment {
         textViewMyIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), SpeechToText.class);
+                Intent i = new Intent(getActivity(), AllIncome.class);
                 startActivity(i);
             }
         });
@@ -181,15 +181,10 @@ public class Home extends android.support.v4.app.Fragment {
         textViewMyExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), SpeechToText.class);
+                Intent i = new Intent(getActivity(), AllExpense.class);
                 startActivity(i);
             }
         });
-
-
-
-
-
     }
 
     private void initData() {
