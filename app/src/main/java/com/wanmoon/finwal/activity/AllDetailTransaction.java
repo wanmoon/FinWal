@@ -101,56 +101,6 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         Log.d(TAG, "onCreate");
 
         getAllTransaction(cust_id);
-
-        ///////////start select transaction
-
-//        String allTransaction = getAllTransaction(cust_id);
-//        Log.d(TAG, "allTransaction " + allTransaction);
-//
-//        String[] transactionInfo;
-//        String timestamp;
-//        String description;
-//        String cost;
-//        String transaction;
-//        String category;
-//        ArrayList<HashMap<String, String>> transactionList = null;
-//
-//        transactionList = new ArrayList<HashMap<String, String>>();
-//        HashMap<String, String> map;
-//
-//        Scanner scanner = new Scanner(allTransaction);
-//
-//        for(int i = 0; scanner.hasNext(); i++){
-//            String data = scanner.nextLine();
-//            System.out.println(data);
-//
-//            transactionInfo = data.split(",");
-//
-//            timestamp = transactionInfo[0];
-//            description = transactionInfo[1];
-//            cost = transactionInfo[2];
-//            transaction = transactionInfo[3];
-//            category = transactionInfo[4];
-//
-//            map = new HashMap<String, String>();
-//            map.put("timestamp", timestamp);
-//            map.put("description", description);
-//            map.put("cost", cost);
-//            map.put("transaction", transaction);
-//            map.put("category", category);
-//            transactionList.add(map);
-//        }
-//
-//        CustomAdapter adapter = new CustomAdapter(getApplicationContext(), transactionList);
-//
-//        //listview for show alltransaction
-//        ListView transactionListView = (ListView) findViewById(R.id.listViewTransaction);
-//        transactionListView.setAdapter(adapter);
-//        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-//
-//            }
-//        });
     }
 
 

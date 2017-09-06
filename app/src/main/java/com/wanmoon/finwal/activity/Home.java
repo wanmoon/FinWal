@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -168,6 +169,23 @@ public class Home extends android.support.v4.app.Fragment {
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
         Log.d(TAG,"end findviewbyid");
+
+        textViewMyIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), SpeechToText.class);
+                startActivity(i);
+            }
+        });
+
+        textViewMyExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), SpeechToText.class);
+                startActivity(i);
+            }
+        });
+
 
 
 
