@@ -98,11 +98,11 @@ public class AllIncome extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
         }
         if(v == textViewCancel){
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
         }
     }

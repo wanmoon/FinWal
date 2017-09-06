@@ -170,7 +170,7 @@ public class Home extends android.support.v4.app.Fragment {
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
         Log.d(TAG,"end findviewbyid");
 
-        textViewMyIncome.setOnClickListener(new View.OnClickListener() {
+        imageViewFrameIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
@@ -178,7 +178,7 @@ public class Home extends android.support.v4.app.Fragment {
             }
         });
 
-        textViewMyExpense.setOnClickListener(new View.OnClickListener() {
+        imageViewFrameExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);

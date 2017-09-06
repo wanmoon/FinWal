@@ -4,10 +4,36 @@
     android:layout_height="match_parent"
     tools:context="com.wanmoon.finwal.activity.Goal">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Goal" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/spinnerSort"
+                android:text="Sort by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentRight="true"
+                android:entries="@array/array_bill"/>
+
+            <ListView
+                android:id="@+id/listViewGoal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_below="@+id/spinnerSort" />
+
+        </RelativeLayout>
+    </RelativeLayout>
 
 </FrameLayout>
