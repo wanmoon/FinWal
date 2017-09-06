@@ -17,14 +17,14 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT SUM('cost') FROM 'transaction' WHERE 'transaction' = 'Income' AND cust_id = '$cust_id' AND category = '$Salary'";
+$sql = "SELECT SUM('cost') FROM 'transaction' WHERE 'transaction' = 'Income' AND'category' = 'Salary' AND cust_id = '$cust_id' ";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['cost'] . "\n";
+        echo $row['SUM(cost)'] . "\n";
     }
 } else {
     echo "0 ";

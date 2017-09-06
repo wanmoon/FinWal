@@ -191,13 +191,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            //startActivity(new Intent(this, H.class));
-            Home HomeFragment = new Home();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, HomeFragment);
-            transaction.commit();
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_billing) {
-
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment);
