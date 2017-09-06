@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
@@ -18,7 +18,7 @@ import java.util.HashMap;
  * Created by pimpischaya on 9/5/2017 AD.
  */
 
-public class BillAdapter extends BaseAdapter {
+public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
 
     Context context;
     ArrayList<HashMap<String, String>> arrBill;
@@ -43,6 +43,7 @@ public class BillAdapter extends BaseAdapter {
         return 0;
     }
 
+
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater mInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,17 +66,26 @@ public class BillAdapter extends BaseAdapter {
         ImageButton imageButtonEdit = (ImageButton) view.findViewById(R.id.imageButtonEdit);
         imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
-        Spinner spinnerSort = (Spinner) view.findViewById(R.id.spinnerSort);
-        String[] spinnerValue = new String[]{
-                "Time",
-                "Category",
-                "Category : A-Z",
-                "Category : Most popular",
-                "Price : Low-High",
-                "Price : High-Low"
-        };
-//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(context.getApplicationContext()
+
+
+        return view;
+    }
+
+//    @Override
+//    public View getDropDownView(int position, View view, ViewGroup parent) {
+//
+//        Spinner spinnerSort = (Spinner) view.findViewById(R.id.spinnerSort);
+//        String[] spinnerValue = new String[]{
+//                "Time",
+//                "Category",
+//                "Category : A-Z",
+//                "Category : Most popular",
+//                "Price : Low-High",
+//                "Price : High-Low"
+//        };
+//        List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+//
+//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(view.getContext()
 //                , android.R.layout.simple_spinner_item, mspinnerSort);
 //        spinnerSort.setAdapter(aSpinnerSort);
 //
@@ -90,7 +100,7 @@ public class BillAdapter extends BaseAdapter {
 //
 //            }
 //        });
-
-        return view;
-    }
+//
+//        return getView(position, view, parent);
+//    }
 }

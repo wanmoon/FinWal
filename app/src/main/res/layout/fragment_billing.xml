@@ -21,7 +21,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:entries="@array/array_bill"/>
 
             <ListView
                 android:id="@+id/listViewBilling"
