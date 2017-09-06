@@ -118,7 +118,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             public void onClick(View v) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 val = resultTEXT.getText().toString();
-                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน"};
+                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
                 for( j=0;j<test.length;j++) {
                     if (val.matches(".*" + test[j] + ".*") == true) {
 
@@ -207,7 +207,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 resultTEXT.setText(result.get(0));
 
                 val = result.get(0).toString();
-                String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน"};
+                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
                 for(int j=0;j<test.length;j++) {
                     if (val.matches(".*" + test[j] + ".*") == true) {
 
