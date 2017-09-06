@@ -17,7 +17,7 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Income' AND cust_id = '$cust_id'";
+$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Expense' AND category = 'Entertainment' AND cust_id = '$cust_id' ";
 
 $result = $conn->query($sql);
 

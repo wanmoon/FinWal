@@ -17,7 +17,7 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT period, description_bill, status_bill, deadline  FROM period WHERE cust_id='$cust_id' ORDER BY deadline DESC";
+$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id' ORDER BY deadline DESC";
 
 $result = $conn->query($sql);
 
