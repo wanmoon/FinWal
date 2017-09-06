@@ -9,7 +9,6 @@
     android:scrollbarAlwaysDrawHorizontalTrack="true"
     android:weightSum="1">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -156,8 +155,5 @@
             android:textStyle="bold"
             android:layout_alignTop="@+id/textViewDate"
             android:layout_alignParentEnd="true" />
-
-
     </RelativeLayout>
-
 </LinearLayout>

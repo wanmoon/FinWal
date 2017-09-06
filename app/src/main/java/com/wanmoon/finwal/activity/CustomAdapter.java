@@ -47,7 +47,6 @@ public class CustomAdapter extends BaseAdapter {
         LayoutInflater mInflater =
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-
         if(view == null)
             view = mInflater.inflate(R.layout.listview_alltransaction, parent, false);
 

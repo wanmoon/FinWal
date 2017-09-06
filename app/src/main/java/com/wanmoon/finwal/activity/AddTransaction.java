@@ -356,15 +356,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         textViewCategories.setVisibility(View.VISIBLE);
     }
 
-    public void addTransaction(String cust_id) {
-        getTransac = editTextTransaction.getText().toString();
-        getHowMuch = Integer.parseInt(editTextHowmuch.getText().toString());
-
-        Log.d(TAG,"get transac, getmoney");
-        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
-        Log.d(TAG,"end addTransactionToDB");
-    }
-
     @Override
     public void onClick(View v) {
 
@@ -400,6 +391,15 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }
+    }
+
+    public void addTransaction(String cust_id) {
+        getTransac = editTextTransaction.getText().toString();
+        getHowMuch = Integer.parseInt(editTextHowmuch.getText().toString());
+
+        Log.d(TAG,"get transac, getmoney");
+        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
+        Log.d(TAG,"end addTransactionToDB");
     }
 
     public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){

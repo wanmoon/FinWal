@@ -5,11 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <TextView
             android:id="@+id/textViewBillDescription"
@@ -104,7 +102,6 @@
             android:textColor="@color/buttonColorGrey"
             android:textSize="12dp" />
 
-
         <TextView
             android:id="@+id/textViewPeriod"
             android:layout_width="80dp"
@@ -124,10 +121,5 @@
             android:textSize="12dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
-
-
-
     </RelativeLayout>
-
-
 </LinearLayout>

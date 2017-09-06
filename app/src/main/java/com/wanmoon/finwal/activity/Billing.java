@@ -64,8 +64,7 @@ public class Billing extends Fragment {
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //**for log
-    private final String TAG = "Show All Billing";
-
+    private final String TAG = "AllBillActivity";
 
     private View mView;
 
@@ -82,6 +81,7 @@ public class Billing extends Fragment {
      * @return A new instance of fragment Billing.
      */
     // TODO: Rename and change types and number of parameters
+
     public static Billing newInstance(String param1, String param2) {
         Billing fragment = new Billing();
         Bundle args = new Bundle();
@@ -99,6 +99,7 @@ public class Billing extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
         setHasOptionsMenu(true);
 
         ((MainActivity)getActivity()).setTitle("Billing");
@@ -129,16 +130,9 @@ public class Billing extends Fragment {
 //            }
 //        });
 
-
-
-        Log.d(TAG, "onCreate");
-
         getAllBilling(cust_id);
-
-
+        Log.d(TAG, "end get all billing");
     }
-
-
 
     public void getAllBilling(String cust_id){
         try {
@@ -155,16 +149,15 @@ public class Billing extends Fragment {
         //String allTransaction = response.body().string();
         Log.d(TAG, "allBilling " + allBilling);
 
-        String[] transactionInfo;
+        String[] billInfo;
         String period;
         String description_bill;
         String status_bill;
         String deadline;
-        ArrayList<HashMap<String, String>> transactionList = null;
+        ArrayList<HashMap<String, String>> billList = null;
 
-        transactionList = new ArrayList<HashMap<String, String>>();
+        billList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
-
 
         Scanner scanner = new Scanner(allBilling);
 
@@ -172,24 +165,22 @@ public class Billing extends Fragment {
             String data = scanner.nextLine();
             Log.d(TAG, "data has next " + data);
 
-            transactionInfo = data.split(",");
+            billInfo = data.split(",");
 
-            period = transactionInfo[0];
-            description_bill = transactionInfo[1];
-            //status_bill = transactionInfo[2];
-            deadline = transactionInfo[2];
+            period = billInfo[0];
+            description_bill = billInfo[1];
+            status_bill = billInfo[2];
+            deadline = billInfo[3];
 
             map = new HashMap<String, String>();
             map.put("period", period);
             map.put("description_bill", description_bill);
-            //map.put("status_bill", status_bill);
+            map.put("status_bill", status_bill);
             map.put("deadline", deadline);
-            transactionList.add(map);
+            billList.add(map);
         }
 
-
-
-        BillAdapter adapter = new BillAdapter(getContext(), transactionList);
+        BillAdapter adapter = new BillAdapter(getContext(), billList);
 
         //listview for show alltransaction
         ListView billingListView = (ListView) getActivity().findViewById(R.id.listViewBilling);
@@ -224,16 +215,12 @@ public class Billing extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_billing, container, false);
-
         return rootView;
-
-
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -252,10 +239,8 @@ public class Billing extends Fragment {
             Intent intent = new Intent(getActivity(), NewBill.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -295,7 +280,4 @@ public class Billing extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
 }
