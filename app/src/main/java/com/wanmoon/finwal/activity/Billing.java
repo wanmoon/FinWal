@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,13 +61,18 @@ public class Billing extends Fragment {
     public final String cust_id = currentFirebaseUser.getUid();
 
     //**connect DB
-    getHttp http = new getHttp();
+    getHttp http;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //**for log
     private final String TAG = "AllBillActivity";
 
     private View mView;
+
+    ArrayList<HashMap<String, String>> billList;
+    BillAdapter adapter;
+    ListView billingListView;
+
 
     public Billing() {
         // Required empty public constructor
@@ -104,32 +110,8 @@ public class Billing extends Fragment {
 
         ((MainActivity)getActivity()).setTitle("Billing");
 
-//        spinnerSort = (Spinner) mView.findViewById(R.id.spinnerSort);
-//        String[] spinnerValue = new String[]{
-//                "Time",
-//                "Category",
-//                "Category : A-Z",
-//                "Category : Most popular",
-//                "Price : Low-High",
-//                "Price : High-Low"
-//        };
-//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(getActivity().getApplicationContext()
-//                , android.R.layout.simple_spinner_item, mspinnerSort);
-//        spinnerSort.setAdapter(aSpinnerSort);
-//
-//        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
+        http = new getHttp(getContext());
         getAllBilling(cust_id);
         Log.d(TAG, "end get all billing");
     }
@@ -154,9 +136,7 @@ public class Billing extends Fragment {
         String description_bill;
         String status_bill;
         String deadline;
-        ArrayList<HashMap<String, String>> billList = null;
 
-        billList = new ArrayList<HashMap<String, String>>();
         HashMap<String, String> map;
 
         Scanner scanner = new Scanner(allBilling);
@@ -180,21 +160,22 @@ public class Billing extends Fragment {
             billList.add(map);
         }
 
-        BillAdapter adapter = new BillAdapter(getContext(), billList);
+        adapter.notifyDataSetChanged();
 
-        //listview for show alltransaction
-        ListView billingListView = (ListView) getActivity().findViewById(R.id.listViewBilling);
-        billingListView.setAdapter(adapter);
-        billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-            }
-        });
     }
 
     // ** must have for connect DB
     public class getHttp {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttp(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -207,9 +188,22 @@ public class Billing extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    showBillingToListView(response.body().string());
-                    Log.d(TAG,"onResponse");
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                showBillingToListView(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+
+
+                    });
                 }
             });
         }
@@ -220,6 +214,17 @@ public class Billing extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_billing, container, false);
+
+        billList = new ArrayList<HashMap<String, String>>();
+        adapter = new BillAdapter(getContext(), billList);
+        billingListView = (ListView) rootView.findViewById(R.id.listViewBilling);
+        billingListView.setAdapter(adapter);
+        billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+
         return rootView;
     }
 

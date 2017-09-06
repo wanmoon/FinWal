@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
@@ -30,7 +31,8 @@ public class BillAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return arrBill.size();
+        //return arrBill.size();
+        return (arrBill.isEmpty())? 0: arrBill.size();
     }
 
     public Object getItem(int position) {
@@ -63,16 +65,15 @@ public class BillAdapter extends BaseAdapter {
         ImageButton imageButtonEdit = (ImageButton) view.findViewById(R.id.imageButtonEdit);
         imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
-//        Spinner spinnerSort;
-//        spinnerSort = (Spinner) convertView.findViewById(R.id.spinnerSort);
-//        String[] spinnerValue = new String[]{
-//                "Time",
-//                "Category",
-//                "Category : A-Z",
-//                "Category : Most popular",
-//                "Price : Low-High",
-//                "Price : High-Low"
-//        };
+        Spinner spinnerSort = (Spinner) view.findViewById(R.id.spinnerSort);
+        String[] spinnerValue = new String[]{
+                "Time",
+                "Category",
+                "Category : A-Z",
+                "Category : Most popular",
+                "Price : Low-High",
+                "Price : High-Low"
+        };
 //        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
 //        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(context.getApplicationContext()
 //                , android.R.layout.simple_spinner_item, mspinnerSort);
@@ -90,6 +91,6 @@ public class BillAdapter extends BaseAdapter {
 //            }
 //        });
 
-        return null;
+        return view;
     }
 }
