@@ -63,11 +63,36 @@
                 android:inputType="numberDecimal" />
         </RelativeLayout>
 
+
+        <RelativeLayout
+            android:id="@+id/layout_home3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_home2">
+
+            <TextView
+                android:id="@+id/textViewMonthBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/buttonColorGrey"
+                android:textSize="18dp"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+        </RelativeLayout>
+
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/Piechart"
             android:layout_width="185dp"
             android:layout_height="185dp"
-            android:layout_below="@id/layout_home2"
+            android:layout_below="@id/layout_home3"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
@@ -80,7 +105,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/layout_home3"
+            android:id="@+id/layout_home4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Piechart">
@@ -117,10 +142,10 @@
 
 
         <RelativeLayout
-            android:id="@+id/layout_home4"
+            android:id="@+id/layout_home5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_home3">
+            android:layout_below="@id/layout_home4">
 
             <ImageView
                 android:id="@+id/imageViewFrameExpense"
