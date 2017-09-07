@@ -156,12 +156,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                         );
                         buttonMinus.setVisibility(View.INVISIBLE);
                         buttonPlus.setVisibility(View.INVISIBLE);
-                    } else {
-                        if(val.matches(".*" + test[j] + ".*") == false ){
-                            textPrice.setText(keepPrice()+" BATH");
-                            button();
-                        }
                     }
+                }if(val.matches(".*" + test[j] + ".*") == false ){
+                    textPrice.setText(keepPrice()+" BATH");
+                    button();
                 }
             }
         });

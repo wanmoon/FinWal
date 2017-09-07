@@ -26,7 +26,7 @@ import com.wanmoon.finwal.R;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
            , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener
-           , Home.OnFragmentInteractionListener{
+           , Home.OnFragmentInteractionListener , History.OnFragmentInteractionListener {
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
@@ -191,6 +191,12 @@ public class MainActivity extends AppCompatActivity
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, GoalFragment);
+            transaction.commit();
+
+        } else if (id == R.id.nav_history){
+            History HistoryFragment = new History();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, HistoryFragment);
             transaction.commit();
 
         } else if (id == R.id.nav_logout){
