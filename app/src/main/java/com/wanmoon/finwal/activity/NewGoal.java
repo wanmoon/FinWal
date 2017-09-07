@@ -47,7 +47,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private String getDescription_goal;
     private String savingPlan;
     private String status_goal;
-    private int getCost;
+    private double getCost;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -146,7 +146,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 }
             });
 
-            getCost = Integer.parseInt(getMoney);
+            getCost = Double.parseDouble(getMoney);
 
             Log.d(TAG, "get getDescription_goal, getCost");
             addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost);
@@ -154,7 +154,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, int cost_goal){
+    public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, double cost_goal){
         try {
             Log.d(TAG,"start bill");
             http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&status_goal=" + status_goal +"&cost_goal=" + cost_goal);

@@ -72,7 +72,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private String getTransac;
     private String setBold;
 
-    private int getHowMuch = 0;
+    private double getHowMuch;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -379,7 +379,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         } else if (getMoney.isEmpty()){
             Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
         } else {
-            getHowMuch = Integer.parseInt(getMoney);
+            getHowMuch = Double.parseDouble(getMoney);
 
             Log.d(TAG, "get transac, getmoney");
             addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
@@ -387,7 +387,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){
+    public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
         try {
             Log.d(TAG,"start transaction");
             http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);

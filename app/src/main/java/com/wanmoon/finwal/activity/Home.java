@@ -62,9 +62,9 @@ public class Home extends android.support.v4.app.Fragment {
 
     private Typeface tf;
 
-    private int sumIncome;
-    private int sumExpense;
-    private int balance;
+    private double sumIncome;
+    private double sumExpense;
+    private double balance;
 
     private String setWallet;
     private String setIncome;
@@ -346,7 +346,7 @@ public class Home extends android.support.v4.app.Fragment {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         String expense = response.body().string();
-                        sumExpense = Integer.parseInt(expense.trim());
+                        sumExpense = Double.parseDouble(expense.trim());
                         Log.d(TAG,"sumExpense = " + sumExpense);
 
                         Log.d(TAG,"onResponse");
@@ -381,7 +381,7 @@ public class Home extends android.support.v4.app.Fragment {
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
                         String income = response.body().string();
-                        sumIncome = Integer.parseInt(income.trim());
+                        sumIncome = Double.parseDouble(income.trim());
                         Log.d(TAG,"sumIncome = " + sumIncome);
 
                         Log.d(TAG,"onResponse");
