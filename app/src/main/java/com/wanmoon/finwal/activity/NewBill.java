@@ -151,8 +151,12 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener
         description_bill = editTextDescription_bill.getText().toString();
         Log.d(TAG,"get description_bill : " + description_bill);
 
-        addBillToDB(cust_id, period, description_bill, deadline);
-        Log.d(TAG,"end addBillToDB");
+        if(description_bill.matches("")){
+            Toast.makeText(this, "What is your bill?", Toast.LENGTH_LONG).show();
+        } else {
+            addBillToDB(cust_id, period, description_bill, deadline);
+            Log.d(TAG, "end addBillToDB");
+        }
     }
 
     public String addBillToDB(String cust_id, String period, String description_bill, String deadline){

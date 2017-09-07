@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,7 +72,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private String getTransac;
     private String setBold;
 
-    private int getHowMuch;
+    private int getHowMuch = 0;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -361,30 +362,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
         if (v == textViewFinish) {
             addTransaction(cust_id);
-
-//            Toast.makeText(AddTransaction.this,"Already Add Transaction", Toast.LENGTH_LONG).show();
-//            Log.d(TAG,"insert success");
-
-//            //dialog
-//            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//            alert.setTitle("My Transaction");
-//            alert.setMessage(getTransac+"\n"+getHowMuch+" Baht\n"+transaction+" : "+cate);
-//            alert.setCancelable(true);
-//            final AlertDialog closedialog = alert.create();
-//            closedialog.show();
-//            timeCloseDialog = new Timer();
-//            timeCloseDialog.schedule(new TimerTask() {
-//                public void run() {
-//                    closedialog.dismiss();
-//                    timeCloseDialog.cancel(); //this will cancel the timer of the system
-//                }
-//            }, 400000); // the timer will count 40 seconds....
-
-            // will open login activity here
-
-//            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
-//            startActivity(i);
-
         }
         if (v == textViewCancel) {
             // will open login activity here
@@ -395,11 +372,19 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
     public void addTransaction(String cust_id) {
         getTransac = editTextTransaction.getText().toString();
-        getHowMuch = Integer.parseInt(editTextHowmuch.getText().toString());
+        String getMoney = editTextHowmuch.getText().toString().trim();
 
-        Log.d(TAG,"get transac, getmoney");
-        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
-        Log.d(TAG,"end addTransactionToDB");
+        if(getTransac.matches("")){
+            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
+        } else if (getMoney.isEmpty()){
+            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
+        } else {
+            getHowMuch = Integer.parseInt(getMoney);
+
+            Log.d(TAG, "get transac, getmoney");
+            addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
+            Log.d(TAG, "end addTransactionToDB");
+        }
     }
 
     public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){

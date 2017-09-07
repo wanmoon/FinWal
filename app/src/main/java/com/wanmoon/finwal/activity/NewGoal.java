@@ -114,14 +114,20 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
     public void addBill(String cust_id) {
         getDescription_goal = editTextGoal.getText().toString();
-        getCost = Integer.parseInt(editTextCost.getText().toString());
+        String getMoney = editTextCost.getText().toString().trim();
 
-        //set current date on calender
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
-        Log.d(TAG, "start set current date in calendar");
-        calendarView.setDate(System.currentTimeMillis(),false,true);
-        Log.d(TAG, "finish set current date in calendar");
-        //get date after selected
+        if(getDescription_goal.matches("")){
+            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
+        } else if (getMoney.isEmpty()){
+            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
+        } else {
+            //set current date on calender
+            calendarView = (CalendarView) findViewById(R.id.calendarView);
+            Log.d(TAG, "start set current date in calendar");
+            calendarView.setDate(System.currentTimeMillis(), false, true);
+            Log.d(TAG, "finish set current date in calendar");
+
+            //get date after selected
 //        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 //            @Override
 //            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -130,19 +136,22 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 //            }
 //        });
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-            @Override
-            public void onSelectedDayChange(CalendarView arg0, int year, int month,
-                                            int date) {
-                Toast.makeText(getApplicationContext(),date+ "/"+month+"/"+year,Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "ending_date = " + date+ "/"+month+"/"+year);
-            }
-        });
+                @Override
+                public void onSelectedDayChange(CalendarView arg0, int year, int month,
+                                                int date) {
+                    Toast.makeText(getApplicationContext(), date + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "ending_date = " + date + "/" + month + "/" + year);
+                }
+            });
 
-        Log.d(TAG,"get getDescription_goal, getCost");
-        addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost);
-        Log.d(TAG,"end addBillToDB");
+            getCost = Integer.parseInt(getMoney);
+
+            Log.d(TAG, "get getDescription_goal, getCost");
+            addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost);
+            Log.d(TAG, "end addBillToDB");
+        }
     }
 
     public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, int cost_goal){

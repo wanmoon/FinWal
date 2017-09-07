@@ -72,8 +72,6 @@ public class Goal extends Fragment {
     GoalAdapter adapter;
     ListView goalListView;
 
-
-
     private OnFragmentInteractionListener mListener;
 
     public Goal() {
@@ -158,9 +156,7 @@ public class Goal extends Fragment {
             map.put("cost_goal", cost_goal);
             goalList.add(map);
         }
-
         adapter.notifyDataSetChanged();
-
     }
 
     // ** must have for connect DB
@@ -174,7 +170,6 @@ public class Goal extends Fragment {
             client = new OkHttpClient();
             mainHandler = new Handler(context.getMainLooper());
         }
-
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -208,7 +203,6 @@ public class Goal extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -224,9 +218,7 @@ public class Goal extends Fragment {
 
             }
         });
-
         return rootView;
-
     }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.goal_menu, menu);
@@ -269,7 +261,6 @@ public class Goal extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
