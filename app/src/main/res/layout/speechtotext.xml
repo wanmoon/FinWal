@@ -238,6 +238,8 @@
                     android:gravity="center"
                     android:text="Price"
                     android:textSize="18dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
                     android:visibility="invisible"
                     android:layout_alignBottom="@+id/imageViewFrame"
                     android:layout_centerHorizontal="true"

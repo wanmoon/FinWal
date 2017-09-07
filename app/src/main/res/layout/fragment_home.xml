@@ -59,12 +59,8 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/buttonColorGrey"
                 android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.287"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.073" />
+                android:ems="10"
+                android:inputType="numberDecimal" />
         </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
@@ -102,7 +98,7 @@
 
             <TextView
                 android:id="@+id/textViewMyIncome"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
@@ -112,8 +108,11 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
+                android:textAlignment="center"
                 android:textColor="@color/buttonColorGreen"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:ems="10"
+                android:inputType="numberDecimal"/>
         </RelativeLayout>
 
 
@@ -131,13 +130,15 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="2dp"
-                app:srcCompat="@drawable/frame" />
+                app:srcCompat="@drawable/frame"
+                />
 
 
             <TextView
                 android:id="@+id/textViewMyExpense"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_marginBottom="2dp"
@@ -147,7 +148,9 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:textColor="@color/buttonColorRed"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:ems="10"
+                android:inputType="numberDecimal"/>
         </RelativeLayout>
 
 

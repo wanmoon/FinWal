@@ -21,7 +21,7 @@
 
 
         <item android:id="@+id/nav_history"
-            android:icon="@mipmap/ic_goal"
+            android:icon="@mipmap/ic_history_white_24dp"
             android:title="History" />
 
         <item

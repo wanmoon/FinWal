@@ -153,6 +153,8 @@
             android:paddingTop="2dp"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:ems="10"
+            android:inputType="numberDecimal"
             android:layout_alignTop="@+id/textViewDate"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
