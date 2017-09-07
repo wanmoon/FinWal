@@ -62,17 +62,22 @@ public class Home extends android.support.v4.app.Fragment {
 
     private Typeface tf;
 
+    private double sumIncomeMonth;
+    private double sumExpenseMonth;
+    private double monthBalance;
+    private double walletBalance;
     private double sumIncome;
     private double sumExpense;
-    private double balance;
 
-    private String setWallet;
-    private String setIncome;
-    private String setExpense;
+    private String setWalletBalance;
+    private String setMonthBalance;
+    private String setIncomeMonth;
+    private String setExpenseMonth;
 
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
+    public TextView textViewMonthBalance;
 
     private ImageView imageViewFrameIncome;
     private ImageView imageViewFrameExpense;
@@ -84,6 +89,8 @@ public class Home extends android.support.v4.app.Fragment {
 
     //connect DB
     String response = null;
+    getHttpIncomeMonth httpIncomeMonth = new getHttpIncomeMonth();
+    getHttpExpenseMonth httpExpenseMonth = new getHttpExpenseMonth();
     getHttpIncome httpIncome = new getHttpIncome();
     getHttpExpense httpExpense = new getHttpExpense();
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
@@ -158,8 +165,11 @@ public class Home extends android.support.v4.app.Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        sumExpenseToDB(cust_id);
+        sumExpenseMonthToDB(cust_id);
+        sumIncomeMonthToDB(cust_id);
+
         sumIncomeToDB(cust_id);
+        sumExpenseToDB(cust_id);
 
         imageViewFrameIncome = (ImageView) view.findViewById(R.id.imageViewFrameIncome);
         imageViewFrameExpense = (ImageView) view.findViewById(R.id.imageViewFrameExpense);
@@ -168,6 +178,7 @@ public class Home extends android.support.v4.app.Fragment {
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
+        textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
         Log.d(TAG,"end findviewbyid");
 
         imageViewFrameIncome.setOnClickListener(new View.OnClickListener() {
@@ -304,6 +315,105 @@ public class Home extends android.support.v4.app.Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    //////////////////////for month balance/////////////////////
+
+    public String sumIncomeMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeMonth");
+            httpIncomeMonth.run(BASE_URL + "/sumIncomeMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public String sumExpenseMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumExpenseMonth");
+            httpExpenseMonth.run(BASE_URL + "/sumExpenseMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumExpenseMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpExpenseMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expenseMonth = response.body().string();
+                        sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
+                        Log.d(TAG,"sumExpense = " + sumExpenseMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    public class getHttpIncomeMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String incomeMonth = response.body().string();
+                        sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                        Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    //////////////////////for wallet balance/////////////////////
+
     public String sumIncomeToDB(String cust_id){
         try {
             Log.d(TAG,"start transaction");
@@ -353,7 +463,7 @@ public class Home extends android.support.v4.app.Fragment {
                         Log.d(TAG,"show");
 
                         if(sumExpense != 0 && sumIncome != 0) {
-                            sumBalance();
+                            sumAllBalance();
                         }
                     } catch (NumberFormatException e){
                         //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -388,7 +498,7 @@ public class Home extends android.support.v4.app.Fragment {
                         Log.d(TAG,"show");
 
                         if(sumExpense != 0 && sumIncome != 0) {
-                            sumBalance();
+                            sumAllBalance();
                         }
                     } catch (NumberFormatException e){
                         //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -399,21 +509,28 @@ public class Home extends android.support.v4.app.Fragment {
         }
     }
 
-    public void sumBalance(){
-        balance = sumIncome - sumExpense;
-        Log.d(TAG, "balance = " + balance);
+    public void sumAllBalance(){
+        monthBalance = sumIncomeMonth - sumExpenseMonth;
+        Log.d(TAG, "Month balance = " + monthBalance);
 
         Log.d(TAG,"start settext");
-        setIncome = "Total Income : " + "<b>" + sumIncome + " Baht</b>";
-        textViewMyIncome.setText((Html.fromHtml(setIncome)));
+        setIncomeMonth = "Total Income : " + "<b>" + sumIncomeMonth + " Baht</b>";
+        textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
 
-        setExpense = "Total Expense : " + "<b>" + sumExpense + " Baht</b>";
-        textViewMyExpense.setText((Html.fromHtml(setExpense)));
+        setExpenseMonth = "Total Expense : " + "<b>" + sumExpenseMonth + " Baht</b>";
+        textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
 
-        setWallet = "My Wallet : " + "<b>" + balance + " Baht</b>";
-        textViewMyWallet.setText((Html.fromHtml(setWallet)));
+        //in a month
+        setMonthBalance = "Month Balance : " + "<b>" + monthBalance + " Baht</b>";
+        textViewMonthBalance.setText((Html.fromHtml(setMonthBalance)));
+
+        ////////////////////////for wallet balance//////////////////////
+        walletBalance = sumIncome - sumExpense;
+        Log.d(TAG, "Wallet balance = " + walletBalance);
+
+        //all of my life
+        setWalletBalance = "Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
+        textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
-
-
     }
 }

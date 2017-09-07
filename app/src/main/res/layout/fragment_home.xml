@@ -57,10 +57,10 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/buttonColorGrey"
-                android:textSize="18dp"
                 android:ems="10"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textColor="@color/buttonColorGrey"
+                android:textSize="16dp" />
         </RelativeLayout>
 
 
@@ -82,10 +82,11 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/buttonColorGrey"
-                android:textSize="18dp"
                 android:ems="10"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textColor="@color/buttonColorGrey"
+                android:textSize="16dp" />
+
         </RelativeLayout>
 
         <com.github.mikephil.charting.charts.PieChart
@@ -102,8 +103,6 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp" />
 
-
-
         <RelativeLayout
             android:id="@+id/layout_home4"
             android:layout_width="match_parent"
@@ -119,7 +118,6 @@
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="2dp"
                 app:srcCompat="@drawable/frame" />
-
 
             <TextView
                 android:id="@+id/textViewMyIncome"
@@ -140,7 +138,6 @@
                 android:inputType="numberDecimal"/>
         </RelativeLayout>
 
-
         <RelativeLayout
             android:id="@+id/layout_home5"
             android:layout_width="match_parent"
@@ -155,9 +152,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginTop="2dp"
-                app:srcCompat="@drawable/frame"
-                />
-
+                app:srcCompat="@drawable/frame" />
 
             <TextView
                 android:id="@+id/textViewMyExpense"
@@ -176,14 +171,9 @@
                 android:textSize="14dp"
                 android:ems="10"
                 android:inputType="numberDecimal"/>
+
         </RelativeLayout>
-
-
-
     </RelativeLayout>
-
-
-
 
     <RelativeLayout
         android:id="@+id/relative2"
@@ -219,8 +209,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_below="@+id/textViewGoalTitle"
-            android:layout_centerHorizontal="true"
-            />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/textViewNextBill"
@@ -236,13 +225,7 @@
             android:textStyle="bold"
             android:layout_below="@+id/progressBar1"
             android:layout_centerHorizontal="true"
-            android:textSize="16dp"
-            />
-
-
-
+            android:textSize="16dp" />
+        
     </RelativeLayout>
-
-
-
 </RelativeLayout>
