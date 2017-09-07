@@ -116,51 +116,12 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         editOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
+
                 val = resultTEXT.getText().toString();
-                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
-                for( j=0;j<test.length;j++) {
-                    if (val.matches(".*" + test[j] + ".*") == true) {
+                fetchFirebase();
 
-                        DatabaseReference databaseReference = database.getReference();
-                        databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                                   @Override
-                                                                                                                                   public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                       cate = dataSnapshot.getValue(String.class);
-                                                                                                                                       textViewCategories.setText("Cetegory is " + cate);
-                                                                                                                                       textViewTransaction.setText(""+transaction);
-                                                                                                                                       textPrice.setText(keepPrice()+"BATH");
 
-                                                                                                                                       Log.d("", "value is" + cate);
-                                                                                                                                   }
-                                                                                                                                   @Override
-                                                                                                                                   public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                       Log.w("", "Failed to read value.");
-                                                                                                                                   }
-                                                                                                                               }
-                        );
-                        DatabaseReference databaseReference1 = database.getReference();
-                        databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                                  @Override
-                                                                                                                                  public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                      transaction = dataSnapshot.getValue(String.class);
-                                                                                                                                      textViewTransaction.setText("Transaction : " + transaction);
-                                                                                                                                      Log.d("", "value is" + transaction);
-                                                                                                                                  }
 
-                                                                                                                                  @Override
-                                                                                                                                  public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                      Log.w("", "Failed to read value.");
-                                                                                                                                  }
-                                                                                                                              }
-                        );
-                        buttonMinus.setVisibility(View.INVISIBLE);
-                        buttonPlus.setVisibility(View.INVISIBLE);
-                    }
-                }if(val.matches(".*" + test[j] + ".*") == false ){
-                    textPrice.setText(keepPrice()+" BATH");
-                    button();
-                }
             }
         });
 
@@ -168,16 +129,19 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         buttonPlus = (Button) findViewById(R.id.buttonPlus);
         buttonMinus = (Button) findViewById(R.id.buttonMinus);
         imageViewFrame = (ImageView) findViewById(R.id.imageViewFrame);
-
-
-
     }
 
+
     public void imageButton(View view){
-        promptSpeechInput();
+
+
+            
+            promptSpeechInput();
+
     }
 
     public void  promptSpeechInput(){
+
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault());
@@ -190,6 +154,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         {
             Toast.makeText(SpeechToText.this ,"Sorry your device don't suppose language", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void onActivityResult(int request_code , int result_code , Intent i){
@@ -205,56 +170,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 resultTEXT.setText(result.get(0));
 
                 val = result.get(0).toString();
-                final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
-                for(int j=0;j<test.length;j++) {
-                    if (val.matches(".*" + test[j] + ".*") == true) {
+                fetchFirebase();
 
-                        DatabaseReference databaseReference = database.getReference();
-                        databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                cate = dataSnapshot.getValue(String.class);
-                                //transaction = dataSnapshot.child("").getValue(String.class);
-                                //textViewTransaction.setText("Transaction : " + transaction);
-                                textViewCategories.setText("Cetegory is " + cate);
-                                textViewTransaction.setText("Transaction : " + transaction);
-                                textPrice.setText(keepPrice()+" Bath");
-
-                                Log.d("", "value is" + cate);
-                            }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Log.w("", "Failed to read value.");
-                            }
-                        }
-                        );DatabaseReference databaseReference1 = database.getReference();
-                        databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                                                                  @Override
-                                                                                                                                  public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                                                                      transaction = dataSnapshot.getValue(String.class);
-                                                                                                                                      textViewTransaction.setText("Transaction : " + transaction);
-                                                                                                                                      Log.d("", "value is" + transaction);
-                                                                                                                                  }
-
-                                                                                                                                  @Override
-                                                                                                                                  public void onCancelled(DatabaseError databaseError) {
-                                                                                                                                      Log.w("", "Failed to read value.");
-                                                                                                                                  }
-                                                                                                                              }
-                        );
-
-
-                        buttonMinus.setVisibility(View.INVISIBLE);
-                        buttonPlus.setVisibility(View.INVISIBLE);
-                    } else {
-                        if(val.matches(".*" + test[j] + ".*") == false ){
-                                textPrice.setText(keepPrice()+"BATH");
-                                button();
-                        }
-                    }
-
-
-                }
             }
         }
     }
@@ -265,8 +182,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
         imageViewFrame.setVisibility(View.VISIBLE);
-        buttonMinus.setVisibility(View.VISIBLE);
-        buttonPlus.setVisibility(View.VISIBLE);
+        //buttonMinus.setVisibility(View.VISIBLE);
+        //buttonPlus.setVisibility(View.VISIBLE);
         textViewTransaction.bringToFront();
         textViewCategories.bringToFront();
         textPrice.bringToFront();
@@ -506,7 +423,61 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    public void fetchFirebase(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
+        for(int j=0;j<test.length;j++) {
+            if (val.matches(".*" + test[j] + ".*") == true) {
+                buttonMinus.setVisibility(View.INVISIBLE);
+                buttonPlus.setVisibility(View.INVISIBLE);
+                DatabaseReference databaseReference = database.getReference();
+                databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                           @Override
+                                                                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                               cate = dataSnapshot.getValue(String.class);
+                                                                                                                               //transaction = dataSnapshot.child("").getValue(String.class);
+                                                                                                                               //textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                               textViewCategories.setText("Cetegory is " + cate);
+                                                                                                                               textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                               textPrice.setText(keepPrice()+" Bath");
 
+                                                                                                                               Log.d("", "value is" + cate);
+                                                                                                                           }
+                                                                                                                           @Override
+                                                                                                                           public void onCancelled(DatabaseError databaseError) {
+                                                                                                                               Log.w("", "Failed to read value.");
+                                                                                                                           }
+                                                                                                                       }
+                );DatabaseReference databaseReference1 = database.getReference();
+                databaseReference1.child("Category").child("" + test[j]).child("type").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                                          @Override
+                                                                                                                          public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                                                              transaction = dataSnapshot.getValue(String.class);
+                                                                                                                              textViewTransaction.setText("Transaction : " + transaction);
+                                                                                                                              Log.d("", "value is" + transaction);
+                                                                                                                          }
+
+                                                                                                                          @Override
+                                                                                                                          public void onCancelled(DatabaseError databaseError) {
+                                                                                                                              Log.w("", "Failed to read value.");
+                                                                                                                          }
+                                                                                                                      }
+                );
+
+
+
+            } else {
+                buttonMinus.setVisibility(View.VISIBLE);
+                buttonPlus.setVisibility(View.VISIBLE);
+                    textPrice.setText(keepPrice()+"BATH");
+                    button();
+
+            }
+
+
+        }
+
+    }
 
 
 
