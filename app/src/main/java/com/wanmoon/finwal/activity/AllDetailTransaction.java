@@ -106,12 +106,12 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
 
         }
         if(v == textViewCancel){
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
 
         }
