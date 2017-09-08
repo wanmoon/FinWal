@@ -76,7 +76,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
     private ImageView imageViewFrame;
 
-    private int getHowMuch;
+    private double getHowMuch;
     private int j;
     private String getTransac;
 
@@ -116,11 +116,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         editOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                val = resultTEXT.getText().toString();
-                fetchFirebase();
-
-
+                 val = resultTEXT.getText().toString();
+                 fetchFirebase();
 
             }
         });
@@ -134,9 +131,15 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
     public void imageButton(View view){
 
+          promptSpeechInput();
+            if(val != ""){
+                textViewCategories.setText("");
+                textPrice.setText("");
+                textViewTransaction.setText("");
 
-            
-            promptSpeechInput();
+            }
+
+
 
     }
 
@@ -158,7 +161,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onActivityResult(int request_code , int result_code , Intent i){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         textViewStatus = (TextView)findViewById(R.id.textViewStatus);
 
         super.onActivityResult(request_code,result_code,i);
@@ -168,10 +171,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             {
                 ArrayList<String> result = i.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 resultTEXT.setText(result.get(0));
-
                 val = result.get(0).toString();
                 fetchFirebase();
-
             }
         }
     }
@@ -182,8 +183,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
         imageViewFrame.setVisibility(View.VISIBLE);
-        //buttonMinus.setVisibility(View.VISIBLE);
-        //buttonPlus.setVisibility(View.VISIBLE);
+        buttonMinus.setVisibility(View.VISIBLE);
+        buttonPlus.setVisibility(View.VISIBLE);
         textViewTransaction.bringToFront();
         textViewCategories.bringToFront();
         textPrice.bringToFront();
@@ -413,7 +414,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
 
     public void addTransaction(String cust_id) {
-        getTransac = resultTEXT.getText().toString();
+        getTransac = resultTEXT.getText().toString().replaceAll("[^0-9]+","").replace("บาท","");
         getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
 
         Log.d(TAG,"get transac, getmoney");
@@ -428,13 +429,13 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         final String[] test = {"ค่าไฟ","ต้มยำ","ค่าเรียน","น้ำ", "ข้าว","ดื่ม","นม","ขนม","เนย", "ผลไม้", "ผัดกะเพรา", "ค่ารักษา","ค่ายา","ค่าโรงพยาบาล", "ค่าหมอ","หุ้น", "เสื้อผ้า", "ต่างหู", "กำไล", "แหวน", "กางเกง", "เสื้อ", "ชุดชั้นใน", "ชุดนอน", "ค่ารถเมล์", "ค่ารถไฟ", "ค่าเรือ", "ค่าเครื่องบิน", "ค่าแท๊กซี่", "ค่าอูเบ้อ", "ค่าแกร้บ", "เที่ยว", "ค่าทัวร์", "สวนสนุก", "สวนน้ำ"};
         for(int j=0;j<test.length;j++) {
             if (val.matches(".*" + test[j] + ".*") == true) {
-                buttonMinus.setVisibility(View.INVISIBLE);
-                buttonPlus.setVisibility(View.INVISIBLE);
                 DatabaseReference databaseReference = database.getReference();
                 databaseReference.child("Category").child("" + test[j]).child("caType").addListenerForSingleValueEvent(new ValueEventListener() {
                                                                                                                            @Override
                                                                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                                                                cate = dataSnapshot.getValue(String.class);
+                                                                                                                               buttonMinus.setVisibility(View.INVISIBLE);
+                                                                                                                               buttonPlus.setVisibility(View.INVISIBLE);
                                                                                                                                //transaction = dataSnapshot.child("").getValue(String.class);
                                                                                                                                //textViewTransaction.setText("Transaction : " + transaction);
                                                                                                                                textViewCategories.setText("Cetegory is " + cate);
@@ -463,19 +464,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                           }
                                                                                                                       }
                 );
-
-
-
-            } else {
-                buttonMinus.setVisibility(View.VISIBLE);
-                buttonPlus.setVisibility(View.VISIBLE);
-                    textPrice.setText(keepPrice()+"BATH");
-                    button();
-
-            }
-
-
+             }
         }
+        textPrice.setText(keepPrice()+" BATH");
+        button();
 
     }
 
@@ -509,7 +501,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         return price1;
     }
 
-    public String addTransactionToDB(String cust_id, String description, int cost, String transaction, String category){
+    public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
         try {
             Log.d(TAG,"start transaction");
             http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
