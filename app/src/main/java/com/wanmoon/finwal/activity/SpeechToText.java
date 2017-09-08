@@ -116,8 +116,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         editOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 val = resultTEXT.getText().toString();
-                 fetchFirebase();
+                val = resultTEXT.getText().toString();
+                fetchFirebase();
 
             }
         });
@@ -131,13 +131,13 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
     public void imageButton(View view){
 
-          promptSpeechInput();
-            if(val != ""){
-                textViewCategories.setText("");
-                textPrice.setText("");
-                textViewTransaction.setText("");
+        promptSpeechInput();
+        if(val != ""){
+            textViewCategories.setText("");
+            textPrice.setText("");
+            textViewTransaction.setText("");
 
-            }
+        }
 
 
 
@@ -414,7 +414,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
 
     public void addTransaction(String cust_id) {
-        getTransac = resultTEXT.getText().toString().replaceAll("[^0-9]+","").replace("บาท","");
+        getTransac = resultTEXT.getText().toString().replace("0","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("บาท","");
         getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
 
         Log.d(TAG,"get transac, getmoney");
@@ -464,7 +464,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                           }
                                                                                                                       }
                 );
-             }
+            }
         }
         textPrice.setText(keepPrice()+" BATH");
         button();
