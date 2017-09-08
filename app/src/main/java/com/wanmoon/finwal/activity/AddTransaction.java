@@ -90,8 +90,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
-        // Get the view from addtransaction.xml
         setContentView(R.layout.addtransaction);
 
         textViewFinish = (TextView) findViewById(R.id.textViewFinish);
@@ -364,7 +362,6 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
             addTransaction(cust_id);
         }
         if (v == textViewCancel) {
-            // will open login activity here
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }

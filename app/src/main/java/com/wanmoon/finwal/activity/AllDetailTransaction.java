@@ -55,15 +55,8 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Get the view from new_activity.xml
         setContentView(R.layout.alldetailtransaction);
 
-        /*Intent intent = getIntent();
-        String s = intent.getStringExtra(AddTransaction.EXTRA_MESSAGE);
-
-        TextView TextViewTransactionTitle = new TextView(this);
-        TextViewTransactionTitle.setText(s);
-        setContentView(R.layout.detaildaily);*/
 
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
@@ -108,12 +101,10 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         if(v == textViewFinish){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
-
         }
         if(v == textViewCancel){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
-
         }
     }
 

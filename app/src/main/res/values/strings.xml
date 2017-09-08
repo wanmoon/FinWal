@@ -20,10 +20,10 @@
     <string name="failed_add_transaction">Failed to add transaction, please try again</string>
 
 
-    <string-array name="array_bill">
-        <item>Category</item>
-        <item>Category : A-Z</item>
-        <item>Category : Most popular</item>
+    <string-array name="array_spinner">
+        <item>Time</item>
+        <item>Active</item>
+        <item>Inactive</item>
         <item>Price : Low-High</item>
         <item>Price : High-Low</item>
     </string-array>

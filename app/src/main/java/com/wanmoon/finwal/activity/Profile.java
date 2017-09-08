@@ -118,8 +118,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     public void saveUserInformation() {
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        // String email = textViewEmail.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();

@@ -41,7 +41,6 @@ import okhttp3.Response;
  */
 
 public class SpeechToText extends AppCompatActivity implements View.OnClickListener{
-    private TextView textViewStatus;
     private TextView resultTEXT;
     private static String val = "";
     private TextView textViewFinish;
@@ -138,9 +137,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             textViewTransaction.setText("");
 
         }
-
-
-
     }
 
     public void  promptSpeechInput(){
@@ -161,9 +157,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onActivityResult(int request_code , int result_code , Intent i){
-
-        textViewStatus = (TextView)findViewById(R.id.textViewStatus);
-
         super.onActivityResult(request_code,result_code,i);
 
         switch(request_code){
@@ -438,7 +431,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                                                                                                                                buttonPlus.setVisibility(View.INVISIBLE);
                                                                                                                                //transaction = dataSnapshot.child("").getValue(String.class);
                                                                                                                                //textViewTransaction.setText("Transaction : " + transaction);
-                                                                                                                               textViewCategories.setText("Cetegory is " + cate);
+                                                                                                                               textViewCategories.setText("Cetegory is : " + cate);
                                                                                                                                textViewTransaction.setText("Transaction : " + transaction);
                                                                                                                                textPrice.setText(keepPrice()+" Bath");
 
@@ -486,8 +479,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             addTransaction(cust_id);
         }
         if(v == textViewCancel){
-            // will open login activity here
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
         }
 

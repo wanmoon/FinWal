@@ -112,26 +112,6 @@
         </RelativeLayout>
 
 
-
-
-        <!--<TextView-->
-            <!--android:id="@+id/textViewStatus"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--android:layout_marginLeft="8dp"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_constraintVertical_bias="0.617"-->
-            <!--app:layout_constraintHorizontal_bias="0.501"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:layout_marginEnd="8dp" />-->
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -174,16 +154,13 @@
 
 
 
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relative6"
             android:layout_alignParentBottom="true"
             android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            >
+            android:paddingBottom="10dp">
 
                 <ImageView
                     android:id="@+id/imageViewFrame"
@@ -240,28 +217,9 @@
                     android:layout_alignBottom="@+id/imageViewFrame"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="14dp" />
-
-
         </RelativeLayout>
 
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/relative7"-->
-            <!--android:layout_alignParentBottom="true">-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewEmpty1"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="CANCEL"-->
-                    <!--android:textSize="40dp"-->
-                    <!--android:textStyle="bold"-->
-                    <!--android:visibility="invisible"/>-->
-
-
-        <!--</RelativeLayout>-->
 
 
 </RelativeLayout>
