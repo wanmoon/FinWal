@@ -45,6 +45,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     public final String cust_id = currentFirebaseUser.getUid();
 
     //**connect DB
+    //getHttp http;
     getHttp http = new getHttp();
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 

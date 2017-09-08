@@ -116,7 +116,7 @@
             android:textColor="@color/buttonColorGrey"
             android:textSize="12dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/textViewCost"
             android:textColor="@color/buttonColorRed"
             android:layout_width="118dp"
@@ -135,8 +135,7 @@
             android:textStyle="bold"
             android:layout_alignTop="@+id/textViewDate"
             android:layout_alignParentEnd="true"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:ems="10"/>
 
 
     </RelativeLayout>

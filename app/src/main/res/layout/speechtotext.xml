@@ -9,9 +9,6 @@
     android:background="@color/backgroundColor"
     tools:context="com.wanmoon.finwal.activity.SpeechToText">
 
-
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -239,7 +236,6 @@
                     android:text="Price"
                     android:textSize="18dp"
                     android:ems="10"
-                    android:inputType="numberDecimal"
                     android:visibility="invisible"
                     android:layout_alignBottom="@+id/imageViewFrame"
                     android:layout_centerHorizontal="true"

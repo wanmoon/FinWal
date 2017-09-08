@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,14 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,22 +49,19 @@ public class History extends android.support.v4.app.Fragment  {
 
     private Typeface tf;
 
-    private double sumIncome;
-    private double sumExpense;
-    private double balance;
+    private double sumIncomeAll;
+    private double sumExpenseAll;
+    //private double balanceAll;
 
-    private String setWallet;
-    private String setIncome;
-    private String setExpense;
+    //private String setWalletAll;
+    private String setIncomeAll;
+    private String setExpenseAll;
 
-    public TextView textViewMyWallet;
-    public TextView textViewMyIncome;
-    public TextView textViewMyExpense;
-
-
+    //public TextView textViewMyWallet;
+    public TextView textViewMyIncomeAll;
+    public TextView textViewMyExpenseAll;
 
     private View mView;
-
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -62,14 +69,14 @@ public class History extends android.support.v4.app.Fragment  {
 
     //connect DB
     String response = null;
-    //    getHttpIncome httpIncome = new getHttpIncome();
+//    getHttpIncome httpIncome = new getHttpIncome();
 //    getHttpExpense httpExpense = new getHttpExpense();
+    getHttpIncomeAll httpIncomeAll;
+    getHttpExpenseAll httpExpenseAll;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
-    private final String TAG = "History";
-
-
+    private final String TAG = "HistoryActivity";
 
     private OnFragmentInteractionListener mListener;
 
@@ -115,6 +122,8 @@ public class History extends android.support.v4.app.Fragment  {
 
         ((MainActivity)getActivity()).setTitle("History");
 
+        httpIncomeAll = new getHttpIncomeAll(getContext());
+        httpExpenseAll = new getHttpExpenseAll(getContext());
         Log.d(TAG,"end onCreate");
     }
 
@@ -129,17 +138,17 @@ public class History extends android.support.v4.app.Fragment  {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        sumExpenseToDB(cust_id);
-//        sumIncomeToDB(cust_id);
 
+        sumExpenseToDB(cust_id);
+        sumIncomeToDB(cust_id);
 
         Log.d(TAG,"start findviewbyid");
-        textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
-        textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
-        textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
+        //textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
+        textViewMyIncomeAll = (TextView) view.findViewById(R.id.textViewMyIncomeAll);
+        textViewMyExpenseAll = (TextView) view.findViewById(R.id.textViewMyExpenseAll);
         Log.d(TAG,"end findviewbyid");
 
-        textViewMyIncome.setOnClickListener(new View.OnClickListener() {
+        textViewMyIncomeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
@@ -147,7 +156,7 @@ public class History extends android.support.v4.app.Fragment  {
             }
         });
 
-        textViewMyExpense.setOnClickListener(new View.OnClickListener() {
+        textViewMyExpenseAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
@@ -186,118 +195,162 @@ public class History extends android.support.v4.app.Fragment  {
         void onFragmentInteraction(Uri uri);
     }
 
-//    public String sumIncomeToDB(String cust_id){
-//        try {
-//            Log.d(TAG,"start transaction");
-//            httpIncome.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
-//            Log.d(TAG,"end transaction");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Log.d(TAG,"error catch");
-//        }
-//        return response;
-//    }
-//
-//    public String sumExpenseToDB(String cust_id){
-//        try {
-//            Log.d(TAG,"start show");
-//            httpExpense.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
-//            Log.d(TAG,"end show");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            Log.d(TAG,"error catch");
-//        }
-//        return response;
-//    }
-//
-//    // ** must have for connect DB
-//
-//    public class getHttpIncome {
-//        OkHttpClient client = new OkHttpClient();
-//
-//        void run(String url) throws IOException {
-//            Request request = new Request.Builder()
-//                    .url(url)
-//                    .build();
-//            client.newCall(request).enqueue(new Callback() {
-//                @Override
-//                public void onFailure(Call call, IOException e) {
-//                    Log.d(TAG,"onFailure" + e.toString());
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response) throws IOException {
-//                    try {
-//                        String income = response.body().string();
-//                        sumIncome = Double.parseDouble(income.trim());
-//                        Log.d(TAG,"sumIncome = " + sumIncome);
-//
-//                        Log.d(TAG,"onResponse");
-//                        Log.d(TAG,"show");
-//
-//                        if(sumExpense != 0 && sumIncome != 0) {
-//                            sumBalance();
-//                        }
-//                    } catch (NumberFormatException e){
-//                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-//                        Log.d(TAG, "NumberFormatException");
-//                    }
-//                }
-//            });
-//        }
-//    }
-//
-//    public class getHttpExpense {
-//        OkHttpClient client = new OkHttpClient();
-//
-//        void run(String url) throws IOException {
-//            Request request = new Request.Builder()
-//                    .url(url)
-//                    .build();
-//            client.newCall(request).enqueue(new Callback() {
-//                @Override
-//                public void onFailure(Call call, IOException e) {
-//                    Log.d(TAG,"onFailure" + e.toString());
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response) throws IOException {
-//                    try {
-//                        String expense = response.body().string();
-//                        sumExpense = Double.parseDouble(expense.trim());
-//                        Log.d(TAG,"sumExpense = " + sumExpense);
-//
-//                        Log.d(TAG,"onResponse");
-//                        Log.d(TAG,"show");
-//
-//                        if(sumExpense != 0 && sumIncome != 0) {
-//                            sumBalance();
-//                        }
-//                    } catch (NumberFormatException e){
-//                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-//                        Log.d(TAG, "NumberFormatException");
-//                    }
-//                }
-//            });
-//        }
-//    }
-//
-//
-//    public void sumBalance(){
-//        balance = sumIncome - sumExpense;
-//        Log.d(TAG, "balance = " + balance);
-//
-//        Log.d(TAG,"start settext");
-//        setIncome = "Total Income : " + "<b>" + sumIncome + " Baht</b>";
-//        textViewMyIncome.setText((Html.fromHtml(setIncome)));
-//
-//        setExpense = "Total Expense : " + "<b>" + sumExpense + " Baht</b>";
-//        textViewMyExpense.setText((Html.fromHtml(setExpense)));
-//
-//        setWallet = "My Wallet : " + "<b>" + balance + " Baht</b>";
-//        textViewMyWallet.setText((Html.fromHtml(setWallet)));
-//        Log.d(TAG,"end settext");
-//
-//
-//    }
+    public String sumIncomeToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            httpIncomeAll.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public String sumExpenseToDB(String cust_id){
+        try {
+            Log.d(TAG,"start show");
+            httpExpenseAll.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
+            Log.d(TAG,"end show");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpIncomeAll {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncomeAll(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                String income = response.body().string();
+                                sumIncomeAll = Double.parseDouble(income.trim());
+                                Log.d(TAG,"sumIncome = " + sumIncomeAll);
+
+                                setIncomeAll = "Total Income : " + "<b>" + sumIncomeAll + " Baht</b>";
+                                Log.d(TAG,"Total Income = " + setIncomeAll);
+                                textViewMyIncomeAll.setText((Html.fromHtml(setIncomeAll)));
+
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
+
+                            } catch (NumberFormatException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "IOException");
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
+    // ** must have for connect DB
+    public class getHttpExpenseAll {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpenseAll(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                String expense = response.body().string();
+                                sumExpenseAll = Double.parseDouble(expense.trim());
+                                Log.d(TAG,"sumExpense = " + sumExpenseAll);
+                                setExpenseAll = "Total Expense : " + "<b>" + sumExpenseAll + " Baht</b>";
+
+                                setExpenseAll = "Total Expense : " + "<b>" + sumExpenseAll + " Baht</b>";
+                                textViewMyExpenseAll.setText((Html.fromHtml(setExpenseAll)));
+                                Log.d(TAG,"end settext");
+
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
+
+                            } catch (NumberFormatException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "IOException");
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
+    public void sumBalance(){
+        //balanceAll = sumIncomeAll - sumExpenseAll;
+        //Log.d(TAG, "balance = " + balanceAll);
+
+        Log.d(TAG,"start settext");
+        setIncomeAll = "Total Income : " + "<b>" + sumIncomeAll + " Baht</b>";
+        Log.d(TAG,"Total Income = " + setIncomeAll);
+        textViewMyIncomeAll.setText((Html.fromHtml(setIncomeAll)));
+
+        setExpenseAll = "Total Expense : " + "<b>" + sumExpenseAll + " Baht</b>";
+        textViewMyExpenseAll.setText((Html.fromHtml(setExpenseAll)));
+
+        //setWalletAll = "My Wallet : " + "<b>" + balanceAll + " Baht</b>";
+        //textViewMyWallet.setText((Html.fromHtml(setWalletAll)));
+        Log.d(TAG,"end settext");
+    }
 }

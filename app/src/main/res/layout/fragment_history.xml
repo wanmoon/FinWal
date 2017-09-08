@@ -24,15 +24,13 @@
             android:layout_marginTop="8dp"
             android:textColor="@color/buttonColorGrey"
             android:textSize="18dp"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:ems="10" />
 
 
 
         <TextView
-            android:id="@+id/textViewMyIncome"
+            android:id="@+id/textViewMyIncomeAll"
             android:layout_width="match_parent"
-            android:text="income"
             android:layout_height="30dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -47,16 +45,14 @@
             android:textColor="@color/buttonColorGreen"
             android:textSize="14dp"
             android:ems="10"
-            android:inputType="numberDecimal"
             android:layout_below="@+id/textViewMyWallet"/>
 
 
 
         <TextView
-            android:id="@+id/textViewMyExpense"
+            android:id="@+id/textViewMyExpenseAll"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="expense"
             android:textAlignment="center"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -69,7 +65,6 @@
             android:textColor="@color/buttonColorRed"
             android:textSize="14dp"
             android:ems="10"
-            android:inputType="numberDecimal"
             android:layout_below="@+id/textViewMyIncome"/>
 
     </RelativeLayout>

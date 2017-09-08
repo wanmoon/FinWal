@@ -118,7 +118,6 @@
             android:paddingStart="2dp"
             android:paddingTop="2dp"
             android:ems="10"
-            android:inputType="numberDecimal"
             android:textColor="@color/buttonColorGrey"
             android:textSize="12dp"
             android:layout_alignParentTop="true"
