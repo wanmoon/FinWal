@@ -25,15 +25,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
                 android:text="FREE CAP"
-                android:textColor="@color/buttonColorGrey"
-                android:textSize="8dp"
+                android:textSize="4dp"
                 android:textStyle="bold"
                 android:visibility="invisible" />
 
@@ -52,12 +51,12 @@
                 android:textAlignment="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:ems="10"
                 android:textColor="@color/buttonColorGrey"
                 android:textSize="16dp" />
@@ -77,12 +76,12 @@
                 android:textAlignment="center"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:ems="10"
                 android:textColor="@color/buttonColorGrey"
                 android:textSize="16dp" />
@@ -116,7 +115,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0dp"
                 app:srcCompat="@drawable/frame" />
 
             <TextView
@@ -150,7 +149,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="0dp"
                 app:srcCompat="@drawable/frame" />
 
             <TextView
