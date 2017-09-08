@@ -86,12 +86,10 @@
 
         <TextView
             android:id="@+id/textViewDeadline"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="30dp"
-            android:layout_alignParentTop="true"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="0.00"
             android:padding="2dp"
             android:paddingBottom="2dp"
             android:paddingEnd="2dp"
@@ -99,28 +97,28 @@
             android:paddingRight="0dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
+            android:layout_alignParentLeft="true"
             android:textColor="@color/buttonColorGrey"
             android:textSize="12dp" />
 
         <TextView
             android:id="@+id/textViewCost"
-            android:layout_width="80dp"
+            android:layout_width="150dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="80dp"
+            android:layout_marginEnd="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_weight="0.00"
             android:padding="2dp"
             android:paddingBottom="2dp"
             android:paddingEnd="2dp"
             android:paddingLeft="2dp"
-            android:paddingRight="0dp"
+            android:paddingRight="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:ems="10"
-            android:textColor="@color/buttonColorGrey"
-            android:textSize="12dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:textAlignment="center"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 </LinearLayout>

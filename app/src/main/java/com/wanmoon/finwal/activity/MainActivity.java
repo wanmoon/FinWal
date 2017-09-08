@@ -181,16 +181,16 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
 
-        } else if (id == R.id.nav_dashboard) {
-            Dashboard DashboardFragment = new Dashboard();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, DashboardFragment);
-            transaction.commit();
-
         } else if (id == R.id.nav_goal){
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, GoalFragment);
+            transaction.commit();
+
+        } else if (id == R.id.nav_dashboard) {
+            Dashboard DashboardFragment = new Dashboard();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, DashboardFragment);
             transaction.commit();
 
         } else if (id == R.id.nav_history){

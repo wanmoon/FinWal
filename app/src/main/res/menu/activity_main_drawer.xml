@@ -11,13 +11,14 @@
             android:icon="@mipmap/ic_bill_white"
             android:title="Billing" />
 
-        <item android:id="@+id/nav_dashboard"
-            android:icon="@mipmap/ic_dashboard"
-            android:title="Dashboard" />
 
         <item android:id="@+id/nav_goal"
             android:icon="@mipmap/ic_goal"
             android:title="Goal" />
+
+        <item android:id="@+id/nav_dashboard"
+            android:icon="@mipmap/ic_dashboard"
+            android:title="Dashboard" />
 
 
         <item android:id="@+id/nav_history"

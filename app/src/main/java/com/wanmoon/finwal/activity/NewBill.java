@@ -28,8 +28,7 @@ import okhttp3.Response;
  * Created by pimpischaya on 8/8/2017 AD.
  */
 
-public class NewBill extends AppCompatActivity implements View.OnClickListener
-     {
+public class NewBill extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewFinish;
     private TextView textViewCancel;
@@ -171,6 +170,8 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener
         return response;
     }
 
+
+
     // ** must have for connect DB
     public class getHttp {
         OkHttpClient client = new OkHttpClient();
@@ -190,11 +191,9 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener
                     Log.d(TAG,"onResponse");
                     Log.d(TAG,"insert bill success");
 
+
+
                     // will open main activity here
-//                    Billing BillingFragment = new Billing();
-//                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.fragment_container, BillingFragment);
-//                    transaction.commit();
 
                     Intent i=new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
