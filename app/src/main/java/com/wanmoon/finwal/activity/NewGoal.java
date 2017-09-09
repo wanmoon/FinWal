@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,7 +39,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextCost;
     private EditText editTextGoal;
 
-    private CalendarView calendarView;
+    private CalendarView calendarViewGoal;
+    public Calendar selectedDay;
 
     private RadioGroup radioGroup;
     private RadioButton radioButtonDaily;
@@ -47,6 +51,9 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private String getDescription_goal;
     private String savingPlan;
     private String status_goal;
+
+    private double saveingDay;
+    private long countDate;
     private double getCost;
 
     //get current user
@@ -95,70 +102,88 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 }
             }
         });
+
+        //set current date on calender
+        calendarViewGoal = (CalendarView) findViewById(R.id.calendarViewGoal);
+        Log.d(TAG, "start set current date in calendar");
+        calendarViewGoal.setDate(System.currentTimeMillis(),false,true);
+        Log.d(TAG, "finish set current date in calendar");
+        //get date after selected
+        calendarViewGoal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                //get endingdate
+                month = month +1;
+                ending_date = dayOfMonth + "-" + month + "-" + year;
+                Log.d(TAG, "ending_date = " + ending_date);
+
+                countDate(dayOfMonth,month,year); //return countdate
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            addBill(cust_id);
+            addGoal(cust_id);
 
             Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"insert success");
         }
         if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            Intent i=new Intent(getApplicationContext(), Goal.class);
             startActivity(i);
         }
     }
 
-    public void addBill(String cust_id) {
+    public void addGoal(String cust_id) {
         getDescription_goal = editTextGoal.getText().toString();
         String getMoney = editTextCost.getText().toString().trim();
 
         if(getDescription_goal.matches("")){
-            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
         } else if (getMoney.isEmpty()){
-            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Budged?", Toast.LENGTH_LONG).show();
         } else {
-            //set current date on calender
-            calendarView = (CalendarView) findViewById(R.id.calendarView);
-            Log.d(TAG, "start set current date in calendar");
-            calendarView.setDate(System.currentTimeMillis(), false, true);
-            Log.d(TAG, "finish set current date in calendar");
-
-            //get date after selected
-//        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-//            @Override
-//            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-//                ending_date = dayOfMonth + "-" + month + "-" + year;
-//                Log.d(TAG, "ending_date = " + ending_date);
-//            }
-//        });
-
-            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-                @Override
-                public void onSelectedDayChange(CalendarView arg0, int year, int month,
-                                                int date) {
-                    Toast.makeText(getApplicationContext(), date + "/" + month + "/" + year, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "ending_date = " + date + "/" + month + "/" + year);
-                }
-            });
-
             getCost = Double.parseDouble(getMoney);
 
             Log.d(TAG, "get getDescription_goal, getCost");
             addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost);
-            Log.d(TAG, "end addBillToDB");
+            Log.d(TAG, "end addGoalToDB");
         }
+    }
+
+    public void saveEachDay(double getCost, long countDate){
+        Log.d(TAG, "getCost = " + getCost);
+        Log.d(TAG, "countDate = " + countDate);
+
+        saveingDay = getCost/countDate;
+        Log.d(TAG, "savingDay = " + saveingDay);
+    }
+
+    public void countDate(int dayOfMonth, int month, int year){
+        selectedDay = Calendar.getInstance();
+        selectedDay.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        selectedDay.set(Calendar.MONTH,month+1); // 0-11 so 1 less
+        selectedDay.set(Calendar.YEAR, year);
+
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar today = Calendar.getInstance();
+        Log.d(TAG, "todat = " + dateFormat.format(today.getTime()));
+
+        countDate = ((selectedDay.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000)) -60;
+        Log.d(TAG, "count day = " + countDate);
+
+        saveEachDay(getCost, countDate);
     }
 
     public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, double cost_goal){
         try {
-            Log.d(TAG,"start bill");
+            Log.d(TAG,"start goal");
             http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&status_goal=" + status_goal +"&cost_goal=" + cost_goal);
-            Log.d(TAG,"end bill");
+            Log.d(TAG,"end goal");
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG,"error catch");
@@ -186,7 +211,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                     Log.d(TAG,"insert success");
 
                     // will open login activity here
-                    Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                    Intent i=new Intent(getApplicationContext(), Goal.class);
                     startActivity(i);
                 }
             });

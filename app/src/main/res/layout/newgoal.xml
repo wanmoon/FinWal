@@ -120,7 +120,7 @@
         android:layout_below="@+id/relative4">
 
         <CalendarView
-            android:id="@+id/calendarView"
+            android:id="@+id/calendarViewGoal"
             android:layout_width="220dp"
             android:layout_height="250dp"
             android:layout_marginLeft="8dp"

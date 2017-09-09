@@ -40,14 +40,14 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
     private Button button6Monthly;
     private Button buttonYearly;
 
-    private CalendarView calendarView;
+    private CalendarView calendarViewBill;
 
     private String description_bill;
     private String period;
     private String deadline;
 
-    //get data from calendar
-    private Calendar calendar;
+    //get data from calendarBill
+    private Calendar calendarBill;
     private int getDay;
     private int getMonth;
     private int getYear;
@@ -118,12 +118,12 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
         });
 
         //set current date on calender
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarViewBill = (CalendarView) findViewById(R.id.calendarViewBill);
         Log.d(TAG, "start set current date in calendar");
-        calendarView.setDate(System.currentTimeMillis(),false,true);
+        calendarViewBill.setDate(System.currentTimeMillis(),false,true);
         Log.d(TAG, "finish set current date in calendar");
         //get date after selected
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarViewBill.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -191,11 +191,8 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
                     Log.d(TAG,"onResponse");
                     Log.d(TAG,"insert bill success");
 
-
-
                     // will open main activity here
-
-                    Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                    Intent i=new Intent(getApplicationContext(), Billing.class);
                     startActivity(i);
                 }
             });
