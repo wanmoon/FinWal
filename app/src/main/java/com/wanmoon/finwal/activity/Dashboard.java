@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TabHost;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -30,14 +32,7 @@ import com.wanmoon.finwal.R;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Dashboard.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Dashboard#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Dashboard extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +55,10 @@ public class Dashboard extends Fragment {
     private LineGraphSeries<DataPoint> series1, series2;
 
     private ImageView imageViewFrame;
+
+
+    public TabHost tabHost;
+    private FragmentTabHost mTabHost;
 
 
 
@@ -151,27 +150,7 @@ public class Dashboard extends Fragment {
         lineChart.setData(new LineData(lineDataSets));
         lineChart.setVisibleXRangeMaximum(100f);
 
-//
-//        double x,y;
-//        x=0;
-//
-//        GraphView graph = (GraphView)  mView.findViewById(R.id.graph);
-//        series1 = new LineGraphSeries<>();
-//        series2 = new LineGraphSeries<>();
-//
-//        int numDataPoints = 500;
-//        for (int i = 0; i< numDataPoints ; i++){
-//            x = x + 0.1;
-//            y = Math.sin(x);
-//            double y2 = Math.exp(x);
-//            series1.appendData(new DataPoint(x,y), true, 60);
-//            series1.appendData(new DataPoint(x+0.001, y2), true, 60);
-//        }
-//
-//        series1.setColor(Color.GREEN);
-//        series2.setColor(Color.RED);
-//        graph.addSeries(series1);
-//        graph.addSeries(series2);
+
     }
 
     private void initDataIncome() {
@@ -320,9 +299,23 @@ public class Dashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
 
+//        TabHost hostDashboard = (TabHost) rootView.findViewById(R.id.tabHost);
+//        hostDashboard.setup();
+//
+//        //Tab1
+//        TabHost.TabSpec spec = hostDashboard.newTabSpec("Tab One");
+//        spec.setContent(R.id.tab1);
+//        spec.setIndicator("Monthly");
+//        hostDashboard.addTab(spec);
+//
+//        //Tab2
+//        spec = hostDashboard.newTabSpec("Tab Two");
+//        spec.setContent(tab2);
+//        spec.setIndicator("Yearly");
+//        hostDashboard.addTab(spec);
+
+
         visible();
-
-
         initDataIncome();
         initDataExpense();
         initData();
@@ -364,16 +357,7 @@ public class Dashboard extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

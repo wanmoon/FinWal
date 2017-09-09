@@ -7,7 +7,8 @@
 
     <color name="backgroundColor">#bbdefb</color>
     <color name="color_bg_actionbar">#3399cc</color>
-    <color name="buttonColorGreen">#39dd92</color>
+    <!--<color name="buttonColorGreen">#39dd92</color>-->
+    <color name="buttonColorGreen">#088A4B</color>
     <color name="buttonColorRed">#e54649</color>
     <color name="buttonColorGrey">#607d8b</color>
     <color name="buttonColorWhite">#FFFFFF</color>

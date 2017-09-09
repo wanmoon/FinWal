@@ -61,7 +61,7 @@ public class CustomAdapter extends BaseAdapter {
         //if else to check transaction for set color of 'textViewCost'
         if(arrTransaction.get(position).get("transaction").toString().equals("Income")){
             //income : green
-            textViewCost.setTextColor(Color.parseColor("#39dd92"));
+            textViewCost.setTextColor(Color.parseColor("#088A4B"));
         } else if (arrTransaction.get(position).get("transaction").toString().equals("Expense")){
             //expense : red
             textViewCost.setTextColor(Color.parseColor("#e54649"));

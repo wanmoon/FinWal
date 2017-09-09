@@ -1,18 +1,19 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -27,14 +31,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link History.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link History#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static com.wanmoon.finwal.R.id.tab2;
+
 public class History extends android.support.v4.app.Fragment  {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +41,7 @@ public class History extends android.support.v4.app.Fragment  {
 
     private FirebaseAuth firebaseAuth;
 
-    private static View rootView;
+   // private static View rootView;
 
     private View bView;
 
@@ -51,13 +49,13 @@ public class History extends android.support.v4.app.Fragment  {
 
     private double sumIncomeAll;
     private double sumExpenseAll;
-    //private double balanceAll;
+    private double balanceAll;
 
-    //private String setWalletAll;
+    private String setWalletBalance;
     private String setIncomeAll;
     private String setExpenseAll;
 
-    //public TextView textViewMyWallet;
+    public TextView textViewMyWallet;
     public TextView textViewMyIncomeAll;
     public TextView textViewMyExpenseAll;
 
@@ -69,11 +67,13 @@ public class History extends android.support.v4.app.Fragment  {
 
     //connect DB
     String response = null;
-//    getHttpIncome httpIncome = new getHttpIncome();
-//    getHttpExpense httpExpense = new getHttpExpense();
     getHttpIncomeAll httpIncomeAll;
     getHttpExpenseAll httpExpenseAll;
+    getHttpIncome httpIncome;
+    getHttpExpense httpExpense;
+    getHttpAll httpAll;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
 
     //for log
     private final String TAG = "HistoryActivity";
@@ -125,13 +125,47 @@ public class History extends android.support.v4.app.Fragment  {
         httpIncomeAll = new getHttpIncomeAll(getContext());
         httpExpenseAll = new getHttpExpenseAll(getContext());
         Log.d(TAG,"end onCreate");
+
+
+        httpIncome = new getHttpIncome(getContext());
+        getAllIncome(cust_id);
+        httpExpense = new getHttpExpense(getContext());
+        getAllExpense(cust_id);
+        httpAll = new getHttpAll(getContext());
+        getAllTransaction(cust_id);
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
         mView = rootView;
+
+
+        // for tabHost
+        TabHost host = (TabHost) rootView.findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab1
+        TabHost.TabSpec spec = host.newTabSpec("Tab One");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("Show All");
+        host.addTab(spec);
+
+        //Tab2
+        spec = host.newTabSpec("Tab Two");
+        spec.setContent(tab2);
+        spec.setIndicator("All income");
+        host.addTab(spec);
+
+        //Tab3
+        spec = host.newTabSpec("Tab Three");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("All expense");
+        host.addTab(spec);
+
 
         return rootView;
     }
@@ -143,26 +177,14 @@ public class History extends android.support.v4.app.Fragment  {
         sumIncomeToDB(cust_id);
 
         Log.d(TAG,"start findviewbyid");
-        //textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
+        textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncomeAll = (TextView) view.findViewById(R.id.textViewMyIncomeAll);
         textViewMyExpenseAll = (TextView) view.findViewById(R.id.textViewMyExpenseAll);
         Log.d(TAG,"end findviewbyid");
 
-        textViewMyIncomeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AllIncome.class);
-                startActivity(i);
-            }
-        });
+        sumBalance();
 
-        textViewMyExpenseAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AllExpense.class);
-                startActivity(i);
-            }
-        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -219,7 +241,9 @@ public class History extends android.support.v4.app.Fragment  {
         return response;
     }
 
-    // ** must have for connect DB
+
+
+    // ** must have for connect DB Income
     public class getHttpIncomeAll {
         OkHttpClient client;
         Handler mainHandler;
@@ -230,8 +254,6 @@ public class History extends android.support.v4.app.Fragment  {
             client = new OkHttpClient();
             mainHandler = new Handler(context.getMainLooper());
         }
-
-
         void run(String url) throws IOException {
             Request request = new Request.Builder()
                     .url(url)
@@ -278,7 +300,7 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
-    // ** must have for connect DB
+    // ** must have for connect DB expense
     public class getHttpExpenseAll {
         OkHttpClient client;
         Handler mainHandler;
@@ -337,9 +359,10 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
+
     public void sumBalance(){
-        //balanceAll = sumIncomeAll - sumExpenseAll;
-        //Log.d(TAG, "balance = " + balanceAll);
+        balanceAll = sumIncomeAll - sumExpenseAll;
+        Log.d(TAG, "balance = " + balanceAll);
 
         Log.d(TAG,"start settext");
         setIncomeAll = "Total Income : " + "<b>" + sumIncomeAll + " Baht</b>";
@@ -349,8 +372,316 @@ public class History extends android.support.v4.app.Fragment  {
         setExpenseAll = "Total Expense : " + "<b>" + sumExpenseAll + " Baht</b>";
         textViewMyExpenseAll.setText((Html.fromHtml(setExpenseAll)));
 
-        //setWalletAll = "My Wallet : " + "<b>" + balanceAll + " Baht</b>";
-        //textViewMyWallet.setText((Html.fromHtml(setWalletAll)));
+        setWalletBalance = "Wallet Balance : " + "<b>" + balanceAll + " Baht</b>";
+        textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
     }
+
+
+    //listview AllIncome
+    public void getAllIncome(String cust_id){
+        try {
+            Log.d(TAG,"start select");
+            httpIncome.run(BASE_URL + "/showIncome.php?cust_id=" + cust_id);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public void showIncomeToListView(String allIncome){
+        Log.d(TAG, "allIncome " + allIncome);
+
+        String[] incomeInfo;
+        String timestamp;
+        String description;
+        String cost;
+        String transaction;
+        String category;
+        ArrayList<HashMap<String, String>> incomeList = null;
+
+        incomeList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map;
+        Scanner scanner = new Scanner(allIncome);
+
+        for(int i = 0; scanner.hasNext(); i++){
+            String data = scanner.nextLine();
+            Log.d(TAG, "data has next " + data);
+
+            incomeInfo = data.split(",");
+
+            timestamp = incomeInfo[0];
+            description = incomeInfo[1];
+            cost = incomeInfo[2];
+            transaction = incomeInfo[3];
+            category = incomeInfo[4];
+
+            map = new HashMap<String, String>();
+            map.put("timestamp", timestamp);
+            map.put("description", description);
+            map.put("cost", cost);
+            map.put("transaction", transaction);
+            map.put("category", category);
+            incomeList.add(map);
+        }
+
+        IncomeAdapter adapter = new IncomeAdapter(getContext(), incomeList);
+
+        //listview for show income transaction
+        ListView incomeListView = (ListView) mView.findViewById(R.id.listViewIncome);
+        incomeListView.setAdapter(adapter);
+        incomeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+    }
+
+    // ** must have for connect DB All income
+    public class getHttpIncome {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncome(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                showIncomeToListView(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+
+
+    //listview AllExpense
+    public void getAllExpense(String cust_id){
+        try {
+            Log.d(TAG,"start select");
+            httpExpense.run(BASE_URL + "/showExpense.php?cust_id=" + cust_id);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+    public void showExpenseToListView(String allExpense){
+        Log.d(TAG, "allExpense " + allExpense);
+
+        String[] expenseInfo;
+        String timestamp;
+        String description;
+        String cost;
+        String transaction;
+        String category;
+        ArrayList<HashMap<String, String>> expenseList = null;
+
+        expenseList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map;
+        Scanner scanner = new Scanner(allExpense);
+
+        for(int i = 0; scanner.hasNext(); i++){
+            String data = scanner.nextLine();
+            Log.d(TAG, "data has next " + data);
+
+            expenseInfo = data.split(",");
+
+            timestamp = expenseInfo[0];
+            description = expenseInfo[1];
+            cost = expenseInfo[2];
+            transaction = expenseInfo[3];
+            category = expenseInfo[4];
+
+            map = new HashMap<String, String>();
+            map.put("timestamp", timestamp);
+            map.put("description", description);
+            map.put("cost", cost);
+            map.put("transaction", transaction);
+            map.put("category", category);
+            expenseList.add(map);
+        }
+
+        ExpenseAdapter adapter = new ExpenseAdapter(getContext(), expenseList);
+
+        //listview for show espense transaction
+        ListView expenseListView = (ListView) mView.findViewById(R.id.listViewExpense);
+        expenseListView.setAdapter(adapter);
+        expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+    }
+
+    // ** must have for connect DB All expense
+    public class getHttpExpense {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpense(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                showExpenseToListView(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+
+
+    //listview AllTransaction
+    public void getAllTransaction(String cust_id){
+        try {
+            Log.d(TAG,"start select");
+            httpAll.run(BASE_URL + "/showAllTransaction.php?cust_id=" + cust_id);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public void showTransactionToListView(String allTransaction){
+        Log.d(TAG, "allTransaction " + allTransaction);
+
+        String[] transactionInfo;
+        String timestamp;
+        String description;
+        String cost;
+        String transaction;
+        String category;
+        ArrayList<HashMap<String, String>> transactionList = null;
+
+        transactionList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map;
+        Scanner scanner = new Scanner(allTransaction);
+
+        for(int i = 0; scanner.hasNext(); i++){
+            String data = scanner.nextLine();
+            Log.d(TAG, "data has next " + data);
+
+            transactionInfo = data.split(",");
+
+            timestamp = transactionInfo[0];
+            description = transactionInfo[1];
+            cost = transactionInfo[2];
+            transaction = transactionInfo[3];
+            category = transactionInfo[4];
+
+            map = new HashMap<String, String>();
+            map.put("timestamp", timestamp);
+            map.put("description", description);
+            map.put("cost", cost);
+            map.put("transaction", transaction);
+            map.put("category", category);
+            transactionList.add(map);
+        }
+
+        CustomAdapter adapter = new CustomAdapter(getContext(), transactionList);
+
+        //listview for show alltransaction
+        ListView transactionListView = (ListView) mView.findViewById(R.id.listViewTransaction);
+        transactionListView.setAdapter(adapter);
+        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+    }
+
+    // ** must have for connect DB all transaction
+    public class getHttpAll {
+
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpAll(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG, "onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                showTransactionToListView(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+
+
 }

@@ -57,7 +57,7 @@ public class IncomeAdapter extends BaseAdapter {
 
         TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
         textViewCost.setText(arrIncome.get(position).get("cost").toString() + " Baht");
-        textViewCost.setTextColor(Color.parseColor("#39dd92"));
+        textViewCost.setTextColor(Color.parseColor("#088A4B"));
 
         ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
         imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
