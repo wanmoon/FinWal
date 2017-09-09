@@ -134,6 +134,8 @@ public class History extends android.support.v4.app.Fragment  {
         httpAll = new getHttpAll(getContext());
         getAllTransaction(cust_id);
 
+
+
     }
 
 
@@ -182,8 +184,8 @@ public class History extends android.support.v4.app.Fragment  {
         textViewMyExpenseAll = (TextView) view.findViewById(R.id.textViewMyExpenseAll);
         Log.d(TAG,"end findviewbyid");
 
-        sumBalance();
 
+        sumBalance();
 
     }
 

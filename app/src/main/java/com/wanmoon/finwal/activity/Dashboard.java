@@ -32,6 +32,8 @@ import com.wanmoon.finwal.R;
 
 import java.util.ArrayList;
 
+import static com.wanmoon.finwal.R.id.tab2;
+
 
 public class Dashboard extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -292,30 +294,30 @@ public class Dashboard extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_dashboard, container, false);
-
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
 
-//        TabHost hostDashboard = (TabHost) rootView.findViewById(R.id.tabHost);
-//        hostDashboard.setup();
-//
-//        //Tab1
-//        TabHost.TabSpec spec = hostDashboard.newTabSpec("Tab One");
-//        spec.setContent(R.id.tab1);
-//        spec.setIndicator("Monthly");
-//        hostDashboard.addTab(spec);
-//
-//        //Tab2
-//        spec = hostDashboard.newTabSpec("Tab Two");
-//        spec.setContent(tab2);
-//        spec.setIndicator("Yearly");
-//        hostDashboard.addTab(spec);
+        // for tabHost
+        TabHost host = (TabHost) rootView.findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab1
+        TabHost.TabSpec spec = host.newTabSpec("Tab One");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("Monthly");
+        host.addTab(spec);
+
+        //Tab2
+        spec = host.newTabSpec("Tab Two");
+        spec.setContent(tab2);
+        spec.setIndicator("Yearly");
+        host.addTab(spec);
 
 
-        visible();
+
+        //visible();
         initDataIncome();
         initDataExpense();
         initData();
