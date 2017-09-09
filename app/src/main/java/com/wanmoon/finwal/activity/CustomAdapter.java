@@ -51,7 +51,7 @@ public class CustomAdapter extends BaseAdapter {
             view = mInflater.inflate(R.layout.listview_alltransaction, parent, false);
 
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
-        textViewDescription.setText(arrTransaction.get(position).get("description").toString());
+        textViewDescription.setText(arrTransaction.get(position).get("description").toString().replace("0","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("บาท",""));
 
         TextView textViewDate = (TextView)view.findViewById(R.id.textViewDate);
         textViewDate.setText(arrTransaction.get(position).get("timestamp").toString());

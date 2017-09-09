@@ -1,0 +1,19 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_9_2_2017_3_35_PM__Default_2/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_9_2_2017_3_35_PM__Default_2/shelved.patch	(revision 2c3898f72e5862e7872d7271cbb1d4db69dc197a)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_9_2_2017_3_35_PM__Default_2/shelved.patch	(revision 2c3898f72e5862e7872d7271cbb1d4db69dc197a)
+@@ -1,14 +0,0 @@
+-Index: .idea/misc.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/misc.xml	(revision b3446cefbc1473df28e1cfcb3adb824213fe73a6)
+-+++ .idea/misc.xml	
+-@@ -43,4 +43,4 @@
+-   <component name="ProjectType">
+-     <option name="id" value="Android" />
+-   </component>
+--</project>
+-+</project>
+-\ No newline at end of file
