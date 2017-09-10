@@ -116,7 +116,7 @@ public class CustomAdapter extends BaseAdapter {
             case "Healthcare"
                     :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_health);
                 break;
-            case "Saving and Investment"
+                case "Saving and Investment"
                     :     imageViewCategoryIcon.setImageResource(R.mipmap.ic_savingandinvestment);
                 break;
 

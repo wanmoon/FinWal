@@ -131,15 +131,11 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     public void imageButton(View view){
 
         promptSpeechInput();
-        if(val != ""){
-            textViewCategories.setText("");
-            textPrice.setText("");
-            textViewTransaction.setText("");
 
-        }
     }
 
     public void  promptSpeechInput(){
+
 
         Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -153,6 +149,8 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         {
             Toast.makeText(SpeechToText.this ,"Sorry your device don't suppose language", Toast.LENGTH_LONG).show();
         }
+
+
 
     }
 
@@ -172,6 +170,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
 
     public void button(){
 
+
+
+
+
         textViewTransaction = (TextView) findViewById(R.id.textViewTransaction);
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
@@ -184,6 +186,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         textViewTransaction.setVisibility(View.VISIBLE);
         textViewCategories.setVisibility(View.VISIBLE);
         textPrice.setVisibility(View.VISIBLE);
+
+        textViewCategories.setText("");
+        textPrice.setText("");
+        textViewTransaction.setText("");
 
         buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -459,8 +465,12 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 );
             }
         }
-        textPrice.setText(keepPrice()+" BATH");
+
+
+
         button();
+        textPrice.setText(keepPrice()+" BATH");
+
 
     }
 
