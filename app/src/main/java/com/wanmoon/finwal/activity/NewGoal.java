@@ -49,7 +49,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
     private String ending_date;
     private String getDescription_goal;
-    private String savingPlan;
+    private String savingplan;
     private String status_goal;
 
     private double saveingDay;
@@ -86,31 +86,15 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         radioButtonMonthly = (RadioButton) findViewById(R.id.radioButtonMonthly);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                // find which radio button is selected
-                if(checkedId == R.id.radioButtonDaily) {
-                    Toast.makeText(getApplicationContext(), "Your Suggestion Plan : 'Daily'",
-                            Toast.LENGTH_SHORT).show();
-                } else if(checkedId == R.id.radioButtonWeekly) {
-                    Toast.makeText(getApplicationContext(), "Your Suggestion Plan : 'Weekly'",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Your Suggestion Plan : 'Monthly'",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         //set current date on calender
         calendarViewGoal = (CalendarView) findViewById(R.id.calendarViewGoal);
         Log.d(TAG, "start set current date in calendar");
         calendarViewGoal.setDate(System.currentTimeMillis(),false,true);
         Log.d(TAG, "finish set current date in calendar");
+        calendarViewGoal.setOnClickListener(this);
         //get date after selected
         calendarViewGoal.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //get endingdate
@@ -126,19 +110,22 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            addGoal(cust_id);
+            Log.d(TAG, "get getDescription_goal, getCost");
+            addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost, savingplan);
+            Log.d(TAG, "end addGoalToDB");
 
             Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"insert success");
-        }
-        if(v == textViewCancel){
+        } if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), Goal.class);
             startActivity(i);
+        } if (v == calendarViewGoal) {
+            addGoal();
         }
     }
 
-    public void addGoal(String cust_id) {
+    public void addGoal() {
         getDescription_goal = editTextGoal.getText().toString();
         String getMoney = editTextCost.getText().toString().trim();
 
@@ -148,19 +135,41 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             Toast.makeText(this, "Budged?", Toast.LENGTH_LONG).show();
         } else {
             getCost = Double.parseDouble(getMoney);
+            Log.d(TAG,"getCost = " + getCost);
 
-            Log.d(TAG, "get getDescription_goal, getCost");
-            addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost);
-            Log.d(TAG, "end addGoalToDB");
+            saveEachDay(getCost, countDate);
         }
     }
 
-    public void saveEachDay(double getCost, long countDate){
+    public void saveEachDay(final double getCost, final long countDate){
         Log.d(TAG, "getCost = " + getCost);
         Log.d(TAG, "countDate = " + countDate);
 
-        saveingDay = getCost/countDate;
-        Log.d(TAG, "savingDay = " + saveingDay);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.radioButtonDaily) {
+                    savingplan = "Daily";
+                    saveingDay = getCost/countDate;
+                    Log.d(TAG, "savingDay = " + saveingDay);
+                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + saveingDay + " Baht",
+                            Toast.LENGTH_LONG).show();
+                } else if(checkedId == R.id.radioButtonWeekly) {
+                    savingplan = "Weekly";
+                    saveingDay = getCost/(countDate/7);
+                    Log.d(TAG, "savingDay = " + saveingDay);
+                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + saveingDay + " Baht",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    savingplan = "Monthly";
+                    saveingDay = getCost/(countDate/30);
+                    Log.d(TAG, "savingDay = " + saveingDay);
+                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + saveingDay + " Baht",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 
     public void countDate(int dayOfMonth, int month, int year){
@@ -171,18 +180,24 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Calendar today = Calendar.getInstance();
-        Log.d(TAG, "todat = " + dateFormat.format(today.getTime()));
+        Log.d(TAG, "today = " + dateFormat.format(today.getTime()));
 
         countDate = ((selectedDay.getTimeInMillis() - today.getTimeInMillis())/(24 * 60 * 60 * 1000)) -60;
         Log.d(TAG, "count day = " + countDate);
 
-        saveEachDay(getCost, countDate);
+        if (countDate <= 0){
+            Toast.makeText(getApplicationContext(), "You can't set goal date in past, selecte againg",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            addGoal();
+        }
+
     }
 
-    public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, double cost_goal){
+    public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, double cost_goal, String savingplan){
         try {
             Log.d(TAG,"start goal");
-            http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&status_goal=" + status_goal +"&cost_goal=" + cost_goal);
+            http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&status_goal=" + status_goal +"&cost_goal=" + cost_goal +"&savingplan=" + savingplan);
             Log.d(TAG,"end goal");
         } catch (IOException e) {
             e.printStackTrace();
@@ -211,7 +226,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                     Log.d(TAG,"insert success");
 
                     // will open login activity here
-                    Intent i=new Intent(getApplicationContext(), Goal.class);
+                    Intent i=new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
                 }
             });

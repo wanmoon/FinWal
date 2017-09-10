@@ -192,7 +192,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
                     Log.d(TAG,"insert bill success");
 
                     // will open main activity here
-                    Intent i=new Intent(getApplicationContext(), Billing.class);
+                    Intent i=new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
                 }
             });
