@@ -50,7 +50,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //**for log
-    private final String TAG = "Show All Transaction";
+    private final String TAG = "AllTransactionActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

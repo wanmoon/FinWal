@@ -243,8 +243,6 @@ public class History extends android.support.v4.app.Fragment  {
         return response;
     }
 
-
-
     // ** must have for connect DB Income
     public class getHttpIncomeAll {
         OkHttpClient client;
@@ -284,6 +282,10 @@ public class History extends android.support.v4.app.Fragment  {
 
                                 Log.d(TAG,"onResponse");
                                 Log.d(TAG,"show");
+
+                                if(sumExpenseAll != 0 && sumIncomeAll != 0) {
+                                    sumBalance();
+                                }
 
                             } catch (NumberFormatException e){
                                 //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -344,6 +346,10 @@ public class History extends android.support.v4.app.Fragment  {
                                 Log.d(TAG,"onResponse");
                                 Log.d(TAG,"show");
 
+                                if(sumExpenseAll != 0 && sumIncomeAll != 0) {
+                                    sumBalance();
+                                }
+
                             } catch (NumberFormatException e){
                                 //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
                                 Log.d(TAG, "NumberFormatException");
@@ -378,7 +384,6 @@ public class History extends android.support.v4.app.Fragment  {
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
     }
-
 
     //listview AllIncome
     public void getAllIncome(String cust_id){
@@ -683,7 +688,4 @@ public class History extends android.support.v4.app.Fragment  {
             });
         }
     }
-
-
-
 }
