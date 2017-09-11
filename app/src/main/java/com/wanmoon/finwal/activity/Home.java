@@ -162,7 +162,6 @@ public class Home extends android.support.v4.app.Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
 
-
         return rootView;
     }
 
@@ -473,6 +472,8 @@ public class Home extends android.support.v4.app.Fragment {
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
 
+
+        //for pie chart
         initData();
 
 
@@ -517,7 +518,7 @@ public class Home extends android.support.v4.app.Fragment {
 
         float[] yData = {incomePercent, expensePercent};
         Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
-        Log.d(TAG, "addDataSet started incomePercent" + expensePercent);
+        Log.d(TAG, "addDataSet started expensePercent" + expensePercent);
 
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();

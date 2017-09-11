@@ -22,9 +22,9 @@ $ending_date = $_GET["ending_date"];
 $description_goal = $_GET["description_goal"];
 $status_goal = $_GET["status_goal"];
 $cost_goal = $_GET["cost_goal"];
-//$category = $_GET["category"];
+$savingplan = $_GET["savingplan"];
 
-$sql = "INSERT INTO goal(cust_id, ending_date, description_goal, status_goal, cost_goal) VALUES ('$cust_id','$ending_date','$description_goal','$status_goal','$cost_goal');";
+$sql = "INSERT INTO goal(cust_id, ending_date, description_goal, status_goal, cost_goal, savingplan) VALUES ('$cust_id','$ending_date','$description_goal','$status_goal','$cost_goal', '$savingplan');";
 //$sql = "INSERT INTO transaction(cust_id,timestamp,description,cost,transaction,category) VALUES('fjgnlg',current_timestamp,'2','2','2','2')";
 echo $sql;
 

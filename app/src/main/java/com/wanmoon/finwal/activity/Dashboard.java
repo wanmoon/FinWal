@@ -4,16 +4,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -26,11 +26,18 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static com.wanmoon.finwal.R.id.tab2;
 
@@ -48,43 +55,68 @@ public class Dashboard extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     //for line chart
-
     private float[] yData = {10.0f, 90.0f};
     private String[] xData = {"Income", "Expense"};
     LineChart lineChart;
 
 
-    private LineGraphSeries<DataPoint> series1, series2;
-
-    private ImageView imageViewFrame;
-
-
-    public TabHost tabHost;
-    private FragmentTabHost mTabHost;
-
-
 
     //for pie chart
     private final String TAG = "Dashboard";
-    private float[] yDataIncome = {10.0f, 10.0f, 20.0f, 40.0f ,20.0f};
-    private String[] xDataIncome = {"Salary", "Gift","Loan", "Family and Personal", "Extra income"};
+    private float[] yDataIncome = {};
+    private String[] xDataIncome = {};
+
     private float[] yDataExpense = {10.0f, 10.0f, 20.0f, 40.0f ,20.0f};
     private String[] xDataExpense = {"Bill", "Education","Entertainment", "Food and Drink", "Shopping"};
     PieChart pieChart;
     private View mView;
 
+    private double sumIncomeMonth;
+    private double sumExpenseMonth;
+    private double monthBalance;
+
+    private String setMonthBalance;
+    private String setIncomeMonth;
+    private String setExpenseMonth;
+
+    public TextView textViewMyIncome;
+    public TextView textViewMyExpense;
+    public TextView textViewMonthBalance;
+
+    private float incomePercent ;
+    private float expensePercent ;
+
+    private double sumIncomeSalaryMonth;
+    private double sumIncomeGiftMonth;
+    private double sumIncomeLoanMonth;
+    private double sumIncomeFamilyAndPersonalMonth;
+    private double sumIncomeExtraMonth;
+
+    private float incomeSalaryMonthPercent;
+    private float incomeGiftMonthPercent;
+    private float incomeLoanMonthPercent;
+    private float incomeFamilyAndPersonalPercent;
+    private float incomeExtraPercent;
+
+    //get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+
+    //connect DB
+    String response = null;
+    getHttpIncomeMonth httpIncomeMonth = new getHttpIncomeMonth();
+    getHttpExpenseMonth httpExpenseMonth = new getHttpExpenseMonth();
+    getHttpSumIncomeSalaryMonth httpSumIncomeSalaryMonth = new getHttpSumIncomeSalaryMonth();
+    getHttpSumIncomeGiftMonth httpSumIncomeGiftMonth = new getHttpSumIncomeGiftMonth();
+    getHttpSumIncomeLoanMonth httpSumIncomeLoanMonth = new getHttpSumIncomeLoanMonth();
+
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+
     public Dashboard() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Dashboard.
-     */
     // TODO: Rename and change types and number of parameters
     public static Dashboard newInstance(String param1, String param2) {
         Dashboard fragment = new Dashboard();
@@ -110,10 +142,380 @@ public class Dashboard extends Fragment {
 
 
 
+    }
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        mView = rootView;
+
+        // for tabHost
+        TabHost host = (TabHost) rootView.findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab1
+        TabHost.TabSpec spec = host.newTabSpec("Tab One");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("Monthly");
+        host.addTab(spec);
+
+        //Tab2
+        spec = host.newTabSpec("Tab Two");
+        spec.setContent(tab2);
+        spec.setIndicator("Yearly");
+        host.addTab(spec);
+
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        sumExpenseMonthToDB(cust_id);
+        sumIncomeMonthToDB(cust_id);
+
+        sumIncomeSalaryMonthToDB(cust_id);
+        sumIncomeGiftMonthToDB(cust_id);
+        sumIncomeLoanMonthToDB(cust_id);
 
 
     }
 
+
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+
+    //////////////////////for month balance/////////////////////
+
+    public String sumIncomeMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeMonth");
+            httpIncomeMonth.run(BASE_URL + "/sumIncomeMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public String sumExpenseMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumExpenseMonth");
+            httpExpenseMonth.run(BASE_URL + "/sumExpenseMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumExpenseMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpExpenseMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expenseMonth = response.body().string();
+                        sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
+                        Log.d(TAG,"sumExpense = " + sumExpenseMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    public class getHttpIncomeMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String incomeMonth = response.body().string();
+                        sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                        Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    //////////////////////// Income ////////////////////////
+
+    // SalaryMonth
+    public String sumIncomeSalaryMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeSalaryMonthToDB");
+            httpSumIncomeSalaryMonth.run(BASE_URL + "/incomeMonth/sumIncomeSalaryMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeSalaryMonthToDB");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpSumIncomeSalaryMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expenseMonth = response.body().string();
+                        sumIncomeSalaryMonth = Double.parseDouble(expenseMonth.trim());
+                        Log.d(TAG,"sumIncomeSalaryMonth = " + sumIncomeSalaryMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+
+    // GiftMonth
+    public String sumIncomeGiftMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeGiftMonthToDB");
+            httpSumIncomeGiftMonth.run(BASE_URL + "/incomeMonth/sumIncomeGiftMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeGiftMonthToDB");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpSumIncomeGiftMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expenseMonth = response.body().string();
+                        sumIncomeGiftMonth = Double.parseDouble(expenseMonth.trim());
+                        Log.d(TAG,"sumIncomeGiftMonth = " + sumIncomeGiftMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+    // LoanMonth
+    public String sumIncomeLoanMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeLoanMonthToDB");
+            httpSumIncomeLoanMonth.run(BASE_URL + "/incomeMonth/sumIncomeLoanMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeLoanMonthToDB");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpSumIncomeLoanMonth {
+        OkHttpClient client = new OkHttpClient();
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expenseMonth = response.body().string();
+                        sumIncomeLoanMonth = Double.parseDouble(expenseMonth.trim());
+                        Log.d(TAG,"sumIncomeLoanMonth = " + sumIncomeLoanMonth);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+
+
+    public void sumAllBalance(){
+        monthBalance = sumIncomeMonth - sumExpenseMonth;
+        Log.d(TAG, "Month balance = " + monthBalance);
+
+        Log.d(TAG,"start settext");
+        setIncomeMonth = "Total Income : " + "<b>" + sumIncomeMonth + " Baht</b>";
+      //  textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
+        Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
+
+        setExpenseMonth = "Total Expense : " + "<b>" + sumExpenseMonth + " Baht</b>";
+     //   textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
+        Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
+
+        //in a month
+        setMonthBalance = "Month Balance : " + "<b>" + monthBalance + " Baht</b>";
+      //  textViewMonthBalance.setText((Html.fromHtml(setMonthBalance)));
+
+
+
+        incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
+        Log.d(TAG, "Wallet incomePercent = " + incomePercent);
+
+        expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
+        Log.d(TAG, "Wallet expensePercent = " + expensePercent);
+
+        incomeSalaryMonthPercent = (float) (sumIncomeSalaryMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+
+        incomeGiftMonthPercent = (float) (sumIncomeGiftMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeSalaryGiftPercent = " + incomeGiftMonthPercent);
+
+        incomeLoanMonthPercent = (float) (sumIncomeLoanMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
+
+
+        //for pie chart
+        initDataIncome();
+       // initDataExpense();
+       // initData();
+
+
+    }
+
+    // line chart
     private void initData() {
 
         lineChart = (LineChart) mView.findViewById(R.id.lineChart);
@@ -155,6 +557,8 @@ public class Dashboard extends Fragment {
 
     }
 
+
+    // pie chart income
     private void initDataIncome() {
 
         pieChart = (PieChart) mView.findViewById(R.id.pieChartIncome);
@@ -184,36 +588,54 @@ public class Dashboard extends Fragment {
 
     }
 
+    private void addDataSetIncome() {
+        Log.d(TAG, "addDataSet started");
 
-    private void initDataExpense() {
-        pieChart = (PieChart) mView.findViewById(R.id.pieChartExpense);
+        float[] yDataIncome = {incomeSalaryMonthPercent, incomeGiftMonthPercent, incomeLoanMonthPercent};
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+        Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
+        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeGiftMonthPercent);
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+        String[] xDataIncome = {"Salary", "Gift","Loan", "Family and Personal", "Extra income"};
 
-        pieChart.setDescription("");
-        pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Expense");
-        pieChart.setCenterTextSize(8);
-        //pieChart.setDrawEntryLabels(true);
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
 
-        addDataSetExpense();
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
-            }
+        for (int i =0 ; i < yDataIncome.length ; i++){
+            yEntrys.add(new PieEntry(yDataIncome[i], i));
+        }
+        for (int i =0 ; i < xDataIncome.length ; i++){
+            xEntrys.add(xDataIncome[i]);
+        }
 
-            @Override
-            public void onNothingSelected() {
+        // create the dataset
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(12);
 
-            }
-        });
+        // add color to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.BLUE);
+        colors.add(Color.CYAN);
+        colors.add(Color.YELLOW);
+//        colors.add(Color.GREEN);
+//        colors.add(Color.RED);
 
+        pieDataSet.setColors(colors);
+
+        //add Legend to chart
+//        Legend legend = pieChart.getLegend();
+//        legend.setForm(Legend.LegendForm.CIRCLE);
+//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+
+        // create pie data object
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
 
-    private void addDataSetIncome() {
+    private void addDataSetExpense() {
         Log.d(TAG, "addDataSet started");
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
@@ -251,117 +673,36 @@ public class Dashboard extends Fragment {
         pieChart.invalidate();
     }
 
-    private void addDataSetExpense() {
-        Log.d(TAG, "addDataSet started");
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
 
-        for (int i =0 ; i < yDataIncome.length ; i++){
-            yEntrys.add(new PieEntry(yDataIncome[i], i));
-        }
-        for (int i =0 ; i < xDataIncome.length ; i++){
-            xEntrys.add(xDataIncome[i]);
-        }
 
-        // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+    private void initDataExpense() {
+        pieChart = (PieChart) mView.findViewById(R.id.pieChartExpense);
 
-        // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
+        pieChart.setDescription("");
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("Expense");
+        pieChart.setCenterTextSize(8);
+        //pieChart.setDrawEntryLabels(true);
 
-        pieDataSet.setColors(colors);
+        addDataSetExpense();
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
 
-        //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+            @Override
+            public void onNothingSelected() {
 
-        // create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
+            }
+        });
+
     }
 
 
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        //return inflater.inflate(R.layout.fragment_dashboard, container, false);
-
-        View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        mView = rootView;
-
-        // for tabHost
-        TabHost host = (TabHost) rootView.findViewById(R.id.tabHost);
-        host.setup();
-
-        //Tab1
-        TabHost.TabSpec spec = host.newTabSpec("Tab One");
-        spec.setContent(R.id.tab1);
-        spec.setIndicator("Monthly");
-        host.addTab(spec);
-
-        //Tab2
-        spec = host.newTabSpec("Tab Two");
-        spec.setContent(tab2);
-        spec.setIndicator("Yearly");
-        host.addTab(spec);
-
-
-
-        //visible();
-        initDataIncome();
-        initDataExpense();
-        initData();
-
-        return rootView;
-    }
-
-    public void visible(){
-        imageViewFrame = (ImageView) mView.findViewById(R.id.imageViewFrame);
-        imageViewFrame.setVisibility(View.VISIBLE);
-    }
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        //inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
