@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -98,8 +99,12 @@ public class Home extends android.support.v4.app.Fragment {
     //for log
     private final String TAG = "HomeActivity";
 
+
+    private float incomePercent ;
+    private float expensePercent ;
+
     //for pie chart
-    private float[] yData = {90.0f, 10.0f};
+    private float[] yData = {incomePercent, expensePercent};
     private String[] xData = {"Income", "Expense"};
     public PieChart pieChart;
     private View mView;
@@ -153,12 +158,10 @@ public class Home extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_home, container, false);
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
-        initData();
+
 
         return rootView;
     }
@@ -198,70 +201,7 @@ public class Home extends android.support.v4.app.Fragment {
         });
     }
 
-    private void initData() {
 
-        pieChart = (PieChart) mView.findViewById(R.id.Piechart);
-
-        pieChart.setDescription("");
-        pieChart.setUsePercentValues(true);
-        pieChart.setRotationEnabled(true);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("My Finwal");
-        pieChart.setCenterTextSize(10);
-        //pieChart.setEntryLabelTextSize(16);
-        //pieChart.setDrawEntryLabels(true);
-
-        addDataSetIncome();
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-    }
-
-    private void addDataSetIncome() {
-        Log.d(TAG, "addDataSet started");
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
-
-        for (int i =0 ; i < yData.length ; i++){
-            yEntrys.add(new PieEntry(yData[i], i));
-        }
-        for (int i =0 ; i < xData.length ; i++){
-            xEntrys.add(xData[i]);
-        }
-
-        // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
-        pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(15);
-
-        // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
-
-        pieDataSet.setColors(colors);
-
-        //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-
-        // create pie data object
-        PieData pieData = new PieData(pieDataSet);
-        pieChart.setData(pieData);
-        pieChart.invalidate();
-    }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.billing_menu, menu);
@@ -300,16 +240,6 @@ public class Home extends android.support.v4.app.Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -516,9 +446,11 @@ public class Home extends android.support.v4.app.Fragment {
         Log.d(TAG,"start settext");
         setIncomeMonth = "Total Income : " + "<b>" + sumIncomeMonth + " Baht</b>";
         textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
+        Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
         setExpenseMonth = "Total Expense : " + "<b>" + sumExpenseMonth + " Baht</b>";
         textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
+        Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
         //in a month
         setMonthBalance = "Month Balance : " + "<b>" + monthBalance + " Baht</b>";
@@ -532,5 +464,91 @@ public class Home extends android.support.v4.app.Fragment {
         setWalletBalance = "Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
+
+
+        incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
+        Log.d(TAG, "Wallet incomePercent = " + incomePercent);
+
+
+        expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
+        Log.d(TAG, "Wallet expensePercent = " + expensePercent);
+
+        initData();
+
+
+    }
+
+
+    // for pie chart
+    private void initData() {
+
+        pieChart = (PieChart) mView.findViewById(R.id.Piechart);
+
+        pieChart.setDescription("");
+        //pieChart.setDescriptionPosition(180,0);
+        pieChart.setUsePercentValues(true);
+        pieChart.setRotationEnabled(true);
+        pieChart.setHoleRadius(25f);
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setCenterText("My Finwal");
+        pieChart.setCenterTextSize(10);
+        //pieChart.setEntryLabelTextSize(16);
+        //pieChart.setDrawEntryLabels(true);
+
+        addDataSetIncome();
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+    }
+
+    private void addDataSetIncome() {
+        Log.d(TAG, "addDataSet started pie chart");
+
+
+        float[] yData = {incomePercent, expensePercent};
+        Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
+        Log.d(TAG, "addDataSet started incomePercent" + expensePercent);
+
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
+
+        for (int i =0 ; i < yData.length ; i++){
+            yEntrys.add(new PieEntry(yData[i], i));
+        }
+        for (int i =0 ; i < xData.length ; i++){
+            xEntrys.add(xData[i]);
+        }
+
+        // create the dataset
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income , Expense");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(15);
+
+        // add color to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.GREEN);
+        colors.add(Color.RED);
+
+        pieDataSet.setColors(colors);
+
+        //add Legend to chart
+        Legend legend = pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        //legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+
+        // create pie data object
+        PieData pieData = new PieData(pieDataSet);
+        pieChart.setData(pieData);
+        pieChart.invalidate();
     }
 }
