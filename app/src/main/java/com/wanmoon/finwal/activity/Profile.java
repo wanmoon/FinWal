@@ -87,7 +87,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkName();
         checkPhone();
         checkAddress();
-        //checkGender();
+        checkGender();
 
         // spinner to sort
         spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
@@ -186,17 +186,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                final List<String> areas = new ArrayList<String>();
+                String value = dataSnapshot.getValue(String.class);
 
-                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String areaName = areaSnapshot.child("gender").getValue(String.class);
-                    areas.add(areaName);
-                }
+                    textViewGenderResult.setText(value);
 
-                Spinner areaSpinner = (Spinner) findViewById(R.id.spinnerGender);
-                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(Profile.this, android.R.layout.simple_spinner_item, areas);
-                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                areaSpinner.setAdapter(areasAdapter);
             }
 
 

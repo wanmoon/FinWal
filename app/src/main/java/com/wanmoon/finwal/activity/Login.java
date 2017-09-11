@@ -101,6 +101,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
 
+                        }else {
+                            Toast.makeText(Login.this, "Your Email or password are incorrect" , Toast.LENGTH_LONG).show();
                         }
 
 

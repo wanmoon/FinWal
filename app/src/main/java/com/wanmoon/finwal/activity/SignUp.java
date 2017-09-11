@@ -103,7 +103,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                             finish();
                             startActivity(new Intent(getApplicationContext(), Profile.class));
                         }else{
-                            Toast.makeText(SignUp.this,"Could not register.. please try again ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SignUp.this,"User with this email already exist ", Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }
