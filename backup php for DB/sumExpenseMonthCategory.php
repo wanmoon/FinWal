@@ -25,7 +25,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['category'] . "," . $row['SUM(cost)'] . "\n" . "," ;
+        echo $row['category'] . "," . $row['SUM(cost)'] .  "," ;
     }
 }else {
     echo "0 ";
