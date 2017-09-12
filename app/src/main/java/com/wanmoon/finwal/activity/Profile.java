@@ -48,6 +48,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private Button buttonSave;
 
     private Spinner spinnerGender;
+    private TextView textViewSpinnerGender;
     private TextView textViewGenderResult;
 
     //get current user and email
@@ -78,8 +79,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
-        textViewGenderResult.setEnabled(false);
+        textViewSpinnerGender = (TextView) findViewById(R.id.textViewSpinnerGender);
+        //textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
+        //textViewGenderResult.setEnabled(true);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
 
@@ -87,31 +89,34 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkName();
         checkPhone();
         checkAddress();
-        checkGender();
+
+
 
         // spinner to sort
-        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-        String[] spinnerValue = new String[]{
-                "Male",
-                "Female",
-        };
-        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, mspinnerSort);
-        spinnerGender.setAdapter(aSpinnerSort);
+//        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
+//        String[] spinnerValue = new String[]{
+//                "Male",
+//                "Female",
+//        };
+//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, mspinnerSort);
+//        spinnerGender.setAdapter(aSpinnerSort);
+//
+//        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//               // textViewGenderResult.setText(mspinnerSort.get(position));
+//                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
-        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                textViewGenderResult.setText(mspinnerSort.get(position));
-                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        checkGender();
     }
 
 
@@ -121,10 +126,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
-        String gender = textViewGenderResult.getText().toString().trim();
+       // String gender = textViewGenderResult.getText().toString().trim();
 
 
-        UserInformation userInformation = new UserInformation(email, name, address, phoneNumber, gender);
+        UserInformation userInformation = new UserInformation(email, name, address, phoneNumber);
         databaseReference.child(user.getUid()).setValue(userInformation);
 
         Toast.makeText(this, "Information saved..", Toast.LENGTH_LONG).show();
@@ -183,14 +188,51 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkGender(){
+        Log.d(TAG, "Gender");
         databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 String value = dataSnapshot.getValue(String.class);
+               // if (value == null) {
+                    Log.d(TAG, "Gender1" );
+                    spinnerGender.setVisibility(View.VISIBLE);
+                    // textViewSpinnerGender.setVisibility(View.INVISIBLE);
+                    spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
+                    String[] spinnerValue = new String[]{
+                            "Male",
+                            "Female",
+                    };
+                    final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+                    ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, mspinnerSort);
+                    spinnerGender.setAdapter(aSpinnerSort);
 
-                    textViewGenderResult.setText(value);
+                    spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            // textViewGenderResult.setText(mspinnerSort.get(position));
+                            //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+                        }
 
-            }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+                //}
+                //else if(value != ""){
+//                    Log.d(TAG, "Gender2" + value );
+//                   // spinnerGender.setVisibility(View.INVISIBLE);
+//                    textViewSpinnerGender.setVisibility(View.VISIBLE);
+//                    textViewSpinnerGender.setText(value+"");
+//
+//
+//                }
+
+                }
+
+
+
 
 
 

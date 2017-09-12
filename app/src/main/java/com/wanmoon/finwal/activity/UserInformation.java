@@ -10,15 +10,15 @@ public class UserInformation {
     public String name;
     public String address;
     public String phoneNumber;
-    public String gender;
+   // public String gender;
 
 
-    public UserInformation(String email, String name, String address, String phoneNumber, String gender){
+    public UserInformation(String email, String name, String address, String phoneNumber){
         this.email = email;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        this.gender = gender;
+      //  this.gender = gender;
     }
 
     public UserInformation(){
@@ -38,9 +38,9 @@ public class UserInformation {
         return phoneNumber;
     }
 
-    public String getGender(){
-        return gender;
-    }
+//    public String getGender(){
+//        return gender;
+//    }
 
 
     public void setAddress(String address){
@@ -55,8 +55,8 @@ public class UserInformation {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setGender(String gender){
-        this.gender = gender;
-    }
+//    public void setGender(String gender){
+//        this.gender = gender;
+//    }
 
 }

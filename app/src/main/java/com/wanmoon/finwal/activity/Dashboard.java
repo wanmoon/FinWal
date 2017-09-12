@@ -32,6 +32,9 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,11 +95,21 @@ public class Dashboard extends Fragment {
     private double sumIncomeFamilyAndPersonalMonth;
     private double sumIncomeExtraMonth;
 
-    private float incomeSalaryMonthPercent;
+    private float incomeExtraMonthCPercent;
     private float incomeGiftMonthPercent;
     private float incomeLoanMonthPercent;
     private float incomeFamilyAndPersonalPercent;
-    private float incomeExtraPercent;
+    private float incomeSalaryMonthPercent;
+
+
+    private String  a;
+
+    String CategoryExtraIncome;
+    String CategoryFamilyAndPersonal;
+    String CategoryGift;
+    String CategoryLoan;
+    String CategorySalary;
+
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -106,11 +119,15 @@ public class Dashboard extends Fragment {
     String response = null;
     getHttpIncomeMonth httpIncomeMonth = new getHttpIncomeMonth();
     getHttpExpenseMonth httpExpenseMonth = new getHttpExpenseMonth();
-    getHttpSumIncomeSalaryMonth httpSumIncomeSalaryMonth = new getHttpSumIncomeSalaryMonth();
-    getHttpSumIncomeGiftMonth httpSumIncomeGiftMonth = new getHttpSumIncomeGiftMonth();
-    getHttpSumIncomeLoanMonth httpSumIncomeLoanMonth = new getHttpSumIncomeLoanMonth();
+    getHttpSumIncomeMonthCategory httpSumIncomeMonthCategory  = new getHttpSumIncomeMonthCategory();
+ //   getHttpSumIncomeGiftMonth httpSumIncomeGiftMonth = new getHttpSumIncomeGiftMonth();
+ //   getHttpSumIncomeLoanMonth httpSumIncomeLoanMonth = new getHttpSumIncomeLoanMonth();
 
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+    ArrayList<HashMap<String, String>> IncomeList;
+    BillAdapter adapter;
+
 
 
     public Dashboard() {
@@ -153,6 +170,8 @@ public class Dashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
 
+        IncomeList = new ArrayList<HashMap<String, String>>();
+
         // for tabHost
         TabHost host = (TabHost) rootView.findViewById(R.id.tabHost);
         host.setup();
@@ -170,6 +189,7 @@ public class Dashboard extends Fragment {
         host.addTab(spec);
 
 
+
         return rootView;
     }
 
@@ -178,9 +198,10 @@ public class Dashboard extends Fragment {
         sumExpenseMonthToDB(cust_id);
         sumIncomeMonthToDB(cust_id);
 
-        sumIncomeSalaryMonthToDB(cust_id);
-        sumIncomeGiftMonthToDB(cust_id);
-        sumIncomeLoanMonthToDB(cust_id);
+        sumIncomeMonthCategory(cust_id);
+
+
+
 
 
     }
@@ -322,12 +343,11 @@ public class Dashboard extends Fragment {
 
     //////////////////////// Income ////////////////////////
 
-    // SalaryMonth
-    public String sumIncomeSalaryMonthToDB(String cust_id){
+    public String sumIncomeMonthCategory(String cust_id){
         try {
-            Log.d(TAG,"start sumIncomeSalaryMonthToDB");
-            httpSumIncomeSalaryMonth.run(BASE_URL + "/incomeMonth/sumIncomeSalaryMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumIncomeSalaryMonthToDB");
+            Log.d(TAG,"start sumIncomeMonthCategory");
+            httpSumIncomeMonthCategory.run(BASE_URL + "/sumIncomeMonthCategory.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeMonthCategory" + sumIncomeSalaryMonth);
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG,"error catch");
@@ -335,8 +355,110 @@ public class Dashboard extends Fragment {
         return response;
     }
 
+    public void showIncomeCategory(String allIncomeMonth){
+        Log.d(TAG, "allIncomeMonth " + allIncomeMonth);
+        List<String> items = Arrays.asList(allIncomeMonth.split("\\s*,\\s*"));
+
+
+        ArrayList<Integer> integerCollector = new ArrayList<Integer>();
+        int pointer = 0;
+        for(String num: items){
+            if(pointer%2==1){
+                integerCollector.add(Integer.parseInt(items.get(pointer)));
+            }
+            pointer++;
+        }
+
+        ArrayList<String> stringCollector = new ArrayList<String>();
+        int pointerString = 0;
+        for(String num: items){
+            if(pointerString%2==0){
+                stringCollector.add(items.get(pointerString));
+            }
+            pointerString++;
+        }
+
+
+        for(int i = 0 ; i<=stringCollector.size();i++) {
+
+            String check = stringCollector.get(i).trim();
+            //Log.d(TAG, "check " + check);
+
+            if(check.equals("Extra Income")){
+                Log.d(TAG, "check " + check);
+
+                CategoryExtraIncome = "Extra Income";
+                Log.d(TAG, "CategoryExtraIncome " + CategoryExtraIncome);
+
+                sumIncomeExtraMonth = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeExtraMonth " + sumIncomeExtraMonth);
+
+            } //family
+            else if(check.equals("Family and Personal")){
+                Log.d(TAG, "check " + check);
+
+                CategoryFamilyAndPersonal = "Family and Personal";
+                Log.d(TAG, "CategoryFamilyAndPersonal " + CategoryFamilyAndPersonal);
+
+                sumIncomeFamilyAndPersonalMonth = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeFamilyAndPersonalMonth " + sumIncomeFamilyAndPersonalMonth);
+
+            } //gift
+            else if(check.equals("Gift")){
+                Log.d(TAG, "check " + check);
+
+                CategoryGift = "Gift";
+                Log.d(TAG, "CategoryGift " + CategoryGift);
+
+                sumIncomeGiftMonth = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeGiftMonth " + sumIncomeGiftMonth);
+
+            } //loan
+            else if (check.equals("Loan")) {
+                Log.d(TAG, "check " + check);
+
+                CategoryLoan = "Loan";
+                Log.d(TAG, "CategoryLoan " + CategoryLoan);
+
+                sumIncomeLoanMonth = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeLoanMonth " + sumIncomeLoanMonth);
+
+            } //salary
+            else if(check.equals("Salary")){
+                Log.d(TAG, "check " + check);
+
+                CategorySalary = "Salary";
+                Log.d(TAG, "CategorySalary " + CategorySalary);
+
+                sumIncomeSalaryMonth = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeSalaryMonth " + sumIncomeSalaryMonth);
+
+            }
+
+        }
+
+
+
+
+      //  integerCollector.get(0);
+//        String  b = integerCollector.get(1).toString();
+//        String  c = integerCollector.get(2).toString();
+//        String  d = integerCollector.get(3).toString();
+       // Log.d(TAG, "integerCollector " + integerCollector.get(0));
+
+      //  Log.d(TAG, "sumIncomeSalaryMonth " + a);
+//
+//        sumIncomeSalaryMonth = Double.parseDouble(integerCollector.get(0).toString());
+//        Log.d(TAG, "integerCollector " + sumIncomeSalaryMonth);
+
+
+
+//        adapter.notifyDataSetChanged();
+
+    }
+
     // ** must have for connect DB
-    public class getHttpSumIncomeSalaryMonth {
+    public class getHttpSumIncomeMonthCategory {
         OkHttpClient client = new OkHttpClient();
 
         void run(String url) throws IOException {
@@ -352,9 +474,16 @@ public class Dashboard extends Fragment {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     try {
-                        String expenseMonth = response.body().string();
-                        sumIncomeSalaryMonth = Double.parseDouble(expenseMonth.trim());
-                        Log.d(TAG,"sumIncomeSalaryMonth = " + sumIncomeSalaryMonth);
+//                        showIncomeCategory(cust_id);
+                        showIncomeCategory(response.body().string());
+                        String incomeMonth = response.body().string();
+                        sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                        Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+
+                       // showIncomeCategory(response.body().string());
+                       // String expenseMonth = response.body().string();
+                       // sumIncomeMonthCategory = Double.parseDouble(expenseMonth.trim());
+//                        Log.d(TAG,"sumIncomeMonthCategory = " + sumIncomeSalaryMonth);
 
                         Log.d(TAG,"onResponse");
                         Log.d(TAG,"show");
@@ -372,103 +501,9 @@ public class Dashboard extends Fragment {
     }
 
 
-    // GiftMonth
-    public String sumIncomeGiftMonthToDB(String cust_id){
-        try {
-            Log.d(TAG,"start sumIncomeGiftMonthToDB");
-            httpSumIncomeGiftMonth.run(BASE_URL + "/incomeMonth/sumIncomeGiftMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumIncomeGiftMonthToDB");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
 
-    // ** must have for connect DB
-    public class getHttpSumIncomeGiftMonth {
-        OkHttpClient client = new OkHttpClient();
 
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
 
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String expenseMonth = response.body().string();
-                        sumIncomeGiftMonth = Double.parseDouble(expenseMonth.trim());
-                        Log.d(TAG,"sumIncomeGiftMonth = " + sumIncomeGiftMonth);
-
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
-
-                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
-                            sumAllBalance();
-                        }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
-                }
-            });
-        }
-    }
-
-    // LoanMonth
-    public String sumIncomeLoanMonthToDB(String cust_id){
-        try {
-            Log.d(TAG,"start sumIncomeLoanMonthToDB");
-            httpSumIncomeLoanMonth.run(BASE_URL + "/incomeMonth/sumIncomeLoanMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumIncomeLoanMonthToDB");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    // ** must have for connect DB
-    public class getHttpSumIncomeLoanMonth {
-        OkHttpClient client = new OkHttpClient();
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String expenseMonth = response.body().string();
-                        sumIncomeLoanMonth = Double.parseDouble(expenseMonth.trim());
-                        Log.d(TAG,"sumIncomeLoanMonth = " + sumIncomeLoanMonth);
-
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
-
-                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
-                            sumAllBalance();
-                        }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
-                }
-            });
-        }
-    }
 
 
 
@@ -497,14 +532,30 @@ public class Dashboard extends Fragment {
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
 
-        incomeSalaryMonthPercent = (float) (sumIncomeSalaryMonth * (100/sumIncomeMonth));
-        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+
+
+        incomeExtraMonthCPercent = (float) (sumIncomeExtraMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeExtraMonthCPercent = " + incomeExtraMonthCPercent);
+
+        incomeFamilyAndPersonalPercent = (float) (sumIncomeFamilyAndPersonalMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeFamilyAndPersonalPercent = " + incomeFamilyAndPersonalPercent);
 
         incomeGiftMonthPercent = (float) (sumIncomeGiftMonth * (100/sumIncomeMonth));
-        Log.d(TAG, "Wallet incomeSalaryGiftPercent = " + incomeGiftMonthPercent);
+        Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
 
         incomeLoanMonthPercent = (float) (sumIncomeLoanMonth * (100/sumIncomeMonth));
         Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
+
+        incomeSalaryMonthPercent = (float) (sumIncomeSalaryMonth * (100/sumIncomeMonth));
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+
+
+
+//        incomeGiftMonthPercent = (float) (sumIncomeGiftMonth * (100/sumIncomeMonth));
+//        Log.d(TAG, "Wallet incomeSalaryGiftPercent = " + incomeGiftMonthPercent);
+//
+//        incomeLoanMonthPercent = (float) (sumIncomeLoanMonth * (100/sumIncomeMonth));
+//        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
 
 
         //for pie chart
@@ -591,13 +642,14 @@ public class Dashboard extends Fragment {
     private void addDataSetIncome() {
         Log.d(TAG, "addDataSet started");
 
-        float[] yDataIncome = {incomeSalaryMonthPercent, incomeGiftMonthPercent, incomeLoanMonthPercent};
+        float[] yDataIncome = {incomeExtraMonthCPercent, incomeFamilyAndPersonalPercent
+                ,incomeGiftMonthPercent, incomeLoanMonthPercent, incomeSalaryMonthPercent};
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeExtraMonthCPercent);
+        Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeFamilyAndPersonalPercent);
+        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeGiftMonthPercent);
+        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeLoanMonthPercent);
         Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
-        Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
-        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
-        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeGiftMonthPercent);
-        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
-        String[] xDataIncome = {"Salary", "Gift","Loan", "Family and Personal", "Extra income"};
+        String[] xDataIncome = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
 
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
