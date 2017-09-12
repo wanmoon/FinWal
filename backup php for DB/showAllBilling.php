@@ -16,8 +16,18 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
+$flagSort = $_GET["flagSort"];
+$sort;
 
-$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id' ORDER BY deadline DESC";
+if ($flagSort == 0) {
+	$sort = "status_bill ASC";
+} elseif ($flagSort == 1) {
+	$sort = "status_bill DESC";
+} else {
+	$sort = "deadline DESC";
+}
+
+$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id' ORDER BY $sort" ;
 
 $result = $conn->query($sql);
 

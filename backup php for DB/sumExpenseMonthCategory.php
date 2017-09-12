@@ -17,18 +17,20 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Expense' AND category = 'Saving and Investment' AND cust_id = '$cust_id' ";
+$sql = " SELECT category, SUM(cost) FROM transaction WHERE transaction = 'Expense' AND cust_id = '$cust_id' GROUP BY category ";
 
 $result = $conn->query($sql);
+
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['SUM(cost)'] . "\n";
+        echo $row['category'] . "," . $row['SUM(cost)'] . "\n" . "," ;
     }
-} else {
+}else {
     echo "0 ";
 }
+
 
 $conn->close();
 ?>

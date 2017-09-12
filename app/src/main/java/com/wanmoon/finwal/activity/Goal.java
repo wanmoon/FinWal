@@ -47,13 +47,11 @@ public class Goal extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    // dont deleted
     private String mParam1;
     private String mParam2;
 
-
-    private Spinner spinnerSort;
-    String defaultTextForSpinner = "text here";
-
+    public Spinner spinnerSort;
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -106,17 +104,114 @@ public class Goal extends Fragment {
         setHasOptionsMenu(true);
 
         ((MainActivity)getActivity()).setTitle("Goal");
-
-
-        http = new getHttp(getContext());
-        getAllGoal(cust_id);
-        Log.d(TAG, "end get all goal");
     }
 
-    public void getAllGoal(String cust_id){
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_goal, container, false);
+
+        goalList = new ArrayList<HashMap<String, String>>();
+        adapter = new GoalAdapter(getContext(), goalList);
+        goalListView = (ListView) rootView.findViewById(R.id.listViewGoal);
+        goalListView.setAdapter(adapter);
+        goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+
+        http = new getHttp(getContext());
+
+        //spinner
+        spinnerSort = (Spinner) rootView.findViewById(R.id.spinnerSort);
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "selected = " + selected);
+
+                if (selected.equals("Ending Date")){
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 4);
+                } else if (selected.equals("Active")) { //0
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 0);
+                } else if (selected.equals("Inactive")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 1);
+                } else if (selected.equals("Price : Low-High")) { //2
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 2);
+                } else if (selected.equals("Price : High-Low")) { //3
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 3);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        Log.d(TAG, "end get all billing");
+
+        return rootView;
+    }
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.goal_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_add) {
+            Intent intent = new Intent(getActivity(), NewGoal.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+
+    public void getAllGoal(String cust_id, int flagSort){
         try {
+            Log.d(TAG,"flagSort = " + flagSort);
             Log.d(TAG,"start select");
-            http.run(BASE_URL + "/showAllGoal.php?cust_id=" + cust_id);
+            http.run(BASE_URL + "/showAllGoal.php?cust_id=" + cust_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,7 +220,6 @@ public class Goal extends Fragment {
     }
 
     public void showGoalToListView(String allGoal){
-        //String allTransaction = response.body().string();
         Log.d(TAG, "allGoal " + allGoal);
 
         String[] goalInfo;
@@ -133,6 +227,8 @@ public class Goal extends Fragment {
         String description_goal;
         String status_goal;
         String cost_goal;
+
+        goalList.clear();
 
         HashMap<String, String> map;
 
@@ -201,69 +297,5 @@ public class Goal extends Fragment {
                 }
             });
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_goal, container, false);
-
-        goalList = new ArrayList<HashMap<String, String>>();
-        adapter = new GoalAdapter(getContext(), goalList);
-        goalListView = (ListView) rootView.findViewById(R.id.listViewGoal);
-        goalListView.setAdapter(adapter);
-        goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-            }
-        });
-        return rootView;
-    }
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.goal_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_add) {
-            Intent intent = new Intent(getActivity(), NewGoal.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

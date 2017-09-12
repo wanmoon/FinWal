@@ -38,7 +38,6 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
     private TextView textViewCancel;
     private TextView textViewFinish;
     private Spinner spinnerSort;
-    String defaultTextForSpinner = "text here";
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -51,6 +50,8 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
     //**for log
     private final String TAG = "AllExpenseActivity";
 
+    ArrayList<HashMap<String, String>> expenseList;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,13 +63,13 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
 
+        http = new getHttp(AllExpense.this);
+
         // spinner to sort
         spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
         String[] spinnerValue = new String[]{
                 "Time",
-                "Category",
                 "Category : A-Z",
-                "Category : Most popular",
                 "Price : Low-High",
                 "Price : High-Low"
         };
@@ -77,11 +78,25 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, mspinnerSort);
         spinnerSort.setAdapter(aSpinnerSort);
-
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Toast.makeText(AllDetailTransaction.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+                String selected = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "selected = " + selected);
+
+                if (selected.equals("Time")){
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 3);
+                } else if (selected.equals("Category : A-Z")) {
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 0);
+                } else if (selected.equals("Price : Low-High")) {
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 1);
+                } else if (selected.equals("Price : High-Low")) {
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 2);
+                }
             }
 
             @Override
@@ -91,8 +106,6 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         });
 
         Log.d(TAG, "onCreate");
-        http = new getHttp(AllExpense.this);
-        getAllExpense(cust_id);
     }
 
     @Override
@@ -107,10 +120,11 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    public void getAllExpense(String cust_id){
+    public void getAllExpense(String cust_id, int flagSort){
         try {
+            Log.d(TAG,"flagSort = " + flagSort);
             Log.d(TAG,"start select");
-            http.run(BASE_URL + "/showExpense.php?cust_id=" + cust_id);
+            http.run(BASE_URL + "/showExpense.php?cust_id=" + cust_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,7 +133,6 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
     }
 
     public void showExpenseToListView(String allExpense){
-        //String allTransaction = response.body().string();
         Log.d(TAG, "allExpense " + allExpense);
 
         String[] expenseInfo;
@@ -128,9 +141,11 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         String cost;
         String transaction;
         String category;
-        ArrayList<HashMap<String, String>> expenseList = null;
 
         expenseList = new ArrayList<HashMap<String, String>>();
+
+        expenseList.clear();
+
         HashMap<String, String> map;
         Scanner scanner = new Scanner(allExpense);
 

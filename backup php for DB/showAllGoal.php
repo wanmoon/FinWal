@@ -16,8 +16,22 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
+$flagSort = $_GET["flagSort"];
+$sort;
 
-$sql = "SELECT ending_date, description_goal, status_goal, cost_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY ending_date DESC";
+if ($flagSort == 0) { //active =0
+	$sort = "status_goal ASC";
+} elseif ($flagSort == 1) { //inactive =1
+	$sort = "status_goal DESC";
+} elseif ($flagSort == 2) { //price low-high =2
+	$sort = "cost_goal ASC";
+} elseif ($flagSort == 3) { //price high-low =3
+	$sort = "cost_goal DESC";
+} else {
+	$sort = "ending_date DESC"; //time = 4
+}
+
+$sql = "SELECT ending_date, description_goal, status_goal, cost_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY $sort";
 
 $result = $conn->query($sql);
 

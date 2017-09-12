@@ -16,9 +16,20 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
+$flagSort = $_GET["flagSort"];
+$sort;
 
-//TIME(timestamp) AS 
-$sql = "SELECT timestamp, description, cost, transaction, category FROM transaction WHERE cust_id='$cust_id' ORDER BY timestamp DESC";
+if ($flagSort == 0) { //cate a-z =0
+	$sort = "category ASC";
+} elseif ($flagSort == 1) { //price low-high =1
+	$sort = "cost ASC";
+} elseif ($flagSort == 2) { //price high-low =2
+	$sort = "cost DESC";
+} else {
+	$sort = "timestamp DESC"; //time = 3
+}
+
+$sql = "SELECT timestamp, description, cost, transaction, category FROM transaction WHERE cust_id='$cust_id' ORDER BY $sort";
 
 $result = $conn->query($sql);
 

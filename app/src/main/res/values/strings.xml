@@ -20,12 +20,18 @@
     <string name="failed_add_transaction">Failed to add transaction, please try again</string>
 
 
-    <string-array name="array_spinner">
-        <item>Time</item>
+    <string-array name="array_spinner_goal">
+        <item>Ending Date</item>
         <item>Active</item>
         <item>Inactive</item>
         <item>Price : Low-High</item>
         <item>Price : High-Low</item>
+    </string-array>
+
+    <string-array name="array_spinner_bill">
+        <item>Deadline</item>
+        <item>Active</item>
+        <item>Inactive</item>
     </string-array>
 
 </resources>

@@ -170,8 +170,6 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
         return response;
     }
 
-
-
     // ** must have for connect DB
     public class getHttp {
         OkHttpClient client = new OkHttpClient();
