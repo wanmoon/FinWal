@@ -158,25 +158,33 @@ public class AllIncome extends AppCompatActivity implements View.OnClickListener
 
             incomeInfo = data.split(",");
 
-            timestamp = incomeInfo[0];
-            description = incomeInfo[1];
-            cost = incomeInfo[2];
-            transaction = incomeInfo[3];
-            category = incomeInfo[4];
+            if (incomeInfo.length >= 4) {
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            incomeList.add(map);
+                timestamp = incomeInfo[0];
+                description = incomeInfo[1];
+                cost = incomeInfo[2];
+                transaction = incomeInfo[3];
+                category = incomeInfo[4];
+
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                incomeList.add(map);
+
+            }
         }
 
         IncomeAdapter adapter = new IncomeAdapter(getApplicationContext(), incomeList);
 
         //listview for show alltransaction
         ListView incomeListView = (ListView) findViewById(R.id.listViewIncome);
+
+        TextView TextViewEmptyResult = (TextView)findViewById(R.id.TextViewEmptyResult);
+        incomeListView.setEmptyView(TextViewEmptyResult);
+
         incomeListView.setAdapter(adapter);
         incomeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

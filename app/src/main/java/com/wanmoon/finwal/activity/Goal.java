@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -115,6 +116,10 @@ public class Goal extends Fragment {
         goalList = new ArrayList<HashMap<String, String>>();
         adapter = new GoalAdapter(getContext(), goalList);
         goalListView = (ListView) rootView.findViewById(R.id.listViewGoal);
+
+        TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
+        goalListView.setEmptyView(TextViewEmptyResult);
+
         goalListView.setAdapter(adapter);
         goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -234,23 +239,26 @@ public class Goal extends Fragment {
 
         Scanner scanner = new Scanner(allGoal);
 
-        for(int i = 0; scanner.hasNext(); i++){
+        for(int i = 0; scanner.hasNext(); i++) {
             String data = scanner.nextLine();
             Log.d(TAG, "data has next " + data);
 
             goalInfo = data.split(",");
 
-            ending_date = goalInfo[0];
-            description_goal = goalInfo[1];
-            status_goal = goalInfo[2];
-            cost_goal = goalInfo[3];
+            if (goalInfo.length >= 3) {
 
-            map = new HashMap<String, String>();
-            map.put("ending_date", ending_date);
-            map.put("description_goal", description_goal);
-            map.put("status_goal", status_goal);
-            map.put("cost_goal", cost_goal);
-            goalList.add(map);
+                ending_date = goalInfo[0];
+                description_goal = goalInfo[1];
+                status_goal = goalInfo[2];
+                cost_goal = goalInfo[3];
+
+                map = new HashMap<String, String>();
+                map.put("ending_date", ending_date);
+                map.put("description_goal", description_goal);
+                map.put("status_goal", status_goal);
+                map.put("cost_goal", cost_goal);
+                goalList.add(map);
+            }
         }
         adapter.notifyDataSetChanged();
     }

@@ -109,6 +109,16 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+
+        //listview for show alltransaction
+//        ListView expenseListView = (ListView) findViewById(R.id.listViewExpense);
+//        TextView TextViewEmptyResult = (TextView)findViewById(R.id.TextViewEmptyResult);
+//        expenseListView.setEmptyView(TextViewEmptyResult);
+    }
+
+    @Override
     public void onClick(View v) {
         if(v == textViewFinish){
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
@@ -155,25 +165,33 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
 
             expenseInfo = data.split(",");
 
-            timestamp = expenseInfo[0];
-            description = expenseInfo[1];
-            cost = expenseInfo[2];
-            transaction = expenseInfo[3];
-            category = expenseInfo[4];
+            if(expenseInfo.length >= 4) {
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            expenseList.add(map);
+                timestamp = expenseInfo[0];
+                description = expenseInfo[1];
+                cost = expenseInfo[2];
+                transaction = expenseInfo[3];
+                category = expenseInfo[4];
+
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                expenseList.add(map);
+
+            }
         }
 
         ExpenseAdapter adapter = new ExpenseAdapter(getApplicationContext(), expenseList);
 
         //listview for show alltransaction
         ListView expenseListView = (ListView) findViewById(R.id.listViewExpense);
+
+        TextView TextViewEmptyResult = (TextView)findViewById(R.id.TextViewEmptyResult);
+        expenseListView.setEmptyView(TextViewEmptyResult);
+
         expenseListView.setAdapter(adapter);
         expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

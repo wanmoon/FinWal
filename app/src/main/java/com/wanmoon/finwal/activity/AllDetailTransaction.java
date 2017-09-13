@@ -156,25 +156,32 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
 
             transactionInfo = data.split(",");
 
-            timestamp = transactionInfo[0];
-            description = transactionInfo[1];
-            cost = transactionInfo[2];
-            transaction = transactionInfo[3];
-            category = transactionInfo[4];
+            if (transactionInfo.length >= 4) {
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            transactionList.add(map);
+                timestamp = transactionInfo[0];
+                description = transactionInfo[1];
+                cost = transactionInfo[2];
+                transaction = transactionInfo[3];
+                category = transactionInfo[4];
+
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                transactionList.add(map);
+            }
         }
 
         CustomAdapter adapter = new CustomAdapter(getApplicationContext(), transactionList);
 
         //listview for show alltransaction
         ListView transactionListView = (ListView) findViewById(R.id.listViewTransaction);
+
+        TextView TextViewEmptyResult = (TextView)findViewById(R.id.TextViewEmptyResult);
+        transactionListView.setEmptyView(TextViewEmptyResult);
+
         transactionListView.setAdapter(adapter);
         transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

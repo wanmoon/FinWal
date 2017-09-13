@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -118,6 +119,10 @@ public class Billing extends Fragment {
         billList = new ArrayList<HashMap<String, String>>();
         adapter = new BillAdapter(getContext(), billList);
         billingListView = (ListView) rootView.findViewById(R.id.listViewBilling);
+
+        TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
+        billingListView.setEmptyView(TextViewEmptyResult);
+
         billingListView.setAdapter(adapter);
         billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -236,17 +241,20 @@ public class Billing extends Fragment {
 
             billInfo = data.split(",");
 
-            period = billInfo[0];
-            description_bill = billInfo[1];
-            status_bill = billInfo[2];
-            deadline = billInfo[3];
+            if(billInfo.length >= 3) {
 
-            map = new HashMap<String, String>();
-            map.put("period", period);
-            map.put("description_bill", description_bill);
-            map.put("status_bill", status_bill);
-            map.put("deadline", deadline);
-            billList.add(map);
+                period = billInfo[0];
+                description_bill = billInfo[1];
+                status_bill = billInfo[2];
+                deadline = billInfo[3];
+
+                map = new HashMap<String, String>();
+                map.put("period", period);
+                map.put("description_bill", description_bill);
+                map.put("status_bill", status_bill);
+                map.put("deadline", deadline);
+                billList.add(map);
+            }
         }
         adapter.notifyDataSetChanged();
     }

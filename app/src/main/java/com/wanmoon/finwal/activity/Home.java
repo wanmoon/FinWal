@@ -63,12 +63,12 @@ public class Home extends android.support.v4.app.Fragment {
 
     private Typeface tf;
 
-    private double sumIncomeMonth;
-    private double sumExpenseMonth;
-    private double monthBalance;
-    private double walletBalance;
-    private double sumIncome;
-    private double sumExpense;
+    private double sumIncomeMonth = -1;
+    private double sumExpenseMonth = -1;
+    private double monthBalance = -1;
+    private double walletBalance = -1;
+    private double sumIncome = -1;
+    private double sumExpense = -1;
 
     private String setWalletBalance;
     private String setMonthBalance;
@@ -167,6 +167,11 @@ public class Home extends android.support.v4.app.Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        sumIncomeMonth = 0;
+        sumExpenseMonth = 0;
+        sumIncome = 0;
+        sumExpense = 0;
+
         sumExpenseMonthToDB(cust_id);
         sumIncomeMonthToDB(cust_id);
 
@@ -329,7 +334,7 @@ public class Home extends android.support.v4.app.Fragment {
                         Log.d(TAG,"onResponse");
                         Log.d(TAG,"show");
 
-                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                        if(sumExpenseMonth != -1 && sumIncomeMonth != -1) {
                             sumAllBalance();
                         }
                     } catch (NumberFormatException e){

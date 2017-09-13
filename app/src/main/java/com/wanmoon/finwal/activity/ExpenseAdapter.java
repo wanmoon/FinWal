@@ -31,7 +31,7 @@ public class ExpenseAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return arrExpense.size();
+        return (arrExpense.isEmpty())? 0: arrExpense.size();
     }
 
     public Object getItem(int position) {

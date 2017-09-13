@@ -169,11 +169,6 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     }
 
     public void button(){
-
-
-
-
-
         textViewTransaction = (TextView) findViewById(R.id.textViewTransaction);
         textViewCategories = (TextView) findViewById(R.id.textViewCategories);
 
@@ -409,17 +404,21 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-
-
-
     public void addTransaction(String cust_id) {
         getTransac = resultTEXT.getText().toString();
-        getHowMuch = Integer.parseInt(textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim());
+        String getMoney = textPrice.getText().toString().replaceAll("[^0-9]+", " ").trim();
 
-        Log.d(TAG,"get transac, getmoney");
+        if(getTransac.matches("")){
+            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
+        } else if (getMoney.isEmpty()){
+            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
+        } else {
+            getHowMuch = Double.parseDouble(getMoney);
 
-        addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
-        Log.d(TAG,"end addTransactionToDB");
+            Log.d(TAG, "get transac, getmoney");
+            addTransactionToDB(cust_id, getTransac, getHowMuch, transaction, cate);
+            Log.d(TAG, "end addTransactionToDB");
+        }
     }
 
 
@@ -466,22 +465,9 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-
-
         button();
         textPrice.setText(keepPrice()+" BATH");
-
-
     }
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onClick(View v) {

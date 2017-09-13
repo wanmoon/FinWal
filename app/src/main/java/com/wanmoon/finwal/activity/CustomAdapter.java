@@ -32,7 +32,7 @@ public class CustomAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return arrTransaction.size();
+        return (arrTransaction.isEmpty())? 0: arrTransaction.size();
     }
 
     public Object getItem(int position) {

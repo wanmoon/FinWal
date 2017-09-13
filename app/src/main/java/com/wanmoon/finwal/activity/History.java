@@ -418,19 +418,22 @@ public class History extends android.support.v4.app.Fragment  {
 
             incomeInfo = data.split(",");
 
-            timestamp = incomeInfo[0];
-            description = incomeInfo[1];
-            cost = incomeInfo[2];
-            transaction = incomeInfo[3];
-            category = incomeInfo[4];
+            if (incomeInfo.length >= 4) {
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            incomeList.add(map);
+                timestamp = incomeInfo[0];
+                description = incomeInfo[1];
+                cost = incomeInfo[2];
+                transaction = incomeInfo[3];
+                category = incomeInfo[4];
+
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                incomeList.add(map);
+            }
         }
 
         IncomeAdapter adapter = new IncomeAdapter(getContext(), incomeList);
@@ -519,19 +522,22 @@ public class History extends android.support.v4.app.Fragment  {
 
             expenseInfo = data.split(",");
 
-            timestamp = expenseInfo[0];
-            description = expenseInfo[1];
-            cost = expenseInfo[2];
-            transaction = expenseInfo[3];
-            category = expenseInfo[4];
+            if (expenseInfo.length >= 4) {
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            expenseList.add(map);
+                timestamp = expenseInfo[0];
+                description = expenseInfo[1];
+                cost = expenseInfo[2];
+                transaction = expenseInfo[3];
+                category = expenseInfo[4];
+
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                expenseList.add(map);
+            }
         }
 
         ExpenseAdapter adapter = new ExpenseAdapter(getContext(), expenseList);
@@ -620,26 +626,32 @@ public class History extends android.support.v4.app.Fragment  {
             Log.d(TAG, "data has next " + data);
 
             transactionInfo = data.split(",");
+            if (transactionInfo.length >= 4) {
 
-            timestamp = transactionInfo[0];
-            description = transactionInfo[1];
-            cost = transactionInfo[2];
-            transaction = transactionInfo[3];
-            category = transactionInfo[4];
+                timestamp = transactionInfo[0];
+                description = transactionInfo[1];
+                cost = transactionInfo[2];
+                transaction = transactionInfo[3];
+                category = transactionInfo[4];
 
-            map = new HashMap<String, String>();
-            map.put("timestamp", timestamp);
-            map.put("description", description);
-            map.put("cost", cost);
-            map.put("transaction", transaction);
-            map.put("category", category);
-            transactionList.add(map);
+                map = new HashMap<String, String>();
+                map.put("timestamp", timestamp);
+                map.put("description", description);
+                map.put("cost", cost);
+                map.put("transaction", transaction);
+                map.put("category", category);
+                transactionList.add(map);
+            }
         }
 
         CustomAdapter adapter = new CustomAdapter(getContext(), transactionList);
 
         //listview for show alltransaction
         ListView transactionListView = (ListView) mView.findViewById(R.id.listViewTransaction);
+
+        TextView TextViewEmptyResult = (TextView) mView.findViewById(R.id.TextViewEmptyResult);
+        transactionListView.setEmptyView(TextViewEmptyResult);
+
         transactionListView.setAdapter(adapter);
         transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

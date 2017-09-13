@@ -24,14 +24,14 @@ public class IncomeAdapter extends BaseAdapter {
     ArrayList<HashMap<String, String>> arrIncome;
 
 
-    public IncomeAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
+    public IncomeAdapter(Context context, ArrayList<HashMap<String, String>> arrIncome) {
         this.context= context;
-        this.arrIncome = arrTransaction;
+        this.arrIncome = arrIncome;
 
     }
 
     public int getCount() {
-        return arrIncome.size();
+        return (arrIncome.isEmpty())? 0: arrIncome.size();
     }
 
     public Object getItem(int position) {

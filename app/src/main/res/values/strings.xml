@@ -8,6 +8,8 @@
     <string name="name_billing">Billing</string>/>
     <string name="name_goal">Goal</string>
 
+    <string name="empty_listview">EMPTY RESULT</string>
+
     <string name="open">Open</string>/>
     <string name="close">Close</string>
 
