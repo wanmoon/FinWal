@@ -17,8 +17,8 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Expense'
-AND MONTH(CURDATE())=MONTH(timestamp) AND  YEAR(CURDATE())=YEAR(timestamp) AND cust_id = '$cust_id'";
+$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Income'
+AND YEAR(CURDATE())=YEAR(timestamp) AND cust_id = '$cust_id'";
 
 $result = $conn->query($sql);
 

@@ -199,10 +199,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
                     spinnerGender.setVisibility(View.VISIBLE);
                     // textViewSpinnerGender.setVisibility(View.INVISIBLE);
                     spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-                    String[] spinnerValue = new String[]{
-                            "Male",
-                            "Female",
-                    };
+                    String[] spinnerValue = new String[]{"Male", "Female",};
                     final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
                     ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, mspinnerSort);
                     spinnerGender.setAdapter(aSpinnerSort);
