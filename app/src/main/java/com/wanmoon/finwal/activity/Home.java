@@ -199,7 +199,7 @@ public class Home extends android.support.v4.app.Fragment {
         imageViewFrameExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AllExpense.class);
+                Intent i = new Intent(getActivity(), AllExpenseMonth.class);
                 startActivity(i);
             }
         });
