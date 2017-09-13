@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -80,17 +79,6 @@ public class Dashboard extends Fragment {
     private double sumIncomeYear = -1;
     private double sumExpenseYear = -1;
     private double YearBalance;
-
-    private String setMonthBalance;
-    private String setIncomeMonth;
-    private String setExpenseMonth;
-
-    public TextView textViewMyIncome;
-    public TextView textViewMyExpense;
-    public TextView textViewMonthBalance;
-
-    private float incomePercent ;
-    private float expensePercent ;
 
 
     //income month
@@ -500,7 +488,7 @@ public class Dashboard extends Fragment {
     }
 
 
-    //////////////////////for wallet balance/////////////////////
+    //////////////////////for year balance/////////////////////
 
     public String sumIncomeYearToDB(String cust_id){
         try {
@@ -752,6 +740,7 @@ public class Dashboard extends Fragment {
                                 e.printStackTrace();
                             }
                             Log.d(TAG,"onResponse");
+                            sumAllBalance();
                         }
 
 
@@ -947,6 +936,7 @@ public class Dashboard extends Fragment {
                                 e.printStackTrace();
                             }
                             Log.d(TAG,"onResponse");
+                            sumAllBalance();
                         }
 
 
@@ -956,7 +946,6 @@ public class Dashboard extends Fragment {
         }
 
     }
-
 
 
 
@@ -1099,6 +1088,7 @@ public class Dashboard extends Fragment {
                                 e.printStackTrace();
                             }
                             Log.d(TAG,"onResponse");
+                            sumAllBalance();
                         }
 
 
@@ -1294,6 +1284,7 @@ public class Dashboard extends Fragment {
                                 e.printStackTrace();
                             }
                             Log.d(TAG,"onResponse");
+                            sumAllBalance();
                         }
 
 
@@ -1480,6 +1471,7 @@ public class Dashboard extends Fragment {
 
     // pie chart income month
     private void initDataIncome() {
+        Log.d(TAG, "initDataIncome");
 
         pieChart = (PieChart) mView.findViewById(R.id.pieChartIncomeMonth);
 
@@ -1489,6 +1481,7 @@ public class Dashboard extends Fragment {
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Income");
         pieChart.setCenterTextSize(7);
+
         //pieChart.setDrawEntryLabels(true);
 
         addDataSetIncome();
@@ -1534,6 +1527,11 @@ public class Dashboard extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
+//        pieDataSet.setValueTextColor(Color.BLACK);
+//        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+//        pieDataSet.setValueLinePart1Length(1f);
+//        pieDataSet.setValueLinePart2Length(.2f);
+//        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
@@ -1544,6 +1542,7 @@ public class Dashboard extends Fragment {
         colors.add(Color.RED);
 
         pieDataSet.setColors(colors);
+
 
         //add Legend to chart
 //        Legend legend = pieChart.getLegend();
@@ -1559,6 +1558,7 @@ public class Dashboard extends Fragment {
 
     // pie chart expense month
     private void initDataExpense() {
+        Log.d(TAG, "initDataExpense");
         pieChart = (PieChart) mView.findViewById(R.id.pieChartExpenseMonth);
 
         pieChart.setDescription("");
