@@ -917,7 +917,7 @@ public class Dashboard extends Fragment {
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Income");
-        pieChart.setCenterTextSize(8);
+        pieChart.setCenterTextSize(7);
         //pieChart.setDrawEntryLabels(true);
 
         addDataSetIncome();
@@ -960,9 +960,9 @@ public class Dashboard extends Fragment {
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(0);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
@@ -997,7 +997,7 @@ public class Dashboard extends Fragment {
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Expense");
-        pieChart.setCenterTextSize(8);
+        pieChart.setCenterTextSize(7);
         //pieChart.setDrawEntryLabels(true);
 
         addDataSetExpense();
@@ -1037,9 +1037,9 @@ public class Dashboard extends Fragment {
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "DD");
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Expense");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueTextSize(0);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();

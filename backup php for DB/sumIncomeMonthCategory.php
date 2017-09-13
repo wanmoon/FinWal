@@ -17,7 +17,9 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 
-$sql = " SELECT category, SUM(cost) FROM transaction WHERE transaction = 'Income' AND cust_id = '$cust_id' GROUP BY category ";
+$sql = " SELECT category, SUM(cost) FROM transaction WHERE transaction = 'Income'
+AND MONTH(CURDATE())=MONTH(timestamp) AND  YEAR(CURDATE())=YEAR(timestamp)
+AND cust_id = '$cust_id' GROUP BY category ";
 
 $result = $conn->query($sql);
 
@@ -25,7 +27,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['category'] . "," . $row['SUM(cost)'] .  "," ;
+        echo $row['category'] . "," . $row['SUM(cost)'] . "," ;
     }
 }else {
     echo "0 ";
