@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:id="@+id/relative"
-    tools:context="com.wanmoon.finwal.activity.AllIncomeMonth">
+    tools:context="com.wanmoon.finwal.activity.AllIncome">
 
     <RelativeLayout
         android:layout_width="match_parent"

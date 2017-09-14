@@ -30,6 +30,8 @@
         <activity android:name=".activity.NewBill" />
         <activity android:name=".activity.NewGoal" />
         <activity android:name=".activity.Profile" />
+        <activity android:name=".activity.AllIncome" />
+        <activity android:name=".activity.AllExpense" />
     </application>
 
 </manifest>

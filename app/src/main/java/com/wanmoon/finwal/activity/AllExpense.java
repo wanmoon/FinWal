@@ -34,7 +34,7 @@ import okhttp3.Response;
  * Created by Wanmoon on 9/6/2017 AD.
  */
 
-public class AllExpenseMonth extends AppCompatActivity implements View.OnClickListener {
+public class AllExpense extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewCancel;
     private TextView textViewFinish;
     private Spinner spinnerSort;
@@ -63,7 +63,7 @@ public class AllExpenseMonth extends AppCompatActivity implements View.OnClickLi
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
 
-        http = new getHttp(AllExpenseMonth.this);
+        http = new getHttp(AllExpense.this);
 
         // spinner to sort
         spinnerSort = (Spinner) findViewById(R.id.spinnerSort);
