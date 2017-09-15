@@ -5,7 +5,9 @@
     android:background="@color/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wanmoon.finwal.activity.Dashboard">
+    tools:context="com.wanmoon.finwal.activity.Dashboard"
+    android:scrollbarAlwaysDrawHorizontalTrack="true"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
 
     <TabHost
         android:id="@+id/tabHost"
@@ -36,14 +38,14 @@
                     <RelativeLayout
                         android:id="@id/relative1"
                         android:layout_width="match_parent"
-                        android:layout_height="187dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentStart="true">
 
                         <!--line chart-->
                         <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart"
                         android:layout_width="match_parent"
-                        android:layout_height="220dp"
+                        android:layout_height="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="10dp"
@@ -66,8 +68,8 @@
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChartIncomeMonth"
-                            android:layout_width="140dp"
-                            android:layout_height="140dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:layout_marginEnd="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
@@ -89,8 +91,8 @@
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChartExpenseMonth"
-                            android:layout_width="140dp"
-                            android:layout_height="140dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:layout_marginEnd="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
@@ -102,6 +104,9 @@
                             android:paddingRight="10dp" />
 
                     </RelativeLayout>
+
+
+
 
                 </LinearLayout>
 
@@ -116,14 +121,14 @@
                     <RelativeLayout
                         android:id="@id/relative1"
                         android:layout_width="match_parent"
-                        android:layout_height="187dp"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentStart="true">
 
                         <!--line chart-->
                         <com.github.mikephil.charting.charts.LineChart
                             android:id="@+id/lineChartYear"
                             android:layout_width="match_parent"
-                            android:layout_height="220dp"
+                            android:layout_height="100dp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="10dp"
@@ -146,8 +151,8 @@
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChartIncomeYear"
-                            android:layout_width="140dp"
-                            android:layout_height="140dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:layout_marginEnd="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
@@ -169,8 +174,8 @@
 
                         <com.github.mikephil.charting.charts.PieChart
                             android:id="@+id/pieChartExpenseYear"
-                            android:layout_width="140dp"
-                            android:layout_height="140dp"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
                             android:layout_marginEnd="20dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"

@@ -57,8 +57,8 @@ public class Dashboard extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     //for line chart
-    private float[] yData = {10.0f, 90.0f};
-    private String[] xData = {"Income", "Expense"};
+    private float[] yData = {};
+    private String[] xData = {};
     LineChart lineChart;
 
 
@@ -373,6 +373,33 @@ public class Dashboard extends Fragment {
         return response;
     }
 
+    //////////////////////for year balance/////////////////////
+
+    public String sumIncomeYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public String sumExpenseYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start show");
+            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end show");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+
     // ** must have for connect DB
     public class getHttpExpenseMonth {
 
@@ -488,32 +515,6 @@ public class Dashboard extends Fragment {
     }
 
 
-    //////////////////////for year balance/////////////////////
-
-    public String sumIncomeYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start transaction");
-            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end transaction");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    public String sumExpenseYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start show");
-            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end show");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
     // ** must have for connect DB
     public class getHttpExpenseYear {
         OkHttpClient client;
@@ -548,7 +549,7 @@ public class Dashboard extends Fragment {
                         Log.d(TAG,"show");
 
                         if(sumExpenseYear != -1 && sumIncomeYear != -1 ) {
-                            sumAllBalanceYear();
+                            sumAllBalance();
                         }
                     } catch (NumberFormatException e){
                         //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -592,7 +593,7 @@ public class Dashboard extends Fragment {
                         Log.d(TAG,"show");
 
                         if(sumExpenseYear != -1 && sumIncomeYear != -1)   {
-                            sumAllBalanceYear();
+                            sumAllBalance();
                         }
                     } catch (NumberFormatException e){
                         //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -602,6 +603,8 @@ public class Dashboard extends Fragment {
             });
         }
     }
+
+
 
 
 
@@ -946,6 +949,7 @@ public class Dashboard extends Fragment {
         }
 
     }
+
 
 
 
@@ -1363,12 +1367,6 @@ public class Dashboard extends Fragment {
         initDataExpense();
 
 
-       // initData();
-
-
-    }
-
-    public void sumAllBalanceYear() {
         Log.d(TAG, "Wallet sumAllBalanceYear = " + sumExpenseYear);
         //income year
         incomeExtraYearPercent = (float) (sumIncomeExtraYear * (100/sumIncomeYear));
@@ -1421,6 +1419,15 @@ public class Dashboard extends Fragment {
 
         initDataIncomeYear();
         initDataExpenseYear();
+
+
+
+
+    }
+
+    public void sumAllBalanceYear() {
+
+
     }
 
 
@@ -1502,29 +1509,29 @@ public class Dashboard extends Fragment {
     }
 
     private void addDataSetIncome() {
-        Log.d(TAG, "addDataSet started");
+        Log.d(TAG, "addDataSet income month started");
 
-        float[] yDataIncome = {incomeExtraMonthPercent, incomeFamilyAndPersonalMonthPercent
+        float[] yDataIncomeMonth = {incomeExtraMonthPercent, incomeFamilyAndPersonalMonthPercent
                 ,incomeGiftMonthPercent, incomeLoanMonthPercent, incomeSalaryMonthPercent};
         Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
         Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
         Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
         Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
         Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
-        String[] xDataIncome = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
+        String[] xDataIncomeMonth = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
 
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        ArrayList<PieEntry> yEntrysIncomeMonth = new ArrayList<>();
+        ArrayList<String> xEntrysIncomeMonth = new ArrayList<>();
 
-        for (int i =0 ; i < yDataIncome.length ; i++){
-            yEntrys.add(new PieEntry(yDataIncome[i], i));
+        for (int i =0 ; i < yDataIncomeMonth.length ; i++){
+            yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth[i], i));
         }
-        for (int i =0 ; i < xDataIncome.length ; i++){
-            xEntrys.add(xDataIncome[i]);
+        for (int i =0 ; i < xDataIncomeMonth.length ; i++){
+            xEntrysIncomeMonth.add(xDataIncomeMonth[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, "Income");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 //        pieDataSet.setValueTextColor(Color.BLACK);
@@ -1587,26 +1594,26 @@ public class Dashboard extends Fragment {
     }
 
     private void addDataSetExpense() {
-        Log.d(TAG, "addDataSet started");
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        Log.d(TAG, "addDataSet expense month started");
+        ArrayList<PieEntry> yEntrysExpenseMonth = new ArrayList<>();
+        ArrayList<String> xEntrysExpenseMonth = new ArrayList<>();
 
-        float[] yDataExpense = {expenseBillMonthPercent, expenseEducationMonthPercent
+        float[] yDataExpenseMonth = {expenseBillMonthPercent, expenseEducationMonthPercent
                 ,expenseEntertainmentMonthPercent, expenseFoodAndDrinkMonthPercent, expenseShoppingMonthPercent
                 ,expenseTransportMonthPercent, expenseTravelMonthPercent
                 ,expenseFamilyAndPersonalMonthPercent, expenseHealthCareMonthPercent, expenseSavingAndInvestmentMonthPercent};
-        String[] xDataExpense = { "Bill","Education" , "Entertainment" , "Food and Drink",
+        String[] xDataExpenseMonth = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
 
-        for (int i =0 ; i < yDataExpense.length ; i++){
-            yEntrys.add(new PieEntry(yDataExpense[i], i));
+        for (int i =0 ; i < yDataExpenseMonth.length ; i++){
+            yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth[i], i));
         }
-        for (int i =0 ; i < xDataExpense.length ; i++){
-            xEntrys.add(xDataExpense[i]);
+        for (int i =0 ; i < xDataExpenseMonth.length ; i++){
+            xEntrysExpenseMonth.add(xDataExpenseMonth[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Expense");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, "Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 
@@ -1669,29 +1676,29 @@ public class Dashboard extends Fragment {
     }
 
     private void addDataSetIncomeYear() {
-        Log.d(TAG, "addDataSet started");
+        Log.d(TAG, "addDataSet income year started");
 
-        float[] yDataIncome = {incomeExtraYearPercent, incomeFamilyAndPersonalYearPercent
+        float[] yDataIncomeYear = {incomeExtraYearPercent, incomeFamilyAndPersonalYearPercent
                 ,incomeGiftYearPercent, incomeLoanYearPercent, incomeSalaryYearPercent};
         Log.d(TAG, "Wallet incomeExtraYearPercent = " + incomeExtraYearPercent);
         Log.d(TAG, "Wallet incomeFamilyAndPersonalYearPercent = " + incomeFamilyAndPersonalYearPercent);
         Log.d(TAG, "Wallet incomeGiftYearPercent = " + incomeGiftYearPercent);
         Log.d(TAG, "Wallet incomeLoanYearPercent = " + incomeLoanYearPercent);
         Log.d(TAG, "Wallet incomeSalaryYearPercent = " + incomeSalaryYearPercent);
-        String[] xDataIncome = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
+        String[] xDataIncomeYear = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
 
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        ArrayList<PieEntry> yEntrysIncomeYear = new ArrayList<>();
+        ArrayList<String> xEntrysIncomeYear = new ArrayList<>();
 
-        for (int i =0 ; i < yDataIncome.length ; i++){
-            yEntrys.add(new PieEntry(yDataIncome[i], i));
+        for (int i =0 ; i < yDataIncomeYear.length ; i++){
+            yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear[i], i));
         }
-        for (int i =0 ; i < xDataIncome.length ; i++){
-            xEntrys.add(xDataIncome[i]);
+        for (int i =0 ; i < xDataIncomeYear.length ; i++){
+            xEntrysIncomeYear.add(xDataIncomeYear[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "Income");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 
@@ -1748,26 +1755,26 @@ public class Dashboard extends Fragment {
     }
 
     private void addDataSetExpenseYear() {
-        Log.d(TAG, "addDataSet started");
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        Log.d(TAG, "addDataSet expense year started");
+        ArrayList<PieEntry> yEntrysExpenseYear = new ArrayList<>();
+        ArrayList<String> xEntrysExpenseYear = new ArrayList<>();
 
-        float[] yDataExpense = {expenseBillYearPercent, expenseEducationYearPercent
+        float[] yDataExpenseYear = {expenseBillYearPercent, expenseEducationYearPercent
                 ,expenseEntertainmentYearPercent, expenseFoodAndDrinkYearPercent, expenseShoppingYearPercent
                 ,expenseTransportYearPercent, expenseTravelYearPercent
                 ,expenseFamilyAndPersonalYearPercent, expenseHealthCareYearPercent, expenseSavingAndInvestmentYearPercent};
-        String[] xDataExpense = { "Bill","Education" , "Entertainment" , "Food and Drink",
+        String[] xDataExpenseYear = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
 
-        for (int i =0 ; i < yDataExpense.length ; i++){
-            yEntrys.add(new PieEntry(yDataExpense[i], i));
+        for (int i =0 ; i < yDataExpenseYear.length ; i++){
+            yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear[i], i));
         }
-        for (int i =0 ; i < xDataExpense.length ; i++){
-            xEntrys.add(xDataExpense[i]);
+        for (int i =0 ; i < xDataExpenseYear.length ; i++){
+            xEntrysExpenseYear.add(xDataExpenseYear[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Expense");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 

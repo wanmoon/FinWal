@@ -53,6 +53,13 @@
                             android:textColor="@color/buttonColorGrey"
                             android:textSize="16dp" />
 
+                        <Spinner
+                            android:id="@+id/spinnerAll"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/textViewMyWallet"/>
+
                     </RelativeLayout>
 
 
@@ -71,6 +78,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:layout_marginStart="8dp" />
+
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -102,6 +110,16 @@
                             android:textSize="16dp"
                             android:ems="10"
                             android:layout_alignParentEnd="true" />
+
+
+                        <Spinner
+                            android:id="@+id/spinnerAllIncome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/textViewMyIncomeAll"/>
+
+
 
                     </RelativeLayout>
 
@@ -152,6 +170,13 @@
                             android:ems="10"
                             android:layout_alignParentEnd="true" />
 
+                        <Spinner
+                            android:id="@+id/spinnerAllExpense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/textViewMyExpenseAll"/>
+
                     </RelativeLayout>
 
 
@@ -186,6 +211,8 @@
         android:textSize="18dp"
         android:layout_gravity="center"
         android:gravity="center" />
+
+
 
 
 </FrameLayout>

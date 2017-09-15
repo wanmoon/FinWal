@@ -32,6 +32,7 @@
         <activity android:name=".activity.Profile" />
         <activity android:name=".activity.AllIncome" />
         <activity android:name=".activity.AllExpense" />
+
     </application>
 
 </manifest>
