@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -39,13 +40,15 @@ public class History extends android.support.v4.app.Fragment  {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private FirebaseAuth firebaseAuth;
-
    // private static View rootView;
 
     private View bView;
 
     private Typeface tf;
+
+    private Spinner spinnerAll;
+    private Spinner spinnerAllExpense;
+    private Spinner spinnerAllIncome;
 
     private double sumIncomeAll;
     private double sumExpenseAll;
@@ -62,6 +65,7 @@ public class History extends android.support.v4.app.Fragment  {
     private View mView;
 
     //get current user
+    private FirebaseAuth firebaseAuth;
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
@@ -72,8 +76,12 @@ public class History extends android.support.v4.app.Fragment  {
     getHttpIncome httpIncome;
     getHttpExpense httpExpense;
     getHttpAll httpAll;
-    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
+    ArrayList<HashMap<String, String>> transactionList;
+    CustomAdapter adapter;
+    ListView transactionListView;
+
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
     private final String TAG = "HistoryActivity";
@@ -121,23 +129,7 @@ public class History extends android.support.v4.app.Fragment  {
         setHasOptionsMenu(true);
 
         ((MainActivity)getActivity()).setTitle("History");
-
-        httpIncomeAll = new getHttpIncomeAll(getContext());
-        httpExpenseAll = new getHttpExpenseAll(getContext());
-        Log.d(TAG,"end onCreate");
-
-
-        httpIncome = new getHttpIncome(getContext());
-        getAllIncome(cust_id);
-        httpExpense = new getHttpExpense(getContext());
-        getAllExpense(cust_id);
-        httpAll = new getHttpAll(getContext());
-        getAllTransaction(cust_id);
-
-
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -168,6 +160,174 @@ public class History extends android.support.v4.app.Fragment  {
         spec.setIndicator("All expense");
         host.addTab(spec);
 
+        //listview for show alltransaction
+        transactionList = new ArrayList<HashMap<String, String>>();
+        adapter = new CustomAdapter(getContext(), transactionList);
+        transactionListView = (ListView) mView.findViewById(R.id.listViewTransaction);
+
+        TextView TextViewEmptyResult = (TextView) mView.findViewById(R.id.TextViewEmptyResult);
+        transactionListView.setEmptyView(TextViewEmptyResult);
+
+        transactionListView.setAdapter(adapter);
+        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+            }
+        });
+
+        //get http
+        httpIncomeAll = new getHttpIncomeAll(getContext());
+        httpExpenseAll = new getHttpExpenseAll(getContext());
+
+        httpIncome = new getHttpIncome(getContext());
+        httpExpense = new getHttpExpense(getContext());
+        httpAll = new getHttpAll(getContext());
+
+        //spinner all
+        spinnerAll = (Spinner) rootView.findViewById(R.id.spinnerAll);
+        spinnerAll.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "selected spinnerAll = " + selected);
+
+                if (selected.equals("All")){ //0
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 0);
+                }
+
+                // income
+                else if (selected.equals("Gift")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 1);
+                } else if (selected.equals("Salary")) {
+                    getAllTransaction(cust_id, 2);
+                } else if (selected.equals("Loan")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 3);
+                } else if (selected.equals("Income : Family and Personal")) {
+                    getAllTransaction(cust_id, 4);
+                } else if (selected.equals("Extra income")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 5);
+                }
+
+                // expense
+                else if (selected.equals("Bill")) {
+                    getAllTransaction(cust_id, 6);
+                } else if (selected.equals("Transport")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 7);
+                } else if (selected.equals("Education")) {
+                    getAllTransaction(cust_id, 8);
+                } else if (selected.equals("Travel")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 9);
+                } else if (selected.equals("Entertainment")) {
+                    getAllTransaction(cust_id, 10);
+                } else if (selected.equals("Expense : Family and Personal")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 11);
+                } else if (selected.equals("Food and Drink")) {
+                    getAllTransaction(cust_id, 12);
+                } else if (selected.equals("Healthcare")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllTransaction(cust_id, 13);
+                } else if (selected.equals("Shopping")) {
+                    getAllTransaction(cust_id, 14);
+                } else if (selected.equals("Saving and Investment")) {
+                    getAllTransaction(cust_id, 15);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //spinner income
+        spinnerAllIncome = (Spinner) rootView.findViewById(R.id.spinnerAllIncome);
+        spinnerAllIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "selected spinnerAllIncome = " + selected);
+
+                if (selected.equals("All")){ //0
+                    Log.d(TAG, "selected = " + selected);
+                    getAllIncome(cust_id, 0);
+                }
+
+                // income
+                else if (selected.equals("Gift")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllIncome(cust_id, 1);
+                } else if (selected.equals("Salary")) {
+                    getAllIncome(cust_id, 2);
+                } else if (selected.equals("Loan")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllIncome(cust_id, 3);
+                } else if (selected.equals("Income : Family and Personal")) {
+                    getAllIncome(cust_id, 4);
+                } else if (selected.equals("Extra income")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllIncome(cust_id, 5);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //spinner expense
+        spinnerAllExpense = (Spinner) rootView.findViewById(R.id.spinnerAllExpense);
+        spinnerAllExpense.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected = parent.getItemAtPosition(position).toString();
+                Log.d(TAG, "selected spinnerAll = " + selected);
+
+                if (selected.equals("All")){ //0
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 0);
+                }
+
+                // expense
+                else if (selected.equals("Bill")) {
+                    getAllExpense(cust_id, 6);
+                } else if (selected.equals("Transport")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 7);
+                } else if (selected.equals("Education")) {
+                    getAllExpense(cust_id, 8);
+                } else if (selected.equals("Travel")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 9);
+                } else if (selected.equals("Entertainment")) {
+                    getAllExpense(cust_id, 10);
+                } else if (selected.equals("Expense : Family and Personal")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 11);
+                } else if (selected.equals("Food and Drink")) {
+                    getAllExpense(cust_id, 12);
+                } else if (selected.equals("Healthcare")) { //1
+                    Log.d(TAG, "selected = " + selected);
+                    getAllExpense(cust_id, 13);
+                } else if (selected.equals("Shopping")) {
+                    getAllExpense(cust_id, 14);
+                } else if (selected.equals("Saving and Investment")) {
+                    getAllExpense(cust_id, 15);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return rootView;
     }
@@ -367,7 +527,6 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
-
     public void sumBalance(){
         balanceAll = sumIncomeAll - sumExpenseAll;
         Log.d(TAG, "balance = " + balanceAll);
@@ -386,10 +545,10 @@ public class History extends android.support.v4.app.Fragment  {
     }
 
     //listview AllIncome
-    public void getAllIncome(String cust_id){
+    public void getAllIncome(String cust_id, int flagSort){
         try {
             Log.d(TAG,"start select");
-            httpIncome.run(BASE_URL + "/showIncome.php?cust_id=" + cust_id);
+            httpIncome.run(BASE_URL + "/showIncomeHistory.php?cust_id=" + cust_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -488,19 +647,18 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
-
-
     //listview AllExpense
-    public void getAllExpense(String cust_id){
+    public void getAllExpense(String cust_id, int flagSort){
         try {
             Log.d(TAG,"start select");
-            httpExpense.run(BASE_URL + "/showExpense.php?cust_id=" + cust_id);
+            httpExpense.run(BASE_URL + "/showExpenseHistory.php?cust_id=" + cust_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG,"error catch");
         }
     }
+
     public void showExpenseToListView(String allExpense){
         Log.d(TAG, "allExpense " + allExpense);
 
@@ -592,13 +750,11 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
-
-
     //listview AllTransaction
-    public void getAllTransaction(String cust_id){
+    public void getAllTransaction(String cust_id, int flagSort){
         try {
             Log.d(TAG,"start select");
-            httpAll.run(BASE_URL + "/showAllTransaction.php?cust_id=" + cust_id);
+            httpAll.run(BASE_URL + "/showAllTransactionHistory.php?cust_id=" + cust_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -615,9 +771,9 @@ public class History extends android.support.v4.app.Fragment  {
         String cost;
         String transaction;
         String category;
-        ArrayList<HashMap<String, String>> transactionList = null;
 
-        transactionList = new ArrayList<HashMap<String, String>>();
+        transactionList.clear();
+
         HashMap<String, String> map;
         Scanner scanner = new Scanner(allTransaction);
 
@@ -643,21 +799,7 @@ public class History extends android.support.v4.app.Fragment  {
                 transactionList.add(map);
             }
         }
-
-        CustomAdapter adapter = new CustomAdapter(getContext(), transactionList);
-
-        //listview for show alltransaction
-        ListView transactionListView = (ListView) mView.findViewById(R.id.listViewTransaction);
-
-        TextView TextViewEmptyResult = (TextView) mView.findViewById(R.id.TextViewEmptyResult);
-        transactionListView.setEmptyView(TextViewEmptyResult);
-
-        transactionListView.setAdapter(adapter);
-        transactionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-            }
-        });
+        adapter.notifyDataSetChanged();
     }
 
     // ** must have for connect DB all transaction

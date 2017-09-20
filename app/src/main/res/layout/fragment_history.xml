@@ -58,7 +58,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/textViewMyWallet"/>
+                            android:layout_below="@+id/textViewMyWallet"
+                            android:entries="@array/array_spinner_history_all"/>
 
                     </RelativeLayout>
 
@@ -117,7 +118,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/textViewMyIncomeAll"/>
+                            android:layout_below="@+id/textViewMyIncomeAll"
+                            android:entries="@array/array_spinner_history_income"/>
 
 
 
@@ -175,7 +177,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_below="@+id/textViewMyExpenseAll"/>
+                            android:layout_below="@+id/textViewMyExpenseAll"
+                            android:entries="@array/array_spinner_history_expense"/>
 
                     </RelativeLayout>
 

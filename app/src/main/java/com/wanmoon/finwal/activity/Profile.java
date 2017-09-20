@@ -80,10 +80,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textViewSpinnerGender = (TextView) findViewById(R.id.textViewSpinnerGender);
-        //textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
+        textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
         //textViewGenderResult.setEnabled(true);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
+        checkGender();
 
         TextViewEmail.setText(user.getEmail());
         checkName();
@@ -91,32 +92,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkAddress();
 
 
-
         // spinner to sort
-//        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-//        String[] spinnerValue = new String[]{
-//                "Male",
-//                "Female",
-//        };
-//        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-//        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, mspinnerSort);
-//        spinnerGender.setAdapter(aSpinnerSort);
-//
-//        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//               // textViewGenderResult.setText(mspinnerSort.get(position));
-//                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
 
-        checkGender();
+
     }
 
 
@@ -126,10 +104,10 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
-       // String gender = textViewGenderResult.getText().toString().trim();
+        String gender = textViewGenderResult.getText().toString().trim();
 
 
-        UserInformation userInformation = new UserInformation(email, name, address, phoneNumber);
+        UserInformation userInformation = new UserInformation(email, name, address, phoneNumber, gender);
         databaseReference.child(user.getUid()).setValue(userInformation);
 
         Toast.makeText(this, "Information saved..", Toast.LENGTH_LONG).show();
@@ -188,48 +166,41 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkGender(){
+        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
+        String[] spinnerValue = new String[]{
+                "Male",
+                "Female",
+        };
+        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
+        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, mspinnerSort);
+        spinnerGender.setAdapter(aSpinnerSort);
+
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // textViewGenderResult.setText(mspinnerSort.get(position));
+                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         Log.d(TAG, "Gender");
         databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 String value = dataSnapshot.getValue(String.class);
-               // if (value == null) {
-                    Log.d(TAG, "Gender1" );
-                    spinnerGender.setVisibility(View.VISIBLE);
-                    // textViewSpinnerGender.setVisibility(View.INVISIBLE);
-                    spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-                    String[] spinnerValue = new String[]{"Male", "Female",};
-                    final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-                    ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, mspinnerSort);
-                    spinnerGender.setAdapter(aSpinnerSort);
 
-                    spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            // textViewGenderResult.setText(mspinnerSort.get(position));
-                            //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                //}
-                //else if(value != ""){
-//                    Log.d(TAG, "Gender2" + value );
-//                   // spinnerGender.setVisibility(View.INVISIBLE);
-//                    textViewSpinnerGender.setVisibility(View.VISIBLE);
-//                    textViewSpinnerGender.setText(value+"");
-//
-//
-//                }
-
-                }
-
-
-
+                if (value != "") {
+                    //spinnerGender.setVisibility(View.GONE);
+                    //textViewGenderResult.setVisibility(View.VISIBLE);
+                    textViewGenderResult.setText("" + value);
+               }
+            }
 
 
 
@@ -268,6 +239,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
             addUserToDB(cust_id, email);
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 

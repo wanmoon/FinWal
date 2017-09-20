@@ -128,7 +128,14 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //get deadline
-                deadline = dayOfMonth + "-" + month + "-" + year;
+                month = month +1;
+                String month_str;
+                if(month<10) {
+                    month_str = "0"+month;
+                } else {
+                    month_str = month + "";
+                }
+                deadline = dayOfMonth + "-" + month_str + "-" + year;
                 Log.d(TAG, "deadline = " + deadline);
             }
         });
@@ -143,6 +150,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 

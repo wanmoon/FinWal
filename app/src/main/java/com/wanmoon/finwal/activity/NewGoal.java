@@ -99,7 +99,13 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 //get endingdate
                 month = month +1;
-                ending_date = dayOfMonth + "-" + month + "-" + year;
+                String month_str;
+                if(month<10) {
+                    month_str = "0"+month;
+                } else {
+                    month_str = month + "";
+                }
+                ending_date = dayOfMonth + "-" + month_str + "-" + year;
                 Log.d(TAG, "ending_date = " + ending_date);
 
                 countDate(dayOfMonth,month,year); //return countdate
@@ -120,6 +126,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), Goal.class);
             startActivity(i);
+            finish();
+
         } if (v == calendarViewGoal) {
             addGoal();
         }

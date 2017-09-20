@@ -21,7 +21,6 @@
 
     <string name="failed_add_transaction">Failed to add transaction, please try again</string>
 
-
     <string-array name="array_spinner_goal">
         <item>Ending Date</item>
         <item>Active</item>
@@ -36,4 +35,50 @@
         <item>Inactive</item>
     </string-array>
 
+    <string-array name="array_spinner_history_all">
+        <item>All</item>
+
+        <item>Gift</item>
+        <item>Salary</item>
+        <item>Loan</item>
+        <item>Income : Family and Personal</item>
+        <item>Extra income</item>
+
+        <item>Bill</item>
+        <item>Transport</item>
+        <item>Education</item>
+        <item>Travel</item>
+        <item>Entertainment</item>
+        <item>Expense : Family and Personal</item>
+        <item>Food and Drink</item>
+        <item>Healthcare</item>
+        <item>Shopping</item>
+        <item>Saving and Investment</item>
+    </string-array>
+
+    <string-array name="array_spinner_history_income">
+        <item>All</item>
+
+        <item>Gift</item>
+        <item>Salary</item>
+        <item>Loan</item>
+        <item>Family and Personal</item>
+        <item>Extra income</item>
+    </string-array>
+
+
+    <string-array name="array_spinner_history_expense">
+        <item>All</item>
+
+        <item>Bill</item>
+        <item>Transport</item>
+        <item>Education</item>
+        <item>Travel</item>
+        <item>Entertainment</item>
+        <item>Family and Personal</item>
+        <item>Food and Drink</item>
+        <item>Healthcare</item>
+        <item>Shopping</item>
+        <item>Saving and Investment</item>
+    </string-array>
 </resources>
