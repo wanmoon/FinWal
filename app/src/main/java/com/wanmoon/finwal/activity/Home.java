@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -29,6 +30,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Transaction;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
@@ -109,6 +111,9 @@ public class Home extends Fragment {
     public PieChart pieChart;
     private View mView;
 
+    private Transaction.Handler handler;
+    private Runnable runnable;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -153,6 +158,8 @@ public class Home extends Fragment {
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
         Log.d(TAG,"end onCreate");
+
+
     }
 
     @Override
@@ -161,6 +168,7 @@ public class Home extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
+
 
         return rootView;
     }
@@ -178,8 +186,8 @@ public class Home extends Fragment {
         sumIncomeToDB(cust_id);
         sumExpenseToDB(cust_id);
 
-        imageViewFrameIncome = (ImageView) view.findViewById(R.id.imageViewFrameIncome);
-        imageViewFrameExpense = (ImageView) view.findViewById(R.id.imageViewFrameExpense);
+//        imageViewFrameIncome = (ImageView) view.findViewById(R.id.imageViewFrameIncome);
+//        imageViewFrameExpense = (ImageView) view.findViewById(R.id.imageViewFrameExpense);
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
@@ -188,7 +196,7 @@ public class Home extends Fragment {
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
         Log.d(TAG,"end findviewbyid");
 
-        imageViewFrameIncome.setOnClickListener(new View.OnClickListener() {
+        textViewMyIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
@@ -196,13 +204,24 @@ public class Home extends Fragment {
             }
         });
 
-        imageViewFrameExpense.setOnClickListener(new View.OnClickListener() {
+        textViewMyExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
                 startActivity(i);
             }
         });
+
+        RoundCornerProgressBar progress1 = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
+        progress1.setProgressColor(Color.parseColor("#088A4B"));
+        progress1.setProgressBackgroundColor(Color.parseColor("#607d8b"));
+        progress1.setMax(70);
+        progress1.setProgress(15);
+
+        int progressColor1 = progress1.getProgressColor();
+        int backgroundColor1 = progress1.getProgressBackgroundColor();
+        float max1 = progress1.getMax();
+        progress1.getProgress();
     }
 
 
@@ -448,21 +467,26 @@ public class Home extends Fragment {
         Log.d(TAG, "Month balance = " + monthBalance);
 
         Log.d(TAG,"start settext");
-        setIncomeMonth = "Total Income : " + "<b>" + sumIncomeMonth + " Baht</b>";
-        textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
-        Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
-        setExpenseMonth = "Total Expense : " + "<b>" + sumExpenseMonth + " Baht</b>";
-        textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
-        Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
+        // follow UI
+        ////////////////////////for wallet balance//////////////////////
+        walletBalance = sumIncome - sumExpense;
+        Log.d(TAG, "Wallet balance = " + walletBalance);
 
         //in a month
         setMonthBalance = "Month Balance : " + "<b>" + monthBalance + " Baht</b>";
         textViewMonthBalance.setText((Html.fromHtml(setMonthBalance)));
 
-        ////////////////////////for wallet balance//////////////////////
-        walletBalance = sumIncome - sumExpense;
-        Log.d(TAG, "Wallet balance = " + walletBalance);
+        setIncomeMonth ="<b>" + sumIncomeMonth + " Baht</b>";
+        textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
+        Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
+
+        setExpenseMonth = "<b>" + sumExpenseMonth + " Baht</b>";
+        textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
+        Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
+
+
+
 
         //all of my life
         setWalletBalance = "Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";

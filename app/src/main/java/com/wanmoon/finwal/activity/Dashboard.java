@@ -18,13 +18,10 @@ import android.widget.TabHost;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,11 +62,6 @@ public class Dashboard extends Fragment {
 
     //for pie chart
     private final String TAG = "Dashboard";
-    private float[] yDataIncome = {};
-    private String[] xDataIncome = {};
-
-    private float[] yDataExpense = {};
-    private String[] xDataExpense = {};
     PieChart pieChart;
     private View mView;
 
@@ -251,6 +243,8 @@ public class Dashboard extends Fragment {
 
 
 
+
+
     }
 
 
@@ -261,6 +255,23 @@ public class Dashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
+
+//        new Thread(new Runnable() {
+//
+//            public void run() {
+//                Log.d(TAG,"start Thread");
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) { }
+//
+//                Intent intent = new Intent(mView.getContext(), Dashboard.class);
+//                mView.getContext().startActivity(intent);
+//                getActivity().finish();
+////
+////                Intent intent = new Intent(getContext(), Dashboard.class);
+////                startActivity(intent);
+//            }
+//        }).start();
 
 
         // for tabHost
@@ -361,6 +372,63 @@ public class Dashboard extends Fragment {
         return response;
     }
 
+    // ** must have for connect DB
+    public class getHttpIncomeMonth {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncomeMonth(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                String incomeMonth = response.body().string();
+                                sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                                Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
+
+                                if(sumExpenseMonth != -1 && sumIncomeMonth != -1 ) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
+
     public String sumExpenseMonthToDB(String cust_id){
         try {
             Log.d(TAG,"start sumExpenseMonth");
@@ -372,33 +440,6 @@ public class Dashboard extends Fragment {
         }
         return response;
     }
-
-    //////////////////////for year balance/////////////////////
-
-    public String sumIncomeYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start transaction");
-            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end transaction");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    public String sumExpenseYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start show");
-            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end show");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
 
     // ** must have for connect DB
     public class getHttpExpenseMonth {
@@ -459,17 +500,31 @@ public class Dashboard extends Fragment {
 
     }
 
-    public class getHttpIncomeMonth {
+    //////////////////////for year balance/////////////////////
+
+    public String sumIncomeYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpIncomeYear {
         OkHttpClient client;
         Handler mainHandler;
         Context context;
 
-        getHttpIncomeMonth(Context context) {
+        getHttpIncomeYear(Context context) {
             this.context = context;
             client = new OkHttpClient();
             mainHandler = new Handler(context.getMainLooper());
         }
-
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -482,38 +537,40 @@ public class Dashboard extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, final Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
 
-                    mainHandler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                        String incomeMonth = response.body().string();
-                        sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
-                        Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+                        String income = response.body().string();
+                        sumIncomeYear = Double.parseDouble(income.trim());
+                        Log.d(TAG,"sumIncomeYear = " + sumIncomeYear);
 
                         Log.d(TAG,"onResponse");
                         Log.d(TAG,"show");
 
-                        if(sumExpenseMonth != -1 && sumIncomeMonth != -1 ) {
+                        if(sumExpenseYear != -1 && sumIncomeYear != -1)   {
                             sumAllBalance();
                         }
                     } catch (NumberFormatException e){
                         //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
                         Log.d(TAG, "NumberFormatException");
-                    } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-                    });
+                    }
                 }
             });
         }
     }
 
+
+    public String sumExpenseYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start show");
+            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end show");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
 
     // ** must have for connect DB
     public class getHttpExpenseYear {
@@ -560,49 +617,6 @@ public class Dashboard extends Fragment {
         }
     }
 
-    public class getHttpIncomeYear {
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpIncomeYear(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-
-                        String income = response.body().string();
-                        sumIncomeYear = Double.parseDouble(income.trim());
-                        Log.d(TAG,"sumIncomeYear = " + sumIncomeYear);
-
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
-
-                        if(sumExpenseYear != -1 && sumIncomeYear != -1)   {
-                            sumAllBalance();
-                        }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
-                }
-            });
-        }
-    }
 
 
 
@@ -1360,14 +1374,6 @@ public class Dashboard extends Fragment {
 
 
 
-
-
-        //////for pie chart
-        initDataIncome();
-        initDataExpense();
-
-
-        Log.d(TAG, "Wallet sumAllBalanceYear = " + sumExpenseYear);
         //income year
         incomeExtraYearPercent = (float) (sumIncomeExtraYear * (100/sumIncomeYear));
         Log.d(TAG, "Wallet incomeExtraYearPercent = " + incomeExtraYearPercent);
@@ -1417,6 +1423,14 @@ public class Dashboard extends Fragment {
         expenseSavingAndInvestmentYearPercent = (float) (sumExpenseSavingAndInvestmentYear * (100/sumExpenseYear));
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //////for pie chart
+        initDataIncome();
+        initDataExpense();
         initDataIncomeYear();
         initDataExpenseYear();
 
@@ -1425,55 +1439,50 @@ public class Dashboard extends Fragment {
 
     }
 
-    public void sumAllBalanceYear() {
-
-
-    }
-
 
 
 
     // line chart
-    private void initData() {
-
-        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
-        ArrayList<String> xAXES = new ArrayList<>();
-        ArrayList<Entry> yAXESsin = new ArrayList<>();
-        ArrayList<Entry> yAXEScos = new ArrayList<>();
-        double x  = 0;
-        int numDataPoints = 1000;
-        for (int i = 0; i< numDataPoints ; i++){
-            float sinFunction = Float.parseFloat(String.valueOf(Math.sin(x)));
-            float cosFunction = Float.parseFloat(String.valueOf(Math.cos(x)));
-            x = x + 0.1;
-            yAXESsin.add(new Entry(sinFunction,i));
-            yAXEScos.add(new Entry(cosFunction,i));
-            xAXES.add(i, String.valueOf(x));
-        }
-
-        String[] xaxes = new String[xAXES.size()];
-        for (int i = 0; i< xAXES.size() ; i++){
-            xaxes[i] = xAXES.get(i).toString();
-        }
-
-        ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-
-        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "cos");
-        lineDataSet1.setDrawCircles(false);
-        lineDataSet1.setColor(Color.GREEN);
-
-        LineDataSet lineDataSet2 = new LineDataSet(yAXEScos, "sin");
-        lineDataSet2.setDrawCircles(false);
-        lineDataSet2.setColor(Color.RED);
-
-        lineDataSets.add(lineDataSet1);
-        lineDataSets.add(lineDataSet2);
-
-        lineChart.setData(new LineData(lineDataSets));
-        lineChart.setVisibleXRangeMaximum(100f);
-
-
-    }
+//    private void initData() {
+//
+//        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
+//        ArrayList<String> xAXES = new ArrayList<>();
+//        ArrayList<Entry> yAXESsin = new ArrayList<>();
+//        ArrayList<Entry> yAXEScos = new ArrayList<>();
+//        double x  = 0;
+//        int numDataPoints = 1000;
+//        for (int i = 0; i< numDataPoints ; i++){
+//            float sinFunction = Float.parseFloat(String.valueOf(Math.sin(x)));
+//            float cosFunction = Float.parseFloat(String.valueOf(Math.cos(x)));
+//            x = x + 0.1;
+//            yAXESsin.add(new Entry(sinFunction,i));
+//            yAXEScos.add(new Entry(cosFunction,i));
+//            xAXES.add(i, String.valueOf(x));
+//        }
+//
+//        String[] xaxes = new String[xAXES.size()];
+//        for (int i = 0; i< xAXES.size() ; i++){
+//            xaxes[i] = xAXES.get(i).toString();
+//        }
+//
+//        ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
+//
+//        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "cos");
+//        lineDataSet1.setDrawCircles(false);
+//        lineDataSet1.setColor(Color.GREEN);
+//
+//        LineDataSet lineDataSet2 = new LineDataSet(yAXEScos, "sin");
+//        lineDataSet2.setDrawCircles(false);
+//        lineDataSet2.setColor(Color.RED);
+//
+//        lineDataSets.add(lineDataSet1);
+//        lineDataSets.add(lineDataSet2);
+//
+//        lineChart.setData(new LineData(lineDataSets));
+//        lineChart.setVisibleXRangeMaximum(100f);
+//
+//
+//    }
 
 
     // pie chart income month
@@ -1602,6 +1611,18 @@ public class Dashboard extends Fragment {
                 ,expenseEntertainmentMonthPercent, expenseFoodAndDrinkMonthPercent, expenseShoppingMonthPercent
                 ,expenseTransportMonthPercent, expenseTravelMonthPercent
                 ,expenseFamilyAndPersonalMonthPercent, expenseHealthCareMonthPercent, expenseSavingAndInvestmentMonthPercent};
+        Log.d(TAG, "Wallet expenseBillMonthPercent = " + expenseBillMonthPercent);
+        Log.d(TAG, "Wallet expenseEducationMonthPercent = " + expenseEducationMonthPercent);
+        Log.d(TAG, "Wallet expenseEntertainmentMonthPercent = " + expenseEntertainmentMonthPercent);
+        Log.d(TAG, "Wallet expenseFoodAndDrinkMonthPercent = " + expenseFoodAndDrinkMonthPercent);
+        Log.d(TAG, "Wallet expenseShoppingMonthPercent = " + expenseShoppingMonthPercent);
+
+        Log.d(TAG, "Wallet expenseTransportMonthPercent = " + expenseTransportMonthPercent);
+        Log.d(TAG, "Wallet expenseTravelMonthPercent = " + expenseTravelMonthPercent);
+        Log.d(TAG, "Wallet expenseFamilyAndPersonalMonthPercent = " + expenseFamilyAndPersonalMonthPercent);
+        Log.d(TAG, "Wallet expenseHealthCareMonthPercent = " + expenseHealthCareMonthPercent);
+        Log.d(TAG, "Wallet expenseSavingAndInvestmentMonthPercent = " + expenseSavingAndInvestmentMonthPercent);
+
         String[] xDataExpenseMonth = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
 
@@ -1642,6 +1663,7 @@ public class Dashboard extends Fragment {
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
+
 
 
 
@@ -1763,20 +1785,34 @@ public class Dashboard extends Fragment {
                 ,expenseEntertainmentYearPercent, expenseFoodAndDrinkYearPercent, expenseShoppingYearPercent
                 ,expenseTransportYearPercent, expenseTravelYearPercent
                 ,expenseFamilyAndPersonalYearPercent, expenseHealthCareYearPercent, expenseSavingAndInvestmentYearPercent};
+        Log.d(TAG, "Wallet expenseBillYearPercent = " + expenseBillYearPercent);
+        Log.d(TAG, "Wallet expenseEducationYearPercent = " + expenseEducationYearPercent);
+        Log.d(TAG, "Wallet expenseEntertainmentYearPercent = " + expenseEntertainmentYearPercent);
+        Log.d(TAG, "Wallet expenseFoodAndDrinkYearPercent = " + expenseFoodAndDrinkYearPercent);
+        Log.d(TAG, "Wallet expenseShoppingYearPercent = " + expenseShoppingYearPercent);
+
+        Log.d(TAG, "Wallet expenseTransportYearPercent = " + expenseTransportYearPercent);
+        Log.d(TAG, "Wallet expenseTravelYearPercent = " + expenseTravelYearPercent);
+        Log.d(TAG, "Wallet expenseFamilyAndPersonalYearPercent = " + expenseFamilyAndPersonalYearPercent);
+        Log.d(TAG, "Wallet expenseHealthCareYearPercent = " + expenseHealthCareYearPercent);
+        Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
         String[] xDataExpenseYear = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
 
         for (int i =0 ; i < yDataExpenseYear.length ; i++){
             yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear[i], i));
+            Log.d(TAG, "yEntrysExpenseYear = " + yEntrysExpenseYear);
         }
         for (int i =0 ; i < xDataExpenseYear.length ; i++){
             xEntrysExpenseYear.add(xDataExpenseYear[i]);
+            Log.d(TAG, "xEntrysExpenseYear = " + xEntrysExpenseYear);
         }
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
+        Log.d(TAG, "pieDataSet = " + pieDataSet);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();

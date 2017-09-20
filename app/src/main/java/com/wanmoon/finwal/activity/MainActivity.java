@@ -36,10 +36,24 @@ public class MainActivity extends AppCompatActivity
     Animation fab_open, fab_close,  fab_backward, fab_forward;
     boolean isopen = false;
 
+//    private Handler handler;
+//    private Runnable runnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//        handler = new Handler();
+//
+//        runnable = new Runnable() {
+//            public void run() {
+//                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        };
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Home HomeFragment = new Home();
@@ -134,6 +148,16 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+//    public void onResume() {
+//        super.onResume();
+//        handler.postDelayed(runnable, 3000);
+//    }
+//
+//    public void onStop() {
+//        super.onStop();
+//        handler.removeCallbacks(runnable);
+//    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -172,8 +196,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
+            Home HomeFragment = new Home();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, HomeFragment);
+            transaction.commit();
+//            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(i);
 
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
