@@ -3,6 +3,7 @@ package com.wanmoon.finwal.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
@@ -36,23 +37,15 @@ public class MainActivity extends AppCompatActivity
     Animation fab_open, fab_close,  fab_backward, fab_forward;
     boolean isopen = false;
 
-//    private Handler handler;
-//    private Runnable runnable;
+    private Handler handler;
+    private Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        handler = new Handler();
-//
-//        runnable = new Runnable() {
-//            public void run() {
-//                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        };
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -146,6 +139,24 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+//        handler = new Handler();
+//
+//        runnable = new Runnable() {
+//            public void run() {
+//                handler = new Handler();
+//
+//                runnable = new Runnable() {
+//                    public void run() {
+//                        Dashboard DashboardFragment = new Dashboard();
+//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                        transaction.replace(R.id.fragment_container, DashboardFragment);
+//                        transaction.commit();
+//                    }
+//                };
+//
+//            }
+//        };
     }
 
 //    public void onResume() {
@@ -170,22 +181,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -196,12 +197,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Home HomeFragment = new Home();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, HomeFragment);
-            transaction.commit();
-//            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(i);
+//            Home HomeFragment = new Home();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.fragment_container, HomeFragment);
+//            transaction.commit();
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            finish();
 
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();

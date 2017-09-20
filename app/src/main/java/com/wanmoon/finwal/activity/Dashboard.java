@@ -244,7 +244,6 @@ public class Dashboard extends Fragment {
 
 
 
-
     }
 
 
@@ -256,22 +255,7 @@ public class Dashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
 
-//        new Thread(new Runnable() {
-//
-//            public void run() {
-//                Log.d(TAG,"start Thread");
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) { }
-//
-//                Intent intent = new Intent(mView.getContext(), Dashboard.class);
-//                mView.getContext().startActivity(intent);
-//                getActivity().finish();
-////
-////                Intent intent = new Intent(getContext(), Dashboard.class);
-////                startActivity(intent);
-//            }
-//        }).start();
+
 
 
         // for tabHost
@@ -356,6 +340,9 @@ public class Dashboard extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
 
 
     //////////////////////for month balance/////////////////////
@@ -1424,15 +1411,18 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+
         }
+
         //////for pie chart
         initDataIncome();
         initDataExpense();
         initDataIncomeYear();
         initDataExpenseYear();
+
 
 
 
@@ -1551,6 +1541,7 @@ public class Dashboard extends Fragment {
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
+
         colors.add(Color.BLUE);
         colors.add(Color.CYAN);
         colors.add(Color.YELLOW);

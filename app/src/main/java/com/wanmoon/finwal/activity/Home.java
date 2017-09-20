@@ -16,7 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -80,10 +79,11 @@ public class Home extends Fragment {
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
+    public TextView textViewMyIncomeShow;
+    public TextView textViewMyExpenseShow;
     public TextView textViewMonthBalance;
 
-    private ImageView imageViewFrameIncome;
-    private ImageView imageViewFrameExpense;
+
 
 
     //get current user
@@ -106,8 +106,6 @@ public class Home extends Fragment {
     private float expensePercent ;
 
     //for pie chart
-    private float[] yData = {incomePercent, expensePercent};
-    private String[] xData = {"Income", "Expense"};
     public PieChart pieChart;
     private View mView;
 
@@ -186,13 +184,14 @@ public class Home extends Fragment {
         sumIncomeToDB(cust_id);
         sumExpenseToDB(cust_id);
 
-//        imageViewFrameIncome = (ImageView) view.findViewById(R.id.imageViewFrameIncome);
-//        imageViewFrameExpense = (ImageView) view.findViewById(R.id.imageViewFrameExpense);
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
+
+        textViewMyIncomeShow = (TextView) view.findViewById(R.id.textViewMyIncomeShow);
+        textViewMyExpenseShow = (TextView) view.findViewById(R.id.textViewMyExpenseShow);
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
         Log.d(TAG,"end findviewbyid");
 
@@ -201,10 +200,29 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
                 startActivity(i);
+
             }
+
         });
 
         textViewMyExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AllExpense.class);
+                startActivity(i);
+
+            }
+        });
+
+        textViewMyIncomeShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), AllIncome.class);
+                startActivity(i);
+            }
+        });
+
+        textViewMyExpenseShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
@@ -214,7 +232,7 @@ public class Home extends Fragment {
 
         RoundCornerProgressBar progress1 = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
         progress1.setProgressColor(Color.parseColor("#088A4B"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#607d8b"));
+        progress1.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
         progress1.setMax(70);
         progress1.setProgress(15);
 
@@ -353,7 +371,7 @@ public class Home extends Fragment {
                         Log.d(TAG,"onResponse");
                         Log.d(TAG,"show");
 
-                        if(sumExpenseMonth != -1 && sumIncomeMonth != -1) {
+                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
                             sumAllBalance();
                         }
                     } catch (NumberFormatException e){
@@ -500,7 +518,13 @@ public class Home extends Fragment {
 
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
-
+//
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//
+//        }
 
         //for pie chart
         initData();
@@ -525,6 +549,13 @@ public class Home extends Fragment {
         //pieChart.setEntryLabelTextSize(16);
         //pieChart.setDrawEntryLabels(true);
 
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationAngle(0);
+
+
+
+
         addDataSetIncome();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -548,6 +579,7 @@ public class Home extends Fragment {
         float[] yData = {incomePercent, expensePercent};
         Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
         Log.d(TAG, "addDataSet started expensePercent" + expensePercent);
+        String[] xData = {"Income", "Expense"};
 
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
@@ -559,22 +591,33 @@ public class Home extends Fragment {
             xEntrys.add(xData[i]);
         }
 
+
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income , Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(15);
 
+
+
+//        pieDataSet.setColor(getResources().getColor(R.color.buttonColorGreen));
+        //pieDataSet.setColor(getResources().getColor(R.color.buttonColorRed));
+//
+
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
+        colors.add(getResources().getColor(R.color.buttonColorGreen));
+        colors.add(getResources().getColor(R.color.buttonColorRed));
+
+
+
+
 
         pieDataSet.setColors(colors);
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        //legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
