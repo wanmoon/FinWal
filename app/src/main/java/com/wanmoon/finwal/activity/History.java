@@ -268,7 +268,7 @@ public class History extends android.support.v4.app.Fragment  {
                 } else if (selected.equals("Loan")) { //1
                     Log.d(TAG, "selected = " + selected);
                     getAllIncome(cust_id, 3);
-                } else if (selected.equals("Income : Family and Personal")) {
+                } else if (selected.equals("Family and Personal")) {
                     getAllIncome(cust_id, 4);
                 } else if (selected.equals("Extra income")) { //1
                     Log.d(TAG, "selected = " + selected);
