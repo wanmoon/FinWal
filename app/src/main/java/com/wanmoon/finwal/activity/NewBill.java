@@ -130,12 +130,23 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
                 //get deadline
                 month = month +1;
                 String month_str;
+                String day_str;
+
+                //day '01'
+                if (dayOfMonth<10){
+                    day_str = "0"+dayOfMonth;
+                } else {
+                    day_str = dayOfMonth + "";
+                }
+
+                //month '01'
                 if(month<10) {
                     month_str = "0"+month;
                 } else {
                     month_str = month + "";
                 }
-                deadline = dayOfMonth + "-" + month_str + "-" + year;
+
+                deadline = day_str + "-" + month_str + "-" + year;
                 Log.d(TAG, "deadline = " + deadline);
             }
         });

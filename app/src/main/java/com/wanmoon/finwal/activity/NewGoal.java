@@ -100,12 +100,22 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 //get endingdate
                 month = month +1;
                 String month_str;
+                String day_str;
+
+                //day '01'
+                if (dayOfMonth<10){
+                    day_str = "0"+dayOfMonth;
+                } else {
+                    day_str = dayOfMonth + "";
+                }
+
+                //month '01'
                 if(month<10) {
                     month_str = "0"+month;
                 } else {
                     month_str = month + "";
                 }
-                ending_date = dayOfMonth + "-" + month_str + "-" + year;
+                ending_date = day_str + "-" + month_str + "-" + year;
                 Log.d(TAG, "ending_date = " + ending_date);
 
                 countDate(dayOfMonth,month,year); //return countdate
