@@ -124,12 +124,18 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG,"insert success");
         } if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(), Goal.class);
+            Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
+//            Goal GoalFragment = new Goal();
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            transaction.replace(R.id.fragment_container, GoalFragment);
+//            transaction.commit();
+
 
         } if (v == calendarViewGoal) {
             addGoal();
+
         }
     }
 

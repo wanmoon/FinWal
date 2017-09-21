@@ -115,10 +115,12 @@ public class AllIncome extends AppCompatActivity implements View.OnClickListener
         if(v == textViewFinish){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
         if(v == textViewCancel){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 

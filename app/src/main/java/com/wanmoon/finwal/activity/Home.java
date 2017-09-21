@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -29,7 +30,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.Transaction;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
@@ -109,8 +109,8 @@ public class Home extends Fragment {
     public PieChart pieChart;
     private View mView;
 
-    private Transaction.Handler handler;
-    private Runnable runnable;
+
+    private LinearLayout linearLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -193,6 +193,7 @@ public class Home extends Fragment {
         textViewMyIncomeShow = (TextView) view.findViewById(R.id.textViewMyIncomeShow);
         textViewMyExpenseShow = (TextView) view.findViewById(R.id.textViewMyExpenseShow);
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
+
         Log.d(TAG,"end findviewbyid");
 
         textViewMyIncome.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +201,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
                 startActivity(i);
+                getActivity().finish();
 
             }
 
@@ -210,7 +212,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
                 startActivity(i);
-
+                getActivity().finish();
             }
         });
 
@@ -219,6 +221,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
                 startActivity(i);
+                getActivity().finish();
             }
         });
 
@@ -227,6 +230,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
                 startActivity(i);
+                getActivity().finish();
             }
         });
 

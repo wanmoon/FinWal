@@ -115,10 +115,12 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
         if(v == textViewFinish){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
         if(v == textViewCancel){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 

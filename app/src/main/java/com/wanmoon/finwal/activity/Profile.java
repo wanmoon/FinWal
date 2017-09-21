@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,8 +22,6 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +36,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<String> mUsernames = new ArrayList<>();
 
-    public String gender1 = "";
     private TextView TextViewEmail;
     private EditText editTextName;
     private EditText editTextAddress;
@@ -79,9 +74,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
-        textViewSpinnerGender = (TextView) findViewById(R.id.textViewSpinnerGender);
-        textViewGenderResult = (TextView) findViewById(R.id.textViewGenderResult);
-        //textViewGenderResult.setEnabled(true);
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
         checkGender();
@@ -92,7 +84,6 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         checkAddress();
 
 
-        // spinner to sort
 
 
     }
@@ -166,68 +157,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkGender(){
-        spinnerGender = (Spinner) findViewById(R.id.spinnerGender);
-        String[] spinnerValue = new String[]{
-                "Male",
-                "Female",
-        };
-        final List<String> mspinnerSort = new ArrayList<>(Arrays.asList(spinnerValue));
-        ArrayAdapter<String> aSpinnerSort = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, mspinnerSort);
-        spinnerGender.setAdapter(aSpinnerSort);
 
-        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // textViewGenderResult.setText(mspinnerSort.get(position));
-                //Toast.makeText(Profile.this, "Select : " + mspinnerSort.get(position), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        Log.d(TAG, "Gender");
-        databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String value = dataSnapshot.getValue(String.class);
-
-                if (value != "") {
-                    //spinnerGender.setVisibility(View.GONE);
-                    //textViewGenderResult.setVisibility(View.VISIBLE);
-                    textViewGenderResult.setText("" + value);
-               }
-            }
-
-
-
-
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // Is better to use a List, because you don't know the size
-//                // of the iterator returned by dataSnapshot.getChildren() to
-//                // initialize the array
-//                final List<String> areas = new ArrayList<String>();
-//
-//                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-//                    String areaName = areaSnapshot.child("gender").getValue(String.class);
-//                    areas.add(areaName);
-//                }
-//
-//                Spinner areaSpinner = (Spinner) findViewById(R.id.spinnerGender);
-//                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(Profile.this, android.R.layout.simple_spinner_item, areas);
-//                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                areaSpinner.setAdapter(areasAdapter);
-//            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
     }
 
     @Override

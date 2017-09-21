@@ -211,11 +211,13 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
 
+
         } else if (id == R.id.nav_goal){
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, GoalFragment);
             transaction.commit();
+
 
         } else if (id == R.id.nav_dashboard) {
             Dashboard DashboardFragment = new Dashboard();
@@ -229,10 +231,12 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, HistoryFragment);
             transaction.commit();
 
+
         } else if (id == R.id.nav_logout){
             firebaseAuth.signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

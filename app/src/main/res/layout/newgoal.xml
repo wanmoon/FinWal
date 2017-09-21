@@ -167,7 +167,7 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="1dp"
-            android:background="@color/buttonColorWhite" >
+            android:background="@color/backgroundColor" >
 
             <RadioButton
                 android:id="@+id/radioButtonDaily"

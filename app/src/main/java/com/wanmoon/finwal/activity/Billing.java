@@ -175,6 +175,7 @@ public class Billing extends Fragment {
         if (id == R.id.action_add) {
             Intent intent = new Intent(getActivity(), NewBill.class);
             startActivity(intent);
+            getActivity().finish();
         }
         return super.onOptionsItemSelected(item);
     }

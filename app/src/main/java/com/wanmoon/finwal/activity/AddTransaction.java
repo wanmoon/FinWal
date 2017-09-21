@@ -364,6 +364,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         if (v == textViewCancel) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 
@@ -417,6 +418,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
                     Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
                     startActivity(i);
+                    finish();
                 }
             });
         }

@@ -145,6 +145,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if(v == textViewFinish){
             addBill(cust_id);
+            finish();
         }
         if(v == textViewCancel){
             // will open login activity here

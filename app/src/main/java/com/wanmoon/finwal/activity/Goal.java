@@ -178,6 +178,7 @@ public class Goal extends Fragment {
         if (id == R.id.action_add) {
             Intent intent = new Intent(getActivity(), NewGoal.class);
             startActivity(intent);
+            getActivity().finish();
         }
 
         return super.onOptionsItemSelected(item);

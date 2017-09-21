@@ -123,10 +123,12 @@ public class AllExpense extends AppCompatActivity implements View.OnClickListene
         if(v == textViewFinish){
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
         }
         if(v == textViewCancel){
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
         }
     }
 

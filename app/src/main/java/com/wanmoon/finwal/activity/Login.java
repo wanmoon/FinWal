@@ -118,16 +118,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == buttonSignIn){
             userLogin();
+            finish();
 
         }
         if (v == textViewSignUp) {
             finish();
             startActivity(new Intent(this, SignUp.class));
+            finish();
 
         }
         if(v == buttonForgotPassword){
             finish();
             startActivity(new Intent(this, ForgotPassword.class));
+            finish();
 
         }
 
