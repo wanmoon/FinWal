@@ -115,7 +115,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/layout_home4.11"
+                    android:id="@+id/layout_home4_11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -167,7 +167,7 @@
 
 
             <LinearLayout
-                android:id="@+id/layout_home4.12"
+                android:id="@+id/layout_home4_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

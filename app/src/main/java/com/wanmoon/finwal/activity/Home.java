@@ -79,11 +79,9 @@ public class Home extends Fragment {
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
-    public TextView textViewMyIncomeShow;
-    public TextView textViewMyExpenseShow;
     public TextView textViewMonthBalance;
-
-
+    private LinearLayout linearLayout1;
+    private LinearLayout linearLayout2;
 
 
     //get current user
@@ -110,7 +108,7 @@ public class Home extends Fragment {
     private View mView;
 
 
-    private LinearLayout linearLayout;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -190,13 +188,14 @@ public class Home extends Fragment {
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
 
-        textViewMyIncomeShow = (TextView) view.findViewById(R.id.textViewMyIncomeShow);
-        textViewMyExpenseShow = (TextView) view.findViewById(R.id.textViewMyExpenseShow);
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
+
+        linearLayout1 = (LinearLayout)  view.findViewById(R.id.layout_home4_11);
+        linearLayout2 = (LinearLayout)  view.findViewById(R.id.layout_home4_12);
 
         Log.d(TAG,"end findviewbyid");
 
-        textViewMyIncome.setOnClickListener(new View.OnClickListener() {
+        linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllIncome.class);
@@ -207,25 +206,8 @@ public class Home extends Fragment {
 
         });
 
-        textViewMyExpense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AllExpense.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
 
-        textViewMyIncomeShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AllIncome.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
-
-        textViewMyExpenseShow.setOnClickListener(new View.OnClickListener() {
+        linearLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AllExpense.class);
