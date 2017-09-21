@@ -57,6 +57,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
+            android:textAlignment="textEnd"
             android:layout_alignParentRight="true"/>
 
     </RelativeLayout>
