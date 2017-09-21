@@ -17,6 +17,7 @@ import android.widget.TabHost;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -65,12 +66,12 @@ public class Dashboard extends Fragment {
     PieChart pieChart;
     private View mView;
 
-    private double sumIncomeMonth = -1;
-    private double sumExpenseMonth = -1;
-    private double monthBalance;
-    private double sumIncomeYear = -1;
-    private double sumExpenseYear = -1;
-    private double YearBalance;
+//    private double sumIncomeMonth = -1;
+//    private double sumExpenseMonth = -1;
+//    private double monthBalance;
+//    private double sumIncomeYear = -1;
+//    private double sumExpenseYear = -1;
+//    private double YearBalance;
 
 
     //income month
@@ -198,13 +199,11 @@ public class Dashboard extends Fragment {
 
     //connect DB
     String response = null;
-    getHttpIncomeMonth httpIncomeMonth;
-    getHttpExpenseMonth httpExpenseMonth;
+
     getHttpSumIncomeMonthCategory httpSumIncomeMonthCategory;
     getHttpSumExpenseMonthCategory httpSumExpenseMonthCategory;
 
-    getHttpIncomeYear httpIncomeYear;
-    getHttpExpenseYear httpExpenseYear;
+
     getHttpSumIncomeYearCategory httpSumIncomeYearCategory;
     getHttpSumExpenseYearCategory httpSumExpenseYearCategory;
 
@@ -252,10 +251,10 @@ public class Dashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mView = rootView;
-
-
 
 
         // for tabHost
@@ -276,13 +275,10 @@ public class Dashboard extends Fragment {
 
 
 
-        httpExpenseMonth = new getHttpExpenseMonth(getContext());
-        httpIncomeMonth = new getHttpIncomeMonth(getContext());
         httpSumIncomeMonthCategory = new getHttpSumIncomeMonthCategory(getContext());
         httpSumExpenseMonthCategory = new getHttpSumExpenseMonthCategory(getContext());
 
-        httpExpenseYear = new getHttpExpenseYear(getContext());
-        httpIncomeYear = new getHttpIncomeYear(getContext());
+
         httpSumIncomeYearCategory = new getHttpSumIncomeYearCategory(getContext());
         httpSumExpenseYearCategory = new getHttpSumExpenseYearCategory(getContext());
 
@@ -291,13 +287,11 @@ public class Dashboard extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        sumExpenseMonthToDB(cust_id);
-        sumIncomeMonthToDB(cust_id);
+
         sumIncomeMonthCategory(cust_id);
         sumExpenseMonthCategory(cust_id);
 
-        sumIncomeYearToDB(cust_id);
-        sumExpenseYearToDB(cust_id);
+
         sumIncomeYearCategory(cust_id);
         sumExpenseYearCategory(cust_id);
 
@@ -345,264 +339,7 @@ public class Dashboard extends Fragment {
 
 
 
-    //////////////////////for month balance/////////////////////
 
-    public String sumIncomeMonthToDB(String cust_id){
-        try {
-            Log.d(TAG,"start sumIncomeMonth");
-            httpIncomeMonth.run(BASE_URL + "/sumIncomeMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumIncomeMonth");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    // ** must have for connect DB
-    public class getHttpIncomeMonth {
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpIncomeMonth(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-
-                    mainHandler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                                String incomeMonth = response.body().string();
-                                sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
-                                Log.d(TAG,"sumIncome = " + sumIncomeMonth);
-
-                                Log.d(TAG,"onResponse");
-                                Log.d(TAG,"show");
-
-                                if(sumExpenseMonth != -1 && sumIncomeMonth != -1 ) {
-                                    sumAllBalance();
-                                }
-                            } catch (NumberFormatException e){
-                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                                Log.d(TAG, "NumberFormatException");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-                    });
-                }
-            });
-        }
-    }
-
-
-    public String sumExpenseMonthToDB(String cust_id){
-        try {
-            Log.d(TAG,"start sumExpenseMonth");
-            httpExpenseMonth.run(BASE_URL + "/sumExpenseMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumExpenseMonth");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    // ** must have for connect DB
-    public class getHttpExpenseMonth {
-
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpExpenseMonth(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG, "onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-
-                    mainHandler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                                String expenseMonth = response.body().string();
-                                sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
-                                Log.d(TAG, "sumExpense = " + sumExpenseMonth);
-
-                                Log.d(TAG, "onResponse");
-                                Log.d(TAG, "show");
-
-                                if (sumExpenseMonth != -1 && sumIncomeMonth != -1  ) {
-                                    sumAllBalance();
-                                }
-                            } catch (NumberFormatException e) {
-                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                                Log.d(TAG, "NumberFormatException");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-
-                    });
-                }
-            });
-        }
-
-
-    }
-
-    //////////////////////for year balance/////////////////////
-
-    public String sumIncomeYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start transaction");
-            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end transaction");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    // ** must have for connect DB
-    public class getHttpIncomeYear {
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpIncomeYear(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-
-                        String income = response.body().string();
-                        sumIncomeYear = Double.parseDouble(income.trim());
-                        Log.d(TAG,"sumIncomeYear = " + sumIncomeYear);
-
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
-
-                        if(sumExpenseYear != -1 && sumIncomeYear != -1)   {
-                            sumAllBalance();
-                        }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
-                }
-            });
-        }
-    }
-
-
-    public String sumExpenseYearToDB(String cust_id){
-        try {
-            Log.d(TAG,"start show");
-            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
-            Log.d(TAG,"end show");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
-    // ** must have for connect DB
-    public class getHttpExpenseYear {
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpExpenseYear(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String expense = response.body().string();
-                        sumExpenseYear = Double.parseDouble(expense.trim());
-                        Log.d(TAG,"sumExpenseYear = " + sumExpenseYear);
-
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
-
-                        if(sumExpenseYear != -1 && sumIncomeYear != -1 ) {
-                            sumAllBalance();
-                        }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
-                }
-            });
-        }
-    }
 
 
 
@@ -959,7 +696,7 @@ public class Dashboard extends Fragment {
 
 
 
-    //////////////////////// Income Year ////////////////////////
+    ////////////////////// Income Year ////////////////////////
     public String sumIncomeYearCategory(String cust_id){
         try {
             Log.d(TAG,"start httpSumIncomeYearCategory");
@@ -1264,7 +1001,6 @@ public class Dashboard extends Fragment {
             mainHandler = new Handler(context.getMainLooper());
         }
 
-
         void run(String url) throws IOException {
             Request request = new Request.Builder()
                     .url(url)
@@ -1277,12 +1013,10 @@ public class Dashboard extends Fragment {
 
                 @Override
                 public void onResponse(Call call, final Response response) throws IOException {
-
                     mainHandler.post(new Runnable() {
 
                         @Override
                         public void run() {
-
                             try {
                                 showExpenseYearCategory(response.body().string());
                             } catch (IOException e) {
@@ -1307,6 +1041,22 @@ public class Dashboard extends Fragment {
 
 
     public void sumAllBalance(){
+
+        Double sumIncomeMonth = getArguments().getDouble("sumIncomeMonth");
+        Log.d(TAG, "get sumIncomeMonth = " + sumIncomeMonth);
+
+
+        Double sumExpenseMonth = getArguments().getDouble("sumExpenseMonth");
+        Log.d(TAG, "get sumExpenseMonth = " + sumExpenseMonth);
+
+
+        Double sumIncomeYear = getArguments().getDouble("sumIncomeYear");
+        Log.d(TAG, "get sumIncomeYear = " + sumIncomeYear);
+
+
+        Double sumExpenseYear = getArguments().getDouble("sumExpenseYear");
+        Log.d(TAG, "get sumExpenseYear = " + sumExpenseYear);
+
 
         //income month
         incomeExtraMonthPercent = (float) (sumIncomeExtraMonth * (100/sumIncomeMonth));
@@ -1410,12 +1160,12 @@ public class Dashboard extends Fragment {
         expenseSavingAndInvestmentYearPercent = (float) (sumExpenseSavingAndInvestmentYear * (100/sumExpenseYear));
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-
-        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//
+//        }
 
         //////for pie chart
         initDataIncome();
@@ -1530,7 +1280,7 @@ public class Dashboard extends Fragment {
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, "Income");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xDataIncomeMonth) );
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
 //        pieDataSet.setValueTextColor(Color.BLACK);
@@ -1552,9 +1302,9 @@ public class Dashboard extends Fragment {
 
 
         //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        Legend legend = pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1615,7 +1365,7 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseSavingAndInvestmentMonthPercent = " + expenseSavingAndInvestmentMonthPercent);
 
         String[] xDataExpenseMonth = { "Bill","Education" , "Entertainment" , "Food and Drink",
-                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
+                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
         for (int i =0 ; i < yDataExpenseMonth.length ; i++){
             yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth[i], i));
@@ -1645,9 +1395,9 @@ public class Dashboard extends Fragment {
         pieDataSet.setColors(colors);
 
         //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        Legend legend = pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1726,9 +1476,9 @@ public class Dashboard extends Fragment {
         pieDataSet.setColors(colors);
 
         //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        Legend legend = pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1788,22 +1538,22 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseHealthCareYearPercent = " + expenseHealthCareYearPercent);
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
         String[] xDataExpenseYear = { "Bill","Education" , "Entertainment" , "Food and Drink",
-                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment","Salary"};
+                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
         for (int i =0 ; i < yDataExpenseYear.length ; i++){
             yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear[i], i));
-            Log.d(TAG, "yEntrysExpenseYear = " + yEntrysExpenseYear);
+          //  Log.d(TAG, "yEntrysExpenseYear = " + yEntrysExpenseYear);
         }
         for (int i =0 ; i < xDataExpenseYear.length ; i++){
             xEntrysExpenseYear.add(xDataExpenseYear[i]);
-            Log.d(TAG, "xEntrysExpenseYear = " + xEntrysExpenseYear);
+          //  Log.d(TAG, "xEntrysExpenseYear = " + xEntrysExpenseYear);
         }
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(0);
-        Log.d(TAG, "pieDataSet = " + pieDataSet);
+      //  Log.d(TAG, "pieDataSet = " + pieDataSet);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
@@ -1821,9 +1571,9 @@ public class Dashboard extends Fragment {
         pieDataSet.setColors(colors);
 
         //add Legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        Legend legend = pieChart.getLegend();
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);

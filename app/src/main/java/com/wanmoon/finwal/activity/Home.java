@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -64,12 +65,12 @@ public class Home extends Fragment {
 
     private Typeface tf;
 
-    private double sumIncomeMonth = -1;
-    private double sumExpenseMonth = -1;
-    private double monthBalance = -1;
-    private double walletBalance = -1;
-    private double sumIncome = -1;
-    private double sumExpense = -1;
+    private double sumIncomeMonth ;
+    private double sumExpenseMonth ;
+    private double monthBalance ;
+    private double walletBalance ;
+    private double sumIncome ;
+    private double sumExpense ;
 
     private String setWalletBalance;
     private String setMonthBalance;
@@ -90,10 +91,10 @@ public class Home extends Fragment {
 
     //connect DB
     String response = null;
-    getHttpIncomeMonth httpIncomeMonth = new getHttpIncomeMonth();
-    getHttpExpenseMonth httpExpenseMonth = new getHttpExpenseMonth();
-    getHttpIncome httpIncome = new getHttpIncome();
-    getHttpExpense httpExpense = new getHttpExpense();
+    getHttpIncomeMonth httpIncomeMonth;
+    getHttpExpenseMonth httpExpenseMonth;
+    getHttpIncome httpIncome ;
+    getHttpExpense httpExpense ;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
@@ -165,6 +166,11 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
 
+        httpIncomeMonth= new getHttpIncomeMonth(getContext());
+        httpExpenseMonth= new getHttpExpenseMonth(getContext());
+
+        httpIncome= new getHttpIncome(getContext());
+        httpExpense= new getHttpExpense(getContext());
 
         return rootView;
     }
@@ -227,8 +233,6 @@ public class Home extends Fragment {
         float max1 = progress1.getMax();
         progress1.getProgress();
     }
-
-
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.billing_menu, menu);
@@ -300,7 +304,15 @@ public class Home extends Fragment {
 
     // ** must have for connect DB
     public class getHttpExpenseMonth {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpenseMonth(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -313,29 +325,50 @@ public class Home extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String expenseMonth = response.body().string();
-                        sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
-                        Log.d(TAG,"sumExpense = " + sumExpenseMonth);
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String expenseMonth = response.body().string();
+                                sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
+                                Log.d(TAG, "sumExpense = " + sumExpenseMonth);
 
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
+                                Log.d(TAG, "onResponse");
+                                Log.d(TAG, "show");
 
-                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
-                            sumAllBalance();
+                                if (sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
                         }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
+
+                });
                 }
             });
+
         }
+
+
+
     }
 
     public class getHttpIncomeMonth {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncomeMonth(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -366,7 +399,10 @@ public class Home extends Fragment {
                     }
                 }
             });
+
         }
+
+
     }
 
     //////////////////////for wallet balance/////////////////////
@@ -397,7 +433,15 @@ public class Home extends Fragment {
 
     // ** must have for connect DB
     public class getHttpExpense {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpense(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -428,11 +472,21 @@ public class Home extends Fragment {
                     }
                 }
             });
+
         }
+
     }
 
     public class getHttpIncome {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncome(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -463,7 +517,9 @@ public class Home extends Fragment {
                     }
                 }
             });
+
         }
+
     }
 
     public void sumAllBalance(){
@@ -504,20 +560,13 @@ public class Home extends Fragment {
 
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
-//
-//        try {
-//            Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//
-//        }
+
 
         //for pie chart
         initData();
 
 
     }
-
 
     // for pie chart
     private void initData() {

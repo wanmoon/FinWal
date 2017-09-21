@@ -1,5 +1,6 @@
 package com.wanmoon.finwal.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,14 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
@@ -40,22 +50,61 @@ public class MainActivity extends AppCompatActivity
     private Handler handler;
     private Runnable runnable;
 
+
+    private double sumIncomeMonth = -1;
+    private double sumExpenseMonth = -1;
+    private double monthBalance;
+    private double sumIncomeYear = -1;
+    private double sumExpenseYear = -1;
+    private double YearBalance;
+
+    //get current user
+    public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    public final String cust_id = currentFirebaseUser.getUid();
+
+    //connect DB
+    String response = null;
+    getHttpIncomeMonth httpIncomeMonth;
+    getHttpExpenseMonth httpExpenseMonth;
+    getHttpIncomeYear httpIncomeYear;
+    getHttpExpenseYear httpExpenseYear;
+
+
+    //for log
+    private final String TAG = "MainActivity";
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        httpExpenseMonth = new getHttpExpenseMonth(getApplicationContext());
+        httpIncomeMonth = new getHttpIncomeMonth(getApplicationContext());
+        httpExpenseYear = new getHttpExpenseYear(getApplicationContext());
+        httpIncomeYear = new getHttpIncomeYear(getApplicationContext());
+        sumExpenseMonthToDB(cust_id);
+        sumIncomeMonthToDB(cust_id);
+        sumIncomeYearToDB(cust_id);
+        sumExpenseYearToDB(cust_id);
+
+
+
+
         Home HomeFragment = new Home();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, HomeFragment);
         transaction.commit();
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         textViewTitle = (TextView) findViewById(R.id.toolbar_title);
 
@@ -140,34 +189,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-//        handler = new Handler();
-//
-//        runnable = new Runnable() {
-//            public void run() {
-//                handler = new Handler();
-//
-//                runnable = new Runnable() {
-//                    public void run() {
-//                        Dashboard DashboardFragment = new Dashboard();
-//                        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                        transaction.replace(R.id.fragment_container, DashboardFragment);
-//                        transaction.commit();
-//                    }
-//                };
-//
-//            }
-//        };
+
     }
 
-//    public void onResume() {
-//        super.onResume();
-//        handler.postDelayed(runnable, 3000);
-//    }
-//
-//    public void onStop() {
-//        super.onStop();
-//        handler.removeCallbacks(runnable);
-//    }
 
     @Override
     public void onBackPressed() {
@@ -197,19 +221,28 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            finish();
+//
+
+//
 //            Home HomeFragment = new Home();
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //            transaction.replace(R.id.fragment_container, HomeFragment);
 //            transaction.commit();
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(i);
-            finish();
+
+
+
 
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
+
+
+
 
 
         } else if (id == R.id.nav_goal){
@@ -219,11 +252,22 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
 
+
         } else if (id == R.id.nav_dashboard) {
+
+            Bundle bundle = new Bundle();
+            bundle.putDouble("sumIncomeMonth", sumIncomeMonth);
+            bundle.putDouble("sumExpenseMonth", sumExpenseMonth);
+            bundle.putDouble("sumIncomeYear", sumIncomeYear);
+            bundle.putDouble("sumExpenseYear", sumExpenseYear);
+
             Dashboard DashboardFragment = new Dashboard();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, DashboardFragment);
             transaction.commit();
+
+            DashboardFragment.setArguments(bundle);
+
 
         } else if (id == R.id.nav_history){
             History HistoryFragment = new History();
@@ -236,6 +280,7 @@ public class MainActivity extends AppCompatActivity
             firebaseAuth.signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
+            finish();
 
         }
 
@@ -249,9 +294,287 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
+
     // set name of ActionBar
     public void setTitle(String title) {
         textViewTitle.setText(title);
     }
 
+
+    //////////////////////for month balance/////////////////////
+
+    public String sumIncomeMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeMonth");
+            httpIncomeMonth.run(BASE_URL + "/sumIncomeMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumIncomeMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpIncomeMonth {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncomeMonth(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                String incomeMonth = response.body().string();
+                                sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                                Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
+
+                                if(sumExpenseMonth != -1 && sumIncomeMonth != -1 ) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e){
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
+
+    public String sumExpenseMonthToDB(String cust_id){
+        try {
+            Log.d(TAG,"start sumExpenseMonth");
+            httpExpenseMonth.run(BASE_URL + "/sumExpenseMonth.php?cust_id=" + cust_id);
+            Log.d(TAG,"end sumExpenseMonth");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpExpenseMonth {
+
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpenseMonth(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG, "onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                String expenseMonth = response.body().string();
+                                sumExpenseMonth = Double.parseDouble(expenseMonth.trim());
+                                Log.d(TAG, "sumExpense = " + sumExpenseMonth);
+
+                                Log.d(TAG, "onResponse");
+                                Log.d(TAG, "show");
+
+                                if (sumExpenseMonth != -1 && sumIncomeMonth != -1  ) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+
+    }
+
+
+    //////////////////////for year balance/////////////////////
+
+    public String sumIncomeYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start transaction");
+            httpIncomeYear.run(BASE_URL + "/sumIncomeYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpIncomeYear {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpIncomeYear(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+
+                        String income = response.body().string();
+                        sumIncomeYear = Double.parseDouble(income.trim());
+                        Log.d(TAG,"sumIncomeYear = " + sumIncomeYear);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseYear != -1 && sumIncomeYear != -1)   {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+
+    public String sumExpenseYearToDB(String cust_id){
+        try {
+            Log.d(TAG,"start show");
+            httpExpenseYear.run(BASE_URL + "/sumExpenseYear.php?cust_id=" + cust_id);
+            Log.d(TAG,"end show");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttpExpenseYear {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpExpenseYear(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try {
+                        String expense = response.body().string();
+                        sumExpenseYear = Double.parseDouble(expense.trim());
+                        Log.d(TAG,"sumExpenseYear = " + sumExpenseYear);
+
+                        Log.d(TAG,"onResponse");
+                        Log.d(TAG,"show");
+
+                        if(sumExpenseYear != -1 && sumIncomeYear != -1 ) {
+                            sumAllBalance();
+                        }
+                    } catch (NumberFormatException e){
+                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "NumberFormatException");
+                    }
+                }
+            });
+        }
+    }
+
+
+
+
+
+
+
+    public void sumAllBalance(){
+        monthBalance = sumIncomeMonth - sumExpenseMonth;
+        Log.d(TAG, "Month balance = " + monthBalance);
+
+        YearBalance = sumIncomeYear - sumExpenseYear;
+        Log.d(TAG, "Year balance = " + YearBalance);
+
+
+    }
 }

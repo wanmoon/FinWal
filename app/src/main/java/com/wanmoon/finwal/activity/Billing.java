@@ -272,7 +272,6 @@ public class Billing extends Fragment {
             mainHandler = new Handler(context.getMainLooper());
         }
 
-
         void run(String url) throws IOException {
             Request request = new Request.Builder()
                     .url(url)
@@ -285,7 +284,6 @@ public class Billing extends Fragment {
 
                 @Override
                 public void onResponse(Call call, final Response response) throws IOException {
-
                     mainHandler.post(new Runnable() {
 
                         @Override
