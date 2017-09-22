@@ -50,11 +50,10 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private String ending_date;
     private String getDescription_goal;
     private String savingplan;
-    private String status_goal;
 
-    private double saveingDay;
+    public double suggest_cost;
     private long countDate;
-    private double getCost;
+    private double budget_goal;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -126,8 +125,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            Log.d(TAG, "get getDescription_goal, getCost");
-            addBillToDB(cust_id, ending_date, getDescription_goal, 0, getCost, savingplan);
+            Log.d(TAG, "get getDescription_goal, budget_goal");
+            addBillToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, suggest_cost);
             Log.d(TAG, "end addGoalToDB");
 
             Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
@@ -149,6 +148,11 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    public double setSuggest_cost(double suggest_cost){
+        this.suggest_cost = suggest_cost;
+        return suggest_cost;
+    }
+
     public void addGoal() {
         getDescription_goal = editTextGoal.getText().toString();
         String getMoney = editTextCost.getText().toString().trim();
@@ -156,17 +160,17 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         if(getDescription_goal.matches("")){
             Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
         } else if (getMoney.isEmpty()){
-            Toast.makeText(this, "Budged?", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Budget?", Toast.LENGTH_LONG).show();
         } else {
-            getCost = Double.parseDouble(getMoney);
-            Log.d(TAG,"getCost = " + getCost);
+            budget_goal = Double.parseDouble(getMoney);
+            Log.d(TAG,"budget_goal = " + budget_goal);
 
-            saveEachDay(getCost, countDate);
+            saveEachDay(budget_goal, countDate);
         }
     }
 
-    public void saveEachDay(final double getCost, final long countDate){
-        Log.d(TAG, "getCost = " + getCost);
+    public void saveEachDay(final double budget_goal, final long countDate){
+        Log.d(TAG, "budget_goal = " + budget_goal);
         Log.d(TAG, "countDate = " + countDate);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -175,21 +179,21 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 // find which radio button is selected
                 if(checkedId == R.id.radioButtonDaily) {
                     savingplan = "Daily";
-                    saveingDay = getCost/countDate;
-                    Log.d(TAG, "savingDay = " + saveingDay);
-                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + saveingDay + " Baht",
+                    suggest_cost = budget_goal/countDate;
+                    Log.d(TAG, "savingDay = " + suggest_cost);
+                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + suggest_cost + " Baht",
                             Toast.LENGTH_LONG).show();
                 } else if(checkedId == R.id.radioButtonWeekly) {
                     savingplan = "Weekly";
-                    saveingDay = getCost/(countDate/7);
-                    Log.d(TAG, "savingDay = " + saveingDay);
-                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + saveingDay + " Baht",
+                    suggest_cost = budget_goal/(countDate/7);
+                    Log.d(TAG, "savingDay = " + suggest_cost);
+                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + suggest_cost + " Baht",
                             Toast.LENGTH_LONG).show();
                 } else {
                     savingplan = "Monthly";
-                    saveingDay = getCost/(countDate/30);
-                    Log.d(TAG, "savingDay = " + saveingDay);
-                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + saveingDay + " Baht",
+                    suggest_cost = budget_goal/(countDate/30);
+                    Log.d(TAG, "savingDay = " + suggest_cost);
+                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + suggest_cost + " Baht",
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -218,10 +222,10 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public String addBillToDB(String cust_id, String ending_date, String description_goal, int status_goal, double cost_goal, String savingplan){
+    public String addBillToDB(String cust_id, String ending_date, String description_goal, double budget_goal, String savingplan, double suggest_cost){
         try {
             Log.d(TAG,"start goal");
-            http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&status_goal=" + status_goal +"&cost_goal=" + cost_goal +"&savingplan=" + savingplan);
+            http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&budget_goal=" + budget_goal +"&savingplan=" + savingplan + "&suggest_cost=" + suggest_cost);
             Log.d(TAG,"end goal");
         } catch (IOException e) {
             e.printStackTrace();

@@ -23,16 +23,16 @@
 
     <string-array name="array_spinner_goal">
         <item>Ending Date</item>
-        <item>Active</item>
-        <item>Inactive</item>
+        <item>Unachieve</item>
+        <item>Achieved</item>
         <item>Price : Low-High</item>
         <item>Price : High-Low</item>
     </string-array>
 
     <string-array name="array_spinner_bill">
         <item>Deadline</item>
-        <item>Active</item>
-        <item>Inactive</item>
+        <item>Unpaid</item>
+        <item>Paid</item>
     </string-array>
 
     <string-array name="array_spinner_history_all">

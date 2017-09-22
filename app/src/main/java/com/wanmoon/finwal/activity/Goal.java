@@ -140,7 +140,7 @@ public class Goal extends Fragment {
                 if (selected.equals("Ending Date")){
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 4);
-                } else if (selected.equals("Unahcieve")) { //0
+                } else if (selected.equals("Unachieve")) { //0
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 0);
                 } else if (selected.equals("Achieved")) { //1
@@ -232,7 +232,7 @@ public class Goal extends Fragment {
         String ending_date;
         String description_goal;
         String status_goal;
-        String cost_goal;
+        String budget_goal;
 
         goalList.clear();
 
@@ -251,13 +251,13 @@ public class Goal extends Fragment {
                 ending_date = goalInfo[0];
                 description_goal = goalInfo[1];
                 status_goal = goalInfo[2];
-                cost_goal = goalInfo[3];
+                budget_goal = goalInfo[3];
 
                 map = new HashMap<String, String>();
                 map.put("ending_date", ending_date);
                 map.put("description_goal", description_goal);
                 map.put("status_goal", status_goal);
-                map.put("cost_goal", cost_goal);
+                map.put("budget_goal", budget_goal);
                 goalList.add(map);
             }
         }

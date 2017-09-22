@@ -181,7 +181,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
     public String addBillToDB(String cust_id, String period, String description_bill, String deadline){
         try {
             Log.d(TAG,"start add bill");
-            http.run(BASE_URL + "/insertBill.php?cust_id=" + cust_id +"&period=" + period +"&description_bill=" + description_bill +"&status_bill=" + "0" +"&deadline=" + deadline);
+            http.run(BASE_URL + "/insertBill.php?cust_id=" + cust_id +"&period=" + period +"&description_bill=" + description_bill  +"&deadline=" + deadline);
             Log.d(TAG,"end add bill");
         } catch (IOException e) {
             e.printStackTrace();

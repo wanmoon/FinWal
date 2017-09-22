@@ -13,10 +13,11 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".activity.SignUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.Login" />
         <activity android:name=".activity.ForgotPassword" />
         <activity android:name=".activity.MainActivity" />
@@ -35,7 +37,16 @@
         <activity android:name=".activity.Profile" />
         <activity android:name=".activity.AllIncome" />
         <activity android:name=".activity.AllExpense" />
+        <activity android:name=".activity.NotificationPage"/>
 
     </application>
+
+    <receiver android:name=".NotificationReceiver">
+        <intent-filter>
+            <action android:name="YES_ACTION"/>
+            <action android:name="NO_ACTION"/>
+
+        </intent-filter>
+    </receiver>
 
 </manifest>

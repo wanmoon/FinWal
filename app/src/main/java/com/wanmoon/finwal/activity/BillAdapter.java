@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,14 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
 
         TextView textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
         textViewStatus.setText(arrBill.get(position).get("status_bill").toString());
+        //if else to check transaction for set color of 'status_bill'
+        if(arrBill.get(position).get("status_bill").toString().equals("Paid")){
+            //income : green
+            textViewStatus.setTextColor(Color.parseColor("#088A4B"));
+        } else if (arrBill.get(position).get("status_bill").toString().equals("Unpaid")){
+            //expense : red
+            textViewStatus.setTextColor(Color.parseColor("#e54649"));
+        }
 
         TextView textViewDeadline = (TextView) view.findViewById(R.id.textViewDeadline);
         textViewDeadline.setText(arrBill.get(position).get("deadline").toString());
