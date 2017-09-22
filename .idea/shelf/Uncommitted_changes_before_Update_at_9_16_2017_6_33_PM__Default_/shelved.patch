@@ -1,0 +1,22 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_9_7_2017_2_09_AM__Default_2/shelved.patch
+===================================================================
+--- .idea/shelf/Uncommitted_changes_before_Update_at_9_7_2017_2_09_AM__Default_2/shelved.patch	(revision a862588d62d5b8d3ab0d9859b5419cf85f143db8)
++++ .idea/shelf/Uncommitted_changes_before_Update_at_9_7_2017_2_09_AM__Default_2/shelved.patch	(revision a862588d62d5b8d3ab0d9859b5419cf85f143db8)
+@@ -1,17 +0,0 @@
+-Index: .idea/modules.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+---- .idea/modules.xml	(revision 398ec602c4c6e2942a6802121c619ef2b63fd235)
+-+++ .idea/modules.xml	
+-@@ -3,8 +3,6 @@
+-   <component name="ProjectModuleManager">
+-     <modules>
+-       <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+--      <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+--      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+-       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+-     </modules>
+-   </component>
+-\ No newline at end of file

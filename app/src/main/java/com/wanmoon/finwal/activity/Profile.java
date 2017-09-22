@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +42,11 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private EditText editTextAddress;
     private EditText editTextPhone;
     private Button buttonSave;
+    private RadioButton genderMale;
+    private RadioButton genderFemale;
 
+
+   String gender;
     private Spinner spinnerGender;
     private TextView textViewSpinnerGender;
     private TextView textViewGenderResult;
@@ -74,14 +79,18 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+        genderMale = (RadioButton)findViewById(R.id.radioButtonMale);
+        genderFemale = (RadioButton)findViewById(R.id.radioButtonFemale);
+
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(this);
-        checkGender();
+
 
         TextViewEmail.setText(user.getEmail());
         checkName();
         checkPhone();
         checkAddress();
+        checkGender();
 
 
 
@@ -95,7 +104,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
-        String gender = textViewGenderResult.getText().toString().trim();
+
+        if(genderMale.isChecked()){
+             gender = genderMale.getText().toString().trim();
+        }else{
+            gender = genderFemale.getText().toString().trim();
+        }
+
 
 
         UserInformation userInformation = new UserInformation(email, name, address, phoneNumber, gender);
@@ -157,6 +172,22 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void checkGender(){
+          databaseReference.child(cust_id).child("gender").addListenerForSingleValueEvent(new ValueEventListener() {
+              @Override
+              public void onDataChange(DataSnapshot dataSnapshot) {
+                  String value = dataSnapshot.getValue(String.class);
+                      if(value.matches("Female")) {
+                          genderFemale.setChecked(true);
+                      }else if(value.matches("Male"))
+                          genderMale.setChecked(true);
+                  }
+
+
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
+
+              }
+          });
 
     }
 
