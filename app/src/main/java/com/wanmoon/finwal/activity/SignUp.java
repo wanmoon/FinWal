@@ -114,12 +114,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         if(v == buttonRegister ){
             registerUser();
-            finish();
+
         }
 
         if(v == textViewSignIn){
             // will open login activity here
-            Intent i=new Intent(getApplicationContext(),Login.class);
+            Intent i=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(i);
             finish();
         }

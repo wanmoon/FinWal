@@ -149,16 +149,16 @@
                                 android:id="@+id/pieChartIncomeMonth"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginEnd="80dp"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginRight="80dp"
-                                android:layout_marginStart="80dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginBottom="30dp"
-                                android:paddingBottom="50dp"
-                                android:paddingEnd="50dp"
-                                android:paddingLeft="50dp"
-                                android:paddingRight="50dp"  />
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"   />
 
                         </LinearLayout>
 
@@ -184,16 +184,16 @@
                                 android:id="@+id/pieChartExpenseMonth"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginEnd="80dp"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginRight="80dp"
-                                android:layout_marginStart="80dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginBottom="30dp"
-                                android:paddingBottom="50dp"
-                                android:paddingEnd="50dp"
-                                android:paddingLeft="50dp"
-                                android:paddingRight="50dp" />
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"  />
 
 
 
@@ -240,17 +240,17 @@
                             <com.github.mikephil.charting.charts.PieChart
                                 android:id="@+id/pieChartIncomeYear"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:layout_marginEnd="80dp"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginRight="80dp"
-                                android:layout_marginStart="80dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginBottom="30dp"
-                                android:paddingBottom="50dp"
-                                android:paddingEnd="50dp"
-                                android:paddingLeft="50dp"
-                                android:paddingRight="50dp"  />
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"   />
 
 
 
@@ -276,17 +276,17 @@
                             <com.github.mikephil.charting.charts.PieChart
                                 android:id="@+id/pieChartExpenseYear"
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:layout_marginEnd="80dp"
-                                android:layout_marginLeft="80dp"
-                                android:layout_marginRight="80dp"
-                                android:layout_marginStart="80dp"
-                                android:layout_marginTop="30dp"
-                                android:layout_marginBottom="30dp"
-                                android:paddingBottom="50dp"
-                                android:paddingEnd="50dp"
-                                android:paddingLeft="50dp"
-                                android:paddingRight="50dp"  />
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"  />
 
 
 
