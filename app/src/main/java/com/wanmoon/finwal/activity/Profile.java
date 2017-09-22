@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,11 +44,7 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
     private RadioButton genderMale;
     private RadioButton genderFemale;
 
-
-   String gender;
-    private Spinner spinnerGender;
-    private TextView textViewSpinnerGender;
-    private TextView textViewGenderResult;
+    String gender;
 
     //get current user and email
     private DatabaseReference databaseReference;
@@ -87,6 +82,9 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
 
 
         TextViewEmail.setText(user.getEmail());
+
+
+
         checkName();
         checkPhone();
         checkAddress();
@@ -104,6 +102,8 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
         String name = editTextName.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
         String phoneNumber = editTextPhone.getText().toString().trim();
+
+
 
         if(genderMale.isChecked()){
              gender = genderMale.getText().toString().trim();
@@ -176,11 +176,13 @@ public class Profile extends AppCompatActivity implements View.OnClickListener {
               @Override
               public void onDataChange(DataSnapshot dataSnapshot) {
                   String value = dataSnapshot.getValue(String.class);
-                      if(value.matches("Female")) {
+                  if(value != null) {
+                      if (value.matches("Female")) {
                           genderFemale.setChecked(true);
-                      }else if(value.matches("Male"))
+                      } else if (value.matches("Male"))
                           genderMale.setChecked(true);
                   }
+              }
 
 
               @Override

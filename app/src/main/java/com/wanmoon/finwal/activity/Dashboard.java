@@ -1224,7 +1224,6 @@ public class Dashboard extends Fragment {
                 yDataIncomeMonth.add(incomeExtraMonthPercent);
                 xDataIncomeMonth.add("Extra Income");
                 colors.add(getResources().getColor(R.color.extraIncome));
-
             }
             if(incomeFamilyAndPersonalMonthPercent > 0){
                 yDataIncomeMonth.add(incomeFamilyAndPersonalMonthPercent);
@@ -1253,8 +1252,6 @@ public class Dashboard extends Fragment {
             Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
             Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
 
-       // String[] xDataIncomeMonth = {"Extra income", "Family and Personal", "Gift", "Loan", "Salary"};
-
 
         ArrayList<PieEntry> yEntrysIncomeMonth = new ArrayList<>();
         ArrayList<String> xEntrysIncomeMonth = new ArrayList<>();
@@ -1278,7 +1275,13 @@ public class Dashboard extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setWordWrapEnabled(true);
+        legend.setDrawInside(false);
+        legend.getCalculatedLineSizes();
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1325,17 +1328,58 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "addDataSet expense month started");
 
         ArrayList<Float> yDataExpenseMonth = new ArrayList<>();
-        if(expenseBillMonthPercent > 0) yDataExpenseMonth.add(expenseBillMonthPercent);
-        if(expenseEducationMonthPercent > 0) yDataExpenseMonth.add(expenseEducationMonthPercent);
-        if(expenseEntertainmentMonthPercent > 0) yDataExpenseMonth.add(expenseEntertainmentMonthPercent);
-        if(expenseFoodAndDrinkMonthPercent > 0) yDataExpenseMonth.add(expenseFoodAndDrinkMonthPercent);
-        if(expenseShoppingMonthPercent > 0) yDataExpenseMonth.add(expenseShoppingMonthPercent);
-
-        if(expenseTransportMonthPercent > 0) yDataExpenseMonth.add(expenseTransportMonthPercent);
-        if(expenseTravelMonthPercent > 0) yDataExpenseMonth.add(expenseTravelMonthPercent);
-        if(expenseFamilyAndPersonalMonthPercent > 0) yDataExpenseMonth.add(expenseFamilyAndPersonalMonthPercent);
-        if(expenseHealthCareMonthPercent > 0) yDataExpenseMonth.add(expenseHealthCareMonthPercent);
-        if(expenseSavingAndInvestmentMonthPercent > 0) yDataExpenseMonth.add(expenseSavingAndInvestmentMonthPercent);
+        ArrayList<String> xDataExpenseMonth = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(expenseBillMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseBillMonthPercent);
+            xDataExpenseMonth.add("Bill");
+            colors.add(getResources().getColor(R.color.bill));
+        }
+        if(expenseEducationMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseEducationMonthPercent);
+            xDataExpenseMonth.add("Education");
+            colors.add(getResources().getColor(R.color.education));
+        }
+        if(expenseEntertainmentMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseEntertainmentMonthPercent);
+            xDataExpenseMonth.add("Entertainment");
+            colors.add(getResources().getColor(R.color.entertainment));
+        }
+        if(expenseFoodAndDrinkMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseFoodAndDrinkMonthPercent);
+            xDataExpenseMonth.add("Food and Drink");
+            colors.add(getResources().getColor(R.color.foodAndDrink));
+        }
+        if(expenseShoppingMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseShoppingMonthPercent);
+            xDataExpenseMonth.add("Shopping");
+            colors.add(getResources().getColor(R.color.shopping));
+        }
+        if(expenseTransportMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseTransportMonthPercent);
+            xDataExpenseMonth.add("Transport");
+            colors.add(getResources().getColor(R.color.transport));
+        }
+        if(expenseTravelMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseTravelMonthPercent);
+            xDataExpenseMonth.add("Travel");
+            colors.add(getResources().getColor(R.color.travel));
+        }
+        if(expenseFamilyAndPersonalMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseFamilyAndPersonalMonthPercent);
+            xDataExpenseMonth.add("Family and Personal");
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(expenseHealthCareMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseHealthCareMonthPercent);
+            xDataExpenseMonth.add("Healthcare");
+            colors.add(getResources().getColor(R.color.health));
+        }
+        if(expenseSavingAndInvestmentMonthPercent > 0) {
+            yDataExpenseMonth.add(expenseSavingAndInvestmentMonthPercent);
+            xDataExpenseMonth.add("Saving and Investment");
+            colors.add(getResources().getColor(R.color.savingAndInvestment));
+        }
 
         Log.d(TAG, "Wallet expenseBillMonthPercent = " + expenseBillMonthPercent);
         Log.d(TAG, "Wallet expenseEducationMonthPercent = " + expenseEducationMonthPercent);
@@ -1349,43 +1393,36 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseHealthCareMonthPercent = " + expenseHealthCareMonthPercent);
         Log.d(TAG, "Wallet expenseSavingAndInvestmentMonthPercent = " + expenseSavingAndInvestmentMonthPercent);
 
-        String[] xDataExpenseMonth = { "Bill","Education" , "Entertainment" , "Food and Drink",
-                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
         ArrayList<PieEntry> yEntrysExpenseMonth = new ArrayList<>();
         ArrayList<String> xEntrysExpenseMonth = new ArrayList<>();
 
         for (int i = 0; i < yDataExpenseMonth.size(); i++) {
             yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth.get(i), i));
-        }
-        for (int i = 0; i < xDataExpenseMonth.length; i++) {
-            xEntrysExpenseMonth.add(xDataExpenseMonth[i]);
+            xEntrysExpenseMonth.add(xDataExpenseMonth.get(i));
         }
 
+
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, "Expense");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, String.valueOf(xEntrysExpenseMonth));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
 
-        // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(getResources().getColor(R.color.bill));
-        colors.add(getResources().getColor(R.color.education));
-        colors.add(getResources().getColor(R.color.entertainment));
-        colors.add(getResources().getColor(R.color.transport));
-        colors.add(getResources().getColor(R.color.travel));
-        colors.add(getResources().getColor(R.color.familyAndPersonal));
-        colors.add(getResources().getColor(R.color.foodAndDrink));
-        colors.add(getResources().getColor(R.color.health));
-        colors.add(getResources().getColor(R.color.shopping));
-        colors.add(getResources().getColor(R.color.savingAndInvestment));
 
+        // add color to dataset
         pieDataSet.setColors(colors);
+
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setWordWrapEnabled(true);
+        legend.setDrawInside(false);
+        legend.getCalculatedLineSizes();
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1435,49 +1472,71 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "addDataSet income year started");
 
         ArrayList<Float> yDataIncomeYear = new ArrayList<>();
-        if(incomeExtraYearPercent > 0) yDataIncomeYear.add(incomeExtraYearPercent);
-        if(incomeFamilyAndPersonalYearPercent > 0) yDataIncomeYear.add(incomeFamilyAndPersonalYearPercent);
-        if(incomeGiftYearPercent > 0) yDataIncomeYear.add(incomeGiftYearPercent);
-        if(incomeLoanYearPercent > 0) yDataIncomeYear.add(incomeLoanYearPercent);
-        if(incomeSalaryYearPercent > 0) yDataIncomeYear.add(incomeSalaryYearPercent);
+        ArrayList<String> xDataIncomeYear = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(incomeExtraYearPercent > 0){
+            yDataIncomeYear.add(incomeExtraYearPercent);
+            xDataIncomeYear.add("Extra Income");
+            colors.add(getResources().getColor(R.color.extraIncome));
+
+        }
+        if(incomeFamilyAndPersonalYearPercent > 0){
+            yDataIncomeYear.add(incomeFamilyAndPersonalYearPercent);
+            xDataIncomeYear.add("Family and Personal");
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(incomeGiftYearPercent > 0){
+            yDataIncomeYear.add(incomeGiftYearPercent);
+            xDataIncomeYear.add("Gift");
+            colors.add(getResources().getColor(R.color.gift));
+        }
+        if(incomeLoanYearPercent > 0){
+            yDataIncomeYear.add(incomeLoanYearPercent);
+            xDataIncomeYear.add("Loan");
+            colors.add(getResources().getColor(R.color.loan));
+        }
+        if(incomeSalaryYearPercent > 0){
+            yDataIncomeYear.add(incomeSalaryYearPercent );
+            xDataIncomeYear.add("Salary");
+            colors.add(getResources().getColor(R.color.salary));
+        }
 
         Log.d(TAG, "Wallet incomeExtraYearPercent = " + incomeExtraYearPercent);
         Log.d(TAG, "Wallet incomeFamilyAndPersonalYearPercent = " + incomeFamilyAndPersonalYearPercent);
         Log.d(TAG, "Wallet incomeGiftYearPercent = " + incomeGiftYearPercent);
         Log.d(TAG, "Wallet incomeLoanYearPercent = " + incomeLoanYearPercent);
         Log.d(TAG, "Wallet incomeSalaryYearPercent = " + incomeSalaryYearPercent);
-        String[] xDataIncomeYear = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
+
 
         ArrayList<PieEntry> yEntrysIncomeYear = new ArrayList<>();
         ArrayList<String> xEntrysIncomeYear = new ArrayList<>();
 
         for (int i = 0; i < yDataIncomeYear.size(); i++) {
             yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear.get(i), i));
-        }
-        for (int i = 0; i < xDataIncomeYear.length; i++) {
-            xEntrysIncomeYear.add(xDataIncomeYear[i]);
+            xEntrysIncomeYear.add(xDataIncomeYear.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "Income");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, String.valueOf(xEntrysIncomeYear));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
 
-        // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(getResources().getColor(R.color.salary));
-        colors.add(getResources().getColor(R.color.familyAndPersonal));
-        colors.add(getResources().getColor(R.color.loan));
-        colors.add(getResources().getColor(R.color.gift));
-        colors.add(getResources().getColor(R.color.extraIncome));
 
+        // add color to dataset
         pieDataSet.setColors(colors);
+
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setWordWrapEnabled(true);
+        legend.setDrawInside(false);
+        legend.getCalculatedLineSizes();
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1523,18 +1582,58 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "addDataSet expense year started");
 
         ArrayList<Float> yDataExpenseYear = new ArrayList<>();
-        if(expenseBillYearPercent > 0) yDataExpenseYear.add(expenseBillYearPercent);
-        if(expenseBillYearPercent > 0) yDataExpenseYear.add(expenseBillYearPercent);
-        if(expenseEntertainmentYearPercent > 0) yDataExpenseYear.add(expenseEntertainmentYearPercent);
-        if(expenseFoodAndDrinkYearPercent > 0) yDataExpenseYear.add(expenseFoodAndDrinkYearPercent);
-        if(expenseShoppingYearPercent > 0) yDataExpenseYear.add(expenseShoppingYearPercent);
-
-        if(expenseTransportYearPercent > 0) yDataExpenseYear.add(expenseTransportYearPercent);
-        if(expenseTravelYearPercent > 0) yDataExpenseYear.add(expenseTravelYearPercent);
-        if(expenseFamilyAndPersonalYearPercent > 0) yDataExpenseYear.add(expenseFamilyAndPersonalYearPercent);
-        if(expenseHealthCareYearPercent > 0) yDataExpenseYear.add(expenseHealthCareYearPercent);
-        if(expenseSavingAndInvestmentYearPercent > 0) yDataExpenseYear.add(expenseSavingAndInvestmentYearPercent);
-
+        ArrayList<String> xDataExpenseYear = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(expenseBillYearPercent > 0) {
+            yDataExpenseYear.add(expenseBillYearPercent);
+            xDataExpenseYear.add("Bill");
+            colors.add(getResources().getColor(R.color.bill));
+        }
+        if(expenseEducationYearPercent > 0) {
+            yDataExpenseYear.add(expenseEducationYearPercent);
+            xDataExpenseYear.add("Education");
+            colors.add(getResources().getColor(R.color.education));
+        }
+        if(expenseEntertainmentYearPercent > 0) {
+            yDataExpenseYear.add(expenseEntertainmentYearPercent);
+            xDataExpenseYear.add("Entertainment");
+            colors.add(getResources().getColor(R.color.entertainment));
+        }
+        if(expenseFoodAndDrinkYearPercent > 0) {
+            yDataExpenseYear.add(expenseFoodAndDrinkYearPercent);
+            xDataExpenseYear.add("Food and Drink");
+            colors.add(getResources().getColor(R.color.foodAndDrink));
+        }
+        if(expenseShoppingYearPercent > 0) {
+            yDataExpenseYear.add(expenseShoppingYearPercent);
+            xDataExpenseYear.add("Shopping");
+            colors.add(getResources().getColor(R.color.shopping));
+        }
+        if(expenseTransportYearPercent > 0) {
+            yDataExpenseYear.add(expenseTransportYearPercent);
+            xDataExpenseYear.add("Transport");
+            colors.add(getResources().getColor(R.color.transport));
+        }
+        if(expenseTravelYearPercent > 0) {
+            yDataExpenseYear.add(expenseTravelYearPercent);
+            xDataExpenseYear.add("Travel");
+            colors.add(getResources().getColor(R.color.travel));
+        }
+        if(expenseFamilyAndPersonalYearPercent > 0) {
+            yDataExpenseYear.add(expenseFamilyAndPersonalYearPercent);
+            xDataExpenseYear.add("Family and Personal");
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(expenseHealthCareYearPercent > 0) {
+            yDataExpenseYear.add(expenseHealthCareYearPercent);
+            xDataExpenseYear.add("Healthcare");
+            colors.add(getResources().getColor(R.color.health));
+        }
+        if(expenseSavingAndInvestmentYearPercent > 0) {
+            yDataExpenseYear.add(expenseSavingAndInvestmentYearPercent);
+            xDataExpenseYear.add("Saving and Investment");
+            colors.add(getResources().getColor(R.color.savingAndInvestment));
+        }
 
         Log.d(TAG, "Wallet expenseBillYearPercent = " + expenseBillYearPercent);
         Log.d(TAG, "Wallet expenseEducationYearPercent = " + expenseEducationYearPercent);
@@ -1547,46 +1646,36 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseFamilyAndPersonalYearPercent = " + expenseFamilyAndPersonalYearPercent);
         Log.d(TAG, "Wallet expenseHealthCareYearPercent = " + expenseHealthCareYearPercent);
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
-        String[] xDataExpenseYear = { "Bill","Education" , "Entertainment" , "Food and Drink",
-                "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
 
         ArrayList<PieEntry> yEntrysExpenseYear = new ArrayList<>();
         ArrayList<String> xEntrysExpenseYear = new ArrayList<>();
 
-
         for (int i = 0; i < yDataExpenseYear.size(); i++) {
             yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear.get(i), i));
-        }
-        for (int i = 0; i < xDataExpenseYear.length; i++) {
-            xEntrysExpenseYear.add(xDataExpenseYear[i]);
+            xEntrysExpenseYear.add(xDataExpenseYear.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "Expense");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, String.valueOf(xEntrysExpenseYear));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
 
-        // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(getResources().getColor(R.color.bill));
-        colors.add(getResources().getColor(R.color.education));
-        colors.add(getResources().getColor(R.color.entertainment));
-        colors.add(getResources().getColor(R.color.transport));
-        colors.add(getResources().getColor(R.color.travel));
-        colors.add(getResources().getColor(R.color.familyAndPersonal));
-        colors.add(getResources().getColor(R.color.foodAndDrink));
-        colors.add(getResources().getColor(R.color.health));
-        colors.add(getResources().getColor(R.color.shopping));
-        colors.add(getResources().getColor(R.color.savingAndInvestment));
 
+        // add color to dataset
         pieDataSet.setColors(colors);
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setWordWrapEnabled(true);
+        legend.setDrawInside(false);
+        legend.getCalculatedLineSizes();
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
