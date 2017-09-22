@@ -35,6 +35,10 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Scanner;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,6 +96,7 @@ public class Home extends Fragment {
     getHttpExpenseMonth httpExpenseMonth;
     getHttpIncome httpIncome ;
     getHttpExpense httpExpense ;
+    getHttp http;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
@@ -186,6 +191,10 @@ public class Home extends Fragment {
         sumExpenseToDB(cust_id);
 
 
+
+        http = new getHttp(getContext());
+        getAllBilling(cust_id);
+
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
@@ -235,6 +244,10 @@ public class Home extends Fragment {
         int backgroundColor1 = progress1.getProgressBackgroundColor();
         float max1 = progress1.getMax();
         progress1.getProgress();
+
+
+
+
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -653,5 +666,106 @@ public class Home extends Fragment {
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
         pieChart.invalidate();
+    }
+
+
+
+    public void getAllBilling(String cust_id){
+        try {
+            Log.d(TAG,"start select");
+            http.run(BASE_URL + "/showDeadlineBill.php?cust_id=" + cust_id );
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public void showBillingToListView(String allBilling){
+        Log.d(TAG, "allBilling " + allBilling);
+
+        List<String> items = Arrays.asList(allBilling.split("\\s*,\\s*"));
+        
+
+        String[] billInfo;
+        String period;
+        String description_bill;
+        String status_bill;
+        String deadline;
+
+
+        HashMap<String, String> map;
+
+        Scanner scanner = new Scanner(allBilling);
+
+        for(int i = 0; scanner.hasNext(); i++){
+            String data = scanner.nextLine();
+            Log.d(TAG, "data has next " + data);
+
+            billInfo = data.split(",");
+
+            if(billInfo.length >= 3) {
+
+                period = billInfo[0];
+                description_bill = billInfo[1];
+                status_bill = billInfo[2];
+                deadline = billInfo[3];
+
+                map = new HashMap<String, String>();
+                map.put("period", period);
+                map.put("description_bill", description_bill);
+                map.put("status_bill", status_bill);
+                map.put("deadline", deadline);
+                //billList.add(map);
+
+                TextView textViewPeriod = (TextView) mView.findViewById(R.id.textViewPeriod);
+                textViewPeriod.setText(textViewPeriod.getText().toString());
+
+            }
+        }
+       // adapter.notifyDataSetChanged();
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttp(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            try {
+                                showBillingToListView(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG,"onResponse");
+                        }
+
+
+                    });
+                }
+            });
+        }
     }
 }

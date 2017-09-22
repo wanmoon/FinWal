@@ -16,15 +16,25 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
+$flagSort = $_GET["flagSort"];
+$sort;
 
-$sql = "SELECT SUM(cost) FROM transaction WHERE transaction = 'Income' AND category = 'Extra income' AND cust_id = '$cust_id' ";
+if ($flagSort == 0) {
+	$sort = "status_bill ASC";
+} elseif ($flagSort == 1) {
+	$sort = "status_bill DESC";
+} else {
+	$sort = "deadline DESC";
+}
+
+$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id' ORDER BY deadline LIMIT 1" ;
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['SUM(cost)'] . "\n";
+        echo $row['period'] . "," . $row['description_bill'] . "," . $row['status_bill'] . "," . $row['deadline'] . "\n";
     }
 } else {
     echo "0 ";
