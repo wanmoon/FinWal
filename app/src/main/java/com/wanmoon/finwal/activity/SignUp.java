@@ -42,8 +42,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
 
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){
-            finish();
             startActivity(new Intent(SignUp.this, MainActivity.class));
+            finish();
         }
 
         progressDialog = new ProgressDialog(this);
