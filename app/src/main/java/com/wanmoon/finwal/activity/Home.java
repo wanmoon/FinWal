@@ -189,8 +189,15 @@ public class Home extends Fragment {
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
-
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
+        textViewMonthBalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), NotificationPage.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
 
         linearLayout1 = (LinearLayout)  view.findViewById(R.id.layout_home4_11);
         linearLayout2 = (LinearLayout)  view.findViewById(R.id.layout_home4_12);
