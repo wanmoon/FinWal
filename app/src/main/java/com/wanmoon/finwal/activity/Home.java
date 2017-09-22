@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -143,6 +144,7 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);

@@ -1,0 +1,150 @@
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/build.gradle	(revision 9e5f3177af0d1b472286e9bd0c28eeb900398f4c)
++++ app/build.gradle	(revision )
+@@ -12,36 +12,42 @@
+         versionCode 1
+         versionName "1.0"
+         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+-    }
++
+-    buildTypes {
+-        release {
+-            minifyEnabled false
+-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+-        }
+-    }
++        buildTypes {
++            release {
++                minifyEnabled false
++                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
++            }
++        }
++
++
++
+-    productFlavors {
+-    }
+-}
++        productFlavors {
++        }
++    }
+ 
+-dependencies {
++    dependencies {
++
++        compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+-    compile fileTree(include: ['*.jar'], dir: 'libs')
+-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+-        exclude group: 'com.android.support', module: 'support-annotations'
+-    })
++        compile fileTree(include: ['*.jar'], dir: 'libs')
++        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
++            exclude group: 'com.android.support', module: 'support-annotations'
++        })
+ 
+ 
+ 
+-    compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+-    compile 'com.google.code.gson:gson:2.6.1'
+-    compile 'com.android.support:appcompat-v7:25.3.1'
+-    compile 'com.android.support:design:25.1.0'
+-    compile 'com.google.firebase:firebase-auth:10.0.1'
+-    compile 'com.google.firebase:firebase-database:10.0.1'
+-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+-    compile 'com.android.support:support-v4:25.3.1'
+-    compile 'org.achartengine:achartengine:1.2.0'
+-    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
+-    compile 'com.jjoe64:graphview:4.2.1'
+-    testCompile 'junit:junit:4.12'
++        compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
++        compile 'com.squareup.okhttp3:okhttp:3.8.1'
++        compile 'com.google.code.gson:gson:2.6.1'
++        compile 'com.android.support:appcompat-v7:25.3.1'
++        compile 'com.android.support:design:25.1.0'
++        compile 'com.google.firebase:firebase-auth:10.0.1'
++        compile 'com.google.firebase:firebase-database:10.0.1'
++        compile 'com.android.support.constraint:constraint-layout:1.0.2'
++        compile 'com.android.support:support-v4:25.3.1'
++        compile 'org.achartengine:achartengine:1.2.0'
++        compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
++        compile 'com.jjoe64:graphview:4.2.1'
++        testCompile 'junit:junit:4.12'
++    }
+-}
++}
+\ No newline at end of file
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 9e5f3177af0d1b472286e9bd0c28eeb900398f4c)
++++ build.gradle	(revision )
+@@ -9,6 +9,7 @@
+         classpath 'com.google.gms:google-services:3.0.0'
+ 
+ 
++
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+     }
+@@ -19,6 +20,7 @@
+         jcenter()
+         maven { url "https://repository-achartengine.forge.cloudbees.com/snapshot/" }
+         maven { url "https://jitpack.io" }
++
+ 
+     }
+ }
+Index: app/src/main/java/com/wanmoon/finwal/activity/Home.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/wanmoon/finwal/activity/Home.java	(revision 9e5f3177af0d1b472286e9bd0c28eeb900398f4c)
++++ app/src/main/java/com/wanmoon/finwal/activity/Home.java	(revision )
+@@ -1,6 +1,7 @@
+ package com.wanmoon.finwal.activity;
+ 
+ import android.content.Context;
++
+ import android.content.Intent;
+ import android.graphics.Color;
+ import android.net.Uri;
+@@ -137,6 +138,7 @@
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++
+ 
+         if (getArguments() != null) {
+             mParam1 = getArguments().getString(ARG_PARAM1);
+\ No newline at end of file
+Index: app/src/main/java/com/wanmoon/finwal/activity/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/wanmoon/finwal/activity/MainActivity.java	(revision 9e5f3177af0d1b472286e9bd0c28eeb900398f4c)
++++ app/src/main/java/com/wanmoon/finwal/activity/MainActivity.java	(revision )
+@@ -1,6 +1,7 @@
+ package com.wanmoon.finwal.activity;
+ 
+ import android.content.Context;
++
+ import android.content.Intent;
+ import android.net.Uri;
+ import android.os.Bundle;
+@@ -78,6 +79,7 @@
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
++
+ 
+         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+         setSupportActionBar(toolbar);

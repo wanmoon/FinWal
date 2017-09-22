@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
-
 import android.content.Context;
+//import com.onesignal.*;
+//import com.onesignal.OneSignal.NotificationOpenedHandler;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -78,6 +81,14 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Log.e("tet", Locale.getDefault().getLanguage());
+
+        //OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.InAppAlert);
+        //OneSignal.sendTag("test3", "test7");
+        //OneSignal.setSubscription(false);
+
+        //OneSignal.syncHashedEmail("test@onesignal.com");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -566,4 +577,68 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+//    private class ExampleNotificationOpenedHandler implements NotificationOpenedHandler {
+//        /**
+//         * Callback to implement in your app to handle when a notification is opened from the Android status bar or
+//         * a new one comes in while the app is running.
+//         * This method is located in this activity as an example, you may have any class you wish implement NotificationOpenedHandler and define this method.
+//         *
+//         * @param openedResult The message string the user seen/should see in the Android status bar.
+//         */
+//        @Override
+//        public void notificationOpened(OSNotificationOpenResult openedResult) {
+//            Log.e("OneSignalExample", "body: " + openedResult.notification.payload.body);
+//            Log.e("OneSignalExample", "additional data: " + openedResult.notification.payload.additionalData);
+//            //Log.e("OneSignalExample", "additionalData: " + additionalData.toString());
+//        }
+//    }
+//public void onSubscribeClicked(View v) {
+//    OneSignal.setSubscription(true);
+//    OneSignal.promptLocation();
+//
+//    String ns = Context.NOTIFICATION_SERVICE;
+//    NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
+//    nMgr.cancelAll();
+//}
+//
+//    public void onUnsubscribeClicked(View v) {
+//        OneSignal.setSubscription(false);
+//    }
+
+//   @Override
+//   protected void onPause() {
+//      super.onPause();
+//      if (mHelper != null)
+//         mHelper.dispose();
+//   }
+//
+//   @Override
+//   public void onDestroy() {
+//      super.onDestroy();
+//      if (mHelper != null) mHelper.dispose();
+//      mHelper = null;
+//   }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings)
+//            return true;
+//
+//        return super.onOptionsItemSelected(item);
+//    }
+
+
 }
