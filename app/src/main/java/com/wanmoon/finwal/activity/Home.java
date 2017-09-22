@@ -1,7 +1,6 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -144,7 +143,6 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -364,7 +362,7 @@ public class Home extends Fragment {
                             Log.d(TAG, "onResponse");
                         }
 
-                });
+                    });
                 }
             });
 
@@ -397,27 +395,33 @@ public class Home extends Fragment {
 
                 @Override
                 public void onResponse(Call call, final Response response) throws IOException {
-                    try {
-                        String incomeMonth = response.body().string();
-                        sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
-                        Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String incomeMonth = response.body().string();
+                                sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
+                                Log.d(TAG,"sumIncome = " + sumIncomeMonth);
 
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
 
-                        if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
-                            sumAllBalance();
+                                if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
                         }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
+                    });
                 }
             });
 
         }
-
-
     }
 
 
@@ -473,26 +477,32 @@ public class Home extends Fragment {
 
                 @Override
                 public void onResponse(Call call, final Response response) throws IOException {
-                    try {
-                        String expense = response.body().string();
-                        sumExpense = Double.parseDouble(expense.trim());
-                        Log.d(TAG,"sumExpense = " + sumExpense);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String expense = response.body().string();
+                                sumExpense = Double.parseDouble(expense.trim());
+                                Log.d(TAG,"sumExpense = " + sumExpense);
 
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
 
-                        if(sumExpense != 0 && sumIncome != 0) {
-                            sumAllBalance();
+                                if(sumExpense != 0 && sumIncome != 0) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
                         }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
+                    });
                 }
             });
-
         }
-
     }
 
     public class getHttpIncome {
@@ -518,26 +528,32 @@ public class Home extends Fragment {
 
                 @Override
                 public void onResponse(Call call,final Response response) throws IOException {
-                    try {
-                        String income = response.body().string();
-                        sumIncome = Double.parseDouble(income.trim());
-                        Log.d(TAG,"sumIncome = " + sumIncome);
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                String income = response.body().string();
+                                sumIncome = Double.parseDouble(income.trim());
+                                Log.d(TAG,"sumIncome = " + sumIncome);
 
-                        Log.d(TAG,"onResponse");
-                        Log.d(TAG,"show");
+                                Log.d(TAG,"onResponse");
+                                Log.d(TAG,"show");
 
-                        if(sumExpense != 0 && sumIncome != 0) {
-                            sumAllBalance();
+                                if(sumExpense != 0 && sumIncome != 0) {
+                                    sumAllBalance();
+                                }
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
                         }
-                    } catch (NumberFormatException e){
-                        //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "NumberFormatException");
-                    }
+                    });
                 }
             });
-
         }
-
     }
 
 
