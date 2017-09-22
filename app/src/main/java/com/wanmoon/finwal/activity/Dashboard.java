@@ -1225,7 +1225,6 @@ public class Dashboard extends Fragment {
             if(incomeExtraMonthPercent > 0){
                 yDataIncomeMonth.add(incomeExtraMonthPercent);
                 xDataIncomeMonth.add("Extra Income");
-               // String.format("%.2f", incomeExtraMonthPercent);
                 colors.add(getResources().getColor(R.color.extraIncome));
             }
             if(incomeFamilyAndPersonalMonthPercent > 0){

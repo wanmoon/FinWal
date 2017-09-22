@@ -71,6 +71,8 @@ public class Goal extends Fragment {
     GoalAdapter adapter;
     ListView goalListView;
 
+    public static String ID_EXTRA = "com.wanmoon.finwal.activity";
+
     private OnFragmentInteractionListener mListener;
 
     public Goal() {
@@ -116,6 +118,19 @@ public class Goal extends Fragment {
         goalList = new ArrayList<HashMap<String, String>>();
         adapter = new GoalAdapter(getContext(), goalList);
         goalListView = (ListView) rootView.findViewById(R.id.listViewGoal);
+
+
+//         บอยสอนจ้า
+        goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent(getActivity(), EditGoal.class);
+
+                i.putExtra(ID_EXTRA, String.valueOf(id));
+                startActivity(i);
+
+            }
+        });
 
         TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
         goalListView.setEmptyView(TextViewEmptyResult);
@@ -229,10 +244,16 @@ public class Goal extends Fragment {
         Log.d(TAG, "allGoal " + allGoal);
 
         String[] goalInfo;
+//
+//        String goal_id;
+//        String cust_id;
         String ending_date;
         String description_goal;
         String status_goal;
         String budget_goal;
+//        String savingplan;
+//        String suggest_cost;
+//        String current_goal;
 
         goalList.clear();
 
@@ -248,16 +269,28 @@ public class Goal extends Fragment {
 
             if (goalInfo.length >= 3) {
 
+//                goal_id = goalInfo[0];
+//                cust_id = goalInfo[1];
                 ending_date = goalInfo[0];
                 description_goal = goalInfo[1];
                 status_goal = goalInfo[2];
                 budget_goal = goalInfo[3];
+//                savingplan = goalInfo[6];
+//                suggest_cost = goalInfo[7];
+//                current_goal = goalInfo[8];
 
                 map = new HashMap<String, String>();
+
+//                map.put("goal_id", goal_id);
+//                map.put("cust_id", cust_id);
                 map.put("ending_date", ending_date);
                 map.put("description_goal", description_goal);
                 map.put("status_goal", status_goal);
                 map.put("budget_goal", budget_goal);
+//                map.put("savingplan", savingplan);
+//                map.put("suggest_cost", suggest_cost);
+//                map.put("current_goal", current_goal);
+
                 goalList.add(map);
             }
         }

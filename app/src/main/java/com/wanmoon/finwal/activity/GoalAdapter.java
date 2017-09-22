@@ -24,6 +24,7 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
     Context context;
     ArrayList<HashMap<String, String>> arrGoal;
 
+    //public View.OnClickListener
 
     public GoalAdapter(Context context, ArrayList<HashMap<String, String>> arrGoal) {
         this.context= context;

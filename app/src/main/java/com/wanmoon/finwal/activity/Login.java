@@ -98,16 +98,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
+                           // finish();
                         }else {
                             Toast.makeText(Login.this, "Your Email or password are incorrect" , Toast.LENGTH_LONG).show();
                         }
-
-
-
                     }
                 });
-
     }
 
 
@@ -116,19 +112,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         if (v == buttonSignIn){
             userLogin();
-
         }
         if (v == textViewSignUp) {
-            finish();
             startActivity(new Intent(this, SignUp.class));
             finish();
-
         }
         if(v == buttonForgotPassword){
-            finish();
             startActivity(new Intent(this, ForgotPassword.class));
             finish();
-
         }
 
     }

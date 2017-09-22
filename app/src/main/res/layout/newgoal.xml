@@ -59,7 +59,7 @@
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginStart="3dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="15dp"
             android:ems="10"
             android:hint="What is my goal?"
             android:layout_centerHorizontal="true"
@@ -111,6 +111,15 @@
             android:textStyle="bold"
             />
 
+        <CalendarView
+            android:id="@+id/calendarViewGoal"
+            android:layout_width="220dp"
+            android:layout_height="300dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_centerHorizontal="true"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -119,14 +128,7 @@
         android:id="@+id/relative5"
         android:layout_below="@+id/relative4">
 
-        <CalendarView
-            android:id="@+id/calendarViewGoal"
-            android:layout_width="220dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="2dp"
-            android:layout_centerHorizontal="true"/>
+
 
 
     </RelativeLayout>

@@ -136,10 +136,6 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
-//            Goal GoalFragment = new Goal();
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, GoalFragment);
-//            transaction.commit();
 
 
         } if (v == calendarViewGoal) {
@@ -181,19 +177,19 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                     savingplan = "Daily";
                     suggest_cost = budget_goal/countDate;
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + suggest_cost + " Baht",
+                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
                             Toast.LENGTH_LONG).show();
                 } else if(checkedId == R.id.radioButtonWeekly) {
                     savingplan = "Weekly";
                     suggest_cost = budget_goal/(countDate/7);
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + suggest_cost + " Baht",
+                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
                             Toast.LENGTH_LONG).show();
                 } else {
                     savingplan = "Monthly";
                     suggest_cost = budget_goal/(countDate/30);
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + suggest_cost + " Baht",
+                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
                             Toast.LENGTH_LONG).show();
                 }
             }
