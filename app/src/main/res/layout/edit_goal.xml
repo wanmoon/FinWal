@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relative1">
+
+        <TextView
+            android:id="@+id/textViewCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentLeft="true"/>
+
+        <TextView
+            android:id="@+id/textViewFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FINISH"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+
+
+    <EditText
+        android:id="@+id/editTextTransaction"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Goal title"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/relative1"/>
+
+
+    <EditText
+        android:id="@+id/editTextBudget"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Budget"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextTransaction"/>
+
+
+    <EditText
+        android:id="@+id/editTextStatus"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Status"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextBudget"/>
+
+
+    <EditText
+        android:id="@+id/editTextDeadline"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Deadline"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextStatus"/>
+
+    <EditText
+        android:id="@+id/editTextSavingPlan"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Saving plan"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextDeadline"/>
+
+
+    <EditText
+        android:id="@+id/editTextSuggestCost"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint= "Suggest budget"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextSavingPlan"/>
+
+    <Button
+        android:id="@+id/buttonPay"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:text="Pay"
+        android:layout_below="@+id/editTextSuggestCost"/>
+
+    <EditText
+        android:id="@+id/editTextHowMuch"
+        android:layout_width="183dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint= "How much"
+        android:textAlignment="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editTextSuggestCost"/>
+
+</RelativeLayout>

@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -1197,6 +1198,7 @@ public class Dashboard extends Fragment {
 
 
 
+
         addDataSetIncome();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -1223,6 +1225,7 @@ public class Dashboard extends Fragment {
             if(incomeExtraMonthPercent > 0){
                 yDataIncomeMonth.add(incomeExtraMonthPercent);
                 xDataIncomeMonth.add("Extra Income");
+               // String.format("%.2f", incomeExtraMonthPercent);
                 colors.add(getResources().getColor(R.color.extraIncome));
             }
             if(incomeFamilyAndPersonalMonthPercent > 0){
@@ -1263,9 +1266,10 @@ public class Dashboard extends Fragment {
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xEntrysIncomeMonth));
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth,  String.valueOf(xEntrysIncomeMonth));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueFormatter(new PercentFormatter());
 
 
         // add color to dataset
@@ -1407,6 +1411,7 @@ public class Dashboard extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, String.valueOf(xEntrysExpenseMonth));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueFormatter(new PercentFormatter());
 
 
         // add color to dataset
@@ -1521,6 +1526,7 @@ public class Dashboard extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, String.valueOf(xEntrysIncomeYear));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueFormatter(new PercentFormatter());
 
 
         // add color to dataset
@@ -1585,7 +1591,7 @@ public class Dashboard extends Fragment {
         ArrayList<String> xDataExpenseYear = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
         if(expenseBillYearPercent > 0) {
-            yDataExpenseYear.add(expenseBillYearPercent);
+            yDataExpenseYear.add(expenseBillYearPercent) ;
             xDataExpenseYear.add("Bill");
             colors.add(getResources().getColor(R.color.bill));
         }
@@ -1661,6 +1667,7 @@ public class Dashboard extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, String.valueOf(xEntrysExpenseYear));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
+        pieDataSet.setValueFormatter(new PercentFormatter());
 
 
         // add color to dataset

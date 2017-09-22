@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -634,6 +635,7 @@ public class Home extends Fragment {
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income , Expense");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(15);
+        pieDataSet.setValueFormatter(new PercentFormatter());
 
 
         // add color to dataset
