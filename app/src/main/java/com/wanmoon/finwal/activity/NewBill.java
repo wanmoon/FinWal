@@ -212,6 +212,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
                     // will open main activity here
                     Intent i=new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
+                    finish();
                 }
             });
         }
