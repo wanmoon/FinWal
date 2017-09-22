@@ -1168,6 +1168,16 @@ public class Dashboard extends Fragment {
 
 
 
+    // line graph
+    private void initData(){
+
+
+    }
+
+
+
+
+
 
     // pie chart income month
     private void initDataIncome() {
@@ -1208,11 +1218,34 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "addDataSet income month started");
 
         ArrayList<Float> yDataIncomeMonth = new ArrayList<>();
-            if(incomeExtraMonthPercent > 0) yDataIncomeMonth.add(incomeExtraMonthPercent);
-            if(incomeFamilyAndPersonalMonthPercent > 0) yDataIncomeMonth.add(incomeFamilyAndPersonalMonthPercent);
-            if(incomeGiftMonthPercent > 0) yDataIncomeMonth.add(incomeGiftMonthPercent);
-            if(incomeLoanMonthPercent > 0) yDataIncomeMonth.add(incomeLoanMonthPercent);
-            if(incomeSalaryMonthPercent > 0) yDataIncomeMonth.add(incomeSalaryMonthPercent );
+        ArrayList<String> xDataIncomeMonth = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+            if(incomeExtraMonthPercent > 0){
+                yDataIncomeMonth.add(incomeExtraMonthPercent);
+                xDataIncomeMonth.add("Extra Income");
+                colors.add(getResources().getColor(R.color.extraIncome));
+
+            }
+            if(incomeFamilyAndPersonalMonthPercent > 0){
+                yDataIncomeMonth.add(incomeFamilyAndPersonalMonthPercent);
+                xDataIncomeMonth.add("Family and Personal");
+                colors.add(getResources().getColor(R.color.familyAndPersonal));
+            }
+            if(incomeGiftMonthPercent > 0){
+                yDataIncomeMonth.add(incomeGiftMonthPercent);
+                xDataIncomeMonth.add("Gift");
+                colors.add(getResources().getColor(R.color.gift));
+            }
+            if(incomeLoanMonthPercent > 0){
+                yDataIncomeMonth.add(incomeLoanMonthPercent);
+                xDataIncomeMonth.add("Loan");
+                colors.add(getResources().getColor(R.color.loan));
+            }
+            if(incomeSalaryMonthPercent > 0){
+                yDataIncomeMonth.add(incomeSalaryMonthPercent );
+                xDataIncomeMonth.add("Salary");
+                colors.add(getResources().getColor(R.color.salary));
+            }
 
             Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
             Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
@@ -1220,7 +1253,7 @@ public class Dashboard extends Fragment {
             Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
             Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
 
-        String[] xDataIncomeMonth = {"Extra income", "Family and Personal", "Gift", "Loan", "Salary"};
+       // String[] xDataIncomeMonth = {"Extra income", "Family and Personal", "Gift", "Loan", "Salary"};
 
 
         ArrayList<PieEntry> yEntrysIncomeMonth = new ArrayList<>();
@@ -1228,25 +1261,19 @@ public class Dashboard extends Fragment {
 
         for (int i = 0; i < yDataIncomeMonth.size(); i++) {
                 yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth.get(i), i));
-        }
-        for (int i = 0; i < xDataIncomeMonth.length; i++) {
-                xEntrysIncomeMonth.add(xDataIncomeMonth[i]);
+                xEntrysIncomeMonth.add(xDataIncomeMonth.get(i));
         }
 
+
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, "income");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xEntrysIncomeMonth));
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
 
 
         // add color to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-            colors.add(getResources().getColor(R.color.salary));
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-            colors.add(getResources().getColor(R.color.loan));
-            colors.add(getResources().getColor(R.color.gift));
-            colors.add(getResources().getColor(R.color.extraIncome));
-            pieDataSet.setColors(colors);
+        pieDataSet.setColors(colors);
+
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();

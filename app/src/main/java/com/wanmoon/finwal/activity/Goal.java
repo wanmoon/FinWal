@@ -140,10 +140,10 @@ public class Goal extends Fragment {
                 if (selected.equals("Ending Date")){
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 4);
-                } else if (selected.equals("Active")) { //0
+                } else if (selected.equals("Unahcieve")) { //0
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 0);
-                } else if (selected.equals("Inactive")) { //1
+                } else if (selected.equals("Achieved")) { //1
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 1);
                 } else if (selected.equals("Price : Low-High")) { //2

@@ -140,10 +140,10 @@ public class Billing extends Fragment {
                 String selected = parent.getItemAtPosition(position).toString();
                 Log.d(TAG, "selected = " + selected);
 
-                if (selected.equals("Active")){ //0
+                if (selected.equals("Paid")){ //0
                     Log.d(TAG, "selected = " + selected);
                     getAllBilling(cust_id, 0);
-                } else if (selected.equals("Inactive")) { //1
+                } else if (selected.equals("Unpaid")) { //1
                     Log.d(TAG, "selected = " + selected);
                     getAllBilling(cust_id, 1);
                 } else if (selected.equals("Deadline")) {
