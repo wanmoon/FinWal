@@ -21,13 +21,12 @@ if (!$conn) {
 $cust_id = $_GET["cust_id"];
 $period = $_GET["period"];
 $description_bill = $_GET["description_bill"];
-$status_bill = $_GET["status_bill"];
 $deadline = $_GET["deadline"];
 //$category = $_GET["category"];
 
 //insert transaction to DB
 //???? transaction ID OR custID
-$sql = "INSERT INTO period(cust_id, period, description_bill, status_bill, deadline) VALUES ('$cust_id','$period','$description_bill','$status_bill','$deadline');";
+$sql = "INSERT INTO period(cust_id, period, description_bill, deadline) VALUES ('$cust_id','$period','$description_bill','$deadline');";
 //$sql = "INSERT INTO transaction(cust_id,timestamp,description,cost,transaction,category) VALUES('fjgnlg',current_timestamp,'2','2','2','2')";
 echo $sql;
 

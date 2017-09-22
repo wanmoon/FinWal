@@ -21,15 +21,15 @@ $sort;
 
 //income
 if ($flagSort == 1) { //Gift =2
-    $sort = "AND category = 'Gift'";
+    $sort = " AND category = 'Gift' ";
 } elseif ($flagSort == 2) { //Saraly=3
-    $sort = "AND category = 'Salary'";
+    $sort = " AND category = 'Salary' ";
 } elseif ($flagSort == 3) { //loan =4
-    $sort = "AND category = 'Loan'";
+    $sort = " AND category = 'Loan' ";
 } elseif ($flagSort == 4) { //family income =5
-    $sort = "AND category = 'Family and Personal'";
+    $sort = " AND category = 'Family and Personal' ";
 } elseif ($flagSort == 5) { //extra income=6
-    $sort = "AND category = 'Extra income'";
+    $sort = " AND category = 'Extra income' ";
 }  else {
 	$sort = ""; //default : all = 0
 }

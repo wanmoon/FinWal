@@ -19,26 +19,26 @@ $cust_id = $_GET["cust_id"];
 $flagSort = $_GET["flagSort"];
 $sort;
 
-if ($flagSort == 0) { //active =0
-	$sort = "status_goal ASC";
-} elseif ($flagSort == 1) { //inactive =1
+if ($flagSort == 0) { //unacheive =0
 	$sort = "status_goal DESC";
+} elseif ($flagSort == 1) { //achieve =1
+	$sort = "status_goal ASC";
 } elseif ($flagSort == 2) { //price low-high =2
-	$sort = "cost_goal ASC";
+	$sort = "budget_goal ASC";
 } elseif ($flagSort == 3) { //price high-low =3
-	$sort = "cost_goal DESC";
+	$sort = "budget_goal DESC";
 } else {
 	$sort = "ending_date DESC"; //time = 4
 }
 
-$sql = "SELECT ending_date, description_goal, status_goal, cost_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY $sort";
+$sql = "SELECT ending_date, description_goal, status_goal, budget_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY $sort";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['cost_goal'] . "\n";
+        echo $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "\n";
     }
 } else {
     echo "0 ";
