@@ -82,6 +82,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Home HomeFragment = new Home();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, HomeFragment);
+        transaction.commit();
+
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -96,15 +101,6 @@ public class MainActivity extends AppCompatActivity
         sumIncomeMonthToDB(cust_id);
         sumIncomeYearToDB(cust_id);
         sumExpenseYearToDB(cust_id);
-
-
-
-
-        Home HomeFragment = new Home();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, HomeFragment);
-        transaction.commit();
-
 
         textViewTitle = (TextView) findViewById(R.id.toolbar_title);
 
@@ -221,17 +217,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
+
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
-//
-
-//
 //            Home HomeFragment = new Home();
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //            transaction.replace(R.id.fragment_container, HomeFragment);
 //            transaction.commit();
-
 
 
 
@@ -240,8 +233,6 @@ public class MainActivity extends AppCompatActivity
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
-
-
 
 
 
@@ -293,8 +284,6 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-
-
 
     // set name of ActionBar
     public void setTitle(String title) {
@@ -445,6 +434,8 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+
     //////////////////////for year balance/////////////////////
 
     public String sumIncomeYearToDB(String cust_id){
@@ -561,8 +552,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
-
-
 
 
 

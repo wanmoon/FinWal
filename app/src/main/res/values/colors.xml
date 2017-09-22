@@ -16,7 +16,6 @@
     <color name="foodAndDrink">#795548</color>
     <color name="travel">#00BCD4</color>
     <color name="bill">#2ecc71</color>
-    <color name="familyAndPersonal">#f1c40f</color>
     <color name="savingAndInvestment">#16a085</color>
     <color name="transport">#9b59b6</color>
     <color name="education">#e67e22</color>
@@ -24,9 +23,14 @@
     <color name="shopping">#2c3e50</color>
     <color name="health">#E91E63</color>
 
+    <color name="familyAndPersonal">#f1c40f</color>
+
     <color name="salary">#FABA66</color>
     <color name="gift">#4574CC</color>
     <color name="extraIncome">#7FBF30</color>
+    <color name="loan">#F6E71B</color>
+
+
 
 
 

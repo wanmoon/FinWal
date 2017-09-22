@@ -1,7 +1,6 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,8 +37,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
-import static com.wanmoon.finwal.R.id.tab2;
 
 
 public class Dashboard extends Fragment {
@@ -264,15 +261,20 @@ public class Dashboard extends Fragment {
         //Tab1
         TabHost.TabSpec spec = host.newTabSpec("Tab One");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("Monthly");
+        spec.setIndicator("Over all");
         host.addTab(spec);
 
         //Tab2
         spec = host.newTabSpec("Tab Two");
-        spec.setContent(tab2);
-        spec.setIndicator("Yearly");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Monthly");
         host.addTab(spec);
 
+        //Tab3
+        spec = host.newTabSpec("Tab Three");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Yearly");
+        host.addTab(spec);
 
 
         httpSumIncomeMonthCategory = new getHttpSumIncomeMonthCategory(getContext());
@@ -334,11 +336,6 @@ public class Dashboard extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
-
-
-
 
 
 
@@ -692,10 +689,6 @@ public class Dashboard extends Fragment {
 
 
 
-
-
-
-
     ////////////////////// Income Year ////////////////////////
     public String sumIncomeYearCategory(String cust_id){
         try {
@@ -1041,18 +1034,17 @@ public class Dashboard extends Fragment {
 
 
     public void sumAllBalance(){
-
+        // parse value from main activity month
         Double sumIncomeMonth = getArguments().getDouble("sumIncomeMonth");
         Log.d(TAG, "get sumIncomeMonth = " + sumIncomeMonth);
-
 
         Double sumExpenseMonth = getArguments().getDouble("sumExpenseMonth");
         Log.d(TAG, "get sumExpenseMonth = " + sumExpenseMonth);
 
 
+        // parse value from main activity year
         Double sumIncomeYear = getArguments().getDouble("sumIncomeYear");
         Log.d(TAG, "get sumIncomeYear = " + sumIncomeYear);
-
 
         Double sumExpenseYear = getArguments().getDouble("sumExpenseYear");
         Log.d(TAG, "get sumExpenseYear = " + sumExpenseYear);
@@ -1060,7 +1052,7 @@ public class Dashboard extends Fragment {
 
         //income month
         incomeExtraMonthPercent = (float) (sumIncomeExtraMonth * (100/sumIncomeMonth));
-        Log.d(TAG, "Wallet incomeExtraMonthCPercent = " + incomeExtraMonthPercent);
+        Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
 
         incomeFamilyAndPersonalMonthPercent = (float) (sumIncomeFamilyAndPersonalMonth * (100/sumIncomeMonth));
         Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
@@ -1160,12 +1152,6 @@ public class Dashboard extends Fragment {
         expenseSavingAndInvestmentYearPercent = (float) (sumExpenseSavingAndInvestmentYear * (100/sumExpenseYear));
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//
-//        }
 
         //////for pie chart
         initDataIncome();
@@ -1182,48 +1168,6 @@ public class Dashboard extends Fragment {
 
 
 
-    // line chart
-//    private void initData() {
-//
-//        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
-//        ArrayList<String> xAXES = new ArrayList<>();
-//        ArrayList<Entry> yAXESsin = new ArrayList<>();
-//        ArrayList<Entry> yAXEScos = new ArrayList<>();
-//        double x  = 0;
-//        int numDataPoints = 1000;
-//        for (int i = 0; i< numDataPoints ; i++){
-//            float sinFunction = Float.parseFloat(String.valueOf(Math.sin(x)));
-//            float cosFunction = Float.parseFloat(String.valueOf(Math.cos(x)));
-//            x = x + 0.1;
-//            yAXESsin.add(new Entry(sinFunction,i));
-//            yAXEScos.add(new Entry(cosFunction,i));
-//            xAXES.add(i, String.valueOf(x));
-//        }
-//
-//        String[] xaxes = new String[xAXES.size()];
-//        for (int i = 0; i< xAXES.size() ; i++){
-//            xaxes[i] = xAXES.get(i).toString();
-//        }
-//
-//        ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-//
-//        LineDataSet lineDataSet1 = new LineDataSet(yAXEScos, "cos");
-//        lineDataSet1.setDrawCircles(false);
-//        lineDataSet1.setColor(Color.GREEN);
-//
-//        LineDataSet lineDataSet2 = new LineDataSet(yAXEScos, "sin");
-//        lineDataSet2.setDrawCircles(false);
-//        lineDataSet2.setColor(Color.RED);
-//
-//        lineDataSets.add(lineDataSet1);
-//        lineDataSets.add(lineDataSet2);
-//
-//        lineChart.setData(new LineData(lineDataSets));
-//        lineChart.setVisibleXRangeMaximum(100f);
-//
-//
-//    }
-
 
     // pie chart income month
     private void initDataIncome() {
@@ -1236,9 +1180,12 @@ public class Dashboard extends Fragment {
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Income");
-        pieChart.setCenterTextSize(7);
+        pieChart.setCenterTextSize(10);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationAngle(0);
 
-        //pieChart.setDrawEntryLabels(true);
+
 
         addDataSetIncome();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -1260,46 +1207,46 @@ public class Dashboard extends Fragment {
     private void addDataSetIncome() {
         Log.d(TAG, "addDataSet income month started");
 
-        float[] yDataIncomeMonth = {incomeExtraMonthPercent, incomeFamilyAndPersonalMonthPercent
-                ,incomeGiftMonthPercent, incomeLoanMonthPercent, incomeSalaryMonthPercent};
-        Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
-        Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
-        Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
-        Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
-        Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
-        String[] xDataIncomeMonth = { "Extra income", "Family and Personal","Gift","Loan","Salary" };
+        ArrayList<Float> yDataIncomeMonth = new ArrayList<>();
+            if(incomeExtraMonthPercent > 0) yDataIncomeMonth.add(incomeExtraMonthPercent);
+            if(incomeFamilyAndPersonalMonthPercent > 0) yDataIncomeMonth.add(incomeFamilyAndPersonalMonthPercent);
+            if(incomeGiftMonthPercent > 0) yDataIncomeMonth.add(incomeGiftMonthPercent);
+            if(incomeLoanMonthPercent > 0) yDataIncomeMonth.add(incomeLoanMonthPercent);
+            if(incomeSalaryMonthPercent > 0) yDataIncomeMonth.add(incomeSalaryMonthPercent );
+
+            Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
+            Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
+            Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
+            Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
+            Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
+
+        String[] xDataIncomeMonth = {"Extra income", "Family and Personal", "Gift", "Loan", "Salary"};
+
 
         ArrayList<PieEntry> yEntrysIncomeMonth = new ArrayList<>();
         ArrayList<String> xEntrysIncomeMonth = new ArrayList<>();
 
-        for (int i =0 ; i < yDataIncomeMonth.length ; i++){
-            yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth[i], i));
+        for (int i = 0; i < yDataIncomeMonth.size(); i++) {
+                yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth.get(i), i));
         }
-        for (int i =0 ; i < xDataIncomeMonth.length ; i++){
-            xEntrysIncomeMonth.add(xDataIncomeMonth[i]);
+        for (int i = 0; i < xDataIncomeMonth.length; i++) {
+                xEntrysIncomeMonth.add(xDataIncomeMonth[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xDataIncomeMonth) );
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, "income");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(0);
-//        pieDataSet.setValueTextColor(Color.BLACK);
-//        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
-//        pieDataSet.setValueLinePart1Length(1f);
-//        pieDataSet.setValueLinePart2Length(.2f);
-//        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setValueTextSize(10);
+
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
-
-        pieDataSet.setColors(colors);
-
+            colors.add(getResources().getColor(R.color.salary));
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+            colors.add(getResources().getColor(R.color.loan));
+            colors.add(getResources().getColor(R.color.gift));
+            colors.add(getResources().getColor(R.color.extraIncome));
+            pieDataSet.setColors(colors);
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
@@ -1319,12 +1266,16 @@ public class Dashboard extends Fragment {
         pieChart = (PieChart) mView.findViewById(R.id.pieChartExpenseMonth);
 
         pieChart.setDescription("");
+        pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Expense");
-        pieChart.setCenterTextSize(7);
-        //pieChart.setDrawEntryLabels(true);
+        pieChart.setCenterTextSize(10);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationAngle(0);
+
 
         addDataSetExpense();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -1345,13 +1296,20 @@ public class Dashboard extends Fragment {
 
     private void addDataSetExpense() {
         Log.d(TAG, "addDataSet expense month started");
-        ArrayList<PieEntry> yEntrysExpenseMonth = new ArrayList<>();
-        ArrayList<String> xEntrysExpenseMonth = new ArrayList<>();
 
-        float[] yDataExpenseMonth = {expenseBillMonthPercent, expenseEducationMonthPercent
-                ,expenseEntertainmentMonthPercent, expenseFoodAndDrinkMonthPercent, expenseShoppingMonthPercent
-                ,expenseTransportMonthPercent, expenseTravelMonthPercent
-                ,expenseFamilyAndPersonalMonthPercent, expenseHealthCareMonthPercent, expenseSavingAndInvestmentMonthPercent};
+        ArrayList<Float> yDataExpenseMonth = new ArrayList<>();
+        if(expenseBillMonthPercent > 0) yDataExpenseMonth.add(expenseBillMonthPercent);
+        if(expenseEducationMonthPercent > 0) yDataExpenseMonth.add(expenseEducationMonthPercent);
+        if(expenseEntertainmentMonthPercent > 0) yDataExpenseMonth.add(expenseEntertainmentMonthPercent);
+        if(expenseFoodAndDrinkMonthPercent > 0) yDataExpenseMonth.add(expenseFoodAndDrinkMonthPercent);
+        if(expenseShoppingMonthPercent > 0) yDataExpenseMonth.add(expenseShoppingMonthPercent);
+
+        if(expenseTransportMonthPercent > 0) yDataExpenseMonth.add(expenseTransportMonthPercent);
+        if(expenseTravelMonthPercent > 0) yDataExpenseMonth.add(expenseTravelMonthPercent);
+        if(expenseFamilyAndPersonalMonthPercent > 0) yDataExpenseMonth.add(expenseFamilyAndPersonalMonthPercent);
+        if(expenseHealthCareMonthPercent > 0) yDataExpenseMonth.add(expenseHealthCareMonthPercent);
+        if(expenseSavingAndInvestmentMonthPercent > 0) yDataExpenseMonth.add(expenseSavingAndInvestmentMonthPercent);
+
         Log.d(TAG, "Wallet expenseBillMonthPercent = " + expenseBillMonthPercent);
         Log.d(TAG, "Wallet expenseEducationMonthPercent = " + expenseEducationMonthPercent);
         Log.d(TAG, "Wallet expenseEntertainmentMonthPercent = " + expenseEntertainmentMonthPercent);
@@ -1367,37 +1325,40 @@ public class Dashboard extends Fragment {
         String[] xDataExpenseMonth = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
-        for (int i =0 ; i < yDataExpenseMonth.length ; i++){
-            yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth[i], i));
+        ArrayList<PieEntry> yEntrysExpenseMonth = new ArrayList<>();
+        ArrayList<String> xEntrysExpenseMonth = new ArrayList<>();
+
+        for (int i = 0; i < yDataExpenseMonth.size(); i++) {
+            yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth.get(i), i));
         }
-        for (int i =0 ; i < xDataExpenseMonth.length ; i++){
+        for (int i = 0; i < xDataExpenseMonth.length; i++) {
             xEntrysExpenseMonth.add(xDataExpenseMonth[i]);
         }
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, "Expense");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(0);
+        pieDataSet.setValueTextSize(10);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
-        colors.add(Color.MAGENTA);
-        colors.add(Color.BLACK);
-        colors.add(Color.DKGRAY);
-        colors.add(Color.GRAY);
-        colors.add(Color.LTGRAY);
+        colors.add(getResources().getColor(R.color.bill));
+        colors.add(getResources().getColor(R.color.education));
+        colors.add(getResources().getColor(R.color.entertainment));
+        colors.add(getResources().getColor(R.color.transport));
+        colors.add(getResources().getColor(R.color.travel));
+        colors.add(getResources().getColor(R.color.familyAndPersonal));
+        colors.add(getResources().getColor(R.color.foodAndDrink));
+        colors.add(getResources().getColor(R.color.health));
+        colors.add(getResources().getColor(R.color.shopping));
+        colors.add(getResources().getColor(R.color.savingAndInvestment));
 
         pieDataSet.setColors(colors);
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -1413,13 +1374,18 @@ public class Dashboard extends Fragment {
 
         pieChart = (PieChart) mView.findViewById(R.id.pieChartIncomeYear);
 
+
         pieChart.setDescription("");
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Income");
-        pieChart.setCenterTextSize(7);
-        //pieChart.setDrawEntryLabels(true);
+        pieChart.setCenterTextSize(10);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationAngle(0);
+
+
 
         addDataSetIncomeYear();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -1441,8 +1407,13 @@ public class Dashboard extends Fragment {
     private void addDataSetIncomeYear() {
         Log.d(TAG, "addDataSet income year started");
 
-        float[] yDataIncomeYear = {incomeExtraYearPercent, incomeFamilyAndPersonalYearPercent
-                ,incomeGiftYearPercent, incomeLoanYearPercent, incomeSalaryYearPercent};
+        ArrayList<Float> yDataIncomeYear = new ArrayList<>();
+        if(incomeExtraYearPercent > 0) yDataIncomeYear.add(incomeExtraYearPercent);
+        if(incomeFamilyAndPersonalYearPercent > 0) yDataIncomeYear.add(incomeFamilyAndPersonalYearPercent);
+        if(incomeGiftYearPercent > 0) yDataIncomeYear.add(incomeGiftYearPercent);
+        if(incomeLoanYearPercent > 0) yDataIncomeYear.add(incomeLoanYearPercent);
+        if(incomeSalaryYearPercent > 0) yDataIncomeYear.add(incomeSalaryYearPercent);
+
         Log.d(TAG, "Wallet incomeExtraYearPercent = " + incomeExtraYearPercent);
         Log.d(TAG, "Wallet incomeFamilyAndPersonalYearPercent = " + incomeFamilyAndPersonalYearPercent);
         Log.d(TAG, "Wallet incomeGiftYearPercent = " + incomeGiftYearPercent);
@@ -1453,25 +1424,26 @@ public class Dashboard extends Fragment {
         ArrayList<PieEntry> yEntrysIncomeYear = new ArrayList<>();
         ArrayList<String> xEntrysIncomeYear = new ArrayList<>();
 
-        for (int i =0 ; i < yDataIncomeYear.length ; i++){
-            yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear[i], i));
+        for (int i = 0; i < yDataIncomeYear.size(); i++) {
+            yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear.get(i), i));
         }
-        for (int i =0 ; i < xDataIncomeYear.length ; i++){
+        for (int i = 0; i < xDataIncomeYear.length; i++) {
             xEntrysIncomeYear.add(xDataIncomeYear[i]);
         }
+
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "Income");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(0);
+        pieDataSet.setValueTextSize(10);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
+        colors.add(getResources().getColor(R.color.salary));
+        colors.add(getResources().getColor(R.color.familyAndPersonal));
+        colors.add(getResources().getColor(R.color.loan));
+        colors.add(getResources().getColor(R.color.gift));
+        colors.add(getResources().getColor(R.color.extraIncome));
 
         pieDataSet.setColors(colors);
 
@@ -1493,12 +1465,15 @@ public class Dashboard extends Fragment {
         pieChart = (PieChart) mView.findViewById(R.id.pieChartExpenseYear);
 
         pieChart.setDescription("");
+        pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("Expense");
-        pieChart.setCenterTextSize(7);
-        //pieChart.setDrawEntryLabels(true);
+        pieChart.setCenterTextSize(10);
+        pieChart.setDrawCenterText(true);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setRotationAngle(0);
 
         addDataSetExpenseYear();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -1519,13 +1494,21 @@ public class Dashboard extends Fragment {
 
     private void addDataSetExpenseYear() {
         Log.d(TAG, "addDataSet expense year started");
-        ArrayList<PieEntry> yEntrysExpenseYear = new ArrayList<>();
-        ArrayList<String> xEntrysExpenseYear = new ArrayList<>();
 
-        float[] yDataExpenseYear = {expenseBillYearPercent, expenseEducationYearPercent
-                ,expenseEntertainmentYearPercent, expenseFoodAndDrinkYearPercent, expenseShoppingYearPercent
-                ,expenseTransportYearPercent, expenseTravelYearPercent
-                ,expenseFamilyAndPersonalYearPercent, expenseHealthCareYearPercent, expenseSavingAndInvestmentYearPercent};
+        ArrayList<Float> yDataExpenseYear = new ArrayList<>();
+        if(expenseBillYearPercent > 0) yDataExpenseYear.add(expenseBillYearPercent);
+        if(expenseBillYearPercent > 0) yDataExpenseYear.add(expenseBillYearPercent);
+        if(expenseEntertainmentYearPercent > 0) yDataExpenseYear.add(expenseEntertainmentYearPercent);
+        if(expenseFoodAndDrinkYearPercent > 0) yDataExpenseYear.add(expenseFoodAndDrinkYearPercent);
+        if(expenseShoppingYearPercent > 0) yDataExpenseYear.add(expenseShoppingYearPercent);
+
+        if(expenseTransportYearPercent > 0) yDataExpenseYear.add(expenseTransportYearPercent);
+        if(expenseTravelYearPercent > 0) yDataExpenseYear.add(expenseTravelYearPercent);
+        if(expenseFamilyAndPersonalYearPercent > 0) yDataExpenseYear.add(expenseFamilyAndPersonalYearPercent);
+        if(expenseHealthCareYearPercent > 0) yDataExpenseYear.add(expenseHealthCareYearPercent);
+        if(expenseSavingAndInvestmentYearPercent > 0) yDataExpenseYear.add(expenseSavingAndInvestmentYearPercent);
+
+
         Log.d(TAG, "Wallet expenseBillYearPercent = " + expenseBillYearPercent);
         Log.d(TAG, "Wallet expenseEducationYearPercent = " + expenseEducationYearPercent);
         Log.d(TAG, "Wallet expenseEntertainmentYearPercent = " + expenseEntertainmentYearPercent);
@@ -1540,40 +1523,43 @@ public class Dashboard extends Fragment {
         String[] xDataExpenseYear = { "Bill","Education" , "Entertainment" , "Food and Drink",
                 "Shopping", "Transport", "Travel", "Family and Personal","Healthcare","Saving and Investment"};
 
-        for (int i =0 ; i < yDataExpenseYear.length ; i++){
-            yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear[i], i));
-          //  Log.d(TAG, "yEntrysExpenseYear = " + yEntrysExpenseYear);
+
+        ArrayList<PieEntry> yEntrysExpenseYear = new ArrayList<>();
+        ArrayList<String> xEntrysExpenseYear = new ArrayList<>();
+
+
+        for (int i = 0; i < yDataExpenseYear.size(); i++) {
+            yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear.get(i), i));
         }
-        for (int i =0 ; i < xDataExpenseYear.length ; i++){
+        for (int i = 0; i < xDataExpenseYear.length; i++) {
             xEntrysExpenseYear.add(xDataExpenseYear[i]);
-          //  Log.d(TAG, "xEntrysExpenseYear = " + xEntrysExpenseYear);
         }
+
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "Expense");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(0);
-      //  Log.d(TAG, "pieDataSet = " + pieDataSet);
+        pieDataSet.setValueTextSize(10);
 
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
-        colors.add(Color.MAGENTA);
-        colors.add(Color.BLACK);
-        colors.add(Color.DKGRAY);
-        colors.add(Color.GRAY);
-        colors.add(Color.LTGRAY);
+        colors.add(getResources().getColor(R.color.bill));
+        colors.add(getResources().getColor(R.color.education));
+        colors.add(getResources().getColor(R.color.entertainment));
+        colors.add(getResources().getColor(R.color.transport));
+        colors.add(getResources().getColor(R.color.travel));
+        colors.add(getResources().getColor(R.color.familyAndPersonal));
+        colors.add(getResources().getColor(R.color.foodAndDrink));
+        colors.add(getResources().getColor(R.color.health));
+        colors.add(getResources().getColor(R.color.shopping));
+        colors.add(getResources().getColor(R.color.savingAndInvestment));
 
         pieDataSet.setColors(colors);
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);

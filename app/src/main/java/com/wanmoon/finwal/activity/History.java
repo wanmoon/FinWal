@@ -544,6 +544,9 @@ public class History extends android.support.v4.app.Fragment  {
         Log.d(TAG,"end settext");
     }
 
+
+
+
     //listview AllIncome
     public void getAllIncome(String cust_id, int flagSort){
         try {

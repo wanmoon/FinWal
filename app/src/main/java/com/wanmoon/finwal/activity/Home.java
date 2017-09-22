@@ -3,7 +3,6 @@ package com.wanmoon.finwal.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -61,9 +60,6 @@ public class Home extends Fragment {
     private static View rootView;
     private OnFragmentInteractionListener mListener;
 
-    private View bView;
-
-    private Typeface tf;
 
     private double sumIncomeMonth ;
     private double sumExpenseMonth ;
@@ -207,7 +203,6 @@ public class Home extends Fragment {
                 Intent i = new Intent(getActivity(), AllIncome.class);
                 startActivity(i);
                 getActivity().finish();
-
             }
 
         });
@@ -241,9 +236,6 @@ public class Home extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
@@ -381,7 +373,7 @@ public class Home extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
+                public void onResponse(Call call, final Response response) throws IOException {
                     try {
                         String incomeMonth = response.body().string();
                         sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
@@ -404,6 +396,9 @@ public class Home extends Fragment {
 
 
     }
+
+
+
 
     //////////////////////for wallet balance/////////////////////
 
@@ -454,7 +449,7 @@ public class Home extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
+                public void onResponse(Call call, final Response response) throws IOException {
                     try {
                         String expense = response.body().string();
                         sumExpense = Double.parseDouble(expense.trim());
@@ -499,7 +494,7 @@ public class Home extends Fragment {
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
+                public void onResponse(Call call,final Response response) throws IOException {
                     try {
                         String income = response.body().string();
                         sumIncome = Double.parseDouble(income.trim());
@@ -522,7 +517,10 @@ public class Home extends Fragment {
 
     }
 
+
+
     public void sumAllBalance(){
+
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
 
@@ -546,17 +544,15 @@ public class Home extends Fragment {
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
 
-
-
         //all of my life
         setWalletBalance = "Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
 
 
+
         incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomePercent = " + incomePercent);
-
 
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
@@ -574,20 +570,15 @@ public class Home extends Fragment {
         pieChart = (PieChart) mView.findViewById(R.id.Piechart);
 
         pieChart.setDescription("");
-        //pieChart.setDescriptionPosition(180,0);
         pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("My Finwal");
         pieChart.setCenterTextSize(10);
-        //pieChart.setEntryLabelTextSize(16);
-        //pieChart.setDrawEntryLabels(true);
-
         pieChart.setDrawCenterText(true);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setRotationAngle(0);
-
 
 
 
@@ -611,7 +602,11 @@ public class Home extends Fragment {
         Log.d(TAG, "addDataSet started pie chart");
 
 
-        float[] yData = {incomePercent, expensePercent};
+        ArrayList<Float> yData = new ArrayList<>();
+        if(incomePercent > 0) yData.add(incomePercent);
+        if(expensePercent > 0) yData.add(expensePercent);
+
+
         Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
         Log.d(TAG, "addDataSet started expensePercent" + expensePercent);
         String[] xData = {"Income", "Expense"};
@@ -619,12 +614,13 @@ public class Home extends Fragment {
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
 
-        for (int i =0 ; i < yData.length ; i++){
-            yEntrys.add(new PieEntry(yData[i], i));
+        for (int i = 0; i < yData.size(); i++) {
+            yEntrys.add(new PieEntry(yData.get(i), i));
         }
-        for (int i =0 ; i < xData.length ; i++){
+        for (int i = 0; i < xData.length; i++) {
             xEntrys.add(xData[i]);
         }
+
 
 
         // create the dataset
@@ -633,20 +629,10 @@ public class Home extends Fragment {
         pieDataSet.setValueTextSize(15);
 
 
-
-//        pieDataSet.setColor(getResources().getColor(R.color.buttonColorGreen));
-        //pieDataSet.setColor(getResources().getColor(R.color.buttonColorRed));
-//
-
         // add color to dataset
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(getResources().getColor(R.color.buttonColorGreen));
         colors.add(getResources().getColor(R.color.buttonColorRed));
-
-
-
-
-
         pieDataSet.setColors(colors);
 
         //add Legend to chart
