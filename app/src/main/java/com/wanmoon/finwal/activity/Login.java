@@ -97,10 +97,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
+                            finish();
                         }else {
                             Toast.makeText(Login.this, "Your Email or password are incorrect" , Toast.LENGTH_LONG).show();
                         }

@@ -256,6 +256,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                     // will open login activity here
                     Intent i=new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(i);
+                    finish();
                 }
             });
         }

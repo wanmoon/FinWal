@@ -100,8 +100,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener
                         if(task.isSuccessful()){
                             //user is successfully registered and logged in , start home here
                             Toast.makeText(SignUp.this,"Register Successfully", Toast.LENGTH_SHORT).show();
-                            finish();
                             startActivity(new Intent(getApplicationContext(), Profile.class));
+                            finish();
                         }else{
                             Toast.makeText(SignUp.this,"User with this email already exist ", Toast.LENGTH_LONG).show();
                         }
