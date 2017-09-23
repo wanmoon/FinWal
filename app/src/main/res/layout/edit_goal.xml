@@ -143,6 +143,7 @@
         android:ems="10"
         android:textSize="15dp"
         android:hint= "how many do you want to pay?"
+        android:inputType="numberDecimal"
         android:textAlignment="center"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
