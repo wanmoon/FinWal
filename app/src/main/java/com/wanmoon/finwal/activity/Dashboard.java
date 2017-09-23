@@ -14,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -64,12 +68,8 @@ public class Dashboard extends Fragment {
     PieChart pieChart;
     private View mView;
 
-//    private double sumIncomeMonth = -1;
-//    private double sumExpenseMonth = -1;
-//    private double monthBalance;
-//    private double sumIncomeYear = -1;
-//    private double sumExpenseYear = -1;
-//    private double YearBalance;
+    BarChart barChart;
+
 
 
     //income month
@@ -1154,14 +1154,14 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
 
+        // for line graph
+        initData();
+
         //////for pie chart
         initDataIncome();
         initDataExpense();
         initDataIncomeYear();
         initDataExpenseYear();
-
-
-
 
 
     }
@@ -1171,10 +1171,56 @@ public class Dashboard extends Fragment {
 
     // line graph
     private void initData(){
+        Log.d(TAG, "initDataBarGraph");
+
+        barChart = (BarChart) mView.findViewById(R.id.barGraph);
+
+        barChart.setDescription("");
+        barChart.setTouchEnabled(true);
+        barChart.setDragEnabled(true);
+        barChart.setScaleEnabled(true);
+
+        addDataBarGraph();
+        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
 
     }
 
+    private void addDataBarGraph(){
+        Log.d(TAG, "addDataSet bargraph started");
+
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(44f,0));
+        barEntries.add(new BarEntry(88f,1));
+        barEntries.add(new BarEntry(23f,2));
+        barEntries.add(new BarEntry(15f,3));
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Dates");
+        Log.d(TAG, "addDataSet bargraph started" + barDataSet);
+
+
+        ArrayList<String> theDates = new ArrayList<>();
+        theDates.add("April");
+        theDates.add("May");
+        theDates.add("June");
+        theDates.add("July");
+
+        BarData theData = new BarData(barDataSet);
+        barChart.setData(theData);
+        barChart.invalidate();
+
+    }
 
 
 
@@ -1284,6 +1330,7 @@ public class Dashboard extends Fragment {
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
+        legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
 
         // create pie data object
@@ -1426,6 +1473,7 @@ public class Dashboard extends Fragment {
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
+        legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
 
         // create pie data object
@@ -1541,6 +1589,7 @@ public class Dashboard extends Fragment {
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
+        legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
 
         // create pie data object
@@ -1681,6 +1730,7 @@ public class Dashboard extends Fragment {
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
+        legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
 
         // create pie data object

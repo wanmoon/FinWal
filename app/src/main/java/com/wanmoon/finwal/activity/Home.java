@@ -188,6 +188,14 @@ public class Home extends Fragment {
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
+        textViewMyWallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), EditGoal.class);
+                startActivity(i);
+                getActivity().finish();
+            }
+        });
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
@@ -669,6 +677,7 @@ public class Home extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setTextSize(12f);
         legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object

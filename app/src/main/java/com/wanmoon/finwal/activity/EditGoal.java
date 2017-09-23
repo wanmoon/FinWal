@@ -3,8 +3,12 @@ package com.wanmoon.finwal.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +37,12 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
     private TextView textViewFinish;
     private TextView textViewCancel;
+    private EditText editTextCost;
+    private Button buttonPay;
+    private TextView textViewHowMuch;
+    public String currentBudget;
+    public double total;
+    Double currentBudget1;
 
 
     public void onCreate(Bundle savedInstanceState){
@@ -40,9 +50,25 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_goal);
 
+        textViewHowMuch = (TextView) findViewById(R.id.textViewHowMuch);
+        editTextCost = (EditText)findViewById(R.id.editTextCost);
+
+        buttonPay = (Button)findViewById(R.id.buttonPay);
+        buttonPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentBudget = editTextCost.getText().toString();
+                currentBudget1 = Double.valueOf(currentBudget).doubleValue();
+                Toast.makeText(getApplicationContext(), "You save money to your goal : " + currentBudget ,
+                        Toast.LENGTH_LONG).show();
+                total = total+currentBudget1;
+                Log.d(TAG, "theText = " + currentBudget);
+                textViewHowMuch.setText(""+total);
+            }
+        });
+
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
-
         textViewFinish.setOnClickListener(this);
         textViewCancel.setOnClickListener(this);
 
@@ -54,8 +80,10 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
 
+
     @Override
     public void onClick(View v) {
+
         if (v == textViewFinish) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);

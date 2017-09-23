@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -103,7 +105,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textViewStatus"/>
 
-    <EditText
+    <TextView
         android:id="@+id/textViewSavingPlan"
         android:layout_width="295dp"
         android:layout_height="47dp"
@@ -119,7 +121,7 @@
         android:layout_below="@+id/textViewDeadline"/>
 
 
-    <EditText
+    <TextView
         android:id="@+id/textViewSuggestCost"
         android:layout_width="295dp"
         android:layout_height="47dp"
@@ -134,12 +136,26 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textViewSavingPlan"/>
 
+    <EditText
+        android:id="@+id/editTextCost"
+        android:layout_width="295dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:textSize="15dp"
+        android:hint= "how many do you want to pay?"
+        android:textAlignment="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_above="@+id/textViewHowMuch"
+        android:layout_alignStart="@+id/textViewSuggestCost"
+        android:layout_toStartOf="@+id/buttonPay" />
+
     <Button
         android:id="@+id/buttonPay"
-        android:layout_width="192dp"
+        android:layout_width="82dp"
         android:layout_height="wrap_content"
         android:text="Pay"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/textViewSuggestCost"/>
 
     <TextView
@@ -147,14 +163,20 @@
         android:layout_width="183dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint= "How much"
+        android:hint= "Current budget"
         android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="34dp"
         android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/buttonPay"/>
+        android:layout_below="@+id/buttonPay"
+        android:layout_alignEnd="@+id/textViewSuggestCost" />
+
+    <TextView
+        android:id="@+id/textViewCurrentBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textViewHowMuch"
+        android:layout_alignStart="@+id/editTextCost"
+        android:text="CurrentBudget : " />
 
 </RelativeLayout>
