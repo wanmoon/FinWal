@@ -1,7 +1,5 @@
 package com.wanmoon.finwal.activity;
 import android.content.Context;
-//import com.onesignal.*;
-//import com.onesignal.OneSignal.NotificationOpenedHandler;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,8 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
-import org.json.JSONObject;
-
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -36,6 +32,9 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+//import com.onesignal.*;
+//import com.onesignal.OneSignal.NotificationOpenedHandler;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
@@ -93,12 +92,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         Home HomeFragment = new Home();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, HomeFragment);
         transaction.commit();
-
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -112,6 +110,10 @@ public class MainActivity extends AppCompatActivity
         sumIncomeMonthToDB(cust_id);
         sumIncomeYearToDB(cust_id);
         sumExpenseYearToDB(cust_id);
+
+
+
+
 
         textViewTitle = (TextView) findViewById(R.id.toolbar_title);
 
@@ -262,6 +264,7 @@ public class MainActivity extends AppCompatActivity
             bundle.putDouble("sumExpenseMonth", sumExpenseMonth);
             bundle.putDouble("sumIncomeYear", sumIncomeYear);
             bundle.putDouble("sumExpenseYear", sumExpenseYear);
+            Log.d(TAG, "Main dash get sumIncomeMonth = " + sumIncomeMonth);
 
             Dashboard DashboardFragment = new Dashboard();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

@@ -72,6 +72,40 @@ public class Dashboard extends Fragment {
 
 
 
+    //bar
+    private String jan;
+    private String feb;
+    private String mar;
+    private String apr;
+    private String may;
+    private String june;
+    private String july;
+    private String aug;
+    private String sep;
+    private String oct;
+    private String nov;
+    private String dec;
+
+    private float sumIncomeJan;
+    private float sumIncomeFeb;
+    private float sumIncomeMar;
+    private float sumIncomeApr;
+    private float sumIncomeMay;
+    private float sumIncomeJune;
+    private float sumIncomeJuly;
+    private float sumIncomeAug;
+    private float sumIncomeSep;
+    private float sumIncomeOct;
+    private float sumIncomeNov;
+    private float sumIncomeDec;
+
+    private float incomeAug;
+    private float incomeSep;
+
+
+
+
+
     //income month
     private double sumIncomeSalaryMonth;
     private double sumIncomeGiftMonth;
@@ -198,6 +232,9 @@ public class Dashboard extends Fragment {
     //connect DB
     String response = null;
 
+    getHttpSumIncomeBar httpSumIncomeBar;
+    //getHttpSumExpenseMonthCategory httpSumExpenseMonthCategory;
+
     getHttpSumIncomeMonthCategory httpSumIncomeMonthCategory;
     getHttpSumExpenseMonthCategory httpSumExpenseMonthCategory;
 
@@ -277,6 +314,8 @@ public class Dashboard extends Fragment {
         spec.setIndicator("Yearly");
         host.addTab(spec);
 
+        httpSumIncomeBar = new getHttpSumIncomeBar(getContext());
+        //httpSumExpenseMonthCategory = new getHttpSumExpenseMonthCategory(getContext());
 
         httpSumIncomeMonthCategory = new getHttpSumIncomeMonthCategory(getContext());
         httpSumExpenseMonthCategory = new getHttpSumExpenseMonthCategory(getContext());
@@ -290,6 +329,9 @@ public class Dashboard extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+
+        sumIncomeBar(cust_id);
 
         sumIncomeMonthCategory(cust_id);
         sumExpenseMonthCategory(cust_id);
@@ -340,6 +382,150 @@ public class Dashboard extends Fragment {
 
 
 
+    //////////////////////// Income Bar ////////////////////////
+
+    public String sumIncomeBar(String cust_id){
+        try {
+            Log.d(TAG,"start sumIncomeBar");
+            httpSumIncomeBar.run(BASE_URL + "/totalIncome.php?cust_id=" + cust_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public void showIncomeBar(String allIncomeBar){
+        Log.d(TAG, "allIncomeBar " + allIncomeBar);
+        List<String> items = Arrays.asList(allIncomeBar.split("\\s*,\\s*"));
+
+
+        ArrayList<Float> integerCollector = new ArrayList<Float>();
+        int pointer = 0;
+        for(String num: items){
+            if(pointer%2==1){
+                integerCollector.add(Float.parseFloat(items.get(pointer)));
+            }
+            pointer++;
+        }
+
+        ArrayList<String> stringCollector = new ArrayList<String>();
+        int pointerString = 0;
+        for(String num: items){
+            if(pointerString%2==0){
+                stringCollector.add(items.get(pointerString));
+            }
+            pointerString++;
+        }
+
+
+        for(int i = 0 ; i<=stringCollector.size()-1;i++) {
+
+            String check = stringCollector.get(i).trim();
+            Log.d(TAG, "check " + check);
+            // jan
+            if(check.equals("1")){
+                Log.d(TAG, "check " + check);
+
+                jan = "JAN";
+                Log.d(TAG, "jan " + jan);
+
+                sumIncomeJan = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeJan " + sumIncomeJan);
+
+            } //feb
+            if(check.equals("2")){
+                Log.d(TAG, "check " + check);
+
+                feb = "FEB";
+                Log.d(TAG, "feb " + feb);
+
+                sumIncomeFeb = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeFeb " + sumIncomeFeb);
+
+            } //aug
+            if(check.equals("8")){
+                Log.d(TAG, "check " + check);
+
+                aug = "AUG";
+                Log.d(TAG, "aug " + aug);
+
+                sumIncomeAug = integerCollector.get(i);
+                Log.d(TAG, "incomeAug " + sumIncomeAug);
+
+            } //loan
+            if (check.equals("9")) {
+                Log.d(TAG, "check " + check);
+
+                sep = "SEP";
+                Log.d(TAG, "sep " + sep);
+
+                sumIncomeSep = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeSep " + sumIncomeSep);
+
+            } //salary
+//            if(check.equals("Salary")){
+//                Log.d(TAG, "check " + check);
+//
+//                categorySalaryMonth = "Salary";
+//                Log.d(TAG, "categorySalaryMonth " + categorySalaryMonth);
+//
+//                sumIncomeSalaryMonth = integerCollector.get(i);
+//                Log.d(TAG, "sumIncomeSalaryMonth " + sumIncomeSalaryMonth);
+//
+//            }
+
+        }
+
+    }
+
+    // ** must have for connect DB
+    public class getHttpSumIncomeBar {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpSumIncomeBar(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            try {
+                                showIncomeBar(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG,"onResponse");
+                            sumAllBalance();
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+    }
 
 
 
@@ -1155,9 +1341,9 @@ public class Dashboard extends Fragment {
 
 
         // for line graph
-        initData();
+       // initData();
 
-        //////for pie chart
+        ////for pie chart
         initDataIncome();
         initDataExpense();
         initDataIncomeYear();
@@ -1199,26 +1385,81 @@ public class Dashboard extends Fragment {
     }
 
     private void addDataBarGraph(){
-        Log.d(TAG, "addDataSet bargraph started");
+        Log.d(TAG, "addDataSet bar graph started");
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(44f,0));
-        barEntries.add(new BarEntry(88f,1));
-        barEntries.add(new BarEntry(23f,2));
-        barEntries.add(new BarEntry(15f,3));
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Dates");
-        Log.d(TAG, "addDataSet bargraph started" + barDataSet);
+        ArrayList<Float> yDataIncome = new ArrayList<>();
+        ArrayList<String> xDataIncome = new ArrayList<>();
+        ArrayList<Integer> colors = new ArrayList<>();
+        if(sumIncomeJan > 0){
+            yDataIncome.add(sumIncomeJan);
+            xDataIncome.add("JAN");
+            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
+            colors.add(getResources().getColor(R.color.extraIncome));
+        }
+        if(sumIncomeFeb > 0){
+            yDataIncome.add(sumIncomeFeb);
+            xDataIncome.add("FEB");
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(sumIncomeAug > 0){
+            yDataIncome.add(sumIncomeAug);
+            xDataIncome.add("AUG");
+            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
+            colors.add(getResources().getColor(R.color.gift));
+        }
+        if(sumIncomeSep > 0){
+            yDataIncome.add(sumIncomeSep);
+            xDataIncome.add("SEP");
+            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
+            colors.add(getResources().getColor(R.color.loan));
+        }
+//        if(incomeSalaryMonthPercent > 0){
+//            yDataIncome.add(incomeSalaryMonthPercent );
+//            xDataIncome.add("Salary");
+//            colors.add(getResources().getColor(R.color.salary));
+//        }
+
+        ArrayList<BarEntry> yEntrysIncome = new ArrayList<>();
+        ArrayList<String> xEntrysIncome = new ArrayList<>();
+
+        for (int i = 0; i < yDataIncome.size(); i++) {
+            yEntrysIncome.add(new BarEntry(yDataIncome.get(i), i));
+            xEntrysIncome.add(xDataIncome.get(i));
+        }
 
 
-        ArrayList<String> theDates = new ArrayList<>();
-        theDates.add("April");
-        theDates.add("May");
-        theDates.add("June");
-        theDates.add("July");
+        BarDataSet barDataSet = new BarDataSet(yEntrysIncome,  String.valueOf(xEntrysIncome));
+        barDataSet.setValueTextSize(10);
+        Log.d(TAG, "yEntrysIncome = " + yEntrysIncome);
+        Log.d(TAG, "xEntrysIncome = " + xEntrysIncome);
+       // barDataSet.setValueFormatter(new PercentFormatter());
 
-        BarData theData = new BarData(barDataSet);
-        barChart.setData(theData);
+
+        // create pie data object
+        BarData barData = new BarData(barDataSet);
+        Log.d(TAG, "barData = " + barData);
+        barChart.setData(barData);
         barChart.invalidate();
+
+//
+//        ArrayList<BarEntry> barEntries = new ArrayList<>();
+//        barEntries.add(new BarEntry(44f,0));
+//        barEntries.add(new BarEntry(88f,1));
+//        barEntries.add(new BarEntry(23f,2));
+//        barEntries.add(new BarEntry(15f,3));
+//        BarDataSet barDataSet = new BarDataSet(barEntries, "Dates");
+//        Log.d(TAG, "addDataSet bar graph started" + barDataSet);
+//
+//
+//        ArrayList<String> theDates = new ArrayList<>();
+//        theDates.add("April");
+//        theDates.add("May");
+//        theDates.add("June");
+//        theDates.add("July");
+//
+//        BarData theData = new BarData(barDataSet);
+//        barChart.setData(theData);
+//        barChart.invalidate();
 
     }
 
