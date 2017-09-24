@@ -103,7 +103,6 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 //        passView.setText("value = " + passedVar);
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == textViewFinish) {

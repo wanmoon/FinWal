@@ -35,6 +35,8 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -50,6 +52,7 @@ import okhttp3.Response;
  * Use the {@link Billing#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class Home extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,7 +63,6 @@ public class Home extends Fragment {
 
     private static View rootView;
     private OnFragmentInteractionListener mListener;
-
 
     private double sumIncomeMonth ;
     private double sumExpenseMonth ;
@@ -81,32 +83,48 @@ public class Home extends Fragment {
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
 
+    public RoundCornerProgressBar progress;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
+//    EditGoal editGoal = new EditGoal();
+
     //connect DB
     String response = null;
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
     getHttpIncomeMonth httpIncomeMonth;
     getHttpExpenseMonth httpExpenseMonth;
-    getHttpIncome httpIncome ;
-    getHttpExpense httpExpense ;
-    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+    getHttpIncome httpIncome;
+    getHttpExpense httpExpense;
+    getHttpProgressBar httpProgressBar;
 
     //for log
     private final String TAG = "HomeActivity";
 
+    private float incomePercent;
+    private float expensePercent;
 
-    private float incomePercent ;
-    private float expensePercent ;
+    public int goal_id = 47;
 
     //for pie chart
     public PieChart pieChart;
     private View mView;
 
+    //progress
+    public String data_goal_id;
+    public String data_cust_id;
+    public String ending_date;
+    public String description_goal;
+    public String status_goal;
+    public String savingplan;
 
-
+    public double budget_goal;
+    public double suggest_cost;
+    public double current_goal;
+    public double current_goalPercent;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -152,22 +170,21 @@ public class Home extends Fragment {
         ((MainActivity)getActivity()).setTitle("My FinWal");
 
         Log.d(TAG,"end onCreate");
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
 
-        httpIncomeMonth= new getHttpIncomeMonth(getContext());
-        httpExpenseMonth= new getHttpExpenseMonth(getContext());
+        httpIncomeMonth = new getHttpIncomeMonth(getContext());
+        httpExpenseMonth = new getHttpExpenseMonth(getContext());
 
-        httpIncome= new getHttpIncome(getContext());
-        httpExpense= new getHttpExpense(getContext());
+        httpIncome = new getHttpIncome(getContext());
+        httpExpense = new getHttpExpense(getContext());
+
+        httpProgressBar = new getHttpProgressBar(getContext());
 
         return rootView;
     }
@@ -185,6 +202,7 @@ public class Home extends Fragment {
         sumIncomeToDB(cust_id);
         sumExpenseToDB(cust_id);
 
+        getProgressbar(cust_id, goal_id);
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
@@ -233,20 +251,8 @@ public class Home extends Fragment {
             }
         });
 
-        RoundCornerProgressBar progress1 = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
-        progress1.setProgressColor(Color.parseColor("#088A4B"));
-        progress1.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
-        progress1.setMax(70);
-        progress1.setProgress(15);
-
-        int progressColor1 = progress1.getProgressColor();
-        int backgroundColor1 = progress1.getProgressBackgroundColor();
-        float max1 = progress1.getMax();
-        progress1.getProgress();
-
-
-
-
+        progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
+        progressBar(current_goalPercent);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -423,9 +429,6 @@ public class Home extends Fragment {
         }
     }
 
-
-
-
     //////////////////////for wallet balance/////////////////////
 
     public String sumIncomeToDB(String cust_id){
@@ -555,8 +558,6 @@ public class Home extends Fragment {
         }
     }
 
-
-
     public void sumAllBalance(){
 
         monthBalance = sumIncomeMonth - sumExpenseMonth;
@@ -602,7 +603,7 @@ public class Home extends Fragment {
 
     }
 
-    // for pie chart
+    //////////////////////// for pie chart //////////////////////
     private void initData() {
 
         pieChart = (PieChart) mView.findViewById(R.id.Piechart);
@@ -617,8 +618,6 @@ public class Home extends Fragment {
         pieChart.setDrawCenterText(true);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setRotationAngle(0);
-
-
 
         addDataSetIncome();
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -639,11 +638,9 @@ public class Home extends Fragment {
     private void addDataSetIncome() {
         Log.d(TAG, "addDataSet started pie chart");
 
-
         ArrayList<Float> yData = new ArrayList<>();
         if(incomePercent > 0) yData.add(incomePercent);
         if(expensePercent > 0) yData.add(expensePercent);
-
 
         Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
         Log.d(TAG, "addDataSet started expensePercent" + expensePercent);
@@ -658,8 +655,6 @@ public class Home extends Fragment {
         for (int i = 0; i < xData.length; i++) {
             xEntrys.add(xData[i]);
         }
-
-
 
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income , Expense");
@@ -686,6 +681,110 @@ public class Home extends Fragment {
         pieChart.invalidate();
     }
 
+    //////////////////////progress bar/////////////////////
+    public  void progressBar(double current_goalPercent){
+        float float_current_goalPercent = (float)current_goalPercent;
+        Log.d(TAG,"float_current_goalPercent = " + float_current_goalPercent);
+
+        progress.setProgressColor(Color.parseColor("#088A4B"));
+        progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
+        progress.setMax(100);
+        progress.setProgress(float_current_goalPercent);
+
+    }
+
+    public String getProgressbar(String cust_id, int goal_id){
+        try {
+            Log.d(TAG,"start progressbar");
+            httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            Log.d(TAG,"end progressbar");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public void progressdata(String data){
+        Log.d(TAG, "data " + data);
+        List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
+
+        data_goal_id = items.get(0);
+        data_cust_id = items.get(1);
+        ending_date = items.get(2);
+        description_goal = items.get(3);
+        status_goal = items.get(4);
+        String data_budget_goal = items.get(5); //change to double
+        savingplan = items.get(6);
+        String data_suggest_cost = items.get(7);//change to double
+        String data_current_goal = items.get(8);//change to double
+
+        budget_goal = Double.parseDouble(data_budget_goal);
+        suggest_cost = Double.parseDouble(data_suggest_cost);
+        current_goal = Double.parseDouble(data_current_goal);
+
+        Log.d(TAG, "data_goal_id " + data_goal_id);
+        Log.d(TAG, "data_cust_id " + data_cust_id);
+        Log.d(TAG, "ending_date " + ending_date);
+        Log.d(TAG, "description_goal " + description_goal);
+        Log.d(TAG, "status_goal " + status_goal);
+        Log.d(TAG, "budget_goal " + budget_goal);
+        Log.d(TAG, "savingplan " + savingplan);
+        Log.d(TAG, "suggest_cost " + suggest_cost);
+        Log.d(TAG, "current_goal " + current_goal);
+
+        current_goalPercent = (current_goal/budget_goal)*100;
+
+        progressBar(current_goalPercent);
+    }
+
+    // ** must have for connect DB
+    public class getHttpProgressBar {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpProgressBar(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                progressdata(response.body().string().trim());
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
+                        }
+
+                    });
+                }
+            });
+
+        }
+
+
+
+    }
 
 
   }
