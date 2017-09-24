@@ -527,6 +527,9 @@ public class History extends android.support.v4.app.Fragment  {
         }
     }
 
+
+
+
     public void sumBalance(){
         balanceAll = sumIncomeAll - sumExpenseAll;
         Log.d(TAG, "balance = " + balanceAll);
