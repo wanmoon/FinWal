@@ -218,12 +218,8 @@
 
 
                 </LinearLayout>
-
             </LinearLayout>
-
         </RelativeLayout>
-
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -259,10 +255,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Goal Title : "
-            android:layout_alignParentLeft="true"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:layout_marginRight="10dp"
-            android:layout_below="@+id/textViewGoal"/>
+            android:layout_above="@+id/progress_1"
+            android:layout_alignStart="@+id/progress_1" />
 
         <TextView
             android:id="@+id/textViewDateLeft"
@@ -270,7 +266,7 @@
             android:layout_height="wrap_content"
             android:text="Day left"
             android:layout_alignParentRight="true"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:layout_marginRight="10dp"
             android:layout_below="@+id/textViewGoal"/>
 
@@ -289,6 +285,36 @@
             android:layout_below="@+id/textViewDateLeft"/>
 
         <TextView
+            android:id="@+id/textViewStatusGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/progress_1"
+            android:layout_marginRight="10dp"
+            android:text="Status"
+            android:textSize="12dp"
+            android:layout_below="@+id/progress_1"/>
+
+        <TextView
+            android:id="@+id/textViewPercentGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Percent Goal"
+            android:textSize="12dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/progress_1"/>
+
+        <TextView
+            android:id="@+id/textViewMoneyLeftGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Money Left"
+            android:textSize="12dp"
+            android:layout_below="@+id/progress_1"
+            android:layout_alignEnd="@+id/progress_1" />
+
+        <TextView
             android:id="@+id/textViewNextBill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -300,11 +326,10 @@
             android:layout_marginTop="15dp"
             android:text="NextBill"
             android:textStyle="bold"
-            android:layout_below="@+id/progress_1"
             android:layout_centerHorizontal="true"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:layout_below="@+id/progress_1"/>
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/relative3"
@@ -417,6 +442,4 @@
                 android:textColor="@color/buttonColorGrey"
                 android:textSize="16dp" />
         </RelativeLayout>
-
-
 </RelativeLayout>

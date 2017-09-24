@@ -80,6 +80,12 @@ public class Home extends Fragment {
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
     public TextView textViewMonthBalance;
+    public TextView textViewStatusGoal;
+    public TextView textViewPercentGoal;
+    public TextView textViewMoneyLeftGoal;
+    public TextView textViewGoalTitle;
+    public TextView textViewDateLeft;
+
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
 
@@ -125,6 +131,9 @@ public class Home extends Fragment {
     public double suggest_cost;
     public double current_goal;
     public double current_goalPercent;
+    public double moneyleft;
+
+    public float float_current_goalPercent;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -251,8 +260,14 @@ public class Home extends Fragment {
             }
         });
 
+        textViewGoalTitle = (TextView) view.findViewById(R.id.textViewGoalTitle);
+        textViewDateLeft = (TextView) view.findViewById(R.id.textViewDateLeft);
+        textViewStatusGoal = (TextView) view.findViewById(R.id.textViewStatusGoal);
+        textViewPercentGoal = (TextView) view.findViewById(R.id.textViewPercentGoal);
+        textViewMoneyLeftGoal = (TextView) view.findViewById(R.id.textViewMoneyLeftGoal);
+
         progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
-        progressBar(current_goalPercent);
+        progressBar(float_current_goalPercent);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -584,7 +599,7 @@ public class Home extends Fragment {
 
 
         //all of my life
-        setWalletBalance = "Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
+        setWalletBalance = "<b>[Since 2017]</b> Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
 
@@ -682,29 +697,6 @@ public class Home extends Fragment {
     }
 
     //////////////////////progress bar/////////////////////
-    public  void progressBar(double current_goalPercent){
-        float float_current_goalPercent = (float)current_goalPercent;
-        Log.d(TAG,"float_current_goalPercent = " + float_current_goalPercent);
-
-        progress.setProgressColor(Color.parseColor("#088A4B"));
-        progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
-        progress.setMax(100);
-        progress.setProgress(float_current_goalPercent);
-
-    }
-
-    public String getProgressbar(String cust_id, int goal_id){
-        try {
-            Log.d(TAG,"start progressbar");
-            httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
-            Log.d(TAG,"end progressbar");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
-
     public void progressdata(String data){
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
@@ -734,8 +726,75 @@ public class Home extends Fragment {
         Log.d(TAG, "current_goal " + current_goal);
 
         current_goalPercent = (current_goal/budget_goal)*100;
+        float_current_goalPercent = Float.parseFloat(String.format("%.2f", current_goalPercent));
 
-        progressBar(current_goalPercent);
+        progressBar(float_current_goalPercent);
+        setDataProcessBar(ending_date, description_goal, status_goal, budget_goal, current_goal);
+    }
+
+    public void progressBar(float float_current_goalPercent){
+        Log.d(TAG,"float_current_goalPercent = " + float_current_goalPercent);
+
+        if (float_current_goalPercent >=50){
+            progress.setProgressColor(Color.parseColor("#088A4B"));
+        } else {
+            progress.setProgressColor(Color.parseColor("#e54649"));
+        }
+
+        progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
+        progress.setMax(100);
+        progress.setProgress(float_current_goalPercent);
+        progress.setContentDescription(float_current_goalPercent+"");
+
+        Log.d(TAG,"finish draw progressbar");
+
+    }
+
+    public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal){
+        //count day left
+        //settext : description, status, percent, count, moneyleft
+
+        textViewGoalTitle.setText(description_goal);
+        textViewPercentGoal.setText(float_current_goalPercent+"");
+        textViewStatusGoal.setText(status_goal);
+        if(status_goal.equals("Achieved")){
+            textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
+        } else {
+            textViewStatusGoal.setTextColor(Color.parseColor("#e54649"));
+        }
+
+        moneyleft = budget_goal - current_goal;
+        Log.d(TAG,"moneyleft = " + moneyleft);
+        textViewMoneyLeftGoal.setText(moneyleft+"");
+
+//        //textViewDateLeft
+//        java.text.DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        Calendar today = Calendar.getInstance();
+//        Log.d(TAG, "today = " + dateFormat.format(today.getTime()));
+//
+//        String ending_date_day = ending_date.substring(0,2);
+//        String ending_date_month = ending_date.substring(3,5);
+//        String ending_date_year = ending_date.substring(6);
+//
+//        Calendar lastday = Calendar.getInstance();
+//        lastday.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ending_date_day);
+//        lastday.set(Calendar.MONTH, Integer.parseInt(ending_date_month);
+//        lastday.set(Calendar.YEAR, Integer.parseInt(ending_date_year);
+//        Date secondDate = lastday.getTime();
+//
+//        long diff = secondDate.getTime() - dateFormat.format(today.getTime());
+    }
+
+    public String getProgressbar(String cust_id, int goal_id){
+        try {
+            Log.d(TAG,"start progressbar");
+            httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            Log.d(TAG,"end progressbar");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
     }
 
     // ** must have for connect DB
