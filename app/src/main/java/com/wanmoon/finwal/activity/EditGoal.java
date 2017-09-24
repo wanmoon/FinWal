@@ -74,24 +74,25 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         getCurrentGoal(cust_id,goal_id);
 
-        textViewHowMuch = (TextView) findViewById(R.id.textViewHowMuch);
-
         editTextCost = (EditText)findViewById(R.id.editTextCost);
 
         buttonPay = (Button)findViewById(R.id.buttonPay);
         buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getMoney = editTextCost.getText().toString();
                 getCost = Double.valueOf(getMoney).doubleValue();
                 Log.d(TAG, "getCost = " + getCost);
                 current_goal = current_goal + getCost;
                 Log.d(TAG, "current_goal = " + current_goal);
                 textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
-                Toast.makeText(getApplicationContext(), "Save = " + getCost + " Baht, now your goal is " + String.format("%.2f", current_goal) + " Baht" ,
+                Toast.makeText(getApplicationContext(), "Save = " + getCost + " Baht" + "\n" + "Now your goal is " + String.format("%.2f", current_goal) + " Baht" ,
                         Toast.LENGTH_LONG).show();
             }
         });
+
+        textViewHowMuch = (TextView) findViewById(R.id.textViewHowMuch);
 
 
 
@@ -136,6 +137,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
     public void showCurrentGoal(String total){
         current_goal = Double.parseDouble(total);
+        textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
         Log.d(TAG,"current_goal = " + current_goal);
     }
 
