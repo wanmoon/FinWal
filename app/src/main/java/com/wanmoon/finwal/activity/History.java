@@ -293,6 +293,7 @@ public class History extends android.support.v4.app.Fragment  {
                 if (selected.equals("All")){ //0
                     Log.d(TAG, "selected = " + selected);
                     getAllExpense(cust_id, 0);
+
                 }
 
                 // expense

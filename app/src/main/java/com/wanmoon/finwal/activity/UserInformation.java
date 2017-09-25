@@ -7,7 +7,7 @@ package com.wanmoon.finwal.activity;
 public class UserInformation {
 
     public String email;
-    public String name =" lkk";
+    public String name ;
     public String address;
     public String phoneNumber;
     public String gender;

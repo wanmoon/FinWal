@@ -599,7 +599,7 @@ public class Home extends Fragment {
 
 
         //all of my life
-        setWalletBalance = "<b>[Since 2017]</b> Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
+        setWalletBalance = "[Since 2017-08-29] Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
 
@@ -755,7 +755,7 @@ public class Home extends Fragment {
         //settext : description, status, percent, count, moneyleft
 
         textViewGoalTitle.setText(description_goal);
-        textViewPercentGoal.setText(float_current_goalPercent+"");
+        textViewPercentGoal.setText(float_current_goalPercent+"%");
         textViewStatusGoal.setText(status_goal);
         if(status_goal.equals("Achieved")){
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
@@ -765,7 +765,12 @@ public class Home extends Fragment {
 
         moneyleft = budget_goal - current_goal;
         Log.d(TAG,"moneyleft = " + moneyleft);
-        textViewMoneyLeftGoal.setText(moneyleft+"");
+        textViewMoneyLeftGoal.setText("money left " + moneyleft + " baht");
+
+        if (current_goal >= budget_goal){
+            textViewStatusGoal.setText("Achieve");
+            textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
+        }
 
 //        //textViewDateLeft
 //        java.text.DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");

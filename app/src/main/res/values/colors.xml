@@ -10,7 +10,7 @@
     <!--<color name="buttonColorGreen">#39dd92</color>-->
     <color name="buttonColorGreen">#088A4B</color>
     <color name="buttonColorRed">#e54649</color>
-    <color name="buttonColorGrey">#607d8b</color>
+    <color name="buttonColorGrey">#7394a4</color>
     <color name="buttonColorWhite">#FFFFFF</color>
 
     <color name="foodAndDrink">#f98cf3</color>
@@ -23,10 +23,10 @@
     <color name="shopping">#ed8072</color>
     <color name="health">#E91E63</color>
 
-    <color name="familyAndPersonal">#6e4aed</color>
+    <color name="familyAndPersonal">#987ef2</color>
 
     <color name="salary">#FABA66</color>
-    <color name="gift">#4574CC</color>
+    <color name="gift">#5b8ce7</color>
     <color name="extraIncome">#7FBF30</color>
     <color name="loan">#F6E71B</color>
 

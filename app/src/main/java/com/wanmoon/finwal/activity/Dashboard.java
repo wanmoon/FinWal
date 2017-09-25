@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -78,8 +79,8 @@ public class Dashboard extends Fragment {
     private String mar;
     private String apr;
     private String may;
-    private String june;
-    private String july;
+    private String jun;
+    private String jul;
     private String aug;
     private String sep;
     private String oct;
@@ -91,8 +92,8 @@ public class Dashboard extends Fragment {
     private float sumIncomeMar;
     private float sumIncomeApr;
     private float sumIncomeMay;
-    private float sumIncomeJune;
-    private float sumIncomeJuly;
+    private float sumIncomeJun;
+    private float sumIncomeJul;
     private float sumIncomeAug;
     private float sumIncomeSep;
     private float sumIncomeOct;
@@ -443,7 +444,57 @@ public class Dashboard extends Fragment {
                 sumIncomeFeb = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeFeb " + sumIncomeFeb);
 
-            } //aug
+            } //3
+            if(check.equals("3")){
+                Log.d(TAG, "check " + check);
+
+                mar = "MAR";
+                Log.d(TAG, "mar " + mar);
+
+                sumIncomeMar = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeMar " + sumIncomeMar);
+
+            } //4
+            if(check.equals("4")){
+                Log.d(TAG, "check " + check);
+
+                apr = "APR";
+                Log.d(TAG, "apr " + apr);
+
+                sumIncomeApr = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeApr " + sumIncomeApr);
+
+            } //5
+            if(check.equals("5")){
+                Log.d(TAG, "check " + check);
+
+                may = "MAY";
+                Log.d(TAG, "may " + may);
+
+                sumIncomeMay = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeMay " + sumIncomeMay);
+
+            } //6
+            if(check.equals("6")){
+                Log.d(TAG, "check " + check);
+
+                jun = "JUN";
+                Log.d(TAG, "jun " + jun);
+
+                sumIncomeJun = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeJun " + sumIncomeJun);
+
+            } //7
+            if(check.equals("7")){
+                Log.d(TAG, "check " + check);
+
+                jul = "JUL";
+                Log.d(TAG, "jul " + jul);
+
+                sumIncomeJul = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeJul " + sumIncomeJul);
+
+            }//8
             if(check.equals("8")){
                 Log.d(TAG, "check " + check);
 
@@ -453,7 +504,7 @@ public class Dashboard extends Fragment {
                 sumIncomeAug = integerCollector.get(i);
                 Log.d(TAG, "incomeAug " + sumIncomeAug);
 
-            } //loan
+            } //9
             if (check.equals("9")) {
                 Log.d(TAG, "check " + check);
 
@@ -463,17 +514,37 @@ public class Dashboard extends Fragment {
                 sumIncomeSep = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeSep " + sumIncomeSep);
 
-            } //salary
-//            if(check.equals("Salary")){
-//                Log.d(TAG, "check " + check);
-//
-//                categorySalaryMonth = "Salary";
-//                Log.d(TAG, "categorySalaryMonth " + categorySalaryMonth);
-//
-//                sumIncomeSalaryMonth = integerCollector.get(i);
-//                Log.d(TAG, "sumIncomeSalaryMonth " + sumIncomeSalaryMonth);
-//
-//            }
+            } //10
+            if(check.equals("10")){
+                Log.d(TAG, "check " + check);
+
+                oct = "OCT";
+                Log.d(TAG, "oct " + oct);
+
+                sumIncomeOct = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeOct " + sumIncomeOct);
+
+            } //11
+            if (check.equals("11")) {
+                Log.d(TAG, "check " + check);
+
+                nov = "NOV";
+                Log.d(TAG, "nov " + nov);
+
+                sumIncomeNov = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeNov " + sumIncomeNov);
+
+            }//12
+            if (check.equals("12")) {
+                Log.d(TAG, "check " + check);
+
+                dec = "DEC";
+                Log.d(TAG, "dec " + dec);
+
+                sumIncomeDec = integerCollector.get(i);
+                Log.d(TAG, "sumIncomeDec " + sumIncomeDec);
+
+            }
 
         }
 
@@ -1341,7 +1412,7 @@ public class Dashboard extends Fragment {
 
 
         // for line graph
-       // initData();
+        initData();
 
         ////for pie chart
         initDataIncome();
@@ -1362,33 +1433,26 @@ public class Dashboard extends Fragment {
         barChart = (BarChart) mView.findViewById(R.id.barGraph);
 
         barChart.setDescription("");
-        barChart.setTouchEnabled(true);
-        barChart.setDragEnabled(true);
-        barChart.setScaleEnabled(true);
+//        barChart.setTouchEnabled(true);
+//        barChart.setDragEnabled(true);
+//        barChart.setScaleEnabled(true);
+//        barChart.setMaxVisibleValueCount(11000);
 
         addDataBarGraph();
-        barChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        });
-
 
     }
+
 
     private void addDataBarGraph(){
         Log.d(TAG, "addDataSet bar graph started");
 
         ArrayList<Float> yDataIncome = new ArrayList<>();
         ArrayList<String> xDataIncome = new ArrayList<>();
+       // xDataIncome = new String["JAN", "JAN"];
+       // String[] xDataIncome = {"JAN", "FEB"};
+
+
+
         ArrayList<Integer> colors = new ArrayList<>();
         if(sumIncomeJan > 0){
             yDataIncome.add(sumIncomeJan);
@@ -1399,7 +1463,38 @@ public class Dashboard extends Fragment {
         if(sumIncomeFeb > 0){
             yDataIncome.add(sumIncomeFeb);
             xDataIncome.add("FEB");
+            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
             colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(sumIncomeMar > 0){
+            yDataIncome.add(sumIncomeMar);
+            xDataIncome.add("MAR");
+            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
+            colors.add(getResources().getColor(R.color.extraIncome));
+        }
+        if(sumIncomeApr > 0){
+            yDataIncome.add(sumIncomeApr);
+            xDataIncome.add("APR");
+            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(sumIncomeMay > 0){
+            yDataIncome.add(sumIncomeMay);
+            xDataIncome.add("MAY");
+            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
+            colors.add(getResources().getColor(R.color.extraIncome));
+        }
+        if(sumIncomeJun > 0){
+            yDataIncome.add(sumIncomeJun);
+            xDataIncome.add("JUN");
+            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(sumIncomeJul > 0){
+            yDataIncome.add(sumIncomeJul);
+            xDataIncome.add("JUL");
+            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
+            colors.add(getResources().getColor(R.color.extraIncome));
         }
         if(sumIncomeAug > 0){
             yDataIncome.add(sumIncomeAug);
@@ -1413,11 +1508,25 @@ public class Dashboard extends Fragment {
             Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
             colors.add(getResources().getColor(R.color.loan));
         }
-//        if(incomeSalaryMonthPercent > 0){
-//            yDataIncome.add(incomeSalaryMonthPercent );
-//            xDataIncome.add("Salary");
-//            colors.add(getResources().getColor(R.color.salary));
-//        }
+        if(sumIncomeOct > 0){
+            yDataIncome.add(sumIncomeOct);
+            xDataIncome.add("OCT");
+            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+        if(sumIncomeNov > 0){
+            yDataIncome.add(sumIncomeNov);
+            xDataIncome.add("NOV");
+            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
+            colors.add(getResources().getColor(R.color.extraIncome));
+        }
+        if(sumIncomeDec > 0){
+            yDataIncome.add(sumIncomeDec);
+            xDataIncome.add("DEC");
+            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
+            colors.add(getResources().getColor(R.color.familyAndPersonal));
+        }
+
 
         ArrayList<BarEntry> yEntrysIncome = new ArrayList<>();
         ArrayList<String> xEntrysIncome = new ArrayList<>();
@@ -1428,16 +1537,22 @@ public class Dashboard extends Fragment {
         }
 
 
-        BarDataSet barDataSet = new BarDataSet(yEntrysIncome,  String.valueOf(xEntrysIncome));
+
+        XAxis xAxis = barChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //bottom is good
+        xAxis.setDrawGridLines(false);
+        xAxis.setDrawAxisLine(false);
+
+
+        BarDataSet barDataSet = new BarDataSet(yEntrysIncome, "" );
         barDataSet.setValueTextSize(10);
+
         Log.d(TAG, "yEntrysIncome = " + yEntrysIncome);
         Log.d(TAG, "xEntrysIncome = " + xEntrysIncome);
-       // barDataSet.setValueFormatter(new PercentFormatter());
 
 
         // create pie data object
         BarData barData = new BarData(barDataSet);
-        Log.d(TAG, "barData = " + barData);
         barChart.setData(barData);
         barChart.invalidate();
 
@@ -1487,27 +1602,16 @@ public class Dashboard extends Fragment {
 
 
         addDataSetIncome();
-        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
-            }
 
-            @Override
-            public void onNothingSelected() {
 
-            }
-        });
 
     }
 
     private void addDataSetIncome() {
         Log.d(TAG, "addDataSet income month started");
 
-        ArrayList<Float> yDataIncomeMonth = new ArrayList<>();
-        ArrayList<String> xDataIncomeMonth = new ArrayList<>();
+        final ArrayList<Float> yDataIncomeMonth = new ArrayList<>();
+        final ArrayList<String> xDataIncomeMonth = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
             if(incomeExtraMonthPercent > 0){
                 yDataIncomeMonth.add(incomeExtraMonthPercent);
@@ -1552,13 +1656,13 @@ public class Dashboard extends Fragment {
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth,  String.valueOf(xEntrysIncomeMonth));
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xEntrysIncomeMonth) );
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
 
 
-        // add color to dataset
+
         pieDataSet.setColors(colors);
 
 
@@ -1566,17 +1670,56 @@ public class Dashboard extends Fragment {
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
         legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        //legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
         legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
 
+//        legend.setCustom(ColorTemplate.VORDIPLOM_COLORS,new String[] {""});
+
+
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
+//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, Highlight h) {
+//                Log.d(TAG, "onValueSelected: Value select from chart.");
+//                Log.d(TAG, "onValueSelected: " + e.toString());
+//                Log.d(TAG, "onValueSelected: " + h.toString());
+//
+//                int pos1=e.toString().indexOf("((sum): ");
+//                String sales = e.toString().substring(pos1 +9).trim();
+//                Log.d(TAG, "sales: " + sales);
+////                Float sale = Float.parseFloat(sales);
+////                Log.d(TAG, "sale: " + sale);
+//
+//                for(int i =0;i< yDataIncomeMonth.size()-1; i++){
+//                    Log.d(TAG, "111yDataIncomeMonth: " + yDataIncomeMonth.get(i));
+//                    Log.d(TAG, "sales: " + sales);
+//                    if(yDataIncomeMonth.get(i).equals(sales)){
+//                        Log.d(TAG, "sales: " + sales);
+//                        Log.d(TAG, "yDataIncomeMonth: " + yDataIncomeMonth.get(i));
+//                        pos1 =i;
+//                        Log.d(TAG, "pos1: " + pos1);
+//                        break;
+//                    }
+//                    String employee = xDataIncomeMonth.get(pos1 + 1);
+//                    Toast.makeText(getContext(),"Category " + employee , Toast.LENGTH_LONG).show();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
         pieChart.invalidate();
 
     }

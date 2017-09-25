@@ -22,17 +22,17 @@
     <string name="failed_add_transaction">Failed to add transaction, please try again</string>
 
     <string-array name="array_spinner_goal">
-        <item>Ending Date</item>
         <item>Unachieve</item>
         <item>Achieved</item>
+        <item>Ending Date</item>
         <item>Price : Low-High</item>
         <item>Price : High-Low</item>
     </string-array>
 
     <string-array name="array_spinner_bill">
-        <item>Deadline</item>
         <item>Unpaid</item>
         <item>Paid</item>
+        <item>Deadline</item>
     </string-array>
 
     <string-array name="array_spinner_history_all">
