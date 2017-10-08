@@ -235,8 +235,8 @@ public class Home extends Fragment {
             }
         });
 
-        linearLayout1 = (LinearLayout)  view.findViewById(R.id.layout_home4_11);
-        linearLayout2 = (LinearLayout)  view.findViewById(R.id.layout_home4_12);
+        linearLayout1 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome1);
+        linearLayout2 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome2);
 
         Log.d(TAG,"end findviewbyid");
 
@@ -665,17 +665,18 @@ public class Home extends Fragment {
         ArrayList<String> xEntrys = new ArrayList<>();
 
         for (int i = 0; i < yData.size(); i++) {
-            yEntrys.add(new PieEntry(yData.get(i), i));
+            yEntrys.add(new PieEntry(yData.get(i), xData[i]));
         }
         for (int i = 0; i < xData.length; i++) {
             xEntrys.add(xData[i]);
         }
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrys, "Income , Expense");
+        PieDataSet pieDataSet = new PieDataSet(yEntrys, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(15);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        
 
 
         // add color to dataset
@@ -687,11 +688,13 @@ public class Home extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setTextSize(12f);
+        legend.setTextSize(10f);
         legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
         pieChart.setData(pieData);
         pieChart.invalidate();
     }

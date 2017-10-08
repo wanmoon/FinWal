@@ -7,448 +7,433 @@
     android:background="@color/backgroundColor"
     tools:context="com.wanmoon.finwal.activity.Home">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <RelativeLayout
-        android:id="@+id/relative1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linear1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <RelativeLayout
-            android:id="@+id/layout_home1"
+
+        <LinearLayout
+            android:id="@+id/linear1_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewEmpty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="FREE CAP"
-                android:textSize="2dp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_home2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_home1">
-
-            <TextView
-                android:id="@+id/textViewMyWallet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:textColor="@color/buttonColorGrey"
-                android:textSize="16dp" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/layout_home3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_home2">
-
-            <TextView
-                android:id="@+id/textViewMonthBalance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:ems="10"
-                android:textColor="@color/buttonColorGrey"
-                android:textSize="16dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_home4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_home3"
-            >
-
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/Piechart"
-                android:layout_width="match_parent"
-                android:layout_height="185dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_home5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/layout_home4"
-            >
+            android:layout_height="match_parent"
+            android:weightSum="2"
+            android:orientation="vertical">
 
 
             <LinearLayout
-                android:id="@+id/layout_home4.1"
+                android:id="@+id/linear1_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="2"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_alignParentStart="true">
 
+
+
+                    <TextView
+                        android:id="@+id/textViewMyWallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:ems="10"
+                        android:textColor="@color/buttonColorGrey"
+                        android:textSize="16dp" />
+
+
+                    <TextView
+                        android:id="@+id/textViewMonthBalance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:ems="10"
+                        android:textColor="@color/buttonColorGrey"
+                        android:textSize="16dp" />
+
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/Piechart"
+                        android:layout_width="match_parent"
+                        android:layout_height="185dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true" />
 
                 <LinearLayout
-                    android:id="@+id/layout_home4_11"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/frame"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="1dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="1dp">
+                    android:id="@+id/layout_btnMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/textViewMyIncomeShow"
+
+                    <LinearLayout
+                        android:id="@+id/btnMonthIncome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/buttonColorGreen"
-                        android:text="Month Income"
-                        android:textSize="14dp"
-                        android:ems="10" />
+                        android:weightSum="2"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textViewMyIncome"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/buttonColorGreen"
-                        android:textSize="14dp"
-                        android:ems="10" />
 
+                        <LinearLayout
+                            android:id="@+id/btnMonthIncome1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="@drawable/frame"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="1dp">
+
+                            <TextView
+                                android:id="@+id/textViewMyIncomeShow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/buttonColorGreen"
+                                android:text="Month Income"
+                                android:textSize="14dp"
+                                android:ems="10" />
+
+                            <TextView
+                                android:id="@+id/textViewMyIncome"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/buttonColorGreen"
+                                android:textSize="14dp"
+                                android:ems="10" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/btnMonthIncome2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="@drawable/frame"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="1dp">
+
+
+                            <TextView
+                                android:id="@+id/textViewMyExpenseShow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:textAlignment="center"
+                                android:textColor="@color/buttonColorRed"
+                                android:text="Month Expense"
+                                android:textSize="14dp"
+                                android:ems="10" />
+
+                            <TextView
+                                android:id="@+id/textViewMyExpense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAlignment="center"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginEnd="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginStart="2dp"
+                                android:layout_marginTop="2dp"
+                                android:textColor="@color/buttonColorRed"
+                                android:textSize="14dp"
+                                android:ems="10"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
 
-
-                <LinearLayout
-                    android:id="@+id/layout_home4_12"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:background="@drawable/frame"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginLeft="1dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="1dp">
-
-
-                    <TextView
-                        android:id="@+id/textViewMyExpenseShow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="2dp"
-                        android:textAlignment="center"
-                        android:textColor="@color/buttonColorRed"
-                        android:text="Month Expense"
-                        android:textSize="14dp"
-                        android:ems="10" />
-
-                    <TextView
-                        android:id="@+id/textViewMyExpense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="2dp"
-                        android:textColor="@color/buttonColorRed"
-                        android:textSize="14dp"
-                        android:ems="10"/>
-
-
-                </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relative2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relative1"
-        android:layout_marginBottom="1dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="1dp">
-
-        <TextView
-            android:id="@+id/textViewGoal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Goal"
-            android:textStyle="bold"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:id="@+id/textViewGoalTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Goal Title : "
-            android:textSize="12dp"
-            android:layout_marginRight="10dp"
-            android:layout_above="@+id/progress_1"
-            android:layout_alignStart="@+id/progress_1" />
-
-        <TextView
-            android:id="@+id/textViewDateLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Day left"
-            android:layout_alignParentRight="true"
-            android:textSize="12dp"
-            android:layout_marginRight="10dp"
-            android:layout_below="@+id/textViewGoal"/>
-
-        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-            android:id="@+id/progress_1"
-            android:layout_height="32dp"
-            android:layout_width="match_parent"
-            app:rcBackgroundPadding="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_below="@+id/textViewDateLeft"/>
-
-        <TextView
-            android:id="@+id/textViewStatusGoal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/progress_1"
-            android:layout_marginRight="10dp"
-            android:text="Status"
-            android:textSize="12dp"
-            android:layout_below="@+id/progress_1"/>
-
-        <TextView
-            android:id="@+id/textViewPercentGoal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Percent Goal"
-            android:textSize="12dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/progress_1"/>
-
-        <TextView
-            android:id="@+id/textViewMoneyLeftGoal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:text="Money Left"
-            android:textSize="12dp"
-            android:layout_below="@+id/progress_1"
-            android:layout_alignEnd="@+id/progress_1" />
 
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relative3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relative2">
 
 
-        <TextView
-            android:id="@+id/textViewNextBill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="25dp"
-            android:text="NextBill"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:textSize="16dp"
-            />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/linear2_1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:weightSum="1"-->
+            <!--android:orientation="vertical">-->
 
-        <TextView
-            android:id="@+id/textViewBillDescription"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:padding="2dp"
-            android:paddingBottom="2dp"
-            android:paddingEnd="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="5dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
-            android:textColor="@color/buttonColorGrey"
-            android:textSize="21dp"
-            android:textStyle="bold"
-            android:layout_below="@+id/textViewNextBill"
-            android:layout_toStartOf="@+id/textViewStatus" />
 
-        <TextView
-            android:id="@+id/textViewStatus"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/imageButtonEdit"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_toStartOf="@+id/imageButtonEdit"
-            android:padding="2dp"
-            android:paddingBottom="2dp"
-            android:paddingEnd="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
-            android:textAlignment="center"
-            android:layout_below="@+id/textViewNextBill"
-            android:textSize="17dp"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/linear2_2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_below="@+id/linear1_2">
 
-        <ImageButton
-            android:id="@+id/imageButtonEdit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/textViewDescription"
-            android:layout_margin="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="0dp"
-            android:layout_below="@+id/textViewNextBill"
-            android:backgroundTint="@color/backgroundColor"
-            android:padding="2dp"
-            android:paddingBottom="2dp"
-            android:paddingEnd="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
-            app:srcCompat="@mipmap/ic_mode_edit_white_24dp" />
+                <TextView
+                    android:id="@+id/textViewGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Goal"
+                    android:textStyle="bold"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"/>
 
-        </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/relativeGoal1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/relative4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relative3"
-       >
+                        <TextView
+                            android:id="@+id/textViewGoalTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Goal Title : "
+                            android:textSize="12dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/textViewDeadline"
-            android:layout_width="150dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:padding="2dp"
-            android:paddingBottom="2dp"
-            android:paddingEnd="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="0dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
-            android:layout_alignParentLeft="true"
-            android:textColor="@color/buttonColorGrey"
-            android:textSize="16dp"
-            />
+                        <TextView
+                            android:id="@+id/textViewDateLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Day left"
+                            android:textSize="12dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_alignParentRight="true" />
+                    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewPeriod"
-            android:layout_width="130dp"
-            android:layout_height="30dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:padding="2dp"
-            android:paddingBottom="2dp"
-            android:paddingEnd="2dp"
-            android:paddingLeft="2dp"
-            android:paddingRight="0dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
-            android:textColor="@color/buttonColorGrey"
-            android:textSize="16dp" />
-    </RelativeLayout>
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:id="@+id/progress_1"
+                        android:layout_height="32dp"
+                        android:layout_width="match_parent"
+                        app:rcBackgroundPadding="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_below="@+id/textViewDateLeft"/>
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/relativeGoal2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textViewStatusGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Status"
+                            android:textSize="12dp"
+                            android:layout_alignParentLeft="true"/>
+
+                        <TextView
+                            android:id="@+id/textViewPercentGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Percent Goal"
+                            android:textSize="12dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <TextView
+                            android:id="@+id/textViewMoneyLeftGoal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:text="Money Left"
+                            android:textSize="12dp"
+                            android:layout_alignParentRight="true"/>
+                    </RelativeLayout>
+
+
+
+                <TextView
+                    android:id="@+id/textViewNextBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="25dp"
+                    android:text="NextBill"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="16dp"
+                    />
+
+                    <TextView
+                        android:id="@+id/textViewBillDescription"
+                        android:layout_width="200dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:padding="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="5dp"
+                        android:paddingStart="2dp"
+                        android:paddingTop="2dp"
+                        android:textColor="@color/buttonColorGrey"
+                        android:textSize="21dp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/textViewNextBill"
+                        android:layout_toStartOf="@+id/textViewStatus" />
+
+                    <TextView
+                        android:id="@+id/textViewStatus"
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_alignTop="@+id/imageButtonEdit"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_toStartOf="@+id/imageButtonEdit"
+                        android:padding="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:paddingStart="2dp"
+                        android:paddingTop="2dp"
+                        android:textAlignment="center"
+                        android:layout_below="@+id/textViewNextBill"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonEdit"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/textViewDescription"
+                        android:layout_margin="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_below="@+id/textViewNextBill"
+                        android:backgroundTint="@color/backgroundColor"
+                        android:padding="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:paddingStart="2dp"
+                        android:paddingTop="2dp"
+                        app:srcCompat="@mipmap/ic_mode_edit_white_24dp" />
+
+
+                    <TextView
+                        android:id="@+id/textViewDeadline"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:padding="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="2dp"
+                        android:paddingTop="2dp"
+                        android:layout_alignParentLeft="true"
+                        android:textColor="@color/buttonColorGrey"
+                        android:textSize="16dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/textViewPeriod"
+                        android:layout_width="130dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:padding="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="0dp"
+                        android:paddingStart="2dp"
+                        android:paddingTop="2dp"
+                        android:textColor="@color/buttonColorGrey"
+                        android:textSize="16dp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--</LinearLayout>-->
+
+
+
 
 </RelativeLayout>

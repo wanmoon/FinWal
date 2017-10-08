@@ -36,7 +36,6 @@
                     android:orientation="vertical">
 
 
-
                     <LinearLayout
                         android:id="@+id/linear1"
                         android:layout_width="match_parent"
@@ -62,8 +61,8 @@
 
 
 
-                            <com.github.mikephil.charting.charts.BarChart
-                                android:id="@+id/barGraph"
+                            <com.github.mikephil.charting.charts.LineChart
+                                android:id="@+id/lineChart"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginEnd="10dp"
@@ -76,11 +75,6 @@
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"   />
-
-
-
-
-
 
 
 
@@ -169,7 +163,7 @@
                                 android:paddingBottom="10dp"
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"   />
+                                android:paddingRight="10dp"  />
 
                         </LinearLayout>
 
@@ -181,12 +175,12 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_marginLeft="1dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
                             android:layout_below="@+id/linear2_1"
                             android:backgroundTint="@color/backgroundColor">
 
@@ -252,6 +246,7 @@
                                 android:id="@+id/pieChartIncomeYear"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
@@ -261,7 +256,7 @@
                                 android:paddingBottom="10dp"
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"   />
+                                android:paddingRight="10dp" />
 
 
 
@@ -284,6 +279,7 @@
                             android:layout_below="@+id/linear3_1"
                             android:backgroundTint="@color/backgroundColor">
 
+
                             <com.github.mikephil.charting.charts.PieChart
                                 android:id="@+id/pieChartExpenseYear"
                                 android:layout_width="match_parent"
@@ -298,7 +294,6 @@
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"  />
-
 
 
 

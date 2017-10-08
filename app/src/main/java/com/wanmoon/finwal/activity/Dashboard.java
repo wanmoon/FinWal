@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,11 +19,9 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -1428,28 +1427,26 @@ public class Dashboard extends Fragment {
 
     // line graph
     private void initData(){
-        Log.d(TAG, "initDataBarGraph");
+        Log.d(TAG, "initDatalineChart");
 
-        barChart = (BarChart) mView.findViewById(R.id.barGraph);
+        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
 
-        barChart.setDescription("");
+        lineChart.setDescription("");
 //        barChart.setTouchEnabled(true);
 //        barChart.setDragEnabled(true);
 //        barChart.setScaleEnabled(true);
 //        barChart.setMaxVisibleValueCount(11000);
 
-        addDataBarGraph();
+        addDataLineChart();
 
     }
 
 
-    private void addDataBarGraph(){
-        Log.d(TAG, "addDataSet bar graph started");
+    private void addDataLineChart(){
+        Log.d(TAG, "addDataSet lineChart started");
 
         ArrayList<Float> yDataIncome = new ArrayList<>();
         ArrayList<String> xDataIncome = new ArrayList<>();
-       // xDataIncome = new String["JAN", "JAN"];
-       // String[] xDataIncome = {"JAN", "FEB"};
 
 
 
@@ -1527,34 +1524,59 @@ public class Dashboard extends Fragment {
             colors.add(getResources().getColor(R.color.familyAndPersonal));
         }
 
+        ArrayList<Entry> entries = new ArrayList();
+                entries.add(new Entry(4f, 0));
+                entries.add(new Entry(8f, 1));
+                entries.add(new Entry(6f, 2));
+                entries.add(new Entry(2f, 3));
+                entries.add(new Entry(18f, 4));
+                entries.add(new Entry(9f, 5));
+        LineDataSet dataset = new LineDataSet(entries,"");
 
-        ArrayList<BarEntry> yEntrysIncome = new ArrayList<>();
-        ArrayList<String> xEntrysIncome = new ArrayList<>();
+        ArrayList<String> labels = new ArrayList<String>();
+                labels.add("January");
+                labels.add("February");
+                labels.add("March");
+                labels.add("April");
+                labels.add("May");
+                labels.add("June");
 
-        for (int i = 0; i < yDataIncome.size(); i++) {
-            yEntrysIncome.add(new BarEntry(yDataIncome.get(i), i));
-            xEntrysIncome.add(xDataIncome.get(i));
-        }
+        LineData data = new LineData(dataset);
+        lineChart.setData(data);
+
+//        BarData theData = new BarData(barDataSet);
+//        barChart.setData(theData);
+//        barChart.invalidate();
 
 
 
-        XAxis xAxis = barChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //bottom is good
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(false);
+//        ArrayList<Line> yEntrysIncome = new ArrayList<>();
+//        ArrayList<String> xEntrysIncome = new ArrayList<>();
+//
+//        for (int i = 0; i < yDataIncome.size(); i++) {
+//            yEntrysIncome.add(new BarEntry(yDataIncome.get(i), i));
+//            xEntrysIncome.add(xDataIncome.get(i));
+//        }
 
 
-        BarDataSet barDataSet = new BarDataSet(yEntrysIncome, "" );
-        barDataSet.setValueTextSize(10);
+//
+//        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM); //bottom is good
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setDrawAxisLine(false);
 
-        Log.d(TAG, "yEntrysIncome = " + yEntrysIncome);
-        Log.d(TAG, "xEntrysIncome = " + xEntrysIncome);
+
+//        LineDataSet lineDataSet = new LineDataSet(yEntrysIncome, "" );
+//        lineDataSet.setValueTextSize(10);
+//
+//        Log.d(TAG, "yEntrysIncome = " + yEntrysIncome);
+//        Log.d(TAG, "xEntrysIncome = " + xEntrysIncome);
 
 
         // create pie data object
-        BarData barData = new BarData(barDataSet);
-        barChart.setData(barData);
-        barChart.invalidate();
+//        LineChart lineChart = new LineChart(lineDataSet);
+//        lineChart.setData(lineChart);
+//        lineChart.invalidate();
 
 //
 //        ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -1589,6 +1611,7 @@ public class Dashboard extends Fragment {
         pieChart = (PieChart) mView.findViewById(R.id.pieChartIncomeMonth);
 
         pieChart.setDescription("");
+        pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
@@ -1600,9 +1623,42 @@ public class Dashboard extends Fragment {
 
 
 
-
         addDataSetIncome();
-
+//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, Highlight h) {
+//                Log.d(TAG, "onValueSelected: Value select from chart.");
+//                Log.d(TAG, "onValueSelected: " + e.toString());
+//                Log.d(TAG, "onValueSelected: " + h.toString());
+//
+//                int pos1=e.toString().indexOf("((sum): ");
+//                String sales = e.toString().substring(pos1 +9).trim();
+//                Log.d(TAG, "sales: " + sales);
+////                Float sale = Float.parseFloat(sales);
+////                Log.d(TAG, "sale: " + sale);
+//
+//                for(int i =0;i< yDataIncomeMonth.size()-1; i++){
+//                    Log.d(TAG, "111yDataIncomeMonth: " + yDataIncomeMonth.get(i));
+//                    Log.d(TAG, "sales: " + sales);
+//                    if(yDataIncomeMonth.get(i).equals(sales)){
+//                        Log.d(TAG, "sales: " + sales);
+//                        Log.d(TAG, "yDataIncomeMonth: " + yDataIncomeMonth.get(i));
+//                        pos1 =i;
+//                        Log.d(TAG, "pos1: " + pos1);
+//                        break;
+//                    }
+//                    String employee = xDataIncomeMonth.get(pos1 + 1);
+//                    Toast.makeText(getContext(),"Category " + employee , Toast.LENGTH_LONG).show();
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
 
 
     }
@@ -1650,17 +1706,21 @@ public class Dashboard extends Fragment {
         ArrayList<String> xEntrysIncomeMonth = new ArrayList<>();
 
         for (int i = 0; i < yDataIncomeMonth.size(); i++) {
-                yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth.get(i), i));
-                xEntrysIncomeMonth.add(xDataIncomeMonth.get(i));
+                yEntrysIncomeMonth.add(new PieEntry(yDataIncomeMonth.get(i), xDataIncomeMonth.get(i)));
+               // xEntrysIncomeMonth.add(xDataIncomeMonth.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, String.valueOf(xEntrysIncomeMonth) );
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeMonth, "" );
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
-
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setValueLinePart1Length(0.7f);
+        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         pieDataSet.setColors(colors);
@@ -1668,58 +1728,22 @@ public class Dashboard extends Fragment {
 
         //add Legend to chart
         Legend legend = pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        //legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
         legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
-
-//        legend.setCustom(ColorTemplate.VORDIPLOM_COLORS,new String[] {""});
-
+        legend.setEnabled(false);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
+
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
         pieChart.setData(pieData);
-//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-//            @Override
-//            public void onValueSelected(Entry e, Highlight h) {
-//                Log.d(TAG, "onValueSelected: Value select from chart.");
-//                Log.d(TAG, "onValueSelected: " + e.toString());
-//                Log.d(TAG, "onValueSelected: " + h.toString());
-//
-//                int pos1=e.toString().indexOf("((sum): ");
-//                String sales = e.toString().substring(pos1 +9).trim();
-//                Log.d(TAG, "sales: " + sales);
-////                Float sale = Float.parseFloat(sales);
-////                Log.d(TAG, "sale: " + sale);
-//
-//                for(int i =0;i< yDataIncomeMonth.size()-1; i++){
-//                    Log.d(TAG, "111yDataIncomeMonth: " + yDataIncomeMonth.get(i));
-//                    Log.d(TAG, "sales: " + sales);
-//                    if(yDataIncomeMonth.get(i).equals(sales)){
-//                        Log.d(TAG, "sales: " + sales);
-//                        Log.d(TAG, "yDataIncomeMonth: " + yDataIncomeMonth.get(i));
-//                        pos1 =i;
-//                        Log.d(TAG, "pos1: " + pos1);
-//                        break;
-//                    }
-//                    String employee = xDataIncomeMonth.get(pos1 + 1);
-//                    Toast.makeText(getContext(),"Category " + employee , Toast.LENGTH_LONG).show();
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected() {
-//
-//            }
-//        });
         pieChart.invalidate();
 
     }
@@ -1832,16 +1856,21 @@ public class Dashboard extends Fragment {
         ArrayList<String> xEntrysExpenseMonth = new ArrayList<>();
 
         for (int i = 0; i < yDataExpenseMonth.size(); i++) {
-            yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth.get(i), i));
-            xEntrysExpenseMonth.add(xDataExpenseMonth.get(i));
+            yEntrysExpenseMonth.add(new PieEntry(yDataExpenseMonth.get(i), xDataExpenseMonth.get(i)));
+            //xEntrysExpenseMonth.add(xDataExpenseMonth.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, String.valueOf(xEntrysExpenseMonth));
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseMonth, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setValueLinePart1Length(0.7f);
+        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         // add color to dataset
@@ -1851,7 +1880,7 @@ public class Dashboard extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        //legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -1859,9 +1888,13 @@ public class Dashboard extends Fragment {
         legend.setDrawInside(false);
         legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
+        legend.setEnabled(false);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
+
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
@@ -1876,6 +1909,7 @@ public class Dashboard extends Fragment {
 
 
         pieChart.setDescription("");
+        pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
@@ -1894,6 +1928,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "onValueSelected: Value select from chart.");
                 Log.d(TAG, "onValueSelected: " + e.toString());
                 Log.d(TAG, "onValueSelected: " + h.toString());
+
             }
 
             @Override
@@ -1902,13 +1937,55 @@ public class Dashboard extends Fragment {
             }
         });
 
+//        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+//            @Override
+//            public void onValueSelected(Entry e, Highlight h) {
+//                Log.d(TAG, "onValueSelected: Value select from chart.");
+//                Log.d(TAG, "onValueSelected: " + e.toString());
+//                Log.d(TAG, "onValueSelected: " + h.toString());
+//
+//                int pos1=e.toString().indexOf("((sum): ");
+//                Log.d(TAG, "pos1: " + pos1);
+//                String sales = e.toString().substring(pos1 +9).trim();
+//                Log.d(TAG, "sales: " + sales);
+//
+//
+//                for(int i =0; i< yDataIncomeYear.size()-1; i++){
+//                    String y = String.valueOf(yDataIncomeYear.get(i));
+//                    Log.d(TAG, "y: " + y);
+//                    Log.d(TAG, "111yDataIncomeMonth: " + yDataIncomeYear.get(i));
+//                    Log.d(TAG, "sales: " + sales);
+//
+//                    if(String.valueOf(y) == (String.valueOf(sales)) ){
+//                        Log.d(TAG, "sales: " + sales);
+//                        Log.d(TAG, "yDataIncomeMonth: " + yDataIncomeYear.get(i));
+//                        pos1 =i;
+//                        Log.d(TAG, "pos1: " + pos1);
+//
+//                        break;
+//                    }
+//
+//                }
+//                String employee = xDataIncomeYear.get(pos1 + 1);
+//                Toast.makeText(getContext(),"Category " + employee , Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected() {
+//
+//            }
+//        });
+
+
     }
 
     private void addDataSetIncomeYear() {
         Log.d(TAG, "addDataSet income year started");
 
-        ArrayList<Float> yDataIncomeYear = new ArrayList<>();
-        ArrayList<String> xDataIncomeYear = new ArrayList<>();
+        final ArrayList<Float> yDataIncomeYear = new ArrayList<>();
+        final ArrayList<String> xDataIncomeYear = new ArrayList<>();
         ArrayList<Integer> colors = new ArrayList<>();
         if(incomeExtraYearPercent > 0){
             yDataIncomeYear.add(incomeExtraYearPercent);
@@ -1948,16 +2025,22 @@ public class Dashboard extends Fragment {
         ArrayList<String> xEntrysIncomeYear = new ArrayList<>();
 
         for (int i = 0; i < yDataIncomeYear.size(); i++) {
-            yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear.get(i), i));
-            xEntrysIncomeYear.add(xDataIncomeYear.get(i));
+            yEntrysIncomeYear.add(new PieEntry(yDataIncomeYear.get(i), xDataIncomeYear.get(i)));
+           // xEntrysIncomeYear.add(xDataIncomeYear.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, String.valueOf(xEntrysIncomeYear));
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setValueLinePart1Length(0.7f);
+        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+
 
 
         // add color to dataset
@@ -1967,17 +2050,21 @@ public class Dashboard extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
         legend.setDrawInside(false);
         legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
+        legend.setEnabled(false);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
+
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
         pieChart.setData(pieData);
         pieChart.invalidate();
 
@@ -2090,16 +2177,21 @@ public class Dashboard extends Fragment {
         ArrayList<String> xEntrysExpenseYear = new ArrayList<>();
 
         for (int i = 0; i < yDataExpenseYear.size(); i++) {
-            yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear.get(i), i));
-            xEntrysExpenseYear.add(xDataExpenseYear.get(i));
+            yEntrysExpenseYear.add(new PieEntry(yDataExpenseYear.get(i), xDataExpenseYear.get(i)));
+           // xEntrysExpenseYear.add(xDataExpenseYear.get(i));
         }
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, String.valueOf(xEntrysExpenseYear));
+        PieDataSet pieDataSet = new PieDataSet(yEntrysExpenseYear, "");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setValueLinePart1Length(0.7f);
+        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         // add color to dataset
@@ -2108,7 +2200,7 @@ public class Dashboard extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+      //  legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
@@ -2116,9 +2208,13 @@ public class Dashboard extends Fragment {
         legend.setDrawInside(false);
         legend.setTextSize(12f);
         legend.getCalculatedLineSizes();
+        legend.setEnabled(false);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
+
+        int colorBlack = Color.parseColor("#000000");
+        pieChart.setEntryLabelColor(colorBlack);
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
