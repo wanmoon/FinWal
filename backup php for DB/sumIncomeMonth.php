@@ -28,7 +28,7 @@ if ($result->num_rows > 0) {
         echo $row['SUM(cost)'] . "\n";
     }
 } else {
-    echo "0 ";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();

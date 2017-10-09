@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
         echo $row['goal_id'] . "," . $row['cust_id'] . "," . $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "," . $row['savingplan'] . "," . $row['suggest_cost'] . "," . $row['current_goal'] . "\n";
     }
 } else {
-    echo "ERROR";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();

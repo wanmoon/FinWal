@@ -41,7 +41,7 @@ if ($result->num_rows > 0) {
         echo $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "\n";
     }
 } else {
-    echo "0 ";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();

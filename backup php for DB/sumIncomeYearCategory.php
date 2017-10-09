@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
         echo $row['category'] . "," . $row['SUM(cost)'] . "," ;
     }
 }else {
-    echo "0 ";
+    echo "ERROR : " . $conn->error;
 }
 
 

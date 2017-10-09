@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
         echo $row['period'] . "," . $row['description_bill'] . "," . $row['status_bill'] . "," . $row['deadline'] . "\n";
     }
 } else {
-    echo "0 ";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();

@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
         echo $row['month'] . "," . $row['income'] . ",";
     }
 } else {
-    echo "ERROR";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();
