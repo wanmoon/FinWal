@@ -75,6 +75,7 @@ public class Home extends Fragment {
     private String setMonthBalance;
     private String setIncomeMonth;
     private String setExpenseMonth;
+    public String date_start;
 
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
@@ -106,6 +107,7 @@ public class Home extends Fragment {
     getHttpIncome httpIncome;
     getHttpExpense httpExpense;
     getHttpProgressBar httpProgressBar;
+    getHttpDateStart httpDateStart;
 
     //for log
     private final String TAG = "HomeActivity";
@@ -194,6 +196,8 @@ public class Home extends Fragment {
         httpExpense = new getHttpExpense(getContext());
 
         httpProgressBar = new getHttpProgressBar(getContext());
+
+        httpDateStart= new getHttpDateStart(getContext());
 
         return rootView;
     }
@@ -385,11 +389,7 @@ public class Home extends Fragment {
                     });
                 }
             });
-
         }
-
-
-
     }
 
     public class getHttpIncomeMonth {
@@ -573,7 +573,64 @@ public class Home extends Fragment {
         }
     }
 
+    ////////////////////////get date start////////////////////////
+    public class getHttpDateStart {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpDateStart(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                date_start = response.body().string().trim();
+                                Log.d(TAG,"date_start = " + date_start);
+                            } catch (NumberFormatException e) {
+                                //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    public String dateStart(String cust_id){
+        try {
+            Log.d(TAG,"start dateStart");
+            httpDateStart.run(BASE_URL + "/dateStart.php?cust_id=" + cust_id);
+            Log.d(TAG,"end dateStart");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
     public void sumAllBalance(){
+        dateStart(cust_id);
 
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
@@ -599,11 +656,9 @@ public class Home extends Fragment {
 
 
         //all of my life
-        setWalletBalance = "[Since 2017-08-29] Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
+        setWalletBalance = "[Since "+ date_start + "] Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
-
-
 
         incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomePercent = " + incomePercent);
@@ -611,11 +666,8 @@ public class Home extends Fragment {
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
 
-
         //for pie chart
         initData();
-
-
     }
 
     //////////////////////// for pie chart //////////////////////
