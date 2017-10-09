@@ -236,7 +236,7 @@ public class Home extends Fragment {
         });
 
         linearLayout1 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome1);
-        linearLayout2 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome2);
+        linearLayout2 = (LinearLayout)  view.findViewById(R.id.btnMonthExpense2);
 
         Log.d(TAG,"end findviewbyid");
 
@@ -621,7 +621,7 @@ public class Home extends Fragment {
     //////////////////////// for pie chart //////////////////////
     private void initData() {
 
-        pieChart = (PieChart) mView.findViewById(R.id.Piechart);
+        pieChart = (PieChart) mView.findViewById(R.id.PieChart);
 
         pieChart.setDescription("");
         pieChart.setUsePercentValues(true);
@@ -674,9 +674,9 @@ public class Home extends Fragment {
         // create the dataset
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(15);
+        pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
-        
+
 
 
         // add color to dataset
@@ -688,7 +688,7 @@ public class Home extends Fragment {
         //add Legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setTextSize(10f);
+        legend.setTextSize(12);
         legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
 
         // create pie data object
