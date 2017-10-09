@@ -60,26 +60,20 @@
                             android:backgroundTint="@color/backgroundColor">
 
 
-
-                            <!--<com.github.mikephil.charting.charts.LineChart-->
-                                <!--android:id="@+id/lineChart"-->
-                                <!--android:layout_width="match_parent"-->
-                                <!--android:layout_height="match_parent"-->
-                                <!--android:layout_marginEnd="10dp"-->
-                                <!--android:layout_marginLeft="10dp"-->
-                                <!--android:layout_marginRight="10dp"-->
-                                <!--android:layout_marginStart="10dp"-->
-                                <!--android:layout_marginTop="10dp"-->
-                                <!--android:layout_marginBottom="10dp"-->
-                                <!--android:paddingBottom="10dp"-->
-                                <!--android:paddingEnd="10dp"-->
-                                <!--android:paddingLeft="10dp"-->
-                                <!--android:paddingRight="10dp"   />-->
-
                             <com.jjoe64.graphview.GraphView
                                 android:layout_width="match_parent"
-                                android:layout_height="200dp"
-                                android:id="@+id/graph" />
+                                android:layout_height="match_parent"
+                                android:id="@+id/graph"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:paddingBottom="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"/>
 
 
 
