@@ -189,6 +189,7 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
 
+
         httpIncomeMonth = new getHttpIncomeMonth(getContext());
         httpExpenseMonth = new getHttpExpenseMonth(getContext());
 
@@ -198,6 +199,7 @@ public class Home extends Fragment {
         httpProgressBar = new getHttpProgressBar(getContext());
 
         httpDateStart= new getHttpDateStart(getContext());
+
 
         return rootView;
     }
@@ -209,6 +211,7 @@ public class Home extends Fragment {
         sumIncome = 0;
         sumExpense = 0;
 
+        dateStart(cust_id);
         sumExpenseMonthToDB(cust_id);
         sumIncomeMonthToDB(cust_id);
 
@@ -216,6 +219,7 @@ public class Home extends Fragment {
         sumExpenseToDB(cust_id);
 
         getProgressbar(cust_id, goal_id);
+
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
@@ -630,12 +634,10 @@ public class Home extends Fragment {
     }
 
     public void sumAllBalance(){
-        dateStart(cust_id);
 
+        Log.d(TAG,"All start settext");
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
-
-        Log.d(TAG,"start settext");
 
         // follow UI
         ////////////////////////for wallet balance//////////////////////
@@ -655,6 +657,9 @@ public class Home extends Fragment {
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
 
+
+        Log.d(TAG,"date_start" + date_start);
+
         //all of my life
         setWalletBalance = "[Since "+ date_start + "] Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
@@ -665,6 +670,8 @@ public class Home extends Fragment {
 
         expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
+
+
 
         //for pie chart
         initData();

@@ -1,6 +1,7 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.model.TimeSeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -1415,8 +1422,8 @@ public class Dashboard extends Fragment {
 
 
     // line graph
-    private void initData(){
-        Log.d(TAG, "initDatalineChart");
+    private Intent initData(){
+        Log.d(TAG, "initDataLineChart");
 
         lineChart = (LineChart) mView.findViewById(R.id.lineChart);
 
@@ -1425,91 +1432,111 @@ public class Dashboard extends Fragment {
 
 
 
-        addDataLineChart();
+        Log.d(TAG, "addDataSet lineChart started");
+
+        String[] xData = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+        ArrayList<Float> yData = new ArrayList<>();
+
+
+        TimeSeries series = new TimeSeries("Line1");
+
+
+        for (int i = 0; i < xData.length; i++) {
+            series.add(i, yData.get(i));
+        }
+
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        dataset.addSeries(series);
+
+        XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+        XYSeriesRenderer renderer = new XYSeriesRenderer();
+        mRenderer.addSeriesRenderer(renderer);
+
+        Intent intent = ChartFactory.getLineChartIntent(getContext(),dataset,
+                mRenderer, "Line Graph Title");
+        return intent;
 
     }
 
 
-    private void addDataLineChart(){
-        Log.d(TAG, "addDataSet lineChart started");
+    private void addDataLineChart(Context context){
 
 
-        ArrayList<Float> yDataIncome = new ArrayList<>();
-        ArrayList<String> xDataIncome = new ArrayList<>();
 
-        ArrayList<Integer> colors = new ArrayList<>();
-        if(sumIncomeJan > 0){
-            yDataIncome.add(sumIncomeJan);
-            xDataIncome.add("JAN");
-            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
-            colors.add(getResources().getColor(R.color.extraIncome));
-        }
-        if(sumIncomeFeb > 0){
-            yDataIncome.add(sumIncomeFeb);
-            xDataIncome.add("FEB");
-            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-        }
-        if(sumIncomeMar > 0){
-            yDataIncome.add(sumIncomeMar);
-            xDataIncome.add("MAR");
-            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
-            colors.add(getResources().getColor(R.color.extraIncome));
-        }
-        if(sumIncomeApr > 0){
-            yDataIncome.add(sumIncomeApr);
-            xDataIncome.add("APR");
-            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-        }
-        if(sumIncomeMay > 0){
-            yDataIncome.add(sumIncomeMay);
-            xDataIncome.add("MAY");
-            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
-            colors.add(getResources().getColor(R.color.extraIncome));
-        }
-        if(sumIncomeJun > 0){
-            yDataIncome.add(sumIncomeJun);
-            xDataIncome.add("JUN");
-            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-        }
-        if(sumIncomeJul > 0){
-            yDataIncome.add(sumIncomeJul);
-            xDataIncome.add("JUL");
-            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
-            colors.add(getResources().getColor(R.color.extraIncome));
-        }
-        if(sumIncomeAug > 0){
-            yDataIncome.add(sumIncomeAug);
-            xDataIncome.add("AUG");
-            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
-            colors.add(getResources().getColor(R.color.gift));
-        }
-        if(sumIncomeSep > 0){
-            yDataIncome.add(sumIncomeSep);
-            xDataIncome.add("SEP");
-            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
-            colors.add(getResources().getColor(R.color.loan));
-        }
-        if(sumIncomeOct > 0){
-            yDataIncome.add(sumIncomeOct);
-            xDataIncome.add("OCT");
-            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-        }
-        if(sumIncomeNov > 0){
-            yDataIncome.add(sumIncomeNov);
-            xDataIncome.add("NOV");
-            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
-            colors.add(getResources().getColor(R.color.extraIncome));
-        }
-        if(sumIncomeDec > 0){
-            yDataIncome.add(sumIncomeDec);
-            xDataIncome.add("DEC");
-            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
-            colors.add(getResources().getColor(R.color.familyAndPersonal));
-        }
+
+//        ArrayList<Integer> colors = new ArrayList<>();
+//        if(sumIncomeJan > 0){
+//            yDataIncome.add(sumIncomeJan);
+//            xDataIncome.add("JAN");
+//            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
+//            colors.add(getResources().getColor(R.color.extraIncome));
+//        }
+//        if(sumIncomeFeb > 0){
+//            yDataIncome.add(sumIncomeFeb);
+//            xDataIncome.add("FEB");
+//            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
+//            colors.add(getResources().getColor(R.color.familyAndPersonal));
+//        }
+//        if(sumIncomeMar > 0){
+//            yDataIncome.add(sumIncomeMar);
+//            xDataIncome.add("MAR");
+//            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
+//            colors.add(getResources().getColor(R.color.extraIncome));
+//        }
+//        if(sumIncomeApr > 0){
+//            yDataIncome.add(sumIncomeApr);
+//            xDataIncome.add("APR");
+//            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
+//            colors.add(getResources().getColor(R.color.familyAndPersonal));
+//        }
+//        if(sumIncomeMay > 0){
+//            yDataIncome.add(sumIncomeMay);
+//            xDataIncome.add("MAY");
+//            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
+//            colors.add(getResources().getColor(R.color.extraIncome));
+//        }
+//        if(sumIncomeJun > 0){
+//            yDataIncome.add(sumIncomeJun);
+//            xDataIncome.add("JUN");
+//            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
+//            colors.add(getResources().getColor(R.color.familyAndPersonal));
+//        }
+//        if(sumIncomeJul > 0){
+//            yDataIncome.add(sumIncomeJul);
+//            xDataIncome.add("JUL");
+//            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
+//            colors.add(getResources().getColor(R.color.extraIncome));
+//        }
+//        if(sumIncomeAug > 0){
+//            yDataIncome.add(sumIncomeAug);
+//            xDataIncome.add("AUG");
+//            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
+//            colors.add(getResources().getColor(R.color.gift));
+//        }
+//        if(sumIncomeSep > 0){
+//            yDataIncome.add(sumIncomeSep);
+//            xDataIncome.add("SEP");
+//            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
+//            colors.add(getResources().getColor(R.color.loan));
+//        }
+//        if(sumIncomeOct > 0){
+//            yDataIncome.add(sumIncomeOct);
+//            xDataIncome.add("OCT");
+//            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
+//            colors.add(getResources().getColor(R.color.familyAndPersonal));
+//        }
+//        if(sumIncomeNov > 0){
+//            yDataIncome.add(sumIncomeNov);
+//            xDataIncome.add("NOV");
+//            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
+//            colors.add(getResources().getColor(R.color.extraIncome));
+//        }
+//        if(sumIncomeDec > 0){
+//            yDataIncome.add(sumIncomeDec);
+//            xDataIncome.add("DEC");
+//            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
+//            colors.add(getResources().getColor(R.color.familyAndPersonal));
+//        }
 
 
 
