@@ -1,8 +1,10 @@
 package com.wanmoon.finwal.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -51,9 +53,12 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private String getDescription_goal;
     private String savingplan;
 
-    public double suggest_cost;
     private long countDate;
+
+    public double suggest_cost;
     private double budget_goal;
+
+    public AlertDialog suggestion;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -172,26 +177,36 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                //alert dialog
+                suggestion = new AlertDialog.Builder(NewGoal.this).create();
+                suggestion.setTitle("Suggestion Plan");
+
                 // find which radio button is selected
                 if(checkedId == R.id.radioButtonDaily) {
                     savingplan = "Daily";
                     suggest_cost = budget_goal/countDate;
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(), "'Daily' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
-                            Toast.LENGTH_LONG).show();
+                    suggestion.setMessage("'Daily' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
                 } else if(checkedId == R.id.radioButtonWeekly) {
                     savingplan = "Weekly";
                     suggest_cost = budget_goal/(countDate/7);
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(), "'Weekly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
-                            Toast.LENGTH_LONG).show();
+                    suggestion.setMessage("'Weekly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
                 } else {
                     savingplan = "Monthly";
                     suggest_cost = budget_goal/(countDate/30);
                     Log.d(TAG, "savingDay = " + suggest_cost);
-                    Toast.makeText(getApplicationContext(),"'Monthly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht",
-                            Toast.LENGTH_LONG).show();
+                    suggestion.setMessage("'Monthly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
                 }
+
+                suggestion.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                suggestion.show();
             }
         });
     }
@@ -215,7 +230,6 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         } else {
             addGoal();
         }
-
     }
 
     public String addBillToDB(String cust_id, String ending_date, String description_goal, double budget_goal, String savingplan, double suggest_cost){
