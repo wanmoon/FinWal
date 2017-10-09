@@ -832,7 +832,7 @@ public class Home extends Fragment {
         textViewMoneyLeftGoal.setText("money left " + moneyleft + " baht");
 
         if (current_goal >= budget_goal){
-            textViewStatusGoal.setText("Achieve");
+            textViewStatusGoal.setText("Achieved");
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
         }
 
