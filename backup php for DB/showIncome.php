@@ -29,7 +29,7 @@ if ($flagSort == 0) { //cate a-z =0
 	$sort = "timestamp DESC"; //time = 3
 }
 
-$sql = "SELECT timestamp, description, cost, transaction, category FROM transaction WHERE transaction='Income' AND cust_id='$cust_id' ORDER BY $sort";
+$sql = "SELECT timestamp, description, cost, transaction, category FROM transaction WHERE transaction='Income' AND MONTH(CURDATE())=MONTH(timestamp) AND cust_id='$cust_id' ORDER BY $sort";
 
 $result = $conn->query($sql);
 
