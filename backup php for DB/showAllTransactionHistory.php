@@ -66,7 +66,7 @@ if ($result->num_rows > 0) {
         echo $row['timestamp'] . "," . $row['description'] . "," . $row['cost'] . "," . $row['transaction'] . "," . $row['category'] . "\n";
     }
 } else {
-    echo "0 ";
+    echo "ERROR : " . $conn->error;
 }
 
 $conn->close();

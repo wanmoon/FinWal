@@ -26,28 +26,11 @@ $sql = "INSERT INTO customer(cust_id,email) VALUES ('$cust_id','$email');";
 //$sql = "INSERT INTO transaction(cust_id,timestamp,description,cost,transaction,category) VALUES('fjgnlg',current_timestamp,'2','2','2','2')";
 echo $sql;
 
-//$result = $conn->query($sql);
-//$json = array();
-
-// if ($result->num_rows > 0) {
-//     // output data of each row
-//     while($row = $result->fetch_assoc()) {
-//         echo $row['pName'] . "," . $row['date'] . "," . $row['timeInterval'] . "," . $row['gLicense'] . "\n";
-
-//         //echo ;
-//         //$json['parkId'][]=$row;
-//         //echo "$json";
-//     }
-// } else {
-//     echo "0 ";
-// }
-
 if ($conn->query($sql) === TRUE) {
   echo "Add transaction successful";
 } else {
   echo "ERROR : " . $conn->error;
 }
-
 
 $conn->close();
 //echo json_encode($json);
