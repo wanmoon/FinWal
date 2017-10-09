@@ -578,6 +578,18 @@ public class Home extends Fragment {
     }
 
     ////////////////////////get date start////////////////////////
+    public String dateStart(String cust_id){
+        try {
+            Log.d(TAG,"start dateStart");
+            httpDateStart.run(BASE_URL + "/dateStart.php?cust_id=" + cust_id);
+            Log.d(TAG,"end dateStart");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
     public class getHttpDateStart {
         OkHttpClient client;
         Handler mainHandler;
@@ -606,6 +618,7 @@ public class Home extends Fragment {
                         public void run() {
                             try {
                                 date_start = response.body().string().trim();
+                                sumAllBalance();
                                 Log.d(TAG,"date_start = " + date_start);
                             } catch (NumberFormatException e) {
                                 //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
@@ -621,17 +634,6 @@ public class Home extends Fragment {
         }
     }
 
-    public String dateStart(String cust_id){
-        try {
-            Log.d(TAG,"start dateStart");
-            httpDateStart.run(BASE_URL + "/dateStart.php?cust_id=" + cust_id);
-            Log.d(TAG,"end dateStart");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-        return response;
-    }
 
     public void sumAllBalance(){
 

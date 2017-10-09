@@ -1,7 +1,6 @@
 package com.wanmoon.finwal.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,13 +27,11 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wanmoon.finwal.R;
-
-import org.achartengine.ChartFactory;
-import org.achartengine.model.TimeSeries;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,14 +63,10 @@ public class Dashboard extends Fragment {
     LineChart lineChart;
 
 
-
     //for pie chart
     private final String TAG = "Dashboard";
     PieChart pieChart;
     private View mView;
-
-
-
 
 
     //bar
@@ -105,9 +98,6 @@ public class Dashboard extends Fragment {
 
     private float incomeAug;
     private float incomeSep;
-
-
-
 
 
     //income month
@@ -250,8 +240,6 @@ public class Dashboard extends Fragment {
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
 
-
-
     public Dashboard() {
         // Required empty public constructor
     }
@@ -275,10 +263,9 @@ public class Dashboard extends Fragment {
         }
         setHasOptionsMenu(true);
 
-        ((MainActivity)getActivity()).setTitle("Dashboard");
+        ((MainActivity) getActivity()).setTitle("Dashboard");
 
     }
-
 
 
     @Override
@@ -340,10 +327,9 @@ public class Dashboard extends Fragment {
     }
 
 
-
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -377,29 +363,28 @@ public class Dashboard extends Fragment {
     }
 
 
-
     //////////////////////// Income Year line chart ////////////////////////
 
-    public String sumIncomeYear(String cust_id){
+    public String sumIncomeYear(String cust_id) {
         try {
-            Log.d(TAG,"start sumIncomeYearLine");
+            Log.d(TAG, "start sumIncomeYearLine");
             httpSumIncomeYear.run(BASE_URL + "/totalIncome.php?cust_id=" + cust_id);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public void showIncomeYear(String allIncomeYearLine){
+    public void showIncomeYear(String allIncomeYearLine) {
         Log.d(TAG, "allIncomeYearLine " + allIncomeYearLine);
         List<String> items = Arrays.asList(allIncomeYearLine.split("\\s*,\\s*"));
 
 
         ArrayList<Float> integerCollector = new ArrayList<Float>();
         int pointer = 0;
-        for(String num: items){
-            if(pointer%2==1){
+        for (String num : items) {
+            if (pointer % 2 == 1) {
                 integerCollector.add(Float.parseFloat(items.get(pointer)));
             }
             pointer++;
@@ -407,20 +392,20 @@ public class Dashboard extends Fragment {
 
         ArrayList<String> stringCollector = new ArrayList<String>();
         int pointerString = 0;
-        for(String num: items){
-            if(pointerString%2==0){
+        for (String num : items) {
+            if (pointerString % 2 == 0) {
                 stringCollector.add(items.get(pointerString));
             }
             pointerString++;
         }
 
 
-        for(int i = 0 ; i<=stringCollector.size()-1;i++) {
+        for (int i = 0; i <= stringCollector.size() - 1; i++) {
 
             String check = stringCollector.get(i).trim();
             Log.d(TAG, "check " + check);
             // jan
-            if(check.equals("1")){
+            if (check.equals("1")) {
                 Log.d(TAG, "check " + check);
 
                 jan = "JAN";
@@ -430,7 +415,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeJan " + sumIncomeJan);
 
             } //feb
-            if(check.equals("2")){
+            if (check.equals("2")) {
                 Log.d(TAG, "check " + check);
 
                 feb = "FEB";
@@ -440,7 +425,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeFeb " + sumIncomeFeb);
 
             } //3
-            if(check.equals("3")){
+            if (check.equals("3")) {
                 Log.d(TAG, "check " + check);
 
                 mar = "MAR";
@@ -450,7 +435,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeMar " + sumIncomeMar);
 
             } //4
-            if(check.equals("4")){
+            if (check.equals("4")) {
                 Log.d(TAG, "check " + check);
 
                 apr = "APR";
@@ -460,7 +445,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeApr " + sumIncomeApr);
 
             } //5
-            if(check.equals("5")){
+            if (check.equals("5")) {
                 Log.d(TAG, "check " + check);
 
                 may = "MAY";
@@ -470,7 +455,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeMay " + sumIncomeMay);
 
             } //6
-            if(check.equals("6")){
+            if (check.equals("6")) {
                 Log.d(TAG, "check " + check);
 
                 jun = "JUN";
@@ -480,7 +465,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeJun " + sumIncomeJun);
 
             } //7
-            if(check.equals("7")){
+            if (check.equals("7")) {
                 Log.d(TAG, "check " + check);
 
                 jul = "JUL";
@@ -490,7 +475,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeJul " + sumIncomeJul);
 
             }//8
-            if(check.equals("8")){
+            if (check.equals("8")) {
                 Log.d(TAG, "check " + check);
 
                 aug = "AUG";
@@ -510,7 +495,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeSep " + sumIncomeSep);
 
             } //10
-            if(check.equals("10")){
+            if (check.equals("10")) {
                 Log.d(TAG, "check " + check);
 
                 oct = "OCT";
@@ -565,7 +550,7 @@ public class Dashboard extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -581,7 +566,7 @@ public class Dashboard extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG,"onResponse");
+                            Log.d(TAG, "onResponse");
                             sumAllBalance();
                         }
 
@@ -594,31 +579,29 @@ public class Dashboard extends Fragment {
     }
 
 
-
-
     //////////////////////// Income Month ////////////////////////
 
-    public String sumIncomeMonthCategory(String cust_id){
+    public String sumIncomeMonthCategory(String cust_id) {
         try {
-            Log.d(TAG,"start sumIncomeMonthCategory");
+            Log.d(TAG, "start sumIncomeMonthCategory");
             httpSumIncomeMonthCategory.run(BASE_URL + "/sumIncomeMonthCategory.php?cust_id=" + cust_id);
             //Log.d(TAG,"end sumIncomeMonthCategory" + sumIncomeSalaryMonth);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public void showIncomeMonthCategory(String allIncomeMonth){
+    public void showIncomeMonthCategory(String allIncomeMonth) {
         Log.d(TAG, "allIncomeMonth " + allIncomeMonth);
         List<String> items = Arrays.asList(allIncomeMonth.split("\\s*,\\s*"));
 
 
         ArrayList<Double> integerCollector = new ArrayList<Double>();
         int pointer = 0;
-        for(String num: items){
-            if(pointer%2==1){
+        for (String num : items) {
+            if (pointer % 2 == 1) {
                 integerCollector.add(Double.parseDouble(items.get(pointer)));
             }
             pointer++;
@@ -626,20 +609,20 @@ public class Dashboard extends Fragment {
 
         ArrayList<String> stringCollector = new ArrayList<String>();
         int pointerString = 0;
-        for(String num: items){
-            if(pointerString%2==0){
+        for (String num : items) {
+            if (pointerString % 2 == 0) {
                 stringCollector.add(items.get(pointerString));
             }
             pointerString++;
         }
 
 
-        for(int i = 0 ; i<=stringCollector.size()-1;i++) {
+        for (int i = 0; i <= stringCollector.size() - 1; i++) {
 
             String check = stringCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
 
-            if(check.equals("Extra Income")){
+            if (check.equals("Extra Income")) {
                 Log.d(TAG, "check " + check);
 
                 categoryExtraIncomeMonth = "Extra Income";
@@ -649,7 +632,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeExtraMonth " + sumIncomeExtraMonth);
 
             } //family
-            if(check.equals("Family and Personal")){
+            if (check.equals("Family and Personal")) {
                 Log.d(TAG, "check " + check);
 
                 categoryFamilyAndPersonalIncomeMonth = "Family and Personal";
@@ -659,7 +642,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeFamilyAndPersonalMonth " + sumIncomeFamilyAndPersonalMonth);
 
             } //gift
-            if(check.equals("Gift")){
+            if (check.equals("Gift")) {
                 Log.d(TAG, "check " + check);
 
                 categoryGiftMonth = "Gift";
@@ -679,7 +662,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeLoanMonth " + sumIncomeLoanMonth);
 
             } //salary
-            if(check.equals("Salary")){
+            if (check.equals("Salary")) {
                 Log.d(TAG, "check " + check);
 
                 categorySalaryMonth = "Salary";
@@ -714,7 +697,7 @@ public class Dashboard extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -730,7 +713,7 @@ public class Dashboard extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG,"onResponse");
+                            Log.d(TAG, "onResponse");
                             sumAllBalance();
                         }
 
@@ -744,27 +727,27 @@ public class Dashboard extends Fragment {
 
 
     //////////////////////// Expense Month ////////////////////////
-    public String sumExpenseMonthCategory(String cust_id){
+    public String sumExpenseMonthCategory(String cust_id) {
         try {
-            Log.d(TAG,"start sumExpenseMonthCategory");
+            Log.d(TAG, "start sumExpenseMonthCategory");
             httpSumExpenseMonthCategory.run(BASE_URL + "/sumExpenseMonthCategory.php?cust_id=" + cust_id);
-           // Log.d(TAG,"end sumExpenseMonthCategory" + sumIncomeSalaryMonth);
+            // Log.d(TAG,"end sumExpenseMonthCategory" + sumIncomeSalaryMonth);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public void showExpenseMonthCategory(String allExpenseMonth){
+    public void showExpenseMonthCategory(String allExpenseMonth) {
         Log.d(TAG, "allExpenseMonth " + allExpenseMonth);
         List<String> itemsExpense = Arrays.asList(allExpenseMonth.split("\\s*,\\s*"));
 
 
         ArrayList<Double> integerExpenseCollector = new ArrayList<Double>();
         int pointerExpense = 0;
-        for(String num: itemsExpense){
-            if(pointerExpense%2==1){
+        for (String num : itemsExpense) {
+            if (pointerExpense % 2 == 1) {
                 integerExpenseCollector.add(Double.parseDouble(itemsExpense.get(pointerExpense)));
             }
             pointerExpense++;
@@ -772,20 +755,20 @@ public class Dashboard extends Fragment {
 
         ArrayList<String> stringExpenseCollector = new ArrayList<String>();
         int pointerStringExpense = 0;
-        for(String num: itemsExpense){
-            if(pointerStringExpense%2==0){
+        for (String num : itemsExpense) {
+            if (pointerStringExpense % 2 == 0) {
                 stringExpenseCollector.add(itemsExpense.get(pointerStringExpense));
             }
             pointerStringExpense++;
         }
 
 
-        for(int i = 0 ; i<=stringExpenseCollector.size()-1;i++) {
+        for (int i = 0; i <= stringExpenseCollector.size() - 1; i++) {
 
             String check = stringExpenseCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
             // Bill
-            if(check.equals("Bill")){
+            if (check.equals("Bill")) {
                 Log.d(TAG, "check " + check);
 
                 categoryBillMonth = "Bill";
@@ -795,7 +778,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseBillMonth " + sumExpenseBillMonth);
 
             } //Education
-            if(check.equals("Education")){
+            if (check.equals("Education")) {
                 Log.d(TAG, "check " + check);
 
                 categoryEducationMonth = "Education";
@@ -805,10 +788,10 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseEducationMonth " + sumExpenseEducationMonth);
 
             } //Entertainment
-            if(check.equals("Entertainment")){
+            if (check.equals("Entertainment")) {
                 Log.d(TAG, "check " + check);
 
-                categoryEntertainmentMonth= "Entertainment";
+                categoryEntertainmentMonth = "Entertainment";
                 Log.d(TAG, "categoryEntertainmentMonth " + categoryEntertainmentMonth);
 
                 sumExpenseEntertainmentMonth = integerExpenseCollector.get(i);
@@ -825,7 +808,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseFoodAndDrinkMonth " + sumExpenseFoodAndDrinkMonth);
 
             } //Shopping
-            if(check.equals("Shopping")){
+            if (check.equals("Shopping")) {
                 Log.d(TAG, "check " + check);
 
                 categoryShoppingMonth = "Shopping";
@@ -835,7 +818,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseShoppingMonth " + sumExpenseShoppingMonth);
 
             } //Transport
-            if(check.equals("Transport")){
+            if (check.equals("Transport")) {
                 Log.d(TAG, "check " + check);
 
                 categoryTransportMonth = "Transport";
@@ -845,7 +828,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseTransportMonth " + sumExpenseTransportMonth);
 
             } //Travel
-            if(check.equals("Travel")){
+            if (check.equals("Travel")) {
                 Log.d(TAG, "check " + check);
 
                 categoryTravelMonth = "Travel";
@@ -855,10 +838,10 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseTravelMonth " + sumExpenseTravelMonth);
 
             } //Family and Personal
-            if(check.equals("Family and Personal")){
+            if (check.equals("Family and Personal")) {
                 Log.d(TAG, "check " + check);
 
-                categoryFamilyAndPersonalMonthExpense= "Family and Personal";
+                categoryFamilyAndPersonalMonthExpense = "Family and Personal";
                 Log.d(TAG, "categoryFamilyAndPersonalMonthExpense " + categoryFamilyAndPersonalMonthExpense);
 
                 sumExpenseFamilyAndPersonalMonth = integerExpenseCollector.get(i);
@@ -875,7 +858,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseHealthCareMonth " + sumExpenseHealthCareMonth);
 
             } //Saving and Investment
-            if(check.equals("Saving and Investment")){
+            if (check.equals("Saving and Investment")) {
                 Log.d(TAG, "check " + check);
 
                 categorySavingAndInvestmentMonth = "Saving and Investment";
@@ -910,7 +893,7 @@ public class Dashboard extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -926,7 +909,7 @@ public class Dashboard extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG,"onResponse");
+                            Log.d(TAG, "onResponse");
                             sumAllBalance();
                         }
 
@@ -939,31 +922,28 @@ public class Dashboard extends Fragment {
     }
 
 
-
-
-
     ////////////////////// Income Year ////////////////////////
-    public String sumIncomeYearCategory(String cust_id){
+    public String sumIncomeYearCategory(String cust_id) {
         try {
-            Log.d(TAG,"start httpSumIncomeYearCategory");
+            Log.d(TAG, "start httpSumIncomeYearCategory");
             httpSumIncomeYearCategory.run(BASE_URL + "/sumIncomeYearCategory.php?cust_id=" + cust_id);
             //Log.d(TAG,"end sumIncomeMonthCategory" + sumIncomeSalaryMonth);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public void showIncomeYearCategory(String allIncomeYear){
+    public void showIncomeYearCategory(String allIncomeYear) {
         Log.d(TAG, "allIncomeYear " + allIncomeYear);
         List<String> items = Arrays.asList(allIncomeYear.split("\\s*,\\s*"));
 
 
         ArrayList<Double> integerCollector = new ArrayList<Double>();
         int pointer = 0;
-        for(String num: items){
-            if(pointer%2==1){
+        for (String num : items) {
+            if (pointer % 2 == 1) {
                 integerCollector.add(Double.parseDouble(items.get(pointer)));
             }
             pointer++;
@@ -971,20 +951,20 @@ public class Dashboard extends Fragment {
 
         ArrayList<String> stringCollector = new ArrayList<String>();
         int pointerString = 0;
-        for(String num: items){
-            if(pointerString%2==0){
+        for (String num : items) {
+            if (pointerString % 2 == 0) {
                 stringCollector.add(items.get(pointerString));
             }
             pointerString++;
         }
 
 
-        for(int i = 0 ; i<=stringCollector.size()-1;i++) {
+        for (int i = 0; i <= stringCollector.size() - 1; i++) {
 
             String check = stringCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
 
-            if(check.equals("Extra Income")){
+            if (check.equals("Extra Income")) {
                 Log.d(TAG, "check " + check);
 
                 categoryExtraIncomeYear = "Extra Income";
@@ -994,7 +974,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeExtraYear " + sumIncomeExtraYear);
 
             } //family
-            if(check.equals("Family and Personal")){
+            if (check.equals("Family and Personal")) {
                 Log.d(TAG, "check " + check);
 
                 categoryFamilyAndPersonalIncomeYear = "Family and Personal";
@@ -1004,7 +984,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeFamilyAndPersonalYear " + sumIncomeFamilyAndPersonalYear);
 
             } //gift
-            if(check.equals("Gift")){
+            if (check.equals("Gift")) {
                 Log.d(TAG, "check " + check);
 
                 categoryGiftYear = "Gift";
@@ -1024,7 +1004,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumIncomeLoanYear " + sumIncomeLoanYear);
 
             } //salary
-            if(check.equals("Salary")){
+            if (check.equals("Salary")) {
                 Log.d(TAG, "check " + check);
 
                 categorySalaryYear = "Salary";
@@ -1059,7 +1039,7 @@ public class Dashboard extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -1075,7 +1055,7 @@ public class Dashboard extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG,"onResponse");
+                            Log.d(TAG, "onResponse");
                             sumAllBalance();
                         }
 
@@ -1089,27 +1069,27 @@ public class Dashboard extends Fragment {
 
 
     //////////////////////// Expense Year ////////////////////////
-    public String sumExpenseYearCategory(String cust_id){
+    public String sumExpenseYearCategory(String cust_id) {
         try {
-            Log.d(TAG,"start sumExpenseYearCategory");
+            Log.d(TAG, "start sumExpenseYearCategory");
             httpSumExpenseYearCategory.run(BASE_URL + "/sumExpenseYearCategory.php?cust_id=" + cust_id);
             // Log.d(TAG,"end sumExpenseMonthCategory" + sumIncomeSalaryMonth);
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public void showExpenseYearCategory(String allExpenseMonth){
+    public void showExpenseYearCategory(String allExpenseMonth) {
         Log.d(TAG, "allExpenseYear " + allExpenseMonth);
         List<String> itemsExpense = Arrays.asList(allExpenseMonth.split("\\s*,\\s*"));
 
 
         ArrayList<Double> integerExpenseCollector = new ArrayList<Double>();
         int pointerExpense = 0;
-        for(String num: itemsExpense){
-            if(pointerExpense%2==1){
+        for (String num : itemsExpense) {
+            if (pointerExpense % 2 == 1) {
                 integerExpenseCollector.add(Double.parseDouble(itemsExpense.get(pointerExpense)));
             }
             pointerExpense++;
@@ -1117,20 +1097,20 @@ public class Dashboard extends Fragment {
 
         ArrayList<String> stringExpenseCollector = new ArrayList<String>();
         int pointerStringExpense = 0;
-        for(String num: itemsExpense){
-            if(pointerStringExpense%2==0){
+        for (String num : itemsExpense) {
+            if (pointerStringExpense % 2 == 0) {
                 stringExpenseCollector.add(itemsExpense.get(pointerStringExpense));
             }
             pointerStringExpense++;
         }
 
 
-        for(int i = 0 ; i<=stringExpenseCollector.size()-1;i++) {
+        for (int i = 0; i <= stringExpenseCollector.size() - 1; i++) {
 
             String check = stringExpenseCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
             // Bill
-            if(check.equals("Bill")){
+            if (check.equals("Bill")) {
                 Log.d(TAG, "check " + check);
 
                 categoryBillYear = "Bill";
@@ -1140,7 +1120,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseBillYear " + sumExpenseBillYear);
 
             } //Education
-            if(check.equals("Education")){
+            if (check.equals("Education")) {
                 Log.d(TAG, "check " + check);
 
                 categoryEducationYear = "Education";
@@ -1150,10 +1130,10 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseEducationYear " + sumExpenseEducationYear);
 
             } //Entertainment
-            if(check.equals("Entertainment")){
+            if (check.equals("Entertainment")) {
                 Log.d(TAG, "check " + check);
 
-                categoryEntertainmentYear= "Entertainment";
+                categoryEntertainmentYear = "Entertainment";
                 Log.d(TAG, "categoryEntertainmentYear " + categoryEntertainmentYear);
 
                 sumExpenseEntertainmentYear = integerExpenseCollector.get(i);
@@ -1170,7 +1150,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseFoodAndDrinkYear " + sumExpenseFoodAndDrinkYear);
 
             } //Shopping
-            if(check.equals("Shopping")){
+            if (check.equals("Shopping")) {
                 Log.d(TAG, "check " + check);
 
                 categoryShoppingYear = "Shopping";
@@ -1180,7 +1160,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseShoppingYear " + sumExpenseShoppingYear);
 
             } //Transport
-            if(check.equals("Transport")){
+            if (check.equals("Transport")) {
                 Log.d(TAG, "check " + check);
 
                 categoryTransportYear = "Transport";
@@ -1190,7 +1170,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseTransportYear " + sumExpenseTransportYear);
 
             } //Travel
-            if(check.equals("Travel")){
+            if (check.equals("Travel")) {
                 Log.d(TAG, "check " + check);
 
                 categoryTravelYear = "Travel";
@@ -1200,10 +1180,10 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseTravelYear " + sumExpenseTravelYear);
 
             } //Family and Personal
-            if(check.equals("Family and Personal")){
+            if (check.equals("Family and Personal")) {
                 Log.d(TAG, "check " + check);
 
-                categoryFamilyAndPersonalYearExpense= "Family and Personal";
+                categoryFamilyAndPersonalYearExpense = "Family and Personal";
                 Log.d(TAG, "categoryFamilyAndPersonalYearExpense " + categoryFamilyAndPersonalYearExpense);
 
                 sumExpenseFamilyAndPersonalYear = integerExpenseCollector.get(i);
@@ -1220,7 +1200,7 @@ public class Dashboard extends Fragment {
                 Log.d(TAG, "sumExpenseHealthCareYear " + sumExpenseHealthCareYear);
 
             } //Saving and Investment
-            if(check.equals("Saving and Investment")){
+            if (check.equals("Saving and Investment")) {
                 Log.d(TAG, "check " + check);
 
                 categorySavingAndInvestmentYear = "Saving and Investment";
@@ -1254,7 +1234,7 @@ public class Dashboard extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -1268,7 +1248,7 @@ public class Dashboard extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG,"onResponse");
+                            Log.d(TAG, "onResponse");
                             sumAllBalance();
                         }
 
@@ -1281,12 +1261,7 @@ public class Dashboard extends Fragment {
     }
 
 
-
-
-
-
-
-    public void sumAllBalance(){
+    public void sumAllBalance() {
         // parse value from main activity month
         Double sumIncomeMonth = getArguments().getDouble("sumIncomeMonth");
         Log.d(TAG, "get sumIncomeMonth = " + sumIncomeMonth);
@@ -1304,105 +1279,102 @@ public class Dashboard extends Fragment {
 
 
         //income month
-        incomeExtraMonthPercent = (float) (sumIncomeExtraMonth * (100/sumIncomeMonth));
+        incomeExtraMonthPercent = (float) (sumIncomeExtraMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomeExtraMonthPercent = " + incomeExtraMonthPercent);
 
-        incomeFamilyAndPersonalMonthPercent = (float) (sumIncomeFamilyAndPersonalMonth * (100/sumIncomeMonth));
+        incomeFamilyAndPersonalMonthPercent = (float) (sumIncomeFamilyAndPersonalMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomeFamilyAndPersonalMonthPercent = " + incomeFamilyAndPersonalMonthPercent);
 
-        incomeGiftMonthPercent = (float) (sumIncomeGiftMonth * (100/sumIncomeMonth));
+        incomeGiftMonthPercent = (float) (sumIncomeGiftMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomeGiftMonthPercent = " + incomeGiftMonthPercent);
 
-        incomeLoanMonthPercent = (float) (sumIncomeLoanMonth * (100/sumIncomeMonth));
+        incomeLoanMonthPercent = (float) (sumIncomeLoanMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomeLoanMonthPercent = " + incomeLoanMonthPercent);
 
-        incomeSalaryMonthPercent = (float) (sumIncomeSalaryMonth * (100/sumIncomeMonth));
+        incomeSalaryMonthPercent = (float) (sumIncomeSalaryMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomeSalaryMonthPercent = " + incomeSalaryMonthPercent);
 
 
         //expense month
-        expenseBillMonthPercent = (float) (sumExpenseBillMonth * (100/sumExpenseMonth));
+        expenseBillMonthPercent = (float) (sumExpenseBillMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseBillMonthPercent = " + expenseBillMonthPercent);
 
-        expenseEducationMonthPercent = (float) (sumExpenseEducationMonth * (100/sumExpenseMonth));
+        expenseEducationMonthPercent = (float) (sumExpenseEducationMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseEducationMonthPercent = " + expenseEducationMonthPercent);
 
-        expenseEntertainmentMonthPercent = (float) (sumExpenseEntertainmentMonth * (100/sumExpenseMonth));
+        expenseEntertainmentMonthPercent = (float) (sumExpenseEntertainmentMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseEntertainmentMonthPercent = " + expenseEntertainmentMonthPercent);
 
-        expenseFoodAndDrinkMonthPercent = (float) (sumExpenseFoodAndDrinkMonth * (100/sumExpenseMonth));
+        expenseFoodAndDrinkMonthPercent = (float) (sumExpenseFoodAndDrinkMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseFoodAndDrinkMonthPercent = " + expenseFoodAndDrinkMonthPercent);
 
 
-        expenseShoppingMonthPercent = (float) (sumExpenseShoppingMonth * (100/sumExpenseMonth));
+        expenseShoppingMonthPercent = (float) (sumExpenseShoppingMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseShoppingMonthPercent = " + expenseShoppingMonthPercent);
 
-        expenseTransportMonthPercent = (float) (sumExpenseTransportMonth * (100/sumExpenseMonth));
+        expenseTransportMonthPercent = (float) (sumExpenseTransportMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseTransportMonthPercent = " + expenseTransportMonthPercent);
 
-        expenseTravelMonthPercent = (float) (sumExpenseTravelMonth * (100/sumExpenseMonth));
+        expenseTravelMonthPercent = (float) (sumExpenseTravelMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseTravelMonthPercent = " + expenseTravelMonthPercent);
 
-        expenseFamilyAndPersonalMonthPercent = (float) (sumExpenseFamilyAndPersonalMonth * (100/sumExpenseMonth));
+        expenseFamilyAndPersonalMonthPercent = (float) (sumExpenseFamilyAndPersonalMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseFamilyAndPersonalMonthPercent = " + expenseFamilyAndPersonalMonthPercent);
 
-        expenseHealthCareMonthPercent = (float) (sumExpenseHealthCareMonth * (100/sumExpenseMonth));
+        expenseHealthCareMonthPercent = (float) (sumExpenseHealthCareMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseHealthCareMonthPercent = " + expenseHealthCareMonthPercent);
 
-        expenseSavingAndInvestmentMonthPercent = (float) (sumExpenseSavingAndInvestmentMonth * (100/sumExpenseMonth));
+        expenseSavingAndInvestmentMonthPercent = (float) (sumExpenseSavingAndInvestmentMonth * (100 / sumExpenseMonth));
         Log.d(TAG, "Wallet expenseSavingAndInvestmentMonthPercent = " + expenseSavingAndInvestmentMonthPercent);
 
 
-
-
-
         //income year
-        incomeExtraYearPercent = (float) (sumIncomeExtraYear * (100/sumIncomeYear));
+        incomeExtraYearPercent = (float) (sumIncomeExtraYear * (100 / sumIncomeYear));
         Log.d(TAG, "Wallet incomeExtraYearPercent = " + incomeExtraYearPercent);
 
-        incomeFamilyAndPersonalYearPercent = (float) (sumIncomeFamilyAndPersonalYear * (100/sumIncomeYear));
+        incomeFamilyAndPersonalYearPercent = (float) (sumIncomeFamilyAndPersonalYear * (100 / sumIncomeYear));
         Log.d(TAG, "Wallet incomeFamilyAndPersonalYearPercent = " + incomeFamilyAndPersonalYearPercent);
 
-        incomeGiftYearPercent = (float) (sumIncomeGiftYear * (100/sumIncomeYear));
+        incomeGiftYearPercent = (float) (sumIncomeGiftYear * (100 / sumIncomeYear));
         Log.d(TAG, "Wallet incomeGiftYearPercent = " + incomeGiftYearPercent);
 
-        incomeLoanYearPercent = (float) (sumIncomeLoanYear * (100/sumIncomeYear));
+        incomeLoanYearPercent = (float) (sumIncomeLoanYear * (100 / sumIncomeYear));
         Log.d(TAG, "Wallet incomeLoanYearPercent = " + incomeLoanYearPercent);
 
-        incomeSalaryYearPercent = (float) (sumIncomeSalaryYear * (100/sumIncomeYear));
+        incomeSalaryYearPercent = (float) (sumIncomeSalaryYear * (100 / sumIncomeYear));
         Log.d(TAG, "Wallet incomeSalaryYearPercent = " + incomeSalaryYearPercent);
 
 
         //expense year
-        expenseBillYearPercent = (float) (sumExpenseBillYear * (100/sumExpenseYear));
+        expenseBillYearPercent = (float) (sumExpenseBillYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseBillYearPercent = " + expenseBillYearPercent);
 
-        expenseEducationYearPercent = (float) (sumExpenseEducationYear * (100/sumExpenseYear));
+        expenseEducationYearPercent = (float) (sumExpenseEducationYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseEducationYearPercent = " + expenseEducationYearPercent);
 
-        expenseEntertainmentYearPercent = (float) (sumExpenseEntertainmentYear * (100/sumExpenseYear));
+        expenseEntertainmentYearPercent = (float) (sumExpenseEntertainmentYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseEntertainmentYearPercent = " + expenseEntertainmentYearPercent);
 
-        expenseFoodAndDrinkYearPercent = (float) (sumExpenseFoodAndDrinkYear * (100/sumExpenseYear));
+        expenseFoodAndDrinkYearPercent = (float) (sumExpenseFoodAndDrinkYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseFoodAndDrinkYearPercent = " + expenseFoodAndDrinkYearPercent);
 
 
-        expenseShoppingYearPercent = (float) (sumExpenseShoppingYear * (100/sumExpenseYear));
+        expenseShoppingYearPercent = (float) (sumExpenseShoppingYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseShoppingYearPercent = " + expenseShoppingYearPercent);
 
-        expenseTransportYearPercent = (float) (sumExpenseTransportYear * (100/sumExpenseYear));
+        expenseTransportYearPercent = (float) (sumExpenseTransportYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseTransportYearPercent = " + expenseTransportYearPercent);
 
-        expenseTravelYearPercent = (float) (sumExpenseTravelYear * (100/sumExpenseYear));
+        expenseTravelYearPercent = (float) (sumExpenseTravelYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseTravelYearPercent = " + expenseTravelYearPercent);
 
-        expenseFamilyAndPersonalYearPercent = (float) (sumExpenseFamilyAndPersonalYear * (100/sumExpenseYear));
+        expenseFamilyAndPersonalYearPercent = (float) (sumExpenseFamilyAndPersonalYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseFamilyAndPersonalYearPercent = " + expenseFamilyAndPersonalYearPercent);
 
-        expenseHealthCareYearPercent = (float) (sumExpenseHealthCareYear * (100/sumExpenseYear));
+        expenseHealthCareYearPercent = (float) (sumExpenseHealthCareYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseHealthCareYearPercent = " + expenseHealthCareYearPercent);
 
-        expenseSavingAndInvestmentYearPercent = (float) (sumExpenseSavingAndInvestmentYear * (100/sumExpenseYear));
+        expenseSavingAndInvestmentYearPercent = (float) (sumExpenseSavingAndInvestmentYear * (100 / sumExpenseYear));
         Log.d(TAG, "Wallet expenseSavingAndInvestmentYearPercent = " + expenseSavingAndInvestmentYearPercent);
 
 
@@ -1419,129 +1391,121 @@ public class Dashboard extends Fragment {
     }
 
 
-
-
     // line graph
-    private Intent initData(){
+    private void initData() {
         Log.d(TAG, "initDataLineChart");
-
-        lineChart = (LineChart) mView.findViewById(R.id.lineChart);
-
-        lineChart.setDescription("");
-
-
-
-
-        Log.d(TAG, "addDataSet lineChart started");
 
         String[] xData = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
         ArrayList<Float> yData = new ArrayList<>();
 
+        Log.d(TAG, "addDataSet lineChart started");
+        final ArrayList<Float> yDataIncome = new ArrayList<>();
+        final ArrayList<String> xDataIncome = new ArrayList<>();
 
-        TimeSeries series = new TimeSeries("Line1");
-
-
-        for (int i = 0; i < xData.length; i++) {
-            series.add(i, yData.get(i));
+        if(sumIncomeJan > 0){
+            yDataIncome.add(sumIncomeJan);
+            xDataIncome.add("JAN");
+            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
+        }
+        if(sumIncomeFeb > 0){
+            yDataIncome.add(sumIncomeFeb);
+            xDataIncome.add("FEB");
+            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
+        }
+        if(sumIncomeMar > 0){
+            yDataIncome.add(sumIncomeMar);
+            xDataIncome.add("MAR");
+            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
+        }
+        if(sumIncomeApr > 0){
+            yDataIncome.add(sumIncomeApr);
+            xDataIncome.add("APR");
+            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
+        }
+        if(sumIncomeMay > 0){
+            yDataIncome.add(sumIncomeMay);
+            xDataIncome.add("MAY");
+            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
+        }
+        if(sumIncomeJun > 0){
+            yDataIncome.add(sumIncomeJun);
+            xDataIncome.add("JUN");
+            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
+        }
+        if(sumIncomeJul > 0){
+            yDataIncome.add(sumIncomeJul);
+            xDataIncome.add("JUL");
+            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
+        }
+        if(sumIncomeAug > 0){
+            yDataIncome.add(sumIncomeAug);
+            xDataIncome.add("AUG");
+            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
+        }
+        if(sumIncomeSep > 0){
+            yDataIncome.add(sumIncomeSep);
+            xDataIncome.add("SEP");
+            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
+        }
+        if(sumIncomeOct > 0){
+            yDataIncome.add(sumIncomeOct);
+            xDataIncome.add("OCT");
+            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
+        }
+        if(sumIncomeNov > 0){
+            yDataIncome.add(sumIncomeNov);
+            xDataIncome.add("NOV");
+            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
+        }
+        if(sumIncomeDec > 0){
+            yDataIncome.add(sumIncomeDec);
+            xDataIncome.add("DEC");
+            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
         }
 
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        dataset.addSeries(series);
 
-        XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        mRenderer.addSeriesRenderer(renderer);
+        GraphView graph = (GraphView) mView.findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
 
-        Intent intent = ChartFactory.getLineChartIntent(getContext(),dataset,
-                mRenderer, "Line Graph Title");
-        return intent;
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJan),
+                new DataPoint(2, sumIncomeFeb),
+                new DataPoint(3, sumIncomeMar),
+                new DataPoint(4, sumIncomeApr),
 
-    }
+                new DataPoint(5, sumIncomeMay),
+                new DataPoint(6, sumIncomeJun),
+                new DataPoint(7, sumIncomeJul),
+                new DataPoint(8, sumIncomeAug),
+                new DataPoint(9, sumIncomeSep),
+
+                new DataPoint(10, sumIncomeOct),
+                new DataPoint(11, sumIncomeNov),
+                new DataPoint(12, sumIncomeDec),
+                new DataPoint(13, sumIncomeDec)
+
+        });
 
 
-    private void addDataLineChart(Context context){
+        graph.addSeries(series);
 
+        // set manual X bounds
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+       // staticLabelsFormatter.setVerticalLabels(new String[] {"0","100", "1k", "2k", "5k", "10k", "20k"});
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
+        // set manual Y bounds
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"","Jan","Feb","Mar","Apr","May","Jun"
+                ,"Jul","Aug","Sep","Oct","Nov","Dec"});
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
-
-//        ArrayList<Integer> colors = new ArrayList<>();
-//        if(sumIncomeJan > 0){
-//            yDataIncome.add(sumIncomeJan);
-//            xDataIncome.add("JAN");
-//            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
-//            colors.add(getResources().getColor(R.color.extraIncome));
-//        }
-//        if(sumIncomeFeb > 0){
-//            yDataIncome.add(sumIncomeFeb);
-//            xDataIncome.add("FEB");
-//            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
-//            colors.add(getResources().getColor(R.color.familyAndPersonal));
-//        }
-//        if(sumIncomeMar > 0){
-//            yDataIncome.add(sumIncomeMar);
-//            xDataIncome.add("MAR");
-//            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
-//            colors.add(getResources().getColor(R.color.extraIncome));
-//        }
-//        if(sumIncomeApr > 0){
-//            yDataIncome.add(sumIncomeApr);
-//            xDataIncome.add("APR");
-//            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
-//            colors.add(getResources().getColor(R.color.familyAndPersonal));
-//        }
-//        if(sumIncomeMay > 0){
-//            yDataIncome.add(sumIncomeMay);
-//            xDataIncome.add("MAY");
-//            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
-//            colors.add(getResources().getColor(R.color.extraIncome));
-//        }
-//        if(sumIncomeJun > 0){
-//            yDataIncome.add(sumIncomeJun);
-//            xDataIncome.add("JUN");
-//            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
-//            colors.add(getResources().getColor(R.color.familyAndPersonal));
-//        }
-//        if(sumIncomeJul > 0){
-//            yDataIncome.add(sumIncomeJul);
-//            xDataIncome.add("JUL");
-//            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
-//            colors.add(getResources().getColor(R.color.extraIncome));
-//        }
-//        if(sumIncomeAug > 0){
-//            yDataIncome.add(sumIncomeAug);
-//            xDataIncome.add("AUG");
-//            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
-//            colors.add(getResources().getColor(R.color.gift));
-//        }
-//        if(sumIncomeSep > 0){
-//            yDataIncome.add(sumIncomeSep);
-//            xDataIncome.add("SEP");
-//            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
-//            colors.add(getResources().getColor(R.color.loan));
-//        }
-//        if(sumIncomeOct > 0){
-//            yDataIncome.add(sumIncomeOct);
-//            xDataIncome.add("OCT");
-//            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
-//            colors.add(getResources().getColor(R.color.familyAndPersonal));
-//        }
-//        if(sumIncomeNov > 0){
-//            yDataIncome.add(sumIncomeNov);
-//            xDataIncome.add("NOV");
-//            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
-//            colors.add(getResources().getColor(R.color.extraIncome));
-//        }
-//        if(sumIncomeDec > 0){
-//            yDataIncome.add(sumIncomeDec);
-//            xDataIncome.add("DEC");
-//            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
-//            colors.add(getResources().getColor(R.color.familyAndPersonal));
-//        }
-
+        graph.getViewport().setXAxisBoundsManual(true);
+        graph.getViewport().setScrollable(true);
 
 
 
     }
+
 
 
 
