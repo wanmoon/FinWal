@@ -144,10 +144,10 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void setText(){
-        textViewTransaction.setText(description_goal);
-        textViewStatus.setText(status_goal);
-        textViewDeadline.setText(ending_date);
-        textViewSavingPlan.setText(savingplan);
+        textViewTransaction.setText("Title : " + description_goal);
+        textViewStatus.setText("Status  :  " + status_goal);
+        textViewDeadline.setText("Deadline  :  " +ending_date);
+        textViewSavingPlan.setText("Type Plan  :   " + savingplan);
         textViewBudget.setText(String.format("%.2f", budget_goal)+" Baht");
         textViewSuggestCost.setText(String.format("%.2f", suggest_cost)+" Baht");
         textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
@@ -162,7 +162,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         }
         if (v == textViewCancel) {
             // will open login activity here
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
         }

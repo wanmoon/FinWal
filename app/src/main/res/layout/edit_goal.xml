@@ -41,37 +41,92 @@
     </RelativeLayout>
 
 
-
-    <TextView
-        android:id="@+id/textViewTransaction"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint= "Goal title"
-        android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/relative1"/>
+    <RelativeLayout
+        android:id="@+id/relative2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relative1"
+        android:layout_marginTop="10dp">
 
 
-    <TextView
-        android:id="@+id/textViewBudget"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint= "Budget"
-        android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewTransaction"/>
+            <LinearLayout
+                android:id="@+id/btnRelative2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:id="@+id/btnTextViewTransaction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="1dp">
+
+                    <TextView
+                        android:id="@+id/textViewTransaction"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint= "Goal title"
+                        android:textSize="16dp"
+                        android:textAlignment="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_alignParentLeft="true"
+                        />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/btnTextViewBudget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="1dp">
+
+
+                    <TextView
+                        android:id="@+id/textViewBudget"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ems="10"
+                        android:hint= "Budget"
+                        android:textSize="20dp"
+                        android:textAlignment="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_alignParentRight="true"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
 
 
     <TextView
@@ -80,6 +135,7 @@
         android:layout_height="47dp"
         android:ems="10"
         android:hint= "Status"
+        android:textSize="16dp"
         android:textAlignment="center"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
@@ -87,7 +143,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewBudget"/>
+        android:layout_below="@+id/relative2"/>
 
 
     <TextView
@@ -96,6 +152,7 @@
         android:layout_height="47dp"
         android:ems="10"
         android:hint= "Deadline"
+        android:textSize="16dp"
         android:textAlignment="center"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
@@ -105,79 +162,161 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textViewStatus"/>
 
-    <TextView
-        android:id="@+id/textViewSavingPlan"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint= "Saving plan"
-        android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewDeadline"/>
 
-
-    <TextView
-        android:id="@+id/textViewSuggestCost"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint= "Suggest budget"
-        android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewSavingPlan"/>
-
-    <EditText
-        android:id="@+id/editTextCost"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:textSize="15dp"
-        android:hint= "how many do you want to pay?"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_above="@+id/textViewHowMuch"
-        android:layout_alignStart="@+id/textViewSuggestCost"
-        android:layout_toStartOf="@+id/buttonPay" />
-
-    <Button
-        android:id="@+id/buttonPay"
-        android:layout_width="82dp"
+    <RelativeLayout
+        android:id="@+id/relative4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pay"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewSuggestCost"/>
+        android:layout_below="@+id/textViewDeadline">
 
-    <TextView
-        android:id="@+id/textViewHowMuch"
-        android:layout_width="183dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint= "Current budget"
-        android:textAlignment="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginRight="8dp"
-        android:layout_below="@+id/buttonPay"
-        android:layout_alignEnd="@+id/textViewSuggestCost" />
 
-    <TextView
-        android:id="@+id/textViewCurrentBudget"
-        android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/btnRelative4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/btnTextViewSavingPlan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    android:id="@+id/textViewSavingPlan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint= "Saving plan"
+                    android:textSize="16dp"
+                    android:textAlignment="textEnd"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_centerHorizontal="true" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/btnTextViewSuggestCost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp">
+
+
+                <TextView
+                    android:id="@+id/textViewSuggestCost"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint= "Suggest budget"
+                    android:textSize="16dp"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"
+                   />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/relative5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textViewHowMuch"
-        android:layout_alignStart="@+id/editTextCost"
-        android:text="CurrentBudget : " />
+        android:layout_below="@+id/relative4"
+        android:layout_marginTop="60dp"
+        android:gravity="bottom">
+
+
+
+        <EditText
+            android:id="@+id/editTextCost"
+            android:layout_width="250dp"
+            android:layout_height="47dp"
+            android:ems="10"
+            android:textSize="15dp"
+            android:hint= "how many do you want to pay?"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp" />
+
+        <Button
+            android:id="@+id/buttonPay"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:text="Pay"
+            android:textSize="18dp"
+            android:layout_toEndOf="@+id/editTextCost" />
+
+
+
+
+
+        <TextView
+            android:id="@+id/textViewCurrentBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="CurrentBudget : "
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/buttonPay"
+            android:layout_marginTop="15dp"/>
+
+
+
+
+        <TextView
+            android:id="@+id/textViewHowMuch"
+            android:layout_width="183dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint= "Current budget"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:layout_below="@+id/buttonPay"
+            android:layout_toEndOf="@+id/textViewCurrentBudget"
+            android:layout_marginTop="15dp"/>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
 
 </RelativeLayout>
