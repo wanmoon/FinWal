@@ -96,8 +96,6 @@ public class Home extends Fragment {
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
-//    EditGoal editGoal = new EditGoal();
-
     //connect DB
     String response = null;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
@@ -223,14 +221,6 @@ public class Home extends Fragment {
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
-        textViewMyWallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), EditGoal.class);
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
         textViewMonthBalance = (TextView) view.findViewById(R.id.textViewMonthBalance);
@@ -821,6 +811,7 @@ public class Home extends Fragment {
         textViewGoalTitle.setText(description_goal);
         textViewPercentGoal.setText(float_current_goalPercent+"%");
         textViewStatusGoal.setText(status_goal);
+        //set bar colour
         if(status_goal.equals("Achieved")){
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
         } else {
@@ -831,6 +822,7 @@ public class Home extends Fragment {
         Log.d(TAG,"moneyleft = " + moneyleft);
         textViewMoneyLeftGoal.setText("money left " + moneyleft + " baht");
 
+        //update status
         if (current_goal >= budget_goal){
             textViewStatusGoal.setText("Achieved");
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
