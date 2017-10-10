@@ -113,7 +113,7 @@ public class Home extends Fragment {
     private float incomePercent;
     private float expensePercent;
 
-    public int goal_id = 47;
+    //public int goal_id = 47;
 
     //for pie chart
     public PieChart pieChart;
@@ -216,7 +216,7 @@ public class Home extends Fragment {
         sumIncomeToDB(cust_id);
         sumExpenseToDB(cust_id);
 
-        getProgressbar(cust_id, goal_id);
+        getProgressbar(cust_id);
 
 
         Log.d(TAG,"start findviewbyid");
@@ -624,7 +624,6 @@ public class Home extends Fragment {
         }
     }
 
-
     public void sumAllBalance(){
 
         Log.d(TAG,"All start settext");
@@ -820,7 +819,7 @@ public class Home extends Fragment {
 
         moneyleft = budget_goal - current_goal;
         Log.d(TAG,"moneyleft = " + moneyleft);
-        textViewMoneyLeftGoal.setText("money left " + moneyleft + " baht");
+        textViewMoneyLeftGoal.setText(moneyleft + " Baht Left");
 
         //update status
         if (current_goal >= budget_goal){
@@ -846,10 +845,10 @@ public class Home extends Fragment {
 //        long diff = secondDate.getTime() - dateFormat.format(today.getTime());
     }
 
-    public String getProgressbar(String cust_id, int goal_id){
+    public String getProgressbar(String cust_id){
         try {
             Log.d(TAG,"start progressbar");
-            httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id);
             Log.d(TAG,"end progressbar");
         } catch (IOException e) {
             e.printStackTrace();
@@ -899,12 +898,6 @@ public class Home extends Fragment {
                     });
                 }
             });
-
         }
-
-
-
     }
-
-
-  }
+}

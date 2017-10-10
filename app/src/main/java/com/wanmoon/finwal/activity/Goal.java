@@ -176,6 +176,7 @@ public class Goal extends Fragment {
 
         return rootView;
     }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.goal_menu, menu);
         super.onCreateOptionsMenu(menu,inflater);
