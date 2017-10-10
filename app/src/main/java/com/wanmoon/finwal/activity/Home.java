@@ -218,7 +218,6 @@ public class Home extends Fragment {
 
         getProgressbar(cust_id);
 
-
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
@@ -819,7 +818,13 @@ public class Home extends Fragment {
 
         moneyleft = budget_goal - current_goal;
         Log.d(TAG,"moneyleft = " + moneyleft);
-        textViewMoneyLeftGoal.setText(moneyleft + " Baht Left");
+
+        //เก็บเกิน goal
+        if (moneyleft <0) { //เกินโกลไปแล้ว
+            textViewMoneyLeftGoal.setText("0 Baht Left");
+        } else {
+            textViewMoneyLeftGoal.setText(moneyleft + " Baht Left");
+        }
 
         //update status
         if (current_goal >= budget_goal){
