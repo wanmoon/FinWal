@@ -17,8 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -36,7 +35,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public final String cust_id = currentFirebaseUser.getUid();
 
     //**connect DB
-    getHttpGetCurrentGoal httpGetCurrentGoal;
+//    getHttpGetCurrentGoal httpGetCurrentGoal;
     getHttpUpdateCurrentGoal httpUpdateCurrentGoal;
     getHttpUpdateStatus httpUpdateStatus;
 
@@ -59,22 +58,38 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonPay;
 
+//    //ของเก่า
     public String getMoney;
+//    public String get_goal_id;
+//    public String ending_date;
+//    public String description_goal;
+//    public String status_goal;
+//    public String savingplan;
+//    public String get_budget_goal; //get
+//    public String get_suggest_cost; //get
+//    public String get_current_goal; //get
+
+    //ที่ดึงค่ามา
+
     public String get_goal_id;
+    public String get_budget_goal; //get
+    public String get_suggest_cost; //get
+    public String get_current_goal; //get
+    public int goal_id;
     public String ending_date;
     public String description_goal;
     public String status_goal;
     public String savingplan;
-    public String get_budget_goal; //get
-    public String get_suggest_cost; //get
-    public String get_current_goal; //get
+    public double budget_goal; //get
+    public double suggest_cost; //get
+    public double current_goal; //get
 
     ////////////////////////////////////////new
-    public int goal_id;
+    public HashMap<String, String> hashmap;
 
-    public double budget_goal;
-    public double suggest_cost;
-    public double current_goal;
+//    public double budget_goal;
+//    public double suggest_cost;
+//    public double current_goal;
     public double getCost;
 
     public void onCreate(Bundle savedInstanceState){
@@ -82,10 +97,25 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.edit_goal);
 
         //get goal_id from listview
-        goal_id = getIntent().getExtras().getInt("goal_id");
-        Log.d(TAG, "goal_id = " + goal_id);
+        hashmap = (HashMap<String, String>) getIntent().getExtras().getSerializable("hashmap");
+        Log.d(TAG, "hashmap budget_goal = " + hashmap.get("goal_id"));
 
-        httpGetCurrentGoal = new getHttpGetCurrentGoal(getApplicationContext());
+        get_goal_id = hashmap.get("goal_id");
+        ending_date = hashmap.get("ending_date");
+        description_goal = hashmap.get("description_goal");
+        status_goal = hashmap.get("status_goal");
+        savingplan = hashmap.get("savingplan");
+        get_budget_goal = hashmap.get("budget_goal"); //get
+        get_suggest_cost = hashmap.get("suggest_cost"); //get
+        get_current_goal = hashmap.get("current_goal"); //get
+
+        goal_id = Integer.parseInt(get_goal_id);
+        budget_goal = Double.parseDouble(get_budget_goal);
+        suggest_cost = Double.parseDouble(get_suggest_cost);
+        current_goal = Double.parseDouble(get_current_goal);
+
+
+//        httpGetCurrentGoal = new getHttpGetCurrentGoal(getApplicationContext());
         httpUpdateCurrentGoal = new getHttpUpdateCurrentGoal(getApplicationContext());
         httpUpdateStatus = new getHttpUpdateStatus(getApplicationContext());
 
@@ -122,12 +152,24 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
+        setText();
+
         if (current_goal >= budget_goal){
             //change status
             updateStatus(cust_id, goal_id);
         }
 
-        getCurrentGoal(cust_id,goal_id);
+//        getCurrentGoal(cust_id,goal_id);
+    }
+
+    public void setText(){
+        textViewTransaction.setText(description_goal);
+        textViewStatus.setText(status_goal);
+        textViewDeadline.setText(ending_date);
+        textViewSavingPlan.setText(savingplan);
+        textViewBudget.setText(String.format("%.2f", budget_goal)+" Baht");
+        textViewSuggestCost.setText(String.format("%.2f", suggest_cost)+" Baht");
+        textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
     }
 
     @Override
@@ -146,89 +188,89 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
     ///////////////////////////////////get current goal
-    public void getCurrentGoal(String cust_id, int goal_id){
-        try {
-            Log.d(TAG,"goal_id = " + goal_id);
-            Log.d(TAG,"start select");
-            httpGetCurrentGoal.run(BASE_URL + "/goalGetCurrentGoal.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
-            Log.d(TAG,"end select");
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.d(TAG,"error catch");
-        }
-    }
+//    public void getCurrentGoal(String cust_id, int goal_id){
+//        try {
+//            Log.d(TAG,"goal_id = " + goal_id);
+//            Log.d(TAG,"start select");
+//            httpGetCurrentGoal.run(BASE_URL + "/goalGetCurrentGoal.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+//            Log.d(TAG,"end select");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            Log.d(TAG,"error catch");
+//        }
+//    }
 
-    public void showGoalData(String data){
-        //get data > change type > set text in ux > check money > check status > update to db
+//    public void showGoalData(String data){
+//        //get data > change type > set text in ux > check money > check status > update to db
+//
+//        Log.d(TAG, "showGoalData " + data);
+//        List<String> goal_data = Arrays.asList(data.split("\\s*,\\s*"));
+//
+//        get_goal_id = goal_data.get(0);
+//        ending_date = goal_data.get(1);
+//        description_goal = goal_data.get(2);
+//        status_goal = goal_data.get(3);
+//        get_budget_goal = goal_data.get(4);
+//        savingplan = goal_data.get(5);
+//        get_suggest_cost = goal_data.get(6);
+//        get_current_goal = goal_data.get(7);
+//
+//        goal_id = Integer.parseInt(get_goal_id);
+//        budget_goal = Double.parseDouble(get_budget_goal);
+//        suggest_cost = Double.parseDouble(get_suggest_cost);
+//        current_goal = Double.parseDouble(get_current_goal);
+//
+//        textViewTransaction.setText(description_goal);
+//        textViewStatus.setText(status_goal);
+//        textViewDeadline.setText(ending_date);
+//        textViewSavingPlan.setText(savingplan);
+//        textViewBudget.setText(String.format("%.2f", budget_goal)+" Baht");
+//        textViewSuggestCost.setText(String.format("%.2f", suggest_cost)+" Baht");
+//        textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
+//
+//    }
 
-        Log.d(TAG, "showGoalData " + data);
-        List<String> goal_data = Arrays.asList(data.split("\\s*,\\s*"));
-
-        get_goal_id = goal_data.get(0);
-        ending_date = goal_data.get(1);
-        description_goal = goal_data.get(2);
-        status_goal = goal_data.get(3);
-        get_budget_goal = goal_data.get(4);
-        savingplan = goal_data.get(5);
-        get_suggest_cost = goal_data.get(6);
-        get_current_goal = goal_data.get(7);
-
-        goal_id = Integer.parseInt(get_goal_id);
-        budget_goal = Double.parseDouble(get_budget_goal);
-        suggest_cost = Double.parseDouble(get_suggest_cost);
-        current_goal = Double.parseDouble(get_current_goal);
-
-        textViewTransaction.setText(description_goal);
-        textViewStatus.setText(status_goal);
-        textViewDeadline.setText(ending_date);
-        textViewSavingPlan.setText(savingplan);
-        textViewBudget.setText(String.format("%.2f", budget_goal)+" Baht");
-        textViewSuggestCost.setText(String.format("%.2f", suggest_cost)+" Baht");
-        textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
-
-    }
-
-    public class getHttpGetCurrentGoal {
-        OkHttpClient client;
-        Handler mainHandler;
-        Context context;
-
-        getHttpGetCurrentGoal(Context context) {
-            this.context = context;
-            client = new OkHttpClient();
-            mainHandler = new Handler(context.getMainLooper());
-        }
-
-        void run(String url) throws IOException {
-            Request request = new Request.Builder()
-                    .url(url)
-                    .build();
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
-                }
-
-                @Override
-                public void onResponse(Call call, final Response response) throws IOException {
-                    mainHandler.post(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            try {
-                                showGoalData(response.body().string().trim());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Log.d(TAG,"onResponse");
-                        }
-
-
-                    });
-                }
-            });
-        }
-    }
+//    public class getHttpGetCurrentGoal {
+//        OkHttpClient client;
+//        Handler mainHandler;
+//        Context context;
+//
+//        getHttpGetCurrentGoal(Context context) {
+//            this.context = context;
+//            client = new OkHttpClient();
+//            mainHandler = new Handler(context.getMainLooper());
+//        }
+//
+//        void run(String url) throws IOException {
+//            Request request = new Request.Builder()
+//                    .url(url)
+//                    .build();
+//            client.newCall(request).enqueue(new Callback() {
+//                @Override
+//                public void onFailure(Call call, IOException e) {
+//                    Log.d(TAG,"onFailure" + e.toString());
+//                }
+//
+//                @Override
+//                public void onResponse(Call call, final Response response) throws IOException {
+//                    mainHandler.post(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            try {
+//                                showGoalData(response.body().string().trim());
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                            Log.d(TAG,"onResponse");
+//                        }
+//
+//
+//                    });
+//                }
+//            });
+//        }
+//    }
 
     ///////////////////////// update current goal
     public void updateCurrentGoal(double current_goal, String cust_id, int goal_id){

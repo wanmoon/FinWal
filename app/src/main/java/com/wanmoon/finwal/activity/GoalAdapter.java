@@ -24,8 +24,6 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
     Context context;
     ArrayList<HashMap<String, String>> arrGoal;
 
-    //public View.OnClickListener
-
     public GoalAdapter(Context context, ArrayList<HashMap<String, String>> arrGoal) {
         this.context= context;
         this.arrGoal = arrGoal;
@@ -33,12 +31,11 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
     }
 
     public int getCount() {
-        //return arrGoal.size();
         return (arrGoal.isEmpty())? 0: arrGoal.size();
     }
 
-    public Object getItem(int position) {
-        return null;
+    public HashMap<String, String> getItem(int position) {
+        return arrGoal.get(position);
     }
 
     public long getItemId(int position) {
