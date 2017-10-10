@@ -70,19 +70,20 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public String get_current_goal; //get
 
     ////////////////////////////////////////new
-    //public int goal_id;
+    public int goal_id;
 
     public double budget_goal;
     public double suggest_cost;
     public double current_goal;
-
     public double getCost;
-
-    public int goal_id = 47; //เปลี่นนทีหลังด้วย
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_goal);
+
+        //get goal_id from listview
+        goal_id = getIntent().getExtras().getInt("goal_id");
+        Log.d(TAG, "goal_id = " + goal_id);
 
         httpGetCurrentGoal = new getHttpGetCurrentGoal(getApplicationContext());
         httpUpdateCurrentGoal = new getHttpUpdateCurrentGoal(getApplicationContext());

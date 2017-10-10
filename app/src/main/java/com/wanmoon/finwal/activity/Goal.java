@@ -71,7 +71,8 @@ public class Goal extends Fragment {
     GoalAdapter adapter;
     ListView goalListView;
 
-    public static String ID_EXTRA = "com.wanmoon.finwal.activity";
+    //public static String ID_EXTRA = "com.wanmoon.finwal.activity";
+    public int goal_id = 45; //change later
 
     private OnFragmentInteractionListener mListener;
 
@@ -119,26 +120,21 @@ public class Goal extends Fragment {
         adapter = new GoalAdapter(getContext(), goalList);
         goalListView = (ListView) rootView.findViewById(R.id.listViewGoal);
 
-
-//         บอยสอนจ้า
-        goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(), EditGoal.class);
-
-                i.putExtra(ID_EXTRA, String.valueOf(id));
-                startActivity(i);
-
-            }
-        });
-
         TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
         goalListView.setEmptyView(TextViewEmptyResult);
 
         goalListView.setAdapter(adapter);
         goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Log.d(TAG, "position " + position);
+                //get goal_id
 
+                //sent value
+                Intent i = new Intent(getActivity(), EditGoal.class);
+                i.putExtra("goal_id", goal_id);
+                startActivity(i);
             }
         });
 
