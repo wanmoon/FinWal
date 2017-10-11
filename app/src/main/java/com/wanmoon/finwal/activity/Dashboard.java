@@ -301,14 +301,22 @@ public class Dashboard extends Fragment {
         //Tab2
         spec = host.newTabSpec("Tab Two");
         spec.setContent(R.id.tab2);
-        spec.setIndicator("Monthly");
+        spec.setIndicator("Category");
         host.addTab(spec);
 
         //Tab3
         spec = host.newTabSpec("Tab Three");
         spec.setContent(R.id.tab3);
+        spec.setIndicator("Monthly");
+        host.addTab(spec);
+
+        //Tab4
+        spec = host.newTabSpec("Tab Four");
+        spec.setContent(R.id.tab4);
         spec.setIndicator("Yearly");
         host.addTab(spec);
+
+
 
         httpSumIncomeYear = new getHttpSumIncomeYear(getContext());
         httpSumExpenseYear = new getHttpSumExpenseYear(getContext());
@@ -1636,73 +1644,73 @@ public class Dashboard extends Fragment {
         if(sumIncomeJan > 0){
             yDataIncome.add(sumIncomeJan);
 
-            yDataExpense.add(sumIncomeJan);
+            yDataExpense.add(sumExpenseJan);
             Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
         }
         if(sumIncomeFeb > 0){
             yDataIncome.add(sumIncomeFeb);
 
-            yDataExpense.add(sumIncomeFeb);
+            yDataExpense.add(sumExpenseFeb);
             Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
         }
         if(sumIncomeMar > 0){
             yDataIncome.add(sumIncomeMar);
 
-            yDataExpense.add(sumIncomeMar);
+            yDataExpense.add(sumExpenseMar);
             Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
         }
         if(sumIncomeApr > 0){
             yDataIncome.add(sumIncomeApr);
 
-            yDataExpense.add(sumIncomeApr);
+            yDataExpense.add(sumExpenseApr);
             Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
         }
         if(sumIncomeMay > 0){
             yDataIncome.add(sumIncomeMay);
 
-            yDataExpense.add(sumIncomeMay);
+            yDataExpense.add(sumExpenseMay);
             Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
         }
         if(sumIncomeJun > 0){
             yDataIncome.add(sumIncomeJun);
 
-            yDataExpense.add(sumIncomeJun);
+            yDataExpense.add(sumExpenseJun);
             Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
         }
         if(sumIncomeJul > 0){
             yDataIncome.add(sumIncomeJul);
 
-            yDataExpense.add(sumIncomeJul);
+            yDataExpense.add(sumExpenseJul);
             Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
         }
         if(sumIncomeAug > 0){
             yDataIncome.add(sumIncomeAug);
 
-            yDataExpense.add(sumIncomeAug);
+            yDataExpense.add(sumExpenseAug);
             Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
         }
         if(sumIncomeSep > 0){
             yDataIncome.add(sumIncomeSep);
 
-            yDataExpense.add(sumIncomeSep);
+            yDataExpense.add(sumExpenseSep);
             Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
         }
         if(sumIncomeOct > 0){
             yDataIncome.add(sumIncomeOct);
 
-            yDataExpense.add(sumIncomeOct);
+            yDataExpense.add(sumExpenseOct);
             Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
         }
         if(sumIncomeNov > 0){
             yDataIncome.add(sumIncomeNov);
 
-            yDataExpense.add(sumIncomeNov);
+            yDataExpense.add(sumExpenseNov);
             Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
         }
         if(sumIncomeDec > 0){
             yDataIncome.add(sumIncomeDec);
 
-            yDataExpense.add(sumIncomeDec);
+            yDataExpense.add(sumExpenseDec);
             Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
         }
 
