@@ -753,35 +753,40 @@ public class Home extends Fragment {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
-        data_goal_id = items.get(0);
-        data_cust_id = items.get(1);
-        ending_date = items.get(2);
-        description_goal = items.get(3);
-        status_goal = items.get(4);
-        String data_budget_goal = items.get(5); //change to double
-        savingplan = items.get(6);
-        String data_suggest_cost = items.get(7);//change to double
-        String data_current_goal = items.get(8);//change to double
+        if(items.isEmpty()){
+            //visible progress
+            //set text : empty data
+        } else {
+            data_goal_id = items.get(0);
+            data_cust_id = items.get(1);
+            ending_date = items.get(2);
+            description_goal = items.get(3);
+            status_goal = items.get(4);
+            String data_budget_goal = items.get(5); //change to double
+            savingplan = items.get(6);
+            String data_suggest_cost = items.get(7);//change to double
+            String data_current_goal = items.get(8);//change to double
 
-        budget_goal = Double.parseDouble(data_budget_goal);
-        suggest_cost = Double.parseDouble(data_suggest_cost);
-        current_goal = Double.parseDouble(data_current_goal);
+            budget_goal = Double.parseDouble(data_budget_goal);
+            suggest_cost = Double.parseDouble(data_suggest_cost);
+            current_goal = Double.parseDouble(data_current_goal);
 
-        Log.d(TAG, "data_goal_id " + data_goal_id);
-        Log.d(TAG, "data_cust_id " + data_cust_id);
-        Log.d(TAG, "ending_date " + ending_date);
-        Log.d(TAG, "description_goal " + description_goal);
-        Log.d(TAG, "status_goal " + status_goal);
-        Log.d(TAG, "budget_goal " + budget_goal);
-        Log.d(TAG, "savingplan " + savingplan);
-        Log.d(TAG, "suggest_cost " + suggest_cost);
-        Log.d(TAG, "current_goal " + current_goal);
+            Log.d(TAG, "data_goal_id " + data_goal_id);
+            Log.d(TAG, "data_cust_id " + data_cust_id);
+            Log.d(TAG, "ending_date " + ending_date);
+            Log.d(TAG, "description_goal " + description_goal);
+            Log.d(TAG, "status_goal " + status_goal);
+            Log.d(TAG, "budget_goal " + budget_goal);
+            Log.d(TAG, "savingplan " + savingplan);
+            Log.d(TAG, "suggest_cost " + suggest_cost);
+            Log.d(TAG, "current_goal " + current_goal);
 
-        current_goalPercent = (current_goal/budget_goal)*100;
-        float_current_goalPercent = Float.parseFloat(String.format("%.2f", current_goalPercent));
+            current_goalPercent = (current_goal / budget_goal) * 100;
+            float_current_goalPercent = Float.parseFloat(String.format("%.2f", current_goalPercent));
 
-        progressBar(float_current_goalPercent);
-        setDataProcessBar(ending_date, description_goal, status_goal, budget_goal, current_goal);
+            progressBar(float_current_goalPercent);
+            setDataProcessBar(ending_date, description_goal, status_goal, budget_goal, current_goal);
+        }
     }
 
     public void progressBar(float float_current_goalPercent){

@@ -1,10 +1,14 @@
 package com.wanmoon.finwal.activity;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -269,4 +273,31 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
             });
         }
     }
+
+    public class EditGoalNoti extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            Intent intent1 = new Intent(context,EditGoal.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(context,100,intent1,PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder builder = (NotificationCompat.Builder) new NotificationCompat.Builder(context).
+                    setSmallIcon(R.drawable.ic_add_circle).
+                    setContentIntent(pendingIntent).
+                    setContentText("this is my notification").
+                    setContentTitle("my notificaton").
+//                setSound(alarmSound).
+        setAutoCancel(true);
+            notificationManager.notify(100,builder.build());
+
+
+
+
+
+        }
+    }
+
 }

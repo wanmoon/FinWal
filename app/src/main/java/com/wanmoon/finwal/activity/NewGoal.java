@@ -1,5 +1,7 @@
 package com.wanmoon.finwal.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,12 +132,24 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
+
+            //noti
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 22);
+            calendar.set(Calendar.MINUTE, 11);
+            calendar.set(Calendar.SECOND, 1);
+            Intent intent = new Intent(getApplicationContext(), EditGoal.EditGoalNoti.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
+
             Log.d(TAG, "get getDescription_goal, budget_goal");
             addBillToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, suggest_cost);
             Log.d(TAG, "end addGoalToDB");
 
             Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
             Log.d(TAG,"insert success");
+
         } if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(this, MainActivity.class);
