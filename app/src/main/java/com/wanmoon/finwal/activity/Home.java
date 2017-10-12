@@ -17,7 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -59,24 +61,41 @@ public class Home extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private FirebaseAuth firebaseAuth;
-
     private static View rootView;
     private OnFragmentInteractionListener mListener;
 
-    private double sumIncomeMonth ;
-    private double sumExpenseMonth ;
-    private double monthBalance ;
-    private double walletBalance ;
-    private double sumIncome ;
-    private double sumExpense ;
+    private double sumIncomeMonth;
+    private double sumExpenseMonth;
+    private double monthBalance;
+    private double walletBalance;
+    private double sumIncome;
+    private double sumExpense;
+    public double budget_goal;
+    public double suggest_cost;
+    public double current_goal;
+    public double current_goalPercent;
+    public double moneyleft;
 
     private String setWalletBalance;
     private String setMonthBalance;
     private String setIncomeMonth;
     private String setExpenseMonth;
     public String date_start;
+
+    //progress
+    public String data_goal_id;
+    public String data_cust_id;
+    public String ending_date;
+    public String description_goal;
+    public String status_goal;
+    public String savingplan;
+
+    //next bill
+    private String data_bill_id;
+    private String period;
+    private String description_bill;
+    private String status_bill;
+    private String deadline;
 
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
@@ -88,13 +107,27 @@ public class Home extends Fragment {
     public TextView textViewGoalTitle;
     public TextView textViewDateLeft;
     public TextView textViewProgressBarNoData;
+    private TextView textViewBillDescription;
+    private TextView textViewBillStatus;
+    private TextView textViewBillDeadline;
+    private TextView textViewBillPeriod;
+    private TextView textViewBillNoData;
+
+    private ImageButton imageButtonBillEdit;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
 
+    private RelativeLayout relativeBill;
+
     public RoundCornerProgressBar progress;
 
+    public float float_current_goalPercent;
+    private float incomePercent;
+    private float expensePercent;
+
     //get current user
+    private FirebaseAuth firebaseAuth;
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
@@ -102,40 +135,20 @@ public class Home extends Fragment {
     String response = null;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
+    //for log
+    private final String TAG = "HomeActivity";
+
+    //for pie chart
+    public PieChart pieChart;
+    private View mView;
+
     getHttpIncomeMonth httpIncomeMonth;
     getHttpExpenseMonth httpExpenseMonth;
     getHttpIncome httpIncome;
     getHttpExpense httpExpense;
     getHttpProgressBar httpProgressBar;
     getHttpDateStart httpDateStart;
-
-    //for log
-    private final String TAG = "HomeActivity";
-
-    private float incomePercent;
-    private float expensePercent;
-
-    //public int goal_id = 47;
-
-    //for pie chart
-    public PieChart pieChart;
-    private View mView;
-
-    //progress
-    public String data_goal_id;
-    public String data_cust_id;
-    public String ending_date;
-    public String description_goal;
-    public String status_goal;
-    public String savingplan;
-
-    public double budget_goal;
-    public double suggest_cost;
-    public double current_goal;
-    public double current_goalPercent;
-    public double moneyleft;
-
-    public float float_current_goalPercent;
+    getHttpNextBill httpNextBill;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -189,7 +202,6 @@ public class Home extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         mView = rootView;
 
-
         httpIncomeMonth = new getHttpIncomeMonth(getContext());
         httpExpenseMonth = new getHttpExpenseMonth(getContext());
 
@@ -200,6 +212,7 @@ public class Home extends Fragment {
 
         httpDateStart= new getHttpDateStart(getContext());
 
+        httpNextBill = new getHttpNextBill(getContext());
 
         return rootView;
     }
@@ -219,6 +232,7 @@ public class Home extends Fragment {
         sumExpenseToDB(cust_id);
 
         getProgressbar(cust_id);
+        getNextBill(cust_id);
 
         Log.d(TAG,"start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
@@ -237,8 +251,6 @@ public class Home extends Fragment {
         linearLayout1 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome1);
         linearLayout2 = (LinearLayout)  view.findViewById(R.id.btnMonthExpense2);
 
-        Log.d(TAG,"end findviewbyid");
-
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,7 +261,6 @@ public class Home extends Fragment {
 
         });
 
-
         linearLayout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,12 +270,12 @@ public class Home extends Fragment {
             }
         });
 
+        //goal
         textViewGoalTitle = (TextView) view.findViewById(R.id.textViewGoalTitle);
         textViewDateLeft = (TextView) view.findViewById(R.id.textViewDateLeft);
         textViewStatusGoal = (TextView) view.findViewById(R.id.textViewStatusGoal);
         textViewPercentGoal = (TextView) view.findViewById(R.id.textViewPercentGoal);
         textViewMoneyLeftGoal = (TextView) view.findViewById(R.id.textViewMoneyLeftGoal);
-
         textViewProgressBarNoData = (TextView) view.findViewById(R.id.textViewProgressBarNoData);
 
         progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
@@ -279,7 +290,34 @@ public class Home extends Fragment {
             }
         });
 
+        //draw progressbar
         progressBar(float_current_goalPercent);
+
+        //nextbill
+        imageButtonBillEdit = (ImageButton) view.findViewById(R.id.imageButtonBillEdit);
+        imageButtonBillEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //fregment to fregment
+                Billing bill = new Billing();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, bill);
+                transaction.commit();
+            }
+        });
+
+        textViewBillDescription = (TextView) view.findViewById(R.id.textViewBillDescription);
+        textViewBillDeadline = (TextView) view.findViewById(R.id.textViewBillDeadline);
+        textViewBillPeriod = (TextView) view.findViewById(R.id.textViewBillPeriod);
+        textViewBillStatus = (TextView) view.findViewById(R.id.textViewBillStatus);
+        textViewBillNoData = (TextView) view.findViewById(R.id.textViewBillNoData);
+
+        relativeBill = (RelativeLayout) view.findViewById(R.id.relativeBill);
+
+        //settext in nextbill
+        setNextBillData(period, description_bill, status_bill, deadline);
+
+        Log.d(TAG,"end findviewbyid");
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -321,7 +359,7 @@ public class Home extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    //////////////////////for month balance/////////////////////
+    //////////////////////////////////////////////////////////for month balance/////////////////////
 
     public String sumIncomeMonthToDB(String cust_id){
         try {
@@ -347,7 +385,6 @@ public class Home extends Fragment {
         return response;
     }
 
-    // ** must have for connect DB
     public class getHttpExpenseMonth {
         OkHttpClient client;
         Handler mainHandler;
@@ -452,7 +489,7 @@ public class Home extends Fragment {
         }
     }
 
-    //////////////////////for wallet balance/////////////////////
+    /////////////////////////////////////////////////////////for wallet balance/////////////////////
 
     public String sumIncomeToDB(String cust_id){
         try {
@@ -478,7 +515,6 @@ public class Home extends Fragment {
         return response;
     }
 
-    // ** must have for connect DB
     public class getHttpExpense {
         OkHttpClient client;
         Handler mainHandler;
@@ -581,7 +617,7 @@ public class Home extends Fragment {
         }
     }
 
-    ////////////////////////get date start////////////////////////
+    //////////////////////////////////////////////////////////get date start////////////////////////
     public String dateStart(String cust_id){
         try {
             Log.d(TAG,"start dateStart");
@@ -682,7 +718,7 @@ public class Home extends Fragment {
         initData();
     }
 
-    //////////////////////// for pie chart //////////////////////
+    /////////////////////////////////////////////////////////// for pie chart //////////////////////
     private void initData() {
 
         pieChart = (PieChart) mView.findViewById(R.id.PieChart);
@@ -763,7 +799,7 @@ public class Home extends Fragment {
         pieChart.invalidate();
     }
 
-    //////////////////////progress bar/////////////////////
+    ///////////////////////////////////////////////////////////////progress bar/////////////////////
     public void progressdata(String data){
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
@@ -884,7 +920,6 @@ public class Home extends Fragment {
         return response;
     }
 
-    // ** must have for connect DB
     public class getHttpProgressBar {
         OkHttpClient client;
         Handler mainHandler;
@@ -922,6 +957,99 @@ public class Home extends Fragment {
                             Log.d(TAG, "onResponse");
                         }
 
+                    });
+                }
+            });
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////next bill/////////////////////
+    public void nextBillData(String data){
+        Log.d(TAG, "data " + data);
+        List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
+
+        if(items.size()<5){
+            //visible
+            textViewBillNoData.setVisibility(View.VISIBLE);
+            relativeBill.setVisibility(View.GONE);
+        } else {
+            textViewBillNoData.setVisibility(View.GONE);
+
+            data_bill_id = items.get(0);
+            period = items.get(1);
+            description_bill = items.get(2);
+            status_bill = items.get(3);
+            deadline = items.get(4);
+
+            Log.d(TAG, "data_bill_id " + data_bill_id);
+            Log.d(TAG, "period " + period);
+            Log.d(TAG, "description_bill " + description_bill);
+            Log.d(TAG, "status_bill " + status_bill);
+            Log.d(TAG, "deadline " + deadline);
+
+            setNextBillData(period, description_bill, status_bill, deadline);
+        }
+    }
+
+    public void setNextBillData(String period, String description_bill, String status_bill, String deadline){
+        textViewBillDescription.setText(description_bill);
+        textViewBillDeadline.setText(deadline);
+        textViewBillPeriod.setText(period);
+        textViewBillStatus.setText(status_bill);
+        textViewBillStatus.setTextColor(Color.parseColor("#e54649"));;
+
+        Log.d(TAG, "description_bill = " + description_bill);
+        Log.d(TAG, "deadline = " + deadline);
+        Log.d(TAG, "period = " + period);
+        Log.d(TAG, "status_bill = " + status_bill);
+    }
+
+    public String getNextBill(String cust_id){
+        try {
+            Log.d(TAG,"start nextbill");
+            httpNextBill.run(BASE_URL + "/nextbill.php?cust_id=" + cust_id);
+            Log.d(TAG,"end nextbill");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    public class getHttpNextBill {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpNextBill(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                nextBillData(response.body().string().trim());
+                            } catch (NumberFormatException e) {
+                                Log.d(TAG, "NumberFormatException");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } Log.d(TAG, "onResponse");
+                        }
                     });
                 }
             });

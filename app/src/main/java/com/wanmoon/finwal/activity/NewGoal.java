@@ -156,10 +156,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             startActivity(i);
             finish();
 
-
         } if (v == calendarViewGoal) {
             addGoal();
-
         }
     }
 
