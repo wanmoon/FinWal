@@ -41,6 +41,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     //**connect DB
     getHttpUpdateCurrentGoal httpUpdateCurrentGoal;
     getHttpUpdateStatus httpUpdateStatus;
+    getHttpDeleted httpDeleted;
 
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
@@ -60,6 +61,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     private EditText editTextCost;
 
     private Button buttonPay;
+    private Button buttonDelete;
 
     public String get_goal_id;
     public String get_budget_goal; //get
@@ -103,8 +105,10 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         suggest_cost = Double.parseDouble(get_suggest_cost);
         current_goal = Double.parseDouble(get_current_goal);
 
+        //http connect DB
         httpUpdateCurrentGoal = new getHttpUpdateCurrentGoal(getApplicationContext());
         httpUpdateStatus = new getHttpUpdateStatus(getApplicationContext());
+        httpDeleted = new getHttpDeleted(getApplicationContext());
 
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
@@ -121,6 +125,19 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         editTextCost = (EditText)findViewById(R.id.editTextCost);
 
+        //delete goal
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //moethod deleted
+                deleteGoal(cust_id,goal_id);
+                //toast deleted goal
+                Toast.makeText(getApplicationContext(), "Deleted Goal Successful", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        //update current_goal
         buttonPay = (Button)findViewById(R.id.buttonPay);
         buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +186,57 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
+        }
+    }
+
+    ///////////////////////// delete goal
+    public void deleteGoal(String cust_id, int goal_id){
+        try {
+            Log.d(TAG,"goal_id = " + goal_id);
+            Log.d(TAG,"start select");
+            httpDeleted.run(BASE_URL + "/goalDelete.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public class getHttpDeleted {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpDeleted(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"update success");
+                        }
+
+
+                    });
+                }
+            });
         }
     }
 
@@ -274,6 +342,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    ///////////////////////// noti
     public class EditGoalNoti extends BroadcastReceiver {
 
         @Override
@@ -299,5 +368,4 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         }
     }
-
 }
