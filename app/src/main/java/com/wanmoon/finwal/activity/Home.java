@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -267,6 +268,17 @@ public class Home extends Fragment {
         textViewProgressBarNoData = (TextView) view.findViewById(R.id.textViewProgressBarNoData);
 
         progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
+        progress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //fregment to fregment
+                Goal GoalFragment = new Goal();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, GoalFragment);
+                transaction.commit();
+            }
+        });
+
         progressBar(float_current_goalPercent);
     }
 

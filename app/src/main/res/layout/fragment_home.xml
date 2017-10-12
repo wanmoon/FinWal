@@ -280,7 +280,7 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:layout_below="@+id/textViewDateLeft"/>
+                        android:layout_below="@+id/textViewDateLeft" />
 
 
 
@@ -358,10 +358,10 @@
                         android:layout_below="@+id/textViewNextBill"
                         android:layout_toStartOf="@+id/textViewStatus" />
 
-                    <TextView
+                <TextView
                         android:id="@+id/textViewStatus"
                         android:layout_width="100dp"
-                        android:layout_height="40dp"
+                        android:layout_height="0dp"
                         android:layout_alignTop="@+id/imageButtonEdit"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
