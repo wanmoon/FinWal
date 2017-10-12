@@ -86,6 +86,7 @@ public class Home extends Fragment {
     public TextView textViewMoneyLeftGoal;
     public TextView textViewGoalTitle;
     public TextView textViewDateLeft;
+    public TextView textViewProgressBarNoData;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
@@ -262,6 +263,8 @@ public class Home extends Fragment {
         textViewStatusGoal = (TextView) view.findViewById(R.id.textViewStatusGoal);
         textViewPercentGoal = (TextView) view.findViewById(R.id.textViewPercentGoal);
         textViewMoneyLeftGoal = (TextView) view.findViewById(R.id.textViewMoneyLeftGoal);
+
+        textViewProgressBarNoData = (TextView) view.findViewById(R.id.textViewProgressBarNoData);
 
         progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
         progressBar(float_current_goalPercent);
@@ -753,10 +756,12 @@ public class Home extends Fragment {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
-        if(items.isEmpty()){
+        if(items.size()<9){
             //visible progress
-            //set text : empty data
+            textViewProgressBarNoData.setVisibility(View.VISIBLE);
+            progress.setVisibility(View.GONE);
         } else {
+            textViewProgressBarNoData.setVisibility(View.GONE);
             data_goal_id = items.get(0);
             data_cust_id = items.get(1);
             ending_date = items.get(2);

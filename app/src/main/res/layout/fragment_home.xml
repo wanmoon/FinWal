@@ -256,6 +256,18 @@
                             android:layout_alignParentRight="true" />
                     </RelativeLayout>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textViewProgressBarNoData"
+                        android:hint="EMPTY RESULT"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:textAlignment="center"
+                        android:visibility="invisible"
+                        android:layout_below="@+id/textViewDateLeft"
+                        />
+
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                         android:id="@+id/progress_1"
                         android:layout_height="32dp"
