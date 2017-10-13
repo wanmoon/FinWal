@@ -14,8 +14,8 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -57,16 +57,43 @@ public class Dashboard extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    //for line chart
-    private float[] yData = {};
-    private String[] xData = {};
-    LineChart lineChart;
+
 
 
     //for pie chart
     private final String TAG = "Dashboard";
     PieChart pieChart;
     private View mView;
+
+    //income
+    private TextView textViewIncomeJan;
+    private TextView textViewIncomeFeb;
+    private TextView textViewIncomeMar;
+    private TextView textViewIncomeApr;
+    private TextView textViewIncomeMay;
+    private TextView textViewIncomeJun;
+    private TextView textViewIncomeJul;
+    private TextView textViewIncomeAug;
+    private TextView textViewIncomeSep;
+    private TextView textViewIncomeOct;
+    private TextView textViewIncomeNov;
+    private TextView textViewIncomeDec;
+    //expense
+    private TextView textViewExpenseJan;
+    private TextView textViewExpenseFeb;
+    private TextView textViewExpenseMar;
+    private TextView textViewExpenseApr;
+    private TextView textViewExpenseMay;
+    private TextView textViewExpenseJun;
+    private TextView textViewExpenseJul;
+    private TextView textViewExpenseAug;
+    private TextView textViewExpenseSep;
+    private TextView textViewExpenseOct;
+    private TextView textViewExpenseNov;
+    private TextView textViewExpenseDec;
+
+
+
 
 
     //line chart
@@ -230,6 +257,8 @@ public class Dashboard extends Fragment {
     private String categorySavingAndInvestmentYear;
 
 
+
+
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
@@ -316,6 +345,33 @@ public class Dashboard extends Fragment {
         spec.setIndicator("Yearly");
         host.addTab(spec);
 
+
+        //income
+        textViewIncomeJan = (TextView) rootView.findViewById(R.id.textViewIncomeJan);
+        textViewIncomeFeb = (TextView) rootView.findViewById(R.id.textViewIncomeFeb);
+        textViewIncomeMar = (TextView) rootView.findViewById(R.id.textViewIncomeMar);
+        textViewIncomeApr = (TextView) rootView.findViewById(R.id.textViewIncomeApr);
+        textViewIncomeMay = (TextView) rootView.findViewById(R.id.textViewIncomeMay);
+        textViewIncomeJun = (TextView) rootView.findViewById(R.id.textViewIncomeJun);
+        textViewIncomeJul = (TextView) rootView.findViewById(R.id.textViewIncomeJul);
+        textViewIncomeAug = (TextView) rootView.findViewById(R.id.textViewIncomeAug);
+        textViewIncomeSep = (TextView) rootView.findViewById(R.id.textViewIncomeSep);
+        textViewIncomeOct = (TextView) rootView.findViewById(R.id.textViewIncomeOct);
+        textViewIncomeNov = (TextView) rootView.findViewById(R.id.textViewIncomeNov);
+        textViewIncomeDec = (TextView) rootView.findViewById(R.id.textViewIncomeDec);
+        //expense
+        textViewExpenseJan = (TextView) rootView.findViewById(R.id.textViewExpenseJan);
+        textViewExpenseFeb = (TextView) rootView.findViewById(R.id.textViewExpenseFeb);
+        textViewExpenseMar = (TextView) rootView.findViewById(R.id.textViewExpenseMar);
+        textViewExpenseApr = (TextView) rootView.findViewById(R.id.textViewExpenseApr);
+        textViewExpenseMay = (TextView) rootView.findViewById(R.id.textViewExpenseMay);
+        textViewExpenseJun = (TextView) rootView.findViewById(R.id.textViewExpenseJun);
+        textViewExpenseJul = (TextView) rootView.findViewById(R.id.textViewExpenseJul);
+        textViewExpenseAug = (TextView) rootView.findViewById(R.id.textViewExpenseAug);
+        textViewExpenseSep = (TextView) rootView.findViewById(R.id.textViewExpenseSep);
+        textViewExpenseOct = (TextView) rootView.findViewById(R.id.textViewExpenseOct);
+        textViewExpenseNov = (TextView) rootView.findViewById(R.id.textViewExpenseNov);
+        textViewExpenseDec = (TextView) rootView.findViewById(R.id.textViewExpenseDec);
 
 
         httpSumIncomeYear = new getHttpSumIncomeYear(getContext());
@@ -620,21 +676,21 @@ public class Dashboard extends Fragment {
 
 
         ArrayList<Float> integerCollector = new ArrayList<Float>();
-        int pointer = 0;
+        int pointerExpenseYearLine = 0;
         for (String num : items) {
-            if (pointer % 2 == 1) {
-                integerCollector.add(Float.parseFloat(items.get(pointer)));
+            if (pointerExpenseYearLine % 2 == 1) {
+                integerCollector.add(Float.parseFloat(items.get(pointerExpenseYearLine)));
             }
-            pointer++;
+            pointerExpenseYearLine++;
         }
 
         ArrayList<String> stringCollector = new ArrayList<String>();
-        int pointerString = 0;
+        int pointerStringExpenseYearLine = 0;
         for (String num : items) {
-            if (pointerString % 2 == 0) {
-                stringCollector.add(items.get(pointerString));
+            if (pointerStringExpenseYearLine % 2 == 0) {
+                stringCollector.add(items.get(pointerStringExpenseYearLine));
             }
-            pointerString++;
+            pointerStringExpenseYearLine++;
         }
 
 
@@ -1620,6 +1676,7 @@ public class Dashboard extends Fragment {
 
         // for line graph
         initData();
+        setText();
 
         ////for pie chart
         initDataIncome();
@@ -1628,6 +1685,37 @@ public class Dashboard extends Fragment {
         initDataExpenseYear();
 
 
+    }
+
+    public void setText(){
+        //income
+        textViewIncomeJan.setText("1 Jan : " + sumIncomeJan + " Baht");
+        textViewIncomeFeb.setText("2 Feb : " + sumIncomeFeb + " Baht");
+        textViewIncomeMar.setText("3 Mar : " + sumIncomeMar + " Baht");
+        textViewIncomeApr.setText("4 Apr : " + sumIncomeApr + " Baht");
+        textViewIncomeMay.setText("5 May : " + sumIncomeMay + " Baht");
+        textViewIncomeJun.setText("6 Jun : " + sumIncomeJun + " Baht");
+        textViewIncomeJul.setText("7 Jul : " + sumIncomeJul + " Baht");
+        textViewIncomeAug.setText("8 Aug : " + sumIncomeAug + " Baht");
+        textViewIncomeSep.setText("9 Sep : " + sumIncomeSep + " Baht");
+        textViewIncomeOct.setText("10 Oct : " + sumIncomeOct + " Baht");
+        textViewIncomeNov.setText("11 Nov : " + sumIncomeNov + " Baht");
+        textViewIncomeDec.setText("12 Dec : " + sumIncomeDec + " Baht");
+
+
+        //expense
+        textViewExpenseJan.setText("1 Jan : " + sumExpenseJan + " Baht");
+        textViewExpenseFeb.setText("2 Feb : " + sumExpenseFeb + " Baht");
+        textViewExpenseMar.setText("3 Mar : " + sumExpenseMar + " Baht");
+        textViewExpenseApr.setText("4 Apr : " + sumExpenseApr + " Baht");
+        textViewExpenseMay.setText("5 May : " + sumExpenseMay + " Baht");
+        textViewExpenseJun.setText("6 Jun : " + sumExpenseJun + " Baht");
+        textViewExpenseJul.setText("7 Jul : " + sumExpenseJul + " Baht");
+        textViewExpenseAug.setText("8 Aug : " + sumExpenseAug + " Baht");
+        textViewExpenseSep.setText("9 Sep : " + sumExpenseSep + " Baht");
+        textViewExpenseOct.setText("10 Oct : " + sumExpenseOct + " Baht");
+        textViewExpenseNov.setText("11 Nov : " + sumExpenseNov + " Baht");
+        textViewExpenseDec.setText("12 Dec : " + sumExpenseDec + " Baht");
     }
 
 
@@ -1641,73 +1729,74 @@ public class Dashboard extends Fragment {
         final ArrayList<Float> yDataExpense = new ArrayList<>();
 
 
-        if(sumIncomeJan > 0){
+        if(sumIncomeJan >= 0 || sumExpenseJan >=0){
             yDataIncome.add(sumIncomeJan);
 
             yDataExpense.add(sumExpenseJan);
             Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
         }
-        if(sumIncomeFeb > 0){
+        if(sumIncomeFeb >= 0 || sumExpenseFeb >=0){
             yDataIncome.add(sumIncomeFeb);
 
             yDataExpense.add(sumExpenseFeb);
             Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
         }
-        if(sumIncomeMar > 0){
+        if(sumIncomeMar >= 0 || sumExpenseMar >=0){
             yDataIncome.add(sumIncomeMar);
 
             yDataExpense.add(sumExpenseMar);
             Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
         }
-        if(sumIncomeApr > 0){
+        if(sumIncomeApr >= 0 || sumExpenseApr >=0){
             yDataIncome.add(sumIncomeApr);
 
             yDataExpense.add(sumExpenseApr);
             Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
         }
-        if(sumIncomeMay > 0){
+        if(sumIncomeMay >= 0 || sumExpenseMay >=0){
             yDataIncome.add(sumIncomeMay);
 
             yDataExpense.add(sumExpenseMay);
             Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
         }
-        if(sumIncomeJun > 0){
+        if(sumIncomeJun >= 0 || sumExpenseJun >=0){
             yDataIncome.add(sumIncomeJun);
 
             yDataExpense.add(sumExpenseJun);
             Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
         }
-        if(sumIncomeJul > 0){
+        if(sumIncomeJul >= 0 || sumExpenseJul >=0){
             yDataIncome.add(sumIncomeJul);
 
             yDataExpense.add(sumExpenseJul);
             Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
         }
-        if(sumIncomeAug > 0){
+        if(sumIncomeAug >= 0 || sumExpenseAug >=0){
             yDataIncome.add(sumIncomeAug);
 
             yDataExpense.add(sumExpenseAug);
             Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
         }
-        if(sumIncomeSep > 0){
+        if(sumIncomeSep > 0 || sumExpenseSep >=0){
             yDataIncome.add(sumIncomeSep);
 
             yDataExpense.add(sumExpenseSep);
             Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
         }
-        if(sumIncomeOct > 0){
+        if(sumIncomeOct >= 0 || sumExpenseOct >=0){
             yDataIncome.add(sumIncomeOct);
 
             yDataExpense.add(sumExpenseOct);
             Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
+            Log.d(TAG, "sumExpenseOct = " + sumExpenseOct);
         }
-        if(sumIncomeNov > 0){
+        if(sumIncomeNov >= 0 || sumExpenseNov >=0){
             yDataIncome.add(sumIncomeNov);
 
             yDataExpense.add(sumExpenseNov);
             Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
         }
-        if(sumIncomeDec > 0){
+        if(sumIncomeDec >= 0 || sumExpenseDec >=0){
             yDataIncome.add(sumIncomeDec);
 
             yDataExpense.add(sumExpenseDec);
@@ -1715,8 +1804,7 @@ public class Dashboard extends Fragment {
         }
 
 
-        GraphView graph = (GraphView) mView.findViewById(R.id.graph);
-
+        final GraphView graph = (GraphView) mView.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> seriesIncome = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
@@ -1737,7 +1825,7 @@ public class Dashboard extends Fragment {
 
         });
 
-        LineGraphSeries<DataPoint> seriesExpense = new LineGraphSeries<>(new DataPoint[]{
+        final LineGraphSeries<DataPoint> seriesExpense = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
                 new DataPoint(1, sumExpenseJan),
@@ -1759,18 +1847,41 @@ public class Dashboard extends Fragment {
 
 
 
-        seriesIncome.setColor(getResources().getColor(R.color.buttonColorGreen));
+
         graph.addSeries(seriesIncome);
-        seriesIncome.setDrawDataPoints(true);
-        seriesIncome.setDataPointsRadius(10);
-     //   seriesIncome.setThickness(8);
+        seriesIncome.setColor(getResources().getColor(R.color.buttonColorGreen));
+     //   seriesIncome.setDrawDataPoints(true);
 
 
-        seriesExpense.setColor(getResources().getColor(R.color.buttonColorRed));
+//        seriesIncome.setOnDataPointTapListener(new OnDataPointTapListener() {
+//            @Override
+//            public void onTap(Series series, DataPointInterface dataPoint) {
+//                double pointY = dataPoint.getY();
+//                double pointX = dataPoint.getX();
+//
+//                    Toast.makeText(graph.getContext(), "[Month/Income ] " + pointY, Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
+
         graph.addSeries(seriesExpense);
-        seriesExpense.setDrawDataPoints(true);
-        seriesExpense.setDataPointsRadius(10);
-     //   seriesExpense.setThickness(8);
+        seriesExpense.setColor(getResources().getColor(R.color.buttonColorRed));
+      //  seriesExpense.setDrawDataPoints(true);
+//        seriesExpense.setDataPointsRadius(10);
+//        seriesExpense.setOnDataPointTapListener(new OnDataPointTapListener() {
+//            @Override
+//            public void onTap(Series series, DataPointInterface dataPoint) {
+//                double pointY = dataPoint.getY();
+//                double pointX = dataPoint.getX();
+//                    Toast.makeText(graph.getContext(), "[Month/Expense ] " + pointY, Toast.LENGTH_SHORT).show();
+//
+//
+//            }
+//        });
+
+
+
 
 
         // set manual y bounds
@@ -1787,12 +1898,15 @@ public class Dashboard extends Fragment {
 //        graph.getGridLabelRenderer().setVerticalAxisTitle("How much");
 //        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
 
-        graph.getGridLabelRenderer().setTextSize(40);
         graph.getGridLabelRenderer().setNumHorizontalLabels(12);
-        graph.getGridLabelRenderer().setGridColor(Color.BLACK);
+ //       graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.buttonColorBlack));
 
 
-
+//
+//        ArrayList<String> legends = new ArrayList();
+//                legends.add("Line1");
+//                legends.add("Line2");
+//        GraphView.setLegends(legends);
 
 
     }

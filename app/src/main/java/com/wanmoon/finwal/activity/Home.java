@@ -294,17 +294,18 @@ public class Home extends Fragment {
         progressBar(float_current_goalPercent);
 
         //nextbill
-        imageButtonBillEdit = (ImageButton) view.findViewById(R.id.imageButtonBillEdit);
-        imageButtonBillEdit.setOnClickListener(new View.OnClickListener() {
+        relativeBill = (RelativeLayout)  view.findViewById(R.id.relativeBill);
+        relativeBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fregment to fregment
                 Billing bill = new Billing();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, bill);
                 transaction.commit();
             }
+
         });
+
 
         textViewBillDescription = (TextView) view.findViewById(R.id.textViewBillDescription);
         textViewBillDeadline = (TextView) view.findViewById(R.id.textViewBillDeadline);

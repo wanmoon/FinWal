@@ -31,7 +31,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <!--<include layout="@layout/content_main" />-->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
@@ -55,7 +54,7 @@
         android:elevation="6dp"
         android:src="@drawable/ic_scan"
         android:visibility="invisible"
-        app:backgroundTint="@color/backgroundColor"
+        app:backgroundTint="@color/color_bg_actionbar"
         app:pressedTranslationZ="12dp" />
 
 
@@ -69,7 +68,7 @@
         android:elevation="6dp"
         android:src="@drawable/ic_microphone"
         android:visibility="invisible"
-        app:backgroundTint="@color/backgroundColor"
+        app:backgroundTint="@color/color_bg_actionbar"
         app:pressedTranslationZ="12dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -82,7 +81,7 @@
         android:elevation="6dp"
         android:src="@drawable/ic_tpying"
         android:visibility="invisible"
-        app:backgroundTint="@color/backgroundColor"
+        app:backgroundTint="@color/color_bg_actionbar"
         app:pressedTranslationZ="12dp" />
 
     <android.support.design.widget.FloatingActionButton
@@ -95,7 +94,7 @@
         android:background="@color/backgroundColor"
         android:elevation="6dp"
         android:src="@drawable/ic_add_circle"
-        app:backgroundTint="@color/backgroundColor"
+        app:backgroundTint="@color/color_bg_actionbar"
         app:pressedTranslationZ="12dp" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -36,28 +36,28 @@
                     android:orientation="vertical">
 
 
-                    <!--<LinearLayout-->
-                        <!--android:id="@+id/linear1"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:weightSum="2"-->
-                        <!--android:orientation="vertical">-->
+                    <LinearLayout
+                        android:id="@+id/linear1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
 
-                        <!--&lt;!&ndash;line graph&ndash;&gt;-->
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/linear1_1"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:layout_marginBottom="5dp"-->
-                            <!--android:layout_marginEnd="5dp"-->
-                            <!--android:layout_marginLeft="5dp"-->
-                            <!--android:layout_marginRight="1dp"-->
-                            <!--android:layout_marginStart="5dp"-->
-                            <!--android:layout_marginTop="1dp"-->
-                            <!--android:layout_alignParentStart="true"-->
-                            <!--android:backgroundTint="@color/backgroundColor">-->
+                        <!--line graph-->
+                        <LinearLayout
+                            android:id="@+id/linear1_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="1dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentStart="true"
+                            android:backgroundTint="@color/backgroundColor">
 
 
                             <com.jjoe64.graphview.GraphView
@@ -68,44 +68,243 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginStart="10dp"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginBottom="80dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:paddingBottom="80dp"
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
+                                android:paddingRight="30dp"
                                 android:paddingTop="20dp"/>
 
-
-
-                        <!--</LinearLayout>-->
-
-
-
-                        <!--<LinearLayout-->
-                            <!--android:id="@+id/linear1_2"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="0dp"-->
-                            <!--android:layout_weight="1"-->
-                            <!--android:orientation="vertical"-->
-                            <!--android:layout_marginBottom="5dp"-->
-                            <!--android:layout_marginEnd="5dp"-->
-                            <!--android:layout_marginLeft="1dp"-->
-                            <!--android:layout_marginRight="5dp"-->
-                            <!--android:layout_marginStart="5dp"-->
-                            <!--android:layout_marginTop="1dp"-->
-                            <!--android:layout_below="@+id/linear1_1"-->
-                            <!--android:backgroundTint="@color/backgroundColor">-->
+                        </LinearLayout>
 
 
 
 
+                        <LinearLayout
+                            android:id="@+id/linear1_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_below="@+id/linear1_1"
+                            android:backgroundTint="@color/backgroundColor">
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1">
+
+
+                            <LinearLayout
+                                android:id="@+id/linear1_2_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:weightSum="2"
+                                android:orientation="horizontal">
+
+                                <!--Income-->
+                                <LinearLayout
+                                    android:id="@+id/linear1_2_1_1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="1dp"
+                                    android:layout_marginStart="50dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_alignParentStart="true"
+                                    android:backgroundTint="@color/backgroundColor">
+
+
+                                        <TextView
+                                            android:id="@+id/textViewIncomeJan"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Jan"
+                                            />
+
+                                        <TextView
+                                            android:id="@+id/textViewIncomeFeb"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Feb"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeMar"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Mar"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeApr"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Apr"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeMay"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="May"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeJun"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Jun"
+                                             />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeJul"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Jul"
+                                           />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeAug"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Aug"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeSep"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Sep"
+                                           />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeOct"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Oct"
+                                             />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeNov"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Nov"
+                                            />
+                                        <TextView
+                                            android:id="@+id/textViewIncomeDec"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Dec"
+                                            />
+                                </LinearLayout>    <!--Income-->
 
 
 
-                        <!--</LinearLayout>-->
+                                <!--Expense-->
+                                <LinearLayout
+                                    android:id="@+id/linear1_2__2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginLeft="1dp"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_below="@+id/linear1_1"
+                                    android:backgroundTint="@color/backgroundColor">
 
-                    <!--</LinearLayout>-->
+                                    <TextView
+                                        android:id="@+id/textViewExpenseJan"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Jan"
+                                        android:textAlignment="textStart"/>
+
+                                    <TextView
+                                        android:id="@+id/textViewExpenseFeb"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Feb"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseMar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Mar"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseApr"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Apr"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseMay"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="May"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseJun"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Jun"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseJul"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Jul"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseAug"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Aug"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseSep"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Sep"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseOct"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Oct"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseNov"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Nov"
+                                        android:textAlignment="textStart"/>
+                                    <TextView
+                                        android:id="@+id/textViewExpenseDec"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Dec"
+                                        android:textAlignment="textStart"/>
+
+
+                                </LinearLayout><!--Expense-->
+
+
+                             </LinearLayout>
+
+
+                            </ScrollView>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
 
 
 

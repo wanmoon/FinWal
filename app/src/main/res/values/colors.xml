@@ -13,6 +13,9 @@
     <color name="buttonColorGrey">#7394a4</color>
     <color name="buttonColorWhite">#FFFFFF</color>
     <color name="buttonColorBlack">#000000</color>
+    <color name="buttonColorPiggy">#Bf4b4b</color>
+
+
 
     <color name="foodAndDrink">#f98cf3</color>
     <color name="travel">#00BCD4</color>
