@@ -58,8 +58,6 @@ public class Dashboard extends Fragment {
     private OnFragmentInteractionListener mListener;
 
 
-
-
     //for pie chart
     private final String TAG = "Dashboard";
     PieChart pieChart;
@@ -97,19 +95,6 @@ public class Dashboard extends Fragment {
 
 
     //line chart
-    private String jan;
-    private String feb;
-    private String mar;
-    private String apr;
-    private String may;
-    private String jun;
-    private String jul;
-    private String aug;
-    private String sep;
-    private String oct;
-    private String nov;
-    private String dec;
-
     private float sumIncomeJan;
     private float sumIncomeFeb;
     private float sumIncomeMar;
@@ -487,8 +472,6 @@ public class Dashboard extends Fragment {
             if (check.equals("1")) {
                 Log.d(TAG, "check " + check);
 
-                jan = "JAN";
-                Log.d(TAG, "jan " + jan);
 
                 sumIncomeJan = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJan " + sumIncomeJan);
@@ -497,8 +480,6 @@ public class Dashboard extends Fragment {
             if (check.equals("2")) {
                 Log.d(TAG, "check " + check);
 
-                feb = "FEB";
-                Log.d(TAG, "feb " + feb);
 
                 sumIncomeFeb = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeFeb " + sumIncomeFeb);
@@ -507,8 +488,6 @@ public class Dashboard extends Fragment {
             if (check.equals("3")) {
                 Log.d(TAG, "check " + check);
 
-                mar = "MAR";
-                Log.d(TAG, "mar " + mar);
 
                 sumIncomeMar = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeMar " + sumIncomeMar);
@@ -517,8 +496,6 @@ public class Dashboard extends Fragment {
             if (check.equals("4")) {
                 Log.d(TAG, "check " + check);
 
-                apr = "APR";
-                Log.d(TAG, "apr " + apr);
 
                 sumIncomeApr = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeApr " + sumIncomeApr);
@@ -527,8 +504,6 @@ public class Dashboard extends Fragment {
             if (check.equals("5")) {
                 Log.d(TAG, "check " + check);
 
-                may = "MAY";
-                Log.d(TAG, "may " + may);
 
                 sumIncomeMay = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeMay " + sumIncomeMay);
@@ -537,8 +512,6 @@ public class Dashboard extends Fragment {
             if (check.equals("6")) {
                 Log.d(TAG, "check " + check);
 
-                jun = "JUN";
-                Log.d(TAG, "jun " + jun);
 
                 sumIncomeJun = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJun " + sumIncomeJun);
@@ -547,8 +520,6 @@ public class Dashboard extends Fragment {
             if (check.equals("7")) {
                 Log.d(TAG, "check " + check);
 
-                jul = "JUL";
-                Log.d(TAG, "jul " + jul);
 
                 sumIncomeJul = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJul " + sumIncomeJul);
@@ -557,8 +528,6 @@ public class Dashboard extends Fragment {
             if (check.equals("8")) {
                 Log.d(TAG, "check " + check);
 
-                aug = "AUG";
-                Log.d(TAG, "aug " + aug);
 
                 sumIncomeAug = integerCollector.get(i);
                 Log.d(TAG, "incomeAug " + sumIncomeAug);
@@ -567,8 +536,6 @@ public class Dashboard extends Fragment {
             if (check.equals("9")) {
                 Log.d(TAG, "check " + check);
 
-                sep = "SEP";
-                Log.d(TAG, "sep " + sep);
 
                 sumIncomeSep = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeSep " + sumIncomeSep);
@@ -577,8 +544,6 @@ public class Dashboard extends Fragment {
             if (check.equals("10")) {
                 Log.d(TAG, "check " + check);
 
-                oct = "OCT";
-                Log.d(TAG, "oct " + oct);
 
                 sumIncomeOct = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeOct " + sumIncomeOct);
@@ -587,8 +552,6 @@ public class Dashboard extends Fragment {
             if (check.equals("11")) {
                 Log.d(TAG, "check " + check);
 
-                nov = "NOV";
-                Log.d(TAG, "nov " + nov);
 
                 sumIncomeNov = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeNov " + sumIncomeNov);
@@ -597,8 +560,6 @@ public class Dashboard extends Fragment {
             if (check.equals("12")) {
                 Log.d(TAG, "check " + check);
 
-                dec = "DEC";
-                Log.d(TAG, "dec " + dec);
 
                 sumIncomeDec = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeDec " + sumIncomeDec);
@@ -702,8 +663,6 @@ public class Dashboard extends Fragment {
             if (check.equals("1")) {
                 Log.d(TAG, "check " + check);
 
-                jan = "JAN";
-                Log.d(TAG, "jan " + jan);
 
                 sumExpenseJan = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseJan " + sumExpenseJan);
@@ -712,8 +671,6 @@ public class Dashboard extends Fragment {
             if (check.equals("2")) {
                 Log.d(TAG, "check " + check);
 
-                feb = "FEB";
-                Log.d(TAG, "feb " + feb);
 
                 sumExpenseFeb = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseFeb " + sumExpenseFeb);
@@ -722,8 +679,6 @@ public class Dashboard extends Fragment {
             if (check.equals("3")) {
                 Log.d(TAG, "check " + check);
 
-                mar = "MAR";
-                Log.d(TAG, "mar " + mar);
 
                 sumExpenseMar = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseMar " + sumExpenseMar);
@@ -732,8 +687,6 @@ public class Dashboard extends Fragment {
             if (check.equals("4")) {
                 Log.d(TAG, "check " + check);
 
-                apr = "APR";
-                Log.d(TAG, "apr " + apr);
 
                 sumExpenseApr = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseApr " + sumExpenseApr);
@@ -742,18 +695,12 @@ public class Dashboard extends Fragment {
             if (check.equals("5")) {
                 Log.d(TAG, "check " + check);
 
-                may = "MAY";
-                Log.d(TAG, "may " + may);
-
                 sumExpenseMay = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseMay " + sumExpenseMay);
 
             } //6
             if (check.equals("6")) {
                 Log.d(TAG, "check " + check);
-
-                jun = "JUN";
-                Log.d(TAG, "jun " + jun);
 
                 sumExpenseJun = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseJun " + sumExpenseJun);
@@ -762,18 +709,12 @@ public class Dashboard extends Fragment {
             if (check.equals("7")) {
                 Log.d(TAG, "check " + check);
 
-                jul = "JUL";
-                Log.d(TAG, "jul " + jul);
-
                 sumExpenseJul = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseJul " + sumExpenseJul);
 
             }//8
             if (check.equals("8")) {
                 Log.d(TAG, "check " + check);
-
-                aug = "AUG";
-                Log.d(TAG, "aug " + aug);
 
                 sumExpenseAug = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseAug " + sumExpenseAug);
@@ -782,8 +723,6 @@ public class Dashboard extends Fragment {
             if (check.equals("9")) {
                 Log.d(TAG, "check " + check);
 
-                sep = "SEP";
-                Log.d(TAG, "sep " + sep);
 
                 sumExpenseSep = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseSep " + sumExpenseSep);
@@ -792,9 +731,6 @@ public class Dashboard extends Fragment {
             if (check.equals("10")) {
                 Log.d(TAG, "check " + check);
 
-                oct = "OCT";
-                Log.d(TAG, "oct " + oct);
-
                 sumExpenseOct = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseOct " + sumExpenseOct);
 
@@ -802,8 +738,6 @@ public class Dashboard extends Fragment {
             if (check.equals("11")) {
                 Log.d(TAG, "check " + check);
 
-                nov = "NOV";
-                Log.d(TAG, "nov " + nov);
 
                 sumExpenseNov = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseNov " + sumExpenseNov);
@@ -811,9 +745,6 @@ public class Dashboard extends Fragment {
             }//12
             if (check.equals("12")) {
                 Log.d(TAG, "check " + check);
-
-                dec = "DEC";
-                Log.d(TAG, "dec " + dec);
 
                 sumExpenseDec = integerCollector.get(i);
                 Log.d(TAG, "sumExpenseDec " + sumExpenseDec);
@@ -918,10 +849,10 @@ public class Dashboard extends Fragment {
             String check = stringCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
 
-            if (check.equals("Extra Income")) {
+            if (check.equals("Extra income")) {
                 Log.d(TAG, "check " + check);
 
-                categoryExtraIncomeMonth = "Extra Income";
+                categoryExtraIncomeMonth = "Extra income";
                 Log.d(TAG, "categoryExtraIncomeMonth " + categoryExtraIncomeMonth);
 
                 sumIncomeExtraMonth = integerCollector.get(i);
@@ -1260,10 +1191,10 @@ public class Dashboard extends Fragment {
             String check = stringCollector.get(i).trim();
             //Log.d(TAG, "check " + check);
 
-            if (check.equals("Extra Income")) {
+            if (check.equals("Extra income")) {
                 Log.d(TAG, "check " + check);
 
-                categoryExtraIncomeYear = "Extra Income";
+                categoryExtraIncomeYear = "Extra income";
                 Log.d(TAG, "categoryExtraIncomeYear " + categoryExtraIncomeYear);
 
                 sumIncomeExtraYear = integerCollector.get(i);
@@ -1734,54 +1665,63 @@ public class Dashboard extends Fragment {
 
             yDataExpense.add(sumExpenseJan);
             Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
+            Log.d(TAG, "sumExpenseJan = " + sumExpenseJan);
         }
         if(sumIncomeFeb >= 0 || sumExpenseFeb >=0){
             yDataIncome.add(sumIncomeFeb);
 
             yDataExpense.add(sumExpenseFeb);
             Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
+            Log.d(TAG, "sumExpenseFeb = " + sumExpenseFeb);
         }
         if(sumIncomeMar >= 0 || sumExpenseMar >=0){
             yDataIncome.add(sumIncomeMar);
 
             yDataExpense.add(sumExpenseMar);
             Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
+            Log.d(TAG, "sumExpenseMar = " + sumExpenseMar);
         }
         if(sumIncomeApr >= 0 || sumExpenseApr >=0){
             yDataIncome.add(sumIncomeApr);
 
             yDataExpense.add(sumExpenseApr);
             Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
+            Log.d(TAG, "sumExpenseApr = " + sumExpenseApr);
         }
         if(sumIncomeMay >= 0 || sumExpenseMay >=0){
             yDataIncome.add(sumIncomeMay);
 
             yDataExpense.add(sumExpenseMay);
             Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
+            Log.d(TAG, "sumExpenseMay = " + sumExpenseMay);
         }
         if(sumIncomeJun >= 0 || sumExpenseJun >=0){
             yDataIncome.add(sumIncomeJun);
 
             yDataExpense.add(sumExpenseJun);
             Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
+            Log.d(TAG, "sumExpenseJun = " + sumExpenseJun);
         }
         if(sumIncomeJul >= 0 || sumExpenseJul >=0){
             yDataIncome.add(sumIncomeJul);
 
             yDataExpense.add(sumExpenseJul);
             Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
+            Log.d(TAG, "sumExpenseJul = " + sumExpenseJul);
         }
         if(sumIncomeAug >= 0 || sumExpenseAug >=0){
             yDataIncome.add(sumIncomeAug);
 
             yDataExpense.add(sumExpenseAug);
             Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
+            Log.d(TAG, "sumExpenseAug = " + sumExpenseAug);
         }
         if(sumIncomeSep > 0 || sumExpenseSep >=0){
             yDataIncome.add(sumIncomeSep);
 
             yDataExpense.add(sumExpenseSep);
             Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
+            Log.d(TAG, "sumExpenseSep = " + sumExpenseSep);
         }
         if(sumIncomeOct >= 0 || sumExpenseOct >=0){
             yDataIncome.add(sumIncomeOct);
@@ -1795,16 +1735,18 @@ public class Dashboard extends Fragment {
 
             yDataExpense.add(sumExpenseNov);
             Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
+            Log.d(TAG, "sumExpenseNov = " + sumExpenseNov);
         }
         if(sumIncomeDec >= 0 || sumExpenseDec >=0){
             yDataIncome.add(sumIncomeDec);
 
             yDataExpense.add(sumExpenseDec);
             Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
+            Log.d(TAG, "sumExpenseDec = " + sumExpenseDec);
         }
 
 
-        final GraphView graph = (GraphView) mView.findViewById(R.id.graph);
+        GraphView graph = (GraphView) mView.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> seriesIncome = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
@@ -1825,7 +1767,11 @@ public class Dashboard extends Fragment {
 
         });
 
-        final LineGraphSeries<DataPoint> seriesExpense = new LineGraphSeries<>(new DataPoint[]{
+
+
+
+
+        LineGraphSeries<DataPoint> seriesExpense = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
                 new DataPoint(1, sumExpenseJan),
@@ -1846,11 +1792,11 @@ public class Dashboard extends Fragment {
         });
 
 
-
-
         graph.addSeries(seriesIncome);
         seriesIncome.setColor(getResources().getColor(R.color.buttonColorGreen));
-     //   seriesIncome.setDrawDataPoints(true);
+        seriesIncome.setThickness(10);
+
+        //   seriesIncome.setDrawDataPoints(true);
 
 
 //        seriesIncome.setOnDataPointTapListener(new OnDataPointTapListener() {
@@ -1865,8 +1811,11 @@ public class Dashboard extends Fragment {
 //        });
 
 
+
         graph.addSeries(seriesExpense);
         seriesExpense.setColor(getResources().getColor(R.color.buttonColorRed));
+        seriesExpense.setThickness(10);
+     //   graph.getGridLabelRenderer().setHorizontalLabelsColor(R.color.buttonColorBlack);
       //  seriesExpense.setDrawDataPoints(true);
 //        seriesExpense.setDataPointsRadius(10);
 //        seriesExpense.setOnDataPointTapListener(new OnDataPointTapListener() {
@@ -1879,7 +1828,6 @@ public class Dashboard extends Fragment {
 //
 //            }
 //        });
-
 
 
 
@@ -1899,7 +1847,6 @@ public class Dashboard extends Fragment {
 //        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
 
         graph.getGridLabelRenderer().setNumHorizontalLabels(12);
- //       graph.getGridLabelRenderer().setGridColor(getResources().getColor(R.color.buttonColorBlack));
 
 
 //
@@ -1992,10 +1939,11 @@ public class Dashboard extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setValueTextSize(15);
         pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.7f);
-        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1Length(0.5f);
+        pieDataSet.setValueLinePart2Length(0.7f);
         pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
@@ -2137,10 +2085,11 @@ public class Dashboard extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setValueTextSize(15);
         pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.7f);
-        pieDataSet.setValueLinePart2Length(0.5f);
+        pieDataSet.setValueLinePart1Length(0.5f);
+        pieDataSet.setValueLinePart2Length(0.7f);
         pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
@@ -2258,11 +2207,12 @@ public class Dashboard extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setValueTextSize(15);
         pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.7f);
-        pieDataSet.setValueLinePart2Length(0.5f);
-        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+        pieDataSet.setValueLinePart1Length(0.5f);
+        pieDataSet.setValueLinePart2Length(0.7f);
+       // pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
 
@@ -2389,11 +2339,12 @@ public class Dashboard extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
+        pieDataSet.setValueTextSize(15);
         pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.7f);
-        pieDataSet.setValueLinePart2Length(0.5f);
-        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+        pieDataSet.setValueLinePart1Length(0.5f);
+        pieDataSet.setValueLinePart2Length(0.7f);
+        //pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         // add color to dataset
