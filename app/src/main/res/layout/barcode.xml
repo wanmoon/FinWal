@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context="com.wanmoon.finwal.activity.Barcode">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relative1"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/textViewCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CANCEL"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentLeft="true"/>
+
+
+        <TextView
+            android:id="@+id/textViewFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="sendMessage"
+            android:text="FINISH"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -18,15 +18,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.zxing.Result;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -39,7 +43,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , Billing.OnFragmentInteractionListener
            , Goal.OnFragmentInteractionListener , Dashboard.OnFragmentInteractionListener
-           , Home.OnFragmentInteractionListener , History.OnFragmentInteractionListener {
+           , Home.OnFragmentInteractionListener , History.OnFragmentInteractionListener{
 
     private FirebaseAuth firebaseAuth;
     private TextView textViewUserEmail;
@@ -81,13 +85,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Log.e("tet", Locale.getDefault().getLanguage());
 
-        //OneSignal.setInFocusDisplaying(OneSignal.OSInFocusDisplayOption.InAppAlert);
-        //OneSignal.sendTag("test3", "test7");
-        //OneSignal.setSubscription(false);
-
-        //OneSignal.syncHashedEmail("test@onesignal.com");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -168,7 +166,7 @@ public class MainActivity extends AppCompatActivity
         fab_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+                Intent i = new Intent(getApplicationContext(), Barcode.class);
                 startActivity(i);
             }
         });
@@ -197,6 +195,19 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        //scan
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -318,6 +329,8 @@ public class MainActivity extends AppCompatActivity
         }
         return response;
     }
+
+
 
     // ** must have for connect DB
     public class getHttpIncomeMonth {

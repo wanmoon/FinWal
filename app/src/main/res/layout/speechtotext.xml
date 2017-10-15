@@ -92,7 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/relative4"
-            android:layout_below="@+id/relative3">
+            android:layout_below="@+id/relative3"
+            android:layout_alignParentStart="true">
 
                 <EditText
                     android:id="@+id/TvResult"
@@ -114,13 +115,13 @@
                     android:id="@+id/editOk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/ic_menu_send"
-                    android:onClick="editOk"
-                    android:text="OK"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_alignParentEnd="true" />
+                    android:background="@android:color/darker_gray"
+                    android:onClick="editOk"
+                    android:text="OK" />
         </RelativeLayout>
 
 
