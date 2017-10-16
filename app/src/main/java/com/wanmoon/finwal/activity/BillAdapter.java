@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
@@ -72,7 +72,7 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
         TextView textViewDeadline = (TextView) view.findViewById(R.id.textViewDeadline);
         textViewDeadline.setText(arrBill.get(position).get("deadline").toString());
 
-        ImageButton imageButtonEdit = (ImageButton) view.findViewById(R.id.imageButtonEdit);
+        ImageView imageButtonEdit = (ImageView) view.findViewById(R.id.imageButtonEdit);
         imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
         return view;

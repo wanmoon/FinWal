@@ -152,7 +152,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
         } if(v == textViewCancel){
             // will open login activity here
-            Intent i=new Intent(this, MainActivity.class);
+            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newGoal", true);
             startActivity(i);
             finish();
 
@@ -277,6 +278,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
                     // will open login activity here
                     Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                    i.putExtra("newGoal", true);
                     startActivity(i);
                     finish();
                 }

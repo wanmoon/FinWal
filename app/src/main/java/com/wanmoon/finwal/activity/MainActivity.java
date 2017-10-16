@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
     private Handler handler;
     private Runnable runnable;
 
-
     private double sumIncomeMonth = -1;
     private double sumExpenseMonth = -1;
     private double monthBalance;
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity
     getHttpIncomeYear httpIncomeYear;
     getHttpExpenseYear httpExpenseYear;
 
-
     //for log
     private final String TAG = "MainActivity";
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
@@ -81,19 +79,32 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        boolean isNewGoal = getIntent().getBooleanExtra("newGoal", false);
+        boolean isNewBill = getIntent().getBooleanExtra("newBill", false);
 
-        Home HomeFragment = new Home();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, HomeFragment);
-        transaction.commit();
+        if(isNewGoal){
+            Goal GoalFragment = new Goal();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, GoalFragment);
+            transaction.commit();
+        } else if(isNewBill){
+            Billing BillFregment = new Billing();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, BillFregment);
+            transaction.commit();
+        } else {
+            Home HomeFragment = new Home();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, HomeFragment);
+            transaction.commit();
+        }
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-
 
         httpExpenseMonth = new getHttpExpenseMonth(getApplicationContext());
         httpIncomeMonth = new getHttpIncomeMonth(getApplicationContext());
@@ -103,10 +114,6 @@ public class MainActivity extends AppCompatActivity
         sumIncomeMonthToDB(cust_id);
         sumIncomeYearToDB(cust_id);
         sumExpenseYearToDB(cust_id);
-
-
-
-
 
         textViewTitle = (TextView) findViewById(R.id.toolbar_title);
 
@@ -149,6 +156,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), SpeechToText.class);
                 startActivity(i);
+                finish();
             }
         });
         fab_typing.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +164,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AddTransaction.class);
                 startActivity(i);
+                finish();
             }
         });
         fab_scan.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +172,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Barcode.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -187,24 +197,9 @@ public class MainActivity extends AppCompatActivity
                 drawer.closeDrawer(GravityCompat.START);
                 Intent i = new Intent(getApplicationContext(), Profile.class);
                 startActivity(i);
-
+                finish();
             }
         });
-
-        //scan
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -245,15 +240,11 @@ public class MainActivity extends AppCompatActivity
 //            transaction.replace(R.id.fragment_container, HomeFragment);
 //            transaction.commit();
 
-
-
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment);
             transaction.commit();
-
-
 
         } else if (id == R.id.nav_goal){
             Goal GoalFragment = new Goal();
@@ -261,10 +252,7 @@ public class MainActivity extends AppCompatActivity
             transaction.replace(R.id.fragment_container, GoalFragment);
             transaction.commit();
 
-
-
         } else if (id == R.id.nav_dashboard) {
-
             Bundle bundle = new Bundle();
             bundle.putDouble("sumIncomeMonth", sumIncomeMonth);
             bundle.putDouble("sumExpenseMonth", sumExpenseMonth);
@@ -278,21 +266,17 @@ public class MainActivity extends AppCompatActivity
             transaction.commit();
 
             DashboardFragment.setArguments(bundle);
-
-
         } else if (id == R.id.nav_history){
             History HistoryFragment = new History();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, HistoryFragment);
             transaction.commit();
 
-
         } else if (id == R.id.nav_logout){
             firebaseAuth.signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
             finish();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -310,9 +294,7 @@ public class MainActivity extends AppCompatActivity
         textViewTitle.setText(title);
     }
 
-
     //////////////////////for month balance/////////////////////
-
     public String sumIncomeMonthToDB(String cust_id){
         try {
             Log.d(TAG,"start sumIncomeMonth");
@@ -325,9 +307,6 @@ public class MainActivity extends AppCompatActivity
         return response;
     }
 
-
-
-    // ** must have for connect DB
     public class getHttpIncomeMonth {
         OkHttpClient client;
         Handler mainHandler;
@@ -338,7 +317,6 @@ public class MainActivity extends AppCompatActivity
             client = new OkHttpClient();
             mainHandler = new Handler(context.getMainLooper());
         }
-
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -382,7 +360,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
-
 
     public String sumExpenseMonthToDB(String cust_id){
         try {
@@ -451,15 +428,9 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-
-
     }
 
-
-
-
     //////////////////////for year balance/////////////////////
-
     public String sumIncomeYearToDB(String cust_id){
         try {
             Log.d(TAG,"start transaction");
@@ -516,7 +487,6 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
-
 
     public String sumExpenseYearToDB(String cust_id){
         try {
@@ -575,81 +545,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-
-
-
     public void sumAllBalance(){
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
 
         YearBalance = sumIncomeYear - sumExpenseYear;
         Log.d(TAG, "Year balance = " + YearBalance);
-
-
     }
-//    private class ExampleNotificationOpenedHandler implements NotificationOpenedHandler {
-//        /**
-//         * Callback to implement in your app to handle when a notification is opened from the Android status bar or
-//         * a new one comes in while the app is running.
-//         * This method is located in this activity as an example, you may have any class you wish implement NotificationOpenedHandler and define this method.
-//         *
-//         * @param openedResult The message string the user seen/should see in the Android status bar.
-//         */
-//        @Override
-//        public void notificationOpened(OSNotificationOpenResult openedResult) {
-//            Log.e("OneSignalExample", "body: " + openedResult.notification.payload.body);
-//            Log.e("OneSignalExample", "additional data: " + openedResult.notification.payload.additionalData);
-//            //Log.e("OneSignalExample", "additionalData: " + additionalData.toString());
-//        }
-//    }
-//public void onSubscribeClicked(View v) {
-//    OneSignal.setSubscription(true);
-//    OneSignal.promptLocation();
-//
-//    String ns = Context.NOTIFICATION_SERVICE;
-//    NotificationManager nMgr = (NotificationManager) getApplicationContext().getSystemService(ns);
-//    nMgr.cancelAll();
-//}
-//
-//    public void onUnsubscribeClicked(View v) {
-//        OneSignal.setSubscription(false);
-//    }
-
-//   @Override
-//   protected void onPause() {
-//      super.onPause();
-//      if (mHelper != null)
-//         mHelper.dispose();
-//   }
-//
-//   @Override
-//   public void onDestroy() {
-//      super.onDestroy();
-//      if (mHelper != null) mHelper.dispose();
-//      mHelper = null;
-//   }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings)
-//            return true;
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
 }

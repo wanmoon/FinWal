@@ -161,6 +161,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
         if(v == textViewCancel){
             // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newBill", true);
             startActivity(i);
             finish();
         }
@@ -211,6 +212,7 @@ public class NewBill extends AppCompatActivity implements View.OnClickListener {
 
                     // will open main activity here
                     Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                    i.putExtra("newBill", true);
                     startActivity(i);
                     finish();
                 }

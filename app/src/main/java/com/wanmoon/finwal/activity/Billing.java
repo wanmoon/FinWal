@@ -54,6 +54,14 @@ public class Billing extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private View mView;
+
+    ArrayList<HashMap<String, String>> billList;
+    BillAdapter adapter;
+    ListView billingListView;
+
+    public Spinner spinnerSort;
+
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
@@ -64,14 +72,6 @@ public class Billing extends Fragment {
 
     //**for log
     private final String TAG = "AllBillActivity";
-
-    private View mView;
-
-    ArrayList<HashMap<String, String>> billList;
-    BillAdapter adapter;
-    ListView billingListView;
-
-    public Spinner spinnerSort;
 
     public Billing() {
         // Required empty public constructor
@@ -133,7 +133,7 @@ public class Billing extends Fragment {
                 Log.d(TAG, hashmap.get("description_bill"));
 
                 //sent value
-                Intent i = new Intent(getActivity(), EditGoal.class); //edit duey
+                Intent i = new Intent(getActivity(), EditBill.class); //edit duey
                 i.putExtra("hashmap", hashmap);
                 startActivity(i);
             }
@@ -271,7 +271,6 @@ public class Billing extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    // ** must have for connect DB
     public class getHttp {
         OkHttpClient client;
         Handler mainHandler;

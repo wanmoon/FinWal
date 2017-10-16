@@ -14,7 +14,6 @@
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:padding="2dp"
@@ -27,7 +26,8 @@
             android:textColor="@color/buttonColorGrey"
             android:textSize="21dp"
             android:textStyle="bold"
-            android:layout_toStartOf="@+id/textViewStatus" />
+            android:layout_toStartOf="@+id/textViewStatus"
+            android:layout_alignBottom="@+id/textViewStatus" />
 
         <TextView
             android:id="@+id/textViewStatus"
@@ -46,12 +46,13 @@
             android:paddingTop="2dp"
             android:textAlignment="center"
             android:textSize="17dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/imageButtonEdit" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imageButtonEdit"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/textViewDescription"
             android:layout_margin="2dp"
