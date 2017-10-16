@@ -16,18 +16,29 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
-$goal_id = $_GET["goal_id"];
+$flagSort = $_GET["flagSort"];
+$status = " AND status_bill != 'Deleted' ";
+$sort;
 
-//ending_date, description_goal, status_goal, budget_goal, savingplan, suggest_cost, current_goal
-//$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
-$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND status_goal = 'Unachieve' ORDER BY ending_date ASC LIMIT 1";
+if ($flagSort == 0) {
+	$sort = "status_bill ASC";
+} elseif ($flagSort == 1) {
+	$sort = "status_bill DESC";
+} elseif ($flagSort == 3) {
+	$status = " AND status_bill = 'Deleted' ";
+    $sort = "deadline ASC";
+} else {
+	$sort = "deadline ASC";
+}
+
+$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id'" . $status . " ORDER BY $sort";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['goal_id'] . "," . $row['cust_id'] . "," . $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "," . $row['savingplan'] . "," . $row['suggest_cost'] . "," . $row['current_goal'] . "\n";
+        echo $row['period'] . "," . $row['description_bill'] . "," . $row['status_bill'] . "," . $row['deadline'] . "\n";
     }
 } else {
     echo "ERROR : " . $conn->error;

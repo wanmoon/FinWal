@@ -18,17 +18,16 @@ if (!$conn) {
 $cust_id = $_GET["cust_id"];
 $goal_id = $_GET["goal_id"];
 
+//SELECT current_goal FROM `goal` WHERE cust_id = 'NvxF5IzFIlVDRPvGFCq2QJAJ0Kk1' AND goal_id = '38'
+//UPDATE goal SET current_goal = '20' WHERE goal_id = '38' AND cust_id = 'NvxF5IzFIlVDRPvGFCq2QJAJ0Kk1'
+
 //ending_date, description_goal, status_goal, budget_goal, savingplan, suggest_cost, current_goal
-//$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
-$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND status_goal = 'Unachieve' ORDER BY ending_date ASC LIMIT 1";
+$sql = "UPDATE goal SET status_goal = 'Deleted'  WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
 
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo $row['goal_id'] . "," . $row['cust_id'] . "," . $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "," . $row['savingplan'] . "," . $row['suggest_cost'] . "," . $row['current_goal'] . "\n";
-    }
+if ($result == TRUE) {
+    echo "Update current_goal successful";
 } else {
     echo "ERROR : " . $conn->error;
 }
