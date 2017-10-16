@@ -1656,7 +1656,6 @@ public class Dashboard extends Fragment {
 
         Log.d(TAG, "addDataSet lineChart started");
         final ArrayList<Float> yDataIncome = new ArrayList<>();
-
         final ArrayList<Float> yDataExpense = new ArrayList<>();
 
 
@@ -1791,14 +1790,29 @@ public class Dashboard extends Fragment {
 
         });
 
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, 0),
+                new DataPoint(2, 0),
+                new DataPoint(3, 0),
+                new DataPoint(4, 0),
+
+                new DataPoint(5, 0),
+                new DataPoint(6, 0),
+                new DataPoint(7, 0),
+                new DataPoint(8, 0),
+                new DataPoint(9, 0),
+
+                new DataPoint(10, 0),
+                new DataPoint(11, 0),
+                new DataPoint(12, 0),
+
+        });
+
 
         graph.addSeries(seriesIncome);
         seriesIncome.setColor(getResources().getColor(R.color.buttonColorGreen));
-        seriesIncome.setThickness(10);
-
-        //   seriesIncome.setDrawDataPoints(true);
-
-
 //        seriesIncome.setOnDataPointTapListener(new OnDataPointTapListener() {
 //            @Override
 //            public void onTap(Series series, DataPointInterface dataPoint) {
@@ -1814,7 +1828,7 @@ public class Dashboard extends Fragment {
 
         graph.addSeries(seriesExpense);
         seriesExpense.setColor(getResources().getColor(R.color.buttonColorRed));
-        seriesExpense.setThickness(10);
+        //seriesExpense.setThickness(10);
      //   graph.getGridLabelRenderer().setHorizontalLabelsColor(R.color.buttonColorBlack);
       //  seriesExpense.setDrawDataPoints(true);
 //        seriesExpense.setDataPointsRadius(10);
@@ -1828,6 +1842,12 @@ public class Dashboard extends Fragment {
 //
 //            }
 //        });
+
+        graph.addSeries(series);
+        series.setColor(getResources().getColor(R.color.buttonColorBlack));
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(6);
+        series.setThickness(5);
 
 
 
@@ -1849,11 +1869,6 @@ public class Dashboard extends Fragment {
         graph.getGridLabelRenderer().setNumHorizontalLabels(12);
 
 
-//
-//        ArrayList<String> legends = new ArrayList();
-//                legends.add("Line1");
-//                legends.add("Line2");
-//        GraphView.setLegends(legends);
 
 
     }
