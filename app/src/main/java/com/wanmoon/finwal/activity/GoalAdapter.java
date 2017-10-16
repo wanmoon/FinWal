@@ -61,7 +61,7 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
         if(arrGoal.get(position).get("status_goal").toString().equals("Achieved")){
             //income : green
             textViewStatus.setTextColor(Color.parseColor("#088A4B"));
-        } else if (arrGoal.get(position).get("status_goal").toString().equals("Unachieve")){
+        } else if (arrGoal.get(position).get("status_goal").toString().equals("Unachieve") || arrGoal.get(position).get("status_goal").toString().equals("Deleted")){
             //expense : red
             textViewStatus.setTextColor(Color.parseColor("#e54649"));
         }

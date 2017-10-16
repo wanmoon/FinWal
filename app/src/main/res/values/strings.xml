@@ -27,12 +27,14 @@
         <item>Ending Date</item>
         <item>Price : Low-High</item>
         <item>Price : High-Low</item>
+        <item>Deleted</item>
     </string-array>
 
     <string-array name="array_spinner_bill">
         <item>Unpaid</item>
         <item>Paid</item>
         <item>Deadline</item>
+        <item>Deleted</item>
     </string-array>
 
     <string-array name="array_spinner_history_all">

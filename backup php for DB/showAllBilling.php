@@ -17,17 +17,21 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 $flagSort = $_GET["flagSort"];
+$status = " AND status_bill != 'Deleted' ";
 $sort;
 
 if ($flagSort == 0) {
 	$sort = "status_bill ASC";
 } elseif ($flagSort == 1) {
 	$sort = "status_bill DESC";
+} elseif ($flagSort == 3) {
+	$status = " AND status_bill = 'Deleted' ";
+    $sort = "deadline ASC";
 } else {
 	$sort = "deadline ASC";
 }
 
-$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id' ORDER BY $sort" ;
+$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id'" . $status . " ORDER BY $sort";
 
 $result = $conn->query($sql);
 

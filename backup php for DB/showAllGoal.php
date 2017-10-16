@@ -17,6 +17,7 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 $flagSort = $_GET["flagSort"];
+$status = " AND status_goal != 'Deleted' ";
 $sort;
 
 if ($flagSort == 0) { //unacheive =0
@@ -27,18 +28,21 @@ if ($flagSort == 0) { //unacheive =0
 	$sort = "budget_goal ASC";
 } elseif ($flagSort == 3) { //price high-low =3
 	$sort = "budget_goal DESC";
+} elseif ($flagSort == 5) { //deleted
+    $sort = "ending_date DESC";
+    $status = " AND status_goal = 'Deleted' ";
 } else {
 	$sort = "ending_date DESC"; //time = 4
 }
 
-$sql = "SELECT ending_date, description_goal, status_goal, budget_goal FROM goal WHERE cust_id = '$cust_id' ORDER BY $sort";
+$sql = "SELECT goal_id, ending_date, description_goal, status_goal, budget_goal, savingplan, suggest_cost, current_goal FROM goal WHERE cust_id = '$cust_id' " . $status . "  ORDER BY $sort";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "\n";
+        echo $row['goal_id'] . "," . $row['ending_date'] . "," . $row['description_goal'] . "," . $row['status_goal'] . "," . $row['budget_goal'] . "," . $row['savingplan'] . "," . $row['suggest_cost'] . "," . $row['current_goal'] . "\n";
     }
 } else {
     echo "ERROR : " . $conn->error;
