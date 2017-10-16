@@ -36,8 +36,8 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
         return (arrBill.isEmpty())? 0: arrBill.size();
     }
 
-    public Object getItem(int position) {
-        return null;
+    public HashMap<String, String> getItem(int position) {
+        return arrBill.get(position);
     }
 
     public long getItemId(int position) {
@@ -64,7 +64,7 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
         if(arrBill.get(position).get("status_bill").toString().equals("Paid")){
             //income : green
             textViewStatus.setTextColor(Color.parseColor("#088A4B"));
-        } else if (arrBill.get(position).get("status_bill").toString().equals("Unpaid")){
+        } else if (arrBill.get(position).get("status_bill").toString().equals("Unpaid") || arrBill.get(position).get("status_bill").toString().equals("Deleted")){
             //expense : red
             textViewStatus.setTextColor(Color.parseColor("#e54649"));
         }

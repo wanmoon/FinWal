@@ -194,7 +194,7 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         try {
             Log.d(TAG,"goal_id = " + goal_id);
             Log.d(TAG,"start select");
-            httpDeleted.run(BASE_URL + "/goalDelete.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            httpDeleted.run(BASE_URL + "/goalDeleted.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();

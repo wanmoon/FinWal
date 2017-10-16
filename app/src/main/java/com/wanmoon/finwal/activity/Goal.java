@@ -132,7 +132,6 @@ public class Goal extends Fragment {
 
                 //sent value
                 Intent i = new Intent(getActivity(), EditGoal.class);
-
                 i.putExtra("hashmap", hashmap);
                 startActivity(i);
             }
@@ -163,6 +162,8 @@ public class Goal extends Fragment {
                 } else if (selected.equals("Price : High-Low")) { //3
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 3);
+                }  else if (selected.equals("Deleted")) {
+                    getAllGoal(cust_id, 5);
                 }
             }
 
@@ -291,7 +292,6 @@ public class Goal extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    // ** must have for connect DB
     public class getHttp {
         OkHttpClient client;
         Handler mainHandler;

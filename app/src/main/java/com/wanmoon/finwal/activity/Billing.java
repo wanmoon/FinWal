@@ -125,8 +125,17 @@ public class Billing extends Fragment {
 
         billingListView.setAdapter(adapter);
         billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Log.d(TAG, "position " + position);
+                HashMap<String, String> hashmap = (HashMap<String, String>) parent.getItemAtPosition(position);
 
+                Log.d(TAG, hashmap.get("description_bill"));
+
+                //sent value
+                Intent i = new Intent(getActivity(), EditGoal.class); //edit duey
+                i.putExtra("hashmap", hashmap);
+                startActivity(i);
             }
         });
 
@@ -148,6 +157,8 @@ public class Billing extends Fragment {
                     getAllBilling(cust_id, 1);
                 } else if (selected.equals("Deadline")) {
                     getAllBilling(cust_id, 2);
+                } else if (selected.equals("Deleted")) {
+                    getAllBilling(cust_id, 3);
                 }
             }
 
