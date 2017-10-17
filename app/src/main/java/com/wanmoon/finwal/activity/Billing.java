@@ -155,7 +155,7 @@ public class Billing extends Fragment {
                 } else if (selected.equals("Unpaid")) { //1
                     Log.d(TAG, "selected = " + selected);
                     getAllBilling(cust_id, 1);
-                } else if (selected.equals("Deadline")) {
+                } else if (selected.equals("All")) {
                     getAllBilling(cust_id, 2);
                 } else if (selected.equals("Deleted")) {
                     getAllBilling(cust_id, 3);

@@ -34,7 +34,7 @@
         <item>Unpaid</item>
         <item>Paid</item>
         <item>Deadline</item>
-        <item>Deleted</item>
+        <item>All</item>
     </string-array>
 
     <string-array name="array_spinner_history_all">
