@@ -677,8 +677,6 @@ public class Home extends Fragment {
     }
 
     public void sumAllBalance(){
-
-
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
         Log.d(TAG,"All start settext");
@@ -698,7 +696,7 @@ public class Home extends Fragment {
         textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
         Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
-        setExpenseMonth = "<b>" + nf.format(sumExpenseMonth) + "</b>";
+        setExpenseMonth = "<b>" + nf.format(sumExpenseMonth) + " Baht</b>";
         textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
