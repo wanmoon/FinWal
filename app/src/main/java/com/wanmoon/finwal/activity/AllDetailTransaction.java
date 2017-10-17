@@ -176,7 +176,7 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
             }
         }
 
-        CustomAdapter adapter = new CustomAdapter(getApplicationContext(), transactionList);
+        HistoryAdapter adapter = new HistoryAdapter(getApplicationContext(), transactionList);
 
         //listview for show alltransaction
         ListView transactionListView = (ListView) findViewById(R.id.listViewTransaction);

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class IncomeAdapter extends BaseAdapter {
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(view == null)
-            view = mInflater.inflate(R.layout.listview_allincome, parent, false);
+            view = mInflater.inflate(R.layout.listview_history, parent, false);
 
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
         textViewDescription.setText(arrIncome.get(position).get("description").toString());
@@ -59,8 +58,6 @@ public class IncomeAdapter extends BaseAdapter {
         textViewCost.setText(arrIncome.get(position).get("cost").toString() + " Baht");
         textViewCost.setTextColor(Color.parseColor("#088A4B"));
 
-        ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
 

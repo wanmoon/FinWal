@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,7 +46,7 @@ public class ExpenseAdapter extends BaseAdapter {
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(view == null)
-            view = mInflater.inflate(R.layout.listview_allexpense, parent, false);
+            view = mInflater.inflate(R.layout.listview_history, parent, false);
 
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
         textViewDescription.setText(arrExpense.get(position).get("description").toString());
@@ -65,9 +64,6 @@ public class ExpenseAdapter extends BaseAdapter {
             //expense : red
             textViewCost.setTextColor(Color.parseColor("#e54649"));
         }
-
-        ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
 

@@ -78,7 +78,7 @@ public class History extends android.support.v4.app.Fragment  {
     getHttpAll httpAll;
 
     ArrayList<HashMap<String, String>> transactionList;
-    CustomAdapter adapter;
+    HistoryAdapter adapter;
     ListView transactionListView;
 
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
@@ -162,7 +162,7 @@ public class History extends android.support.v4.app.Fragment  {
 
         //listview for show alltransaction
         transactionList = new ArrayList<HashMap<String, String>>();
-        adapter = new CustomAdapter(getContext(), transactionList);
+        adapter = new HistoryAdapter(getContext(), transactionList);
         transactionListView = (ListView) mView.findViewById(R.id.listViewTransaction);
 
         TextView TextViewEmptyResult = (TextView) mView.findViewById(R.id.TextViewEmptyResult);

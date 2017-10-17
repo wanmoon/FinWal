@@ -70,7 +70,7 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
         textViewDeadline.setText(arrGoal.get(position).get("ending_date").toString());
 
         ImageView imageButtonEdit = (ImageView) view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
+        imageButtonEdit.setImageResource(R.mipmap.ic_edit_black_24dp);
 
         return view;
     }

@@ -26,37 +26,4 @@ public class UserInformation {
     }
 
 
-    public String getAddress(){
-        return address;
-    }
-
-    public String getname(){
-        return name;
-    }
-
-    public String getPhoneNumber(){
-        return phoneNumber;
-    }
-
-    public String getGender(){
-        return gender;
-    }
-
-
-    public void setAddress(String address){
-        this.address = address;
-    }
-
-    public void setname(String name) {
-        this.name = name;
-    }
-
-    public void setPhoneNumber(String phoneNumber){
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setGender(String gender){
-        this.gender = gender;
-    }
-
 }

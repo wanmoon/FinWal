@@ -73,7 +73,7 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
         textViewDeadline.setText(arrBill.get(position).get("deadline").toString());
 
         ImageView imageButtonEdit = (ImageView) view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
+        imageButtonEdit.setImageResource(R.mipmap.ic_edit_black_24dp);
 
         return view;
     }

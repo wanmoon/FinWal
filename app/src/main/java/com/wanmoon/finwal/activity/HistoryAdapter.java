@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,13 +18,13 @@ import java.util.HashMap;
  * Created by Wanmoon on 8/28/2017 AD.
  */
 
-public class CustomAdapter extends BaseAdapter {
+public class HistoryAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<HashMap<String, String>> arrTransaction;
 
 
-    public CustomAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
+    public HistoryAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
         this.context= context;
         this.arrTransaction = arrTransaction;
 
@@ -48,7 +47,7 @@ public class CustomAdapter extends BaseAdapter {
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if(view == null)
-            view = mInflater.inflate(R.layout.listview_alltransaction, parent, false);
+            view = mInflater.inflate(R.layout.listview_history, parent, false);
 
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
         textViewDescription.setText(arrTransaction.get(position).get("description").toString().replace("0","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("บาท",""));
@@ -66,9 +65,6 @@ public class CustomAdapter extends BaseAdapter {
             //expense : red
             textViewCost.setTextColor(Color.parseColor("#e54649"));
         }
-
-        ImageButton imageButtonEdit = (ImageButton)view.findViewById(R.id.imageButtonEdit);
-        imageButtonEdit.setImageResource(R.mipmap.ic_mode_edit_white_24dp);
 
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
 
