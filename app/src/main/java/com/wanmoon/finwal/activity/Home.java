@@ -763,13 +763,9 @@ public class Home extends Fragment {
         String[] xData = {"Income", "Expense"};
 
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
 
         for (int i = 0; i < yData.size(); i++) {
             yEntrys.add(new PieEntry(yData.get(i), xData[i]));
-        }
-        for (int i = 0; i < xData.length; i++) {
-            xEntrys.add(xData[i]);
         }
 
         // create the dataset
