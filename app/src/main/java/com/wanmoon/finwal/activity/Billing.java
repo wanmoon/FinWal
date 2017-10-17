@@ -1,5 +1,6 @@
 package com.wanmoon.finwal.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -61,6 +62,8 @@ public class Billing extends Fragment {
     ListView billingListView;
 
     public Spinner spinnerSort;
+
+    public Dialog dialogEditBill;
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,10 +135,18 @@ public class Billing extends Fragment {
 
                 Log.d(TAG, hashmap.get("description_bill"));
 
-                //sent value
-                Intent i = new Intent(getActivity(), EditBill.class); //edit duey
-                i.putExtra("hashmap", hashmap);
-                startActivity(i);
+//                //go to next page
+//                //sent value
+//                Intent i = new Intent(getActivity(), EditBill.class); //edit duey
+//                i.putExtra("hashmap", hashmap);
+//                startActivity(i);
+
+//                dialogEditBill = new Dialog(this);
+//                dialogEditBill.getWindow();
+//                dialogEditBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialogEditBill.setContentView(R.layout.income_cate);
+//                dialogEditBill.setCancelable(true);
+//                dialogEditBill.show();
             }
         });
 
