@@ -803,10 +803,17 @@ public class Home extends Fragment {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
+        //empty result
         if(items.size()<9){
             //visible progress
             textViewProgressBarNoData.setVisibility(View.VISIBLE);
+
             progress.setVisibility(View.GONE);
+            textViewGoalTitle.setVisibility(View.GONE);
+            textViewPercentGoal.setVisibility(View.GONE);
+            textViewStatusGoal.setVisibility(View.GONE);
+            textViewMoneyLeftGoal.setVisibility(View.GONE);
+            textViewDateLeft.setVisibility(View.GONE);
         } else {
             textViewProgressBarNoData.setVisibility(View.GONE);
             data_goal_id = items.get(0);
