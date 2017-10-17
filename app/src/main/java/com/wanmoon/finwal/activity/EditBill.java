@@ -40,11 +40,13 @@ public class EditBill extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (v == textViewFinish) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newBill", true);
             startActivity(i);
             finish();
         }
         if (v == textViewCancel) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newBill", true);
             startActivity(i);
             finish();
         }
