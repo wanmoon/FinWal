@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -165,12 +166,24 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void setText(){
-        textViewTransaction.setText("Title : " + description_goal);
-        textViewStatus.setText("Status  :  " + status_goal);
-        textViewDeadline.setText("Deadline  :  " +ending_date);
-        textViewSavingPlan.setText("Type Plan  :   " + savingplan);
-        textViewBudget.setText(String.format("%.2f", budget_goal)+" Baht");
-        textViewSuggestCost.setText(String.format("%.2f", suggest_cost)+" Baht");
+        String setBold_transaction = "<b>Title</b> : " + description_goal;
+        textViewTransaction.setText(Html.fromHtml(setBold_transaction));
+
+        String setBold_Status = "<b>Status</b> : " + status_goal;
+        textViewStatus.setText(Html.fromHtml(setBold_Status));
+
+        String setBold_Deadline = "<b>Deadline</b> : " + ending_date;
+        textViewDeadline.setText(Html.fromHtml(setBold_Deadline));
+
+        String setBold_SavingPlan = "<b>Type Plan</b> : " + savingplan;
+        textViewSavingPlan.setText(Html.fromHtml(setBold_SavingPlan));
+
+        String setBold_Budget = "<b>Budget</b> : " + String.format("%.2f", budget_goal)+" Baht";
+        textViewBudget.setText(Html.fromHtml(setBold_Budget));
+
+        String setBold_SuggestCost = "<b>Suggest Cost</b> : " + String.format("%.2f", suggest_cost)+" Baht";
+        textViewSuggestCost.setText(Html.fromHtml(setBold_SuggestCost));
+
         textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
     }
 
@@ -178,12 +191,14 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         if (v == textViewFinish) {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newGoal", true);
             startActivity(i);
             finish();
         }
         if (v == textViewCancel) {
             // will open login activity here
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            i.putExtra("newGoal", true);
             startActivity(i);
             finish();
         }
