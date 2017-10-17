@@ -184,7 +184,8 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         String setBold_SuggestCost = "<b>Suggest Cost</b> : " + String.format("%.2f", suggest_cost)+" Baht";
         textViewSuggestCost.setText(Html.fromHtml(setBold_SuggestCost));
 
-        textViewHowMuch.setText(String.format("%.2f", current_goal)+" Baht");
+        String setBold_HowMuch = "<b>Current Cost</b> : " + String.format("%.2f", current_goal)+" Baht";
+        textViewHowMuch.setText(Html.fromHtml(setBold_HowMuch));
     }
 
     @Override

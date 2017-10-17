@@ -40,97 +40,37 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-
-
-
     <TextView
         android:id="@+id/textViewTransaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint= "Goal title"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
         android:textStyle="bold"
         android:layout_below="@+id/relative1" />
 
 
-
-    <LinearLayout
-        android:id="@+id/linear1"
+    <TextView
+        android:id="@+id/textViewHowMuch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textViewTransaction">
-
-
-        <LinearLayout
-            android:id="@+id/linear1_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="1dp">
-
-
-            <TextView
-                android:id="@+id/textViewCurrentBudget"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:text="CurrentBudget : "
-                android:textAlignment="textEnd"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:layout_below="@+id/textViewTransaction"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="28dp"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/linear1_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="1dp">
-
-
-            <TextView
-                android:id="@+id/textViewHowMuch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint= "Current budget"
-                android:textSize="16dp"
-                android:textAlignment="textStart"
-                android:layout_below="@+id/textViewTransaction"
-                android:layout_toEndOf="@+id/textViewCurrentBudget"
-                android:layout_marginTop="15dp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
+        android:textAlignment="center"
+        android:layout_below="@+id/textViewTransaction"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
+        android:ems="10"
+        android:hint="Current budget"
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/textViewBudget"
@@ -140,108 +80,75 @@
         android:hint= "Budget"
         android:textSize="20dp"
         android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="8dp"
-        android:layout_below="@id/linear1" />
-
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_below="@id/textViewHowMuch" />
 
     <TextView
         android:id="@+id/textViewStatus"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
         android:ems="10"
-        android:hint= "Status"
-        android:textSize="16dp"
+        android:hint="Status"
         android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="8dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewBudget"/>
+        android:textSize="18dp"
+        android:layout_below="@+id/textViewBudget" />
 
     <TextView
         android:id="@+id/textViewDeadline"
-        android:layout_width="295dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint= "Deadline"
-        android:textSize="16dp"
-        android:textAlignment="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewStatus"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textViewStatus"/>
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
+        android:ems="10"
+        android:hint="Deadline"
+        android:textAlignment="center"
+        android:textSize="18dp" />
 
+    <TextView
+        android:id="@+id/textViewSavingPlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint= "Saving plan"
+        android:textSize="18dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@+id/textViewDeadline"/>
 
-
-    <!--<TextView-->
-        <!--android:id="@+id/textViewSavingPlanShow"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Saving Plan :"-->
-        <!--android:textStyle="bold"-->
-        <!--android:layout_marginStart="28dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_below="@+id/textViewDeadline"/>-->
-
-        <TextView
-            android:id="@+id/textViewSavingPlan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint= "Saving plan"
-            android:textSize="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_centerHorizontal="true"
-            android:textAlignment="center"
-            android:layout_below="@+id/textViewDeadline"/>
-
-
-
-    <!--<TextView-->
-        <!--android:id="@+id/textViewSuggestCostShow"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="Suggestion budget : "-->
-        <!--android:textStyle="bold"-->
-        <!--android:layout_marginStart="28dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_below="@+id/textViewSavingPlan"/>-->
-
-        <TextView
-            android:id="@+id/textViewSuggestCost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint= "Suggest budget"
-            android:textSize="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:textAlignment="center"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/textViewSavingPlan" />
-
+    <TextView
+        android:id="@+id/textViewSuggestCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint= "Suggest budget"
+        android:textSize="18dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="13dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewSavingPlan" />
 
     <EditText
         android:id="@+id/editTextCost"
@@ -249,15 +156,14 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textSize="15dp"
-        android:hint= "How much do you want to pay?"
+        android:hint= "How much you want to save to your goal?"
         android:inputType="numberDecimal"
         android:textAlignment="center"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="13dp"
         android:layout_below="@+id/textViewSuggestCost"/>
-
-
 
     <LinearLayout
         android:id="@+id/layout_btnMonth"
@@ -285,19 +191,17 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="1dp"
-                >
-
+                android:layout_marginTop="1dp">
 
                 <Button
                     android:id="@+id/buttonPay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Pay"
-                    android:textStyle="bold"/>
-
+                    android:text="SAVING GOAL"
+                    android:textStyle="bold"
+                    android:background="@color/buttonColorGreen"
+                    android:textColor="@color/buttonColorWhite"/>
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/btn2"
@@ -310,19 +214,18 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="1dp"
-               >
-
+                android:layout_marginTop="1dp">
 
                 <Button
                     android:id="@+id/buttonDelete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="DELETE GOAL"
-                    android:textStyle="bold" />
+                    android:text="DELETED GOAL"
+                    android:textStyle="bold"
+                    android:background="@color/buttonColorPiggy"
+                    android:textColor="@color/buttonColorWhite"/>
 
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 
