@@ -696,7 +696,7 @@ public class Home extends Fragment {
         textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
         Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
-        setExpenseMonth = "<b>" + nf.format(sumExpenseMonth) + " Baht</b>";
+        setExpenseMonth = "<b>" + nf.format(sumExpenseMonth) + "</b>";
         textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
@@ -870,6 +870,8 @@ public class Home extends Fragment {
         //count day left
         //settext : description, status, percent, count, moneyleft
 
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+
         textViewGoalTitle.setText(description_goal);
         textViewPercentGoal.setText(float_current_goalPercent+"%");
         textViewStatusGoal.setText(status_goal);
@@ -887,7 +889,7 @@ public class Home extends Fragment {
         if (moneyleft <0) { //เกินโกลไปแล้ว
             textViewMoneyLeftGoal.setText("0 Baht Left");
         } else {
-            textViewMoneyLeftGoal.setText(moneyleft + " Baht Left");
+            textViewMoneyLeftGoal.setText(nf.format(moneyleft) + " Left");
         }
 
         //update status

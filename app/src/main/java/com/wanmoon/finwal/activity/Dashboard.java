@@ -34,6 +34,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -1619,34 +1620,36 @@ public class Dashboard extends Fragment {
     }
 
     public void setText(){
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+
         //income
-        textViewIncomeJan.setText("1 Jan : " + sumIncomeJan + " Baht");
-        textViewIncomeFeb.setText("2 Feb : " + sumIncomeFeb + " Baht");
-        textViewIncomeMar.setText("3 Mar : " + sumIncomeMar + " Baht");
-        textViewIncomeApr.setText("4 Apr : " + sumIncomeApr + " Baht");
-        textViewIncomeMay.setText("5 May : " + sumIncomeMay + " Baht");
-        textViewIncomeJun.setText("6 Jun : " + sumIncomeJun + " Baht");
-        textViewIncomeJul.setText("7 Jul : " + sumIncomeJul + " Baht");
-        textViewIncomeAug.setText("8 Aug : " + sumIncomeAug + " Baht");
-        textViewIncomeSep.setText("9 Sep : " + sumIncomeSep + " Baht");
-        textViewIncomeOct.setText("10 Oct : " + sumIncomeOct + " Baht");
-        textViewIncomeNov.setText("11 Nov : " + sumIncomeNov + " Baht");
-        textViewIncomeDec.setText("12 Dec : " + sumIncomeDec + " Baht");
+        textViewIncomeJan.setText("1 Jan : " + nf.format(sumIncomeJan) );
+        textViewIncomeFeb.setText("2 Feb : " + nf.format(sumIncomeFeb) );
+        textViewIncomeMar.setText("3 Mar : " + nf.format(sumIncomeMar) );
+        textViewIncomeApr.setText("4 Apr : " + nf.format(sumIncomeApr) );
+        textViewIncomeMay.setText("5 May : " + nf.format(sumIncomeMay) );
+        textViewIncomeJun.setText("6 Jun : " + nf.format(sumIncomeJun) );
+        textViewIncomeJul.setText("7 Jul : " + nf.format(sumIncomeJul) );
+        textViewIncomeAug.setText("8 Aug : " + nf.format(sumIncomeAug) );
+        textViewIncomeSep.setText("9 Sep : " + nf.format(sumIncomeSep) );
+        textViewIncomeOct.setText("10 Oct : " + nf.format(sumIncomeOct) );
+        textViewIncomeNov.setText("11 Nov : " + nf.format(sumIncomeNov) );
+        textViewIncomeDec.setText("12 Dec : " + nf.format(sumIncomeDec) );
 
 
         //expense
-        textViewExpenseJan.setText("1 Jan : " + sumExpenseJan + " Baht");
-        textViewExpenseFeb.setText("2 Feb : " + sumExpenseFeb + " Baht");
-        textViewExpenseMar.setText("3 Mar : " + sumExpenseMar + " Baht");
-        textViewExpenseApr.setText("4 Apr : " + sumExpenseApr + " Baht");
-        textViewExpenseMay.setText("5 May : " + sumExpenseMay + " Baht");
-        textViewExpenseJun.setText("6 Jun : " + sumExpenseJun + " Baht");
-        textViewExpenseJul.setText("7 Jul : " + sumExpenseJul + " Baht");
-        textViewExpenseAug.setText("8 Aug : " + sumExpenseAug + " Baht");
-        textViewExpenseSep.setText("9 Sep : " + sumExpenseSep + " Baht");
-        textViewExpenseOct.setText("10 Oct : " + sumExpenseOct + " Baht");
-        textViewExpenseNov.setText("11 Nov : " + sumExpenseNov + " Baht");
-        textViewExpenseDec.setText("12 Dec : " + sumExpenseDec + " Baht");
+        textViewExpenseJan.setText("1 Jan : " + nf.format(sumExpenseJan) );
+        textViewExpenseFeb.setText("2 Feb : " + nf.format(sumExpenseFeb) );
+        textViewExpenseMar.setText("3 Mar : " + nf.format(sumExpenseMar) );
+        textViewExpenseApr.setText("4 Apr : " + nf.format(sumExpenseApr) );
+        textViewExpenseMay.setText("5 May : " + nf.format(sumExpenseMay) );
+        textViewExpenseJun.setText("6 Jun : " + nf.format(sumExpenseJun) );
+        textViewExpenseJul.setText("7 Jul : " + nf.format(sumExpenseJul) );
+        textViewExpenseAug.setText("8 Aug : " + nf.format(sumExpenseAug) );
+        textViewExpenseSep.setText("9 Sep : " + nf.format(sumExpenseSep) );
+        textViewExpenseOct.setText("10 Oct : " + nf.format(sumExpenseOct) );
+        textViewExpenseNov.setText("11 Nov : " + nf.format(sumExpenseNov) );
+        textViewExpenseDec.setText("12 Dec : " + nf.format(sumExpenseDec) );
     }
 
 

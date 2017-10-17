@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -532,18 +533,21 @@ public class History extends android.support.v4.app.Fragment  {
 
 
     public void sumBalance(){
-        balanceAll = sumIncomeAll - sumExpenseAll;
-        Log.d(TAG, "balance = " + balanceAll);
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
 
         Log.d(TAG,"start settext");
-        setIncomeAll = "Total Income : " + "<b>" + sumIncomeAll + " Baht</b>";
+        setIncomeAll = "Total Income : " + "<b>" + nf.format(sumIncomeAll) + "</b>";
         Log.d(TAG,"Total Income = " + setIncomeAll);
         textViewMyIncomeAll.setText((Html.fromHtml(setIncomeAll)));
 
-        setExpenseAll = "Total Expense : " + "<b>" + sumExpenseAll + " Baht</b>";
+        setExpenseAll = "Total Expense : " + "<b>" + nf.format(sumExpenseAll) + "</b>";
         textViewMyExpenseAll.setText((Html.fromHtml(setExpenseAll)));
 
-        setWalletBalance = "Wallet Balance : " + "<b>" + balanceAll + " Baht</b>";
+
+        balanceAll = sumIncomeAll - sumExpenseAll;
+        Log.d(TAG, "balance = " + balanceAll);
+
+        setWalletBalance = "Wallet Balance : " + "<b>" + nf.format(balanceAll) + "</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
     }

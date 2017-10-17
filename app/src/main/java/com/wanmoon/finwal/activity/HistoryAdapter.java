@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,6 +23,9 @@ public class HistoryAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<HashMap<String, String>> arrTransaction;
+
+    private double sumIncomeAll;
+    private String setIncomeAll;
 
 
     public HistoryAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
@@ -49,6 +53,8 @@ public class HistoryAdapter extends BaseAdapter {
         if(view == null)
             view = mInflater.inflate(R.layout.listview_history, parent, false);
 
+        NumberFormat nf = NumberFormat.getNumberInstance();
+
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
         textViewDescription.setText(arrTransaction.get(position).get("description").toString().replace("0","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("บาท",""));
 
@@ -57,6 +63,9 @@ public class HistoryAdapter extends BaseAdapter {
 
         TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
         textViewCost.setText(arrTransaction.get(position).get("cost").toString() + " Baht");
+       // textViewCost.setText(nf.format(arrTransaction.get(position).get("cost").toString())+" dl");
+       // setIncomeAll =  nf.format(arrTransaction.get(position).get("cost").toString());
+       // textViewCost.setText(setIncomeAll);
         //if else to check transaction for set color of 'textViewCost'
         if(arrTransaction.get(position).get("transaction").toString().equals("Income")){
             //income : green
