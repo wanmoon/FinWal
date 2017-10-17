@@ -37,6 +37,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -677,6 +678,9 @@ public class Home extends Fragment {
 
     public void sumAllBalance(){
 
+
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+
         Log.d(TAG,"All start settext");
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
@@ -687,14 +691,14 @@ public class Home extends Fragment {
         Log.d(TAG, "Wallet balance = " + walletBalance);
 
         //in a month
-        setMonthBalance = "Month Balance : " + "<b>" + monthBalance + " Baht</b>";
+        setMonthBalance = "Month Balance : " + "<b>" + nf.format(monthBalance) + "</b>";
         textViewMonthBalance.setText((Html.fromHtml(setMonthBalance)));
 
-        setIncomeMonth ="<b>" + sumIncomeMonth + " Baht</b>";
+        setIncomeMonth ="<b>" + nf.format(sumIncomeMonth) + "</b>";
         textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
         Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
-        setExpenseMonth = "<b>" + sumExpenseMonth + " Baht</b>";
+        setExpenseMonth = "<b>" + nf.format(sumExpenseMonth) + "</b>";
         textViewMyExpense.setText((Html.fromHtml(setExpenseMonth)));
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
@@ -703,7 +707,7 @@ public class Home extends Fragment {
         Log.d(TAG,"date_start" + date_start);
 
         //all of my life
-        setWalletBalance = "[Since "+ date_start + "] Wallet Balance : " + "<b>" + walletBalance + " Baht</b>";
+        setWalletBalance = "[Since "+ date_start + "] Wallet Balance : " + "<b>" + nf.format(walletBalance) +  "</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG,"end settext");
 
