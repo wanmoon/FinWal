@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -171,6 +172,15 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         String setBold_Status = "<b>Status</b> : " + status_goal;
         textViewStatus.setText(Html.fromHtml(setBold_Status));
+
+        //set color for status
+        if (status_goal.equals("Achieved")){
+            //green
+            textViewStatus.setTextColor(Color.parseColor("#088A4B"));
+        } else {
+            //red
+            textViewStatus.setTextColor(Color.parseColor("#e54649"));
+        }
 
         String setBold_Deadline = "<b>Deadline</b> : " + ending_date;
         textViewDeadline.setText(Html.fromHtml(setBold_Deadline));
