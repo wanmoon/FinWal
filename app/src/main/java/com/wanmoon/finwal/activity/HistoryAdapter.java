@@ -21,8 +21,14 @@ import java.util.HashMap;
 
 public class HistoryAdapter extends BaseAdapter {
 
+    //for log
+    private final String TAG = "HistoryAdapterActivity";
+
     Context context;
     ArrayList<HashMap<String, String>> arrTransaction;
+
+    private Float cost;
+    private String get_cost;
 
 
     public HistoryAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
@@ -47,10 +53,13 @@ public class HistoryAdapter extends BaseAdapter {
         LayoutInflater mInflater =
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+
         if(view == null)
             view = mInflater.inflate(R.layout.listview_history, parent, false);
 
-        NumberFormat nf = NumberFormat.getNumberInstance();
 
         TextView textViewDescription = (TextView)view.findViewById(R.id.textViewDescription);
         textViewDescription.setText(arrTransaction.get(position).get("description").toString().replace("0","").replace("1","").replace("2","").replace("3","").replace("4","").replace("5","").replace("6","").replace("7","").replace("8","").replace("9","").replace("บาท",""));
@@ -58,8 +67,12 @@ public class HistoryAdapter extends BaseAdapter {
         TextView textViewDate = (TextView)view.findViewById(R.id.textViewDate);
         textViewDate.setText(arrTransaction.get(position).get("timestamp").toString());
 
+        get_cost = arrTransaction.get(position).get("cost").toString();
+        cost = Float.parseFloat( get_cost );
         TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
-        textViewCost.setText(arrTransaction.get(position).get("cost").toString() + " Baht");
+        textViewCost.setText("฿" + nf.format(cost) );
+
+       // textViewCost.setText(arrTransaction.get(position).get("cost").toString() + " Baht");
 
         //if else to check transaction for set color of 'textViewCost'
         if(arrTransaction.get(position).get("transaction").toString().equals("Income")){

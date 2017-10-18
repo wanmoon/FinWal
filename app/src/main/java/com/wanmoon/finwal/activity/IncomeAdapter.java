@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +22,9 @@ import java.util.HashMap;
 public class IncomeAdapter extends BaseAdapter {
     Context context;
     ArrayList<HashMap<String, String>> arrIncome;
+
+    private Float cost;
+    private String get_cost;
 
 
     public IncomeAdapter(Context context, ArrayList<HashMap<String, String>> arrIncome) {
@@ -45,6 +49,10 @@ public class IncomeAdapter extends BaseAdapter {
         LayoutInflater mInflater =
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+
         if(view == null)
             view = mInflater.inflate(R.layout.listview_history, parent, false);
 
@@ -54,9 +62,15 @@ public class IncomeAdapter extends BaseAdapter {
         TextView textViewDate = (TextView)view.findViewById(R.id.textViewDate);
         textViewDate.setText(arrIncome.get(position).get("timestamp").toString());
 
+        get_cost = arrIncome.get(position).get("cost").toString();
+        cost = Float.parseFloat( get_cost );
         TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
-        textViewCost.setText(arrIncome.get(position).get("cost").toString() + " Baht");
+        textViewCost.setText("฿" + nf.format(cost) );
         textViewCost.setTextColor(Color.parseColor("#088A4B"));
+
+//        TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
+//        textViewCost.setText(arrIncome.get(position).get("cost").toString() + " Baht");
+//        textViewCost.setTextColor(Color.parseColor("#088A4B"));
 
 
         ImageView imageViewCategoryIcon = (ImageView)view.findViewById(R.id.imageViewCategoryIcon);
