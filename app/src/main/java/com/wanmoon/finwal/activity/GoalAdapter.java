@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +24,9 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
 
     Context context;
     ArrayList<HashMap<String, String>> arrGoal;
+
+    private Float cost;
+    private String get_cost;
 
     public GoalAdapter(Context context, ArrayList<HashMap<String, String>> arrGoal) {
         this.context= context;
@@ -47,11 +51,21 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
         LayoutInflater mInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMinimumFractionDigits(2);
+        nf.setMaximumFractionDigits(2);
+
         if (view == null)
             view = mInflater.inflate(R.layout.listview_goal, parent, false);
 
-        TextView textViewCost = (TextView) view.findViewById(R.id.textViewCost);
-        textViewCost.setText(arrGoal.get(position).get("budget_goal").toString() + " Baht");
+        get_cost = arrGoal.get(position).get("budget_goal").toString();
+        cost = Float.parseFloat( get_cost );
+        TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
+        textViewCost.setText("฿" + nf.format(cost) );
+        textViewCost.setTextColor(Color.parseColor("#088A4B"));
+
+//        TextView textViewCost = (TextView) view.findViewById(R.id.textViewCost);
+//        textViewCost.setText(arrGoal.get(position).get("budget_goal").toString() + " Baht");
 
         TextView textViewGoalDescription = (TextView) view.findViewById(R.id.textViewGoalDescription);
         textViewGoalDescription.setText(arrGoal.get(position).get("description_goal").toString());

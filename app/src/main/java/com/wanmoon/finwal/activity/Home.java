@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -114,7 +113,6 @@ public class Home extends Fragment {
     private TextView textViewBillPeriod;
     private TextView textViewBillNoData;
 
-    private ImageButton imageButtonBillEdit;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
