@@ -264,7 +264,8 @@ public class Billing extends Fragment {
                 dialog_deadline = "Deadline : " + hashmap.get("deadline");
 
                 //bill_id = Integer.parseInt(hashmap.get("get_bill_id"));
-                bill_id = Integer.parseInt(get_bill_id);
+                String str_bill_id = hashmap.get("bill_id") + "";
+                bill_id = Integer.parseInt(str_bill_id);
                 Log.d(TAG, "get_bill_id = " + get_bill_id);
 
                 Log.d(TAG, "dialog_descriptionBill = " + dialog_descriptionBill);
@@ -414,7 +415,7 @@ public class Billing extends Fragment {
     //////////////////////////////////////////////////////////////////////////////update bill status
     public void updateStatus(String cust_id, int bill_id, int flagSort){
         try {
-            Log.d(TAG,"goal_id = " + bill_id);
+            Log.d(TAG,"bill_id = " + bill_id);
             Log.d(TAG,"start select");
             httpUpdateStatus.run(BASE_URL + "/billUpdateStatus.php?cust_id=" + cust_id + "&bill_id=" + bill_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
