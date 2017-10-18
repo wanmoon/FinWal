@@ -81,12 +81,18 @@ public class Billing extends Fragment {
     public String dialog_period;
     public String dialog_deadline;
 
+    public String get_bill_id;
+
+    public int bill_id;
+
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
     //**connect DB
     getHttp http;
+    getHttpUpdateStatus httpUpdateStatus;
+
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //**for log
@@ -134,86 +140,19 @@ public class Billing extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_billing, container, false);
 
+        http = new getHttp(getContext());
+        httpUpdateStatus = new getHttpUpdateStatus(getContext());
+
         //listview
         billList = new ArrayList<HashMap<String, String>>();
         adapter = new BillAdapter(getContext(), billList);
         billingListView = (ListView) rootView.findViewById(R.id.listViewBilling);
+        dialog_editbill();
 
         TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
         billingListView.setEmptyView(TextViewEmptyResult);
 
         billingListView.setAdapter(adapter);
-        billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Log.d(TAG, "position " + position);
-                HashMap<String, String> hashmap = (HashMap<String, String>) parent.getItemAtPosition(position);
-                Log.d(TAG, hashmap.get("description_bill"));
-
-                //make dialog
-                dialogEditBill = new Dialog(view.getContext());
-                dialogEditBill.getWindow();
-                dialogEditBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialogEditBill.setContentView(R.layout.dialog_editbill);
-                dialogEditBill.setCancelable(true);
-                dialogEditBill.show();
-
-                ////////////////////////////////dialog's data
-
-                //findviewbtid
-                textViewDescription_bill = (TextView) dialogEditBill.findViewById(R.id.textViewDescription_bill);
-                textViewStatus_bill = (TextView) dialogEditBill.findViewById(R.id.textViewStatus_bill);
-                textViewPeriod = (TextView) dialogEditBill.findViewById(R.id.textViewPeriod);
-                textViewDeadline = (TextView) dialogEditBill.findViewById(R.id.textViewDeadline);
-
-                //setstring
-                dialog_descriptionBill = hashmap.get("description_bill");
-                dialog_statusBill = hashmap.get("status_bill");
-                dialog_period = "Period : " + hashmap.get("period");
-                dialog_deadline = "Deadline : " + hashmap.get("deadline");
-
-                Log.d(TAG, "dialog_descriptionBill = " + dialog_descriptionBill);
-                Log.d(TAG, "dialog_statusBill = " + dialog_statusBill);
-                Log.d(TAG, "dialog_period = " + dialog_period);
-                Log.d(TAG, "dialog_deadline = " + dialog_deadline);
-
-                //settext
-                textViewDescription_bill.setText(dialog_descriptionBill);
-                textViewStatus_bill.setText(dialog_statusBill);
-                textViewPeriod.setText(dialog_period);
-                textViewDeadline.setText(dialog_deadline);
-
-                //set color
-                if (dialog_statusBill.equals("Unpaid")){
-                    textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
-                } else {
-                    textViewStatus_bill.setTextColor(Color.parseColor("#088A4B")); //green
-                }
-
-                ////////////////////////////////dialog's button
-                //paid button
-                buttonPaidBill = (Button) dialogEditBill.findViewById(R.id.buttonPaidBill);
-                buttonPaidBill.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //do something
-                        //flagSort = (?) > Paid
-                    }
-                });
-
-                //delete button
-                buttonDeleteBill = (Button) dialogEditBill.findViewById(R.id.buttonDeleteBill);
-                buttonDeleteBill.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //do something
-                        //flagSort = (?) > Paid
-                    }
-                });
-            }
-        });
-
-        http = new getHttp(getContext());
 
         //spinner
         spinnerSort = (Spinner) rootView.findViewById(R.id.spinnerSort);
@@ -294,6 +233,92 @@ public class Billing extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    public void dialog_editbill(){
+        billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, final int position,
+                                    long id) {
+                Log.d(TAG, "position " + position);
+                HashMap<String, String> hashmap = (HashMap<String, String>) parent.getItemAtPosition(position);
+                Log.d(TAG, hashmap.get("description_bill"));
+
+                //make dialog
+                dialogEditBill = new Dialog(view.getContext());
+                dialogEditBill.getWindow();
+                dialogEditBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialogEditBill.setContentView(R.layout.dialog_editbill);
+                dialogEditBill.setCancelable(true);
+                dialogEditBill.show();
+
+                ////////////////////////////////dialog's data
+
+                //findviewbtid
+                textViewDescription_bill = (TextView) dialogEditBill.findViewById(R.id.textViewDescription_bill);
+                textViewStatus_bill = (TextView) dialogEditBill.findViewById(R.id.textViewStatus_bill);
+                textViewPeriod = (TextView) dialogEditBill.findViewById(R.id.textViewPeriod);
+                textViewDeadline = (TextView) dialogEditBill.findViewById(R.id.textViewDeadline);
+
+                //setstring
+                dialog_descriptionBill = hashmap.get("description_bill");
+                dialog_statusBill = hashmap.get("status_bill");
+                dialog_period = "Period : " + hashmap.get("period");
+                dialog_deadline = "Deadline : " + hashmap.get("deadline");
+
+                //bill_id = Integer.parseInt(hashmap.get("get_bill_id"));
+                String str_bill_id = hashmap.get("bill_id") + "";
+                bill_id = Integer.parseInt(str_bill_id);
+                Log.d(TAG, "get_bill_id = " + get_bill_id);
+
+                Log.d(TAG, "dialog_descriptionBill = " + dialog_descriptionBill);
+                Log.d(TAG, "dialog_statusBill = " + dialog_statusBill);
+                Log.d(TAG, "dialog_period = " + dialog_period);
+                Log.d(TAG, "dialog_deadline = " + dialog_deadline);
+
+                //settext
+                textViewDescription_bill.setText(dialog_descriptionBill);
+                textViewStatus_bill.setText(dialog_statusBill);
+                textViewPeriod.setText(dialog_period);
+                textViewDeadline.setText(dialog_deadline);
+
+                //set color
+                if (dialog_statusBill.equals("Unpaid")){
+                    textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
+                } else {
+                    textViewStatus_bill.setTextColor(Color.parseColor("#088A4B")); //green
+                }
+
+                Log.d(TAG, "Start button");
+                ////////////////////////////////dialog's button
+                //paid button
+                buttonPaidBill = (Button) dialogEditBill.findViewById(R.id.buttonPaidBill);
+                buttonPaidBill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick Button Paid");
+                        //flagSort = (?) > Paid
+                        updateStatus(cust_id, bill_id, 0);
+                        billList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
+                    }
+                });
+
+                //delete button
+                buttonDeleteBill = (Button) dialogEditBill.findViewById(R.id.buttonDeleteBill);
+                buttonDeleteBill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick Button Deleted");
+                        //flagSort = (?) > Deleted
+                        updateStatus(cust_id, bill_id, 1);
+                        billList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
+                    }
+                });
+            }
+        });
+    }
+
     ////////////////////////////////////////////////////////////////////////////////get billing data
     public void getAllBilling(String cust_id, int flagSort){
         try {
@@ -328,18 +353,21 @@ public class Billing extends Fragment {
 
             billInfo = data.split(",");
 
-            if(billInfo.length >= 3) {
+            if(billInfo.length >= 4) {
 
                 period = billInfo[0];
                 description_bill = billInfo[1];
                 status_bill = billInfo[2];
                 deadline = billInfo[3];
+                get_bill_id = billInfo[4];
+
 
                 map = new HashMap<String, String>();
                 map.put("period", period);
                 map.put("description_bill", description_bill);
                 map.put("status_bill", status_bill);
                 map.put("deadline", deadline);
+                map.put("bill_id", get_bill_id);
                 billList.add(map);
             }
         }
@@ -388,5 +416,55 @@ public class Billing extends Fragment {
         }
     }
 
-    ////////////////////////////////////////////////////////////////////////////////update bill status
+    //////////////////////////////////////////////////////////////////////////////update bill status
+    public void updateStatus(String cust_id, int bill_id, int flagSort){
+        try {
+            Log.d(TAG,"bill_id = " + bill_id);
+            Log.d(TAG,"start select");
+            httpUpdateStatus.run(BASE_URL + "/billUpdateStatus.php?cust_id=" + cust_id + "&bill_id=" + bill_id + "&flagSort=" + flagSort);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public class getHttpUpdateStatus {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpUpdateStatus(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"update success");
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
 }

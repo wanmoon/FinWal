@@ -147,7 +147,7 @@ public class Goal extends Fragment {
                 String selected = parent.getItemAtPosition(position).toString();
                 Log.d(TAG, "selected = " + selected);
 
-                if (selected.equals("Ending Date")){
+                if (selected.equals("All")){
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 4);
                 } else if (selected.equals("Unachieve")) { //0
