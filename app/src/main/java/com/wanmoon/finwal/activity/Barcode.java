@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 import com.wanmoon.finwal.R;
 
+import java.util.ArrayList;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission.CAMERA;
@@ -40,14 +42,17 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     private Button editOk;
     private TextView textViewCancel;
 
+
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
-    int price ;
-    String name;
-    String cate;
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public String price ;
+    public String name;
+    public String cate;
+    public  AlertDialog.Builder builder;
+
+    ArrayList<String> Userlist;
 
 
     //get current user
@@ -59,6 +64,8 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.barcode);
+
+
 
 
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
@@ -160,13 +167,17 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     public void handleResult(final Result result) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference databaseReference = database.getReference();
+
+
         final String myResult = result.getText();
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
+        builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Scan Result");
+        builder.setTitle("Detail of Product");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -180,46 +191,41 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             }
         });
 
-        databaseReference.child("Barcode").child(""+myResult).child("name").addListenerForSingleValueEvent(new ValueEventListener() {
+
+        DatabaseReference databaseReference2 = database.getReference();
+        databaseReference2.child("Barcode").child(""+result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
+
             public void onDataChange(DataSnapshot dataSnapshot) {
-                name = dataSnapshot.getValue(String.class);
-            }
+                //cate = dataSnapshot.getValue(String.class);
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-        databaseReference.child("Barcode").child(""+myResult).child("price").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                price = (int) dataSnapshot.getValue();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                Userlist = new ArrayList<String>();
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
 
-            }
-        });
-        databaseReference.child("Barcode").child(""+myResult).child("cate").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                cate = dataSnapshot.getValue(String.class);
-                builder.setMessage("Name "+name +"Price "+price+"Cetagory "+cate+ "Barcode#"+result.getText());
-                AlertDialog alert1 = builder.create();
-                alert1.show();
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
 
-            }
+                 builder.setMessage( "Name : "+Userlist.get(1) +  "\n" +
+                         "Price : "+Userlist.get(2) + "\n" +
+                         "Category is : "+Userlist.get(0)   );
+
+                        AlertDialog alert1 = builder.create();
+                        alert1.show();
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
         });
 
-        //builder.setMessage(result.getText());
-        // AlertDialog alert1 = builder.create();
-        //alert1.show();
+
+
     }
 
     @Override
