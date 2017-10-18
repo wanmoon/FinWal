@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.Call;
@@ -190,9 +191,10 @@ public class Home extends Fragment {
 
         setHasOptionsMenu(true);
 
-        ((MainActivity)getActivity()).setTitle("My FinWal");
+        ((MainActivity) getActivity()).setTitle("My FinWal");
 
-        Log.d(TAG,"end onCreate");
+
+        Log.d(TAG, "end onCreate");
     }
 
     @Override
@@ -209,7 +211,7 @@ public class Home extends Fragment {
 
         httpProgressBar = new getHttpProgressBar(getContext());
 
-        httpDateStart= new getHttpDateStart(getContext());
+        httpDateStart = new getHttpDateStart(getContext());
 
         httpNextBill = new getHttpNextBill(getContext());
 
@@ -233,7 +235,7 @@ public class Home extends Fragment {
         getProgressbar(cust_id);
         getNextBill(cust_id);
 
-        Log.d(TAG,"start findviewbyid");
+        Log.d(TAG, "start findviewbyid");
         textViewMyWallet = (TextView) view.findViewById(R.id.textViewMyWallet);
         textViewMyIncome = (TextView) view.findViewById(R.id.textViewMyIncome);
         textViewMyExpense = (TextView) view.findViewById(R.id.textViewMyExpense);
@@ -247,8 +249,8 @@ public class Home extends Fragment {
             }
         });
 
-        linearLayout1 = (LinearLayout)  view.findViewById(R.id.btnMonthIncome1);
-        linearLayout2 = (LinearLayout)  view.findViewById(R.id.btnMonthExpense2);
+        linearLayout1 = (LinearLayout) view.findViewById(R.id.btnMonthIncome1);
+        linearLayout2 = (LinearLayout) view.findViewById(R.id.btnMonthExpense2);
 
         linearLayout1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,7 +295,7 @@ public class Home extends Fragment {
         progressBar(float_current_goalPercent);
 
         //nextbill
-        relativeBill = (RelativeLayout)  view.findViewById(R.id.relativeBill);
+        relativeBill = (RelativeLayout) view.findViewById(R.id.relativeBill);
         relativeBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -317,12 +319,12 @@ public class Home extends Fragment {
         //settext in nextbill
         setNextBillData(period, description_bill, status_bill, deadline);
 
-        Log.d(TAG,"end findviewbyid");
+        Log.d(TAG, "end findviewbyid");
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // inflater.inflate(R.menu.billing_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -361,26 +363,26 @@ public class Home extends Fragment {
 
     //////////////////////////////////////////////////////////for month balance/////////////////////
 
-    public String sumIncomeMonthToDB(String cust_id){
+    public String sumIncomeMonthToDB(String cust_id) {
         try {
-            Log.d(TAG,"start sumIncomeMonth");
+            Log.d(TAG, "start sumIncomeMonth");
             httpIncomeMonth.run(BASE_URL + "/sumIncomeMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumIncomeMonth");
+            Log.d(TAG, "end sumIncomeMonth");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public String sumExpenseMonthToDB(String cust_id){
+    public String sumExpenseMonthToDB(String cust_id) {
         try {
-            Log.d(TAG,"start sumExpenseMonth");
+            Log.d(TAG, "start sumExpenseMonth");
             httpExpenseMonth.run(BASE_URL + "/sumExpenseMonth.php?cust_id=" + cust_id);
-            Log.d(TAG,"end sumExpenseMonth");
+            Log.d(TAG, "end sumExpenseMonth");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
@@ -403,7 +405,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -455,7 +457,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -466,12 +468,12 @@ public class Home extends Fragment {
                             try {
                                 String incomeMonth = response.body().string();
                                 sumIncomeMonth = Double.parseDouble(incomeMonth.trim());
-                                Log.d(TAG,"sumIncome = " + sumIncomeMonth);
+                                Log.d(TAG, "sumIncome = " + sumIncomeMonth);
 
-                                Log.d(TAG,"onResponse");
-                                Log.d(TAG,"show");
+                                Log.d(TAG, "onResponse");
+                                Log.d(TAG, "show");
 
-                                if(sumExpenseMonth != 0 && sumIncomeMonth != 0) {
+                                if (sumExpenseMonth != 0 && sumIncomeMonth != 0) {
                                     sumAllBalance();
                                 }
                             } catch (NumberFormatException e) {
@@ -491,26 +493,26 @@ public class Home extends Fragment {
 
     /////////////////////////////////////////////////////////for wallet balance/////////////////////
 
-    public String sumIncomeToDB(String cust_id){
+    public String sumIncomeToDB(String cust_id) {
         try {
-            Log.d(TAG,"start transaction");
+            Log.d(TAG, "start transaction");
             httpIncome.run(BASE_URL + "/sumIncome.php?cust_id=" + cust_id);
-            Log.d(TAG,"end transaction");
+            Log.d(TAG, "end transaction");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
 
-    public String sumExpenseToDB(String cust_id){
+    public String sumExpenseToDB(String cust_id) {
         try {
-            Log.d(TAG,"start show");
+            Log.d(TAG, "start show");
             httpExpense.run(BASE_URL + "/sumExpense.php?cust_id=" + cust_id);
-            Log.d(TAG,"end show");
+            Log.d(TAG, "end show");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
@@ -533,7 +535,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -544,12 +546,12 @@ public class Home extends Fragment {
                             try {
                                 String expense = response.body().string();
                                 sumExpense = Double.parseDouble(expense.trim());
-                                Log.d(TAG,"sumExpense = " + sumExpense);
+                                Log.d(TAG, "sumExpense = " + sumExpense);
 
-                                Log.d(TAG,"onResponse");
-                                Log.d(TAG,"show");
+                                Log.d(TAG, "onResponse");
+                                Log.d(TAG, "show");
 
-                                if(sumExpense != 0 && sumIncome != 0) {
+                                if (sumExpense != 0 && sumIncome != 0) {
                                     sumAllBalance();
                                 }
                             } catch (NumberFormatException e) {
@@ -584,23 +586,23 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
-                public void onResponse(Call call,final Response response) throws IOException {
+                public void onResponse(Call call, final Response response) throws IOException {
                     mainHandler.post(new Runnable() {
                         @Override
                         public void run() {
                             try {
                                 String income = response.body().string();
                                 sumIncome = Double.parseDouble(income.trim());
-                                Log.d(TAG,"sumIncome = " + sumIncome);
+                                Log.d(TAG, "sumIncome = " + sumIncome);
 
-                                Log.d(TAG,"onResponse");
-                                Log.d(TAG,"show");
+                                Log.d(TAG, "onResponse");
+                                Log.d(TAG, "show");
 
-                                if(sumExpense != 0 && sumIncome != 0) {
+                                if (sumExpense != 0 && sumIncome != 0) {
                                     sumAllBalance();
                                 }
                             } catch (NumberFormatException e) {
@@ -618,14 +620,14 @@ public class Home extends Fragment {
     }
 
     //////////////////////////////////////////////////////////get date start////////////////////////
-    public String dateStart(String cust_id){
+    public String dateStart(String cust_id) {
         try {
-            Log.d(TAG,"start dateStart");
+            Log.d(TAG, "start dateStart");
             httpDateStart.run(BASE_URL + "/dateStart.php?cust_id=" + cust_id);
-            Log.d(TAG,"end dateStart");
+            Log.d(TAG, "end dateStart");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
@@ -648,7 +650,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -659,7 +661,7 @@ public class Home extends Fragment {
                             try {
                                 date_start = response.body().string().trim();
                                 sumAllBalance();
-                                Log.d(TAG,"date_start = " + date_start);
+                                Log.d(TAG, "date_start = " + date_start);
                             } catch (NumberFormatException e) {
                                 //Toast.makeText(Home.this,"", Toast.LENGTH_LONG).show();
                                 Log.d(TAG, "NumberFormatException");
@@ -674,10 +676,10 @@ public class Home extends Fragment {
         }
     }
 
-    public void sumAllBalance(){
+    public void sumAllBalance() {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
-        Log.d(TAG,"All start settext");
+        Log.d(TAG, "All start settext");
         monthBalance = sumIncomeMonth - sumExpenseMonth;
         Log.d(TAG, "Month balance = " + monthBalance);
 
@@ -690,7 +692,7 @@ public class Home extends Fragment {
         setMonthBalance = "Month Balance : " + "<b>" + nf.format(monthBalance) + "</b>";
         textViewMonthBalance.setText((Html.fromHtml(setMonthBalance)));
 
-        setIncomeMonth ="<b>" + nf.format(sumIncomeMonth) + "</b>";
+        setIncomeMonth = "<b>" + nf.format(sumIncomeMonth) + "</b>";
         textViewMyIncome.setText((Html.fromHtml(setIncomeMonth)));
         Log.d(TAG, "sumIncomeMonth = " + sumIncomeMonth);
 
@@ -699,20 +701,18 @@ public class Home extends Fragment {
         Log.d(TAG, "sumExpenseMonth = " + sumExpenseMonth);
 
 
-
-        Log.d(TAG,"date_start" + date_start);
+        Log.d(TAG, "date_start" + date_start);
 
         //all of my life
-        setWalletBalance = "[Since "+ date_start + "] Wallet Balance : " + "<b>" + nf.format(walletBalance) +  "</b>";
+        setWalletBalance = "[Since " + date_start + "] Wallet Balance : " + "<b>" + nf.format(walletBalance) + "</b>";
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
-        Log.d(TAG,"end settext");
+        Log.d(TAG, "end settext");
 
         incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet incomePercent = " + incomePercent);
 
-        expensePercent = (float) ( sumExpenseMonth * (100 / sumIncomeMonth));
+        expensePercent = (float) (sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
-
 
 
         //for pie chart
@@ -755,8 +755,8 @@ public class Home extends Fragment {
         Log.d(TAG, "addDataSet started pie chart");
 
         ArrayList<Float> yData = new ArrayList<>();
-        if(incomePercent > 0) yData.add(incomePercent);
-        if(expensePercent > 0) yData.add(expensePercent);
+        if (incomePercent > 0) yData.add(incomePercent);
+        if (expensePercent > 0) yData.add(expensePercent);
 
         Log.d(TAG, "addDataSet started incomePercent" + incomePercent);
         Log.d(TAG, "addDataSet started expensePercent" + expensePercent);
@@ -773,7 +773,6 @@ public class Home extends Fragment {
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
-
 
 
         // add color to dataset
@@ -797,12 +796,12 @@ public class Home extends Fragment {
     }
 
     ///////////////////////////////////////////////////////////////progress bar/////////////////////
-    public void progressdata(String data){
+    public void progressdata(String data) {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
         //empty result
-        if(items.size()<9){
+        if (items.size() < 9) {
             //visible progress
             textViewProgressBarNoData.setVisibility(View.VISIBLE);
 
@@ -846,10 +845,10 @@ public class Home extends Fragment {
         }
     }
 
-    public void progressBar(float float_current_goalPercent){
-        Log.d(TAG,"float_current_goalPercent = " + float_current_goalPercent);
+    public void progressBar(float float_current_goalPercent) {
+        Log.d(TAG, "float_current_goalPercent = " + float_current_goalPercent);
 
-        if (float_current_goalPercent >=50){
+        if (float_current_goalPercent >= 50) {
             progress.setProgressColor(Color.parseColor("#088A4B"));
         } else {
             progress.setProgressColor(Color.parseColor("#e54649"));
@@ -858,43 +857,71 @@ public class Home extends Fragment {
         progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
         progress.setMax(100);
         progress.setProgress(float_current_goalPercent);
-        progress.setContentDescription(float_current_goalPercent+"");
+        progress.setContentDescription(float_current_goalPercent + "");
 
-        Log.d(TAG,"finish draw progressbar");
+        Log.d(TAG, "finish draw progressbar");
 
     }
 
-    public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal){
+    public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal) {
         //count day left
         //settext : description, status, percent, count, moneyleft
 
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
         textViewGoalTitle.setText(description_goal);
-        textViewPercentGoal.setText(float_current_goalPercent+"%");
+        textViewPercentGoal.setText(float_current_goalPercent + "%");
         textViewStatusGoal.setText(status_goal);
         //set bar colour
-        if(status_goal.equals("Achieved")){
+        if (status_goal.equals("Achieved")) {
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
         } else {
             textViewStatusGoal.setTextColor(Color.parseColor("#e54649"));
         }
 
         moneyleft = budget_goal - current_goal;
-        Log.d(TAG,"moneyleft = " + moneyleft);
+        Log.d(TAG, "moneyleft = " + moneyleft);
 
         //เก็บเกิน goal
-        if (moneyleft <0) { //เกินโกลไปแล้ว
+        if (moneyleft < 0) { //เกินโกลไปแล้ว
             textViewMoneyLeftGoal.setText("0 Baht Left");
         } else {
             textViewMoneyLeftGoal.setText(nf.format(moneyleft) + " Left");
         }
 
         //update status
-        if (current_goal >= budget_goal){
+        if (current_goal >= budget_goal) {
             textViewStatusGoal.setText("Achieved");
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
         }
+
+        //days left
+        Log.d(TAG, "ending_date = " + ending_date);
+        List<String> items_ending_date = Arrays.asList(ending_date.split("\\s*-\\s*"));
+        Log.d(TAG, "items_ending_date = " + items_ending_date);
+
+        int d = Integer.parseInt(items_ending_date.get(0));
+        int m = Integer.parseInt(items_ending_date.get(1));;
+        int y = Integer.parseInt(items_ending_date.get(2));;
+
+        Log.d(TAG, "d = " + d);
+        Log.d(TAG, "m = " + m);
+        Log.d(TAG, "y = " + y);
+
+        Calendar thatDay = Calendar.getInstance();
+        thatDay.set(Calendar.DAY_OF_MONTH, d);
+        thatDay.set(Calendar.MONTH, m-1); // 0-11 so 1 less
+        thatDay.set(Calendar.YEAR, y);
+
+        Calendar today = Calendar.getInstance();
+
+        long diff = thatDay.getTimeInMillis() - today.getTimeInMillis();
+        long days = diff / (24 * 60 * 60 * 1000);
+
+        Log.d(TAG, "difffffffffffffffffffffff = " + diff);
+        Log.d(TAG, "days = " + days);
+
+        textViewDateLeft.setText(days + " days left");
 
 //        //textViewDateLeft
 //        java.text.DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -914,14 +941,14 @@ public class Home extends Fragment {
 //        long diff = secondDate.getTime() - dateFormat.format(today.getTime());
     }
 
-    public String getProgressbar(String cust_id){
+    public String getProgressbar(String cust_id) {
         try {
-            Log.d(TAG,"start progressbar");
+            Log.d(TAG, "start progressbar");
             httpProgressBar.run(BASE_URL + "/progressbar.php?cust_id=" + cust_id);
-            Log.d(TAG,"end progressbar");
+            Log.d(TAG, "end progressbar");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
@@ -944,7 +971,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -970,11 +997,11 @@ public class Home extends Fragment {
     }
 
     //////////////////////////////////////////////////////////////////next bill/////////////////////
-    public void nextBillData(String data){
+    public void nextBillData(String data) {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
-        if(items.size()<5){
+        if (items.size() < 5) {
             //visible
             textViewBillNoData.setVisibility(View.VISIBLE);
             relativeBill.setVisibility(View.GONE);
@@ -997,12 +1024,13 @@ public class Home extends Fragment {
         }
     }
 
-    public void setNextBillData(String period, String description_bill, String status_bill, String deadline){
+    public void setNextBillData(String period, String description_bill, String status_bill, String deadline) {
         textViewBillDescription.setText(description_bill);
         textViewBillDeadline.setText(deadline);
         textViewBillPeriod.setText(period);
         textViewBillStatus.setText(status_bill);
-        textViewBillStatus.setTextColor(Color.parseColor("#e54649"));;
+        textViewBillStatus.setTextColor(Color.parseColor("#e54649"));
+        ;
 
         Log.d(TAG, "description_bill = " + description_bill);
         Log.d(TAG, "deadline = " + deadline);
@@ -1010,14 +1038,14 @@ public class Home extends Fragment {
         Log.d(TAG, "status_bill = " + status_bill);
     }
 
-    public String getNextBill(String cust_id){
+    public String getNextBill(String cust_id) {
         try {
-            Log.d(TAG,"start nextbill");
+            Log.d(TAG, "start nextbill");
             httpNextBill.run(BASE_URL + "/nextbill.php?cust_id=" + cust_id);
-            Log.d(TAG,"end nextbill");
+            Log.d(TAG, "end nextbill");
         } catch (IOException e) {
             e.printStackTrace();
-            Log.d(TAG,"error catch");
+            Log.d(TAG, "error catch");
         }
         return response;
     }
@@ -1040,7 +1068,7 @@ public class Home extends Fragment {
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    Log.d(TAG,"onFailure" + e.toString());
+                    Log.d(TAG, "onFailure" + e.toString());
                 }
 
                 @Override
@@ -1054,7 +1082,8 @@ public class Home extends Fragment {
                                 Log.d(TAG, "NumberFormatException");
                             } catch (IOException e) {
                                 e.printStackTrace();
-                            } Log.d(TAG, "onResponse");
+                            }
+                            Log.d(TAG, "onResponse");
                         }
                     });
                 }
@@ -1062,3 +1091,6 @@ public class Home extends Fragment {
         }
     }
 }
+
+
+
