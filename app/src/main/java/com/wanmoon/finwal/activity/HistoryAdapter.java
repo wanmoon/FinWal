@@ -24,9 +24,6 @@ public class HistoryAdapter extends BaseAdapter {
     Context context;
     ArrayList<HashMap<String, String>> arrTransaction;
 
-    private double sumIncomeAll;
-    private String setIncomeAll;
-
 
     public HistoryAdapter(Context context, ArrayList<HashMap<String, String>> arrTransaction) {
         this.context= context;
@@ -63,9 +60,7 @@ public class HistoryAdapter extends BaseAdapter {
 
         TextView textViewCost = (TextView)view.findViewById(R.id.textViewCost);
         textViewCost.setText(arrTransaction.get(position).get("cost").toString() + " Baht");
-       // textViewCost.setText(nf.format(arrTransaction.get(position).get("cost").toString())+" dl");
-       // setIncomeAll =  nf.format(arrTransaction.get(position).get("cost").toString());
-       // textViewCost.setText(setIncomeAll);
+
         //if else to check transaction for set color of 'textViewCost'
         if(arrTransaction.get(position).get("transaction").toString().equals("Income")){
             //income : green
