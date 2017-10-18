@@ -235,7 +235,7 @@ public class Billing extends Fragment {
 
     public void dialog_editbill(){
         billingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position,
+            public void onItemClick(AdapterView<?> parent, View view, final int position,
                                     long id) {
                 Log.d(TAG, "position " + position);
                 HashMap<String, String> hashmap = (HashMap<String, String>) parent.getItemAtPosition(position);
@@ -294,9 +294,11 @@ public class Billing extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "onClick Button Paid");
-                        //do something
                         //flagSort = (?) > Paid
                         updateStatus(cust_id, bill_id, 0);
+                        billList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
                     }
                 });
 
@@ -306,9 +308,11 @@ public class Billing extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Log.d(TAG, "onClick Button Deleted");
-                        //do something
                         //flagSort = (?) > Deleted
                         updateStatus(cust_id, bill_id, 1);
+                        billList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
                     }
                 });
             }
