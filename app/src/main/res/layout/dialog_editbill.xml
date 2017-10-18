@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewDescription_bill"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
@@ -15,7 +15,7 @@
         android:layout_marginRight="13dp"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
-        android:textSize="23dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:hint="Description"/>
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/textViewStatus_bill"
@@ -31,13 +31,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Status"
-            android:textSize="17dp"
+            android:textSize="15dp"
             android:layout_marginStart="13dp"
             android:layout_marginBottom="13dp"
             android:layout_marginLeft="13dp"
             android:layout_marginTop="13dp"
             android:layout_marginRight="13dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textViewPeriod"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Period"
-            android:textSize="17dp"
+            android:textSize="15dp"
             android:layout_marginStart="13dp"
             android:layout_marginBottom="13dp"
             android:layout_marginLeft="13dp"
@@ -53,20 +54,21 @@
             android:layout_marginRight="13dp"
             android:layout_centerHorizontal="true"/>
 
-        <TextView
-            android:id="@+id/textViewDeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Deadline"
-            android:textSize="17dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginBottom="13dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginRight="13dp"
-            android:layout_centerHorizontal="true"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewDeadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:textAlignment="center"
+        android:hint="Deadline"
+        android:textSize="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +90,7 @@
             android:background="@color/buttonColorGreen"
             android:text="PAID"
             android:textColor="@color/buttonColorWhite"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/buttonDeleteBill"
@@ -102,9 +104,9 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@color/buttonColorPiggy"
-            android:text="DELETE BILL"
+            android:text="DELETE"
             android:textColor="@color/buttonColorWhite"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

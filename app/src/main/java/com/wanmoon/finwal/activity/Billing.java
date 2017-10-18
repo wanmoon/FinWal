@@ -3,6 +3,7 @@ package com.wanmoon.finwal.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,7 +67,19 @@ public class Billing extends Fragment {
     public Spinner spinnerSort;
 
     public Dialog dialogEditBill;
-    public android.support.v7.app.AlertDialog alertDialogEditbill;
+
+    public TextView textViewDescription_bill;
+    public TextView textViewStatus_bill;
+    public TextView textViewPeriod;
+    public TextView textViewDeadline;
+
+    public Button buttonPaidBill;
+    public Button buttonDeleteBill;
+
+    public String dialog_descriptionBill;
+    public String dialog_statusBill;
+    public String dialog_period;
+    public String dialog_deadline;
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -133,38 +148,68 @@ public class Billing extends Fragment {
                                     long id) {
                 Log.d(TAG, "position " + position);
                 HashMap<String, String> hashmap = (HashMap<String, String>) parent.getItemAtPosition(position);
-
                 Log.d(TAG, hashmap.get("description_bill"));
 
-//                //go to next page
-//                //sent value
-//                Intent i = new Intent(getActivity(), EditBill.class); //edit duey
-//                i.putExtra("hashmap", hashmap);
-//                startActivity(i);
+                //make dialog
+                dialogEditBill = new Dialog(view.getContext());
+                dialogEditBill.getWindow();
+                dialogEditBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialogEditBill.setContentView(R.layout.dialog_editbill);
+                dialogEditBill.setCancelable(true);
+                dialogEditBill.show();
 
-//                dialogEditBill = new Dialog(this);
-//                dialogEditBill.getWindow();
-//                dialogEditBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                dialogEditBill.setContentView(R.layout.income_cate);
-//                dialogEditBill.setCancelable(true);
-//                dialogEditBill.show();
+                ////////////////////////////////dialog's data
 
-//                alertDialogEditbill = new AlertDialog.Builder(MainActivity.this);
-//                builder.setMessage("รับขนมจีบซาลาเปาเพิ่มมั้ยครับ?");
-//                builder.setPositiveButton("รับ", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        Toast.makeText(getApplicationContext(),
-//                                "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                builder.setNegativeButton("ไม่รับ", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        //dialog.dismiss();
-//                    }
-//                });
-//                builder.show();
+                //findviewbtid
+                textViewDescription_bill = (TextView) dialogEditBill.findViewById(R.id.textViewDescription_bill);
+                textViewStatus_bill = (TextView) dialogEditBill.findViewById(R.id.textViewStatus_bill);
+                textViewPeriod = (TextView) dialogEditBill.findViewById(R.id.textViewPeriod);
+                textViewDeadline = (TextView) dialogEditBill.findViewById(R.id.textViewDeadline);
 
+                //setstring
+                dialog_descriptionBill = hashmap.get("description_bill");
+                dialog_statusBill = hashmap.get("status_bill");
+                dialog_period = "Period : " + hashmap.get("period");
+                dialog_deadline = "Deadline : " + hashmap.get("deadline");
+
+                Log.d(TAG, "dialog_descriptionBill = " + dialog_descriptionBill);
+                Log.d(TAG, "dialog_statusBill = " + dialog_statusBill);
+                Log.d(TAG, "dialog_period = " + dialog_period);
+                Log.d(TAG, "dialog_deadline = " + dialog_deadline);
+
+                //settext
+                textViewDescription_bill.setText(dialog_descriptionBill);
+                textViewStatus_bill.setText(dialog_statusBill);
+                textViewPeriod.setText(dialog_period);
+                textViewDeadline.setText(dialog_deadline);
+
+                //set color
+                if (dialog_statusBill.equals("Unpaid")){
+                    textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
+                } else {
+                    textViewStatus_bill.setTextColor(Color.parseColor("#088A4B")); //green
+                }
+
+                ////////////////////////////////dialog's button
+                //paid button
+                buttonPaidBill = (Button) dialogEditBill.findViewById(R.id.buttonPaidBill);
+                buttonPaidBill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //do something
+                        //flagSort = (?) > Paid
+                    }
+                });
+
+                //delete button
+                buttonDeleteBill = (Button) dialogEditBill.findViewById(R.id.buttonDeleteBill);
+                buttonDeleteBill.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //do something
+                        //flagSort = (?) > Paid
+                    }
+                });
             }
         });
 
@@ -249,6 +294,7 @@ public class Billing extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////get billing data
     public void getAllBilling(String cust_id, int flagSort){
         try {
             Log.d(TAG,"flagSort = " + flagSort);
@@ -341,4 +387,6 @@ public class Billing extends Fragment {
             });
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////update bill status
 }
