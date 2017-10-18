@@ -64,6 +64,7 @@ public class Billing extends Fragment {
     public Spinner spinnerSort;
 
     public Dialog dialogEditBill;
+    public android.support.v7.app.AlertDialog alertDialogEditbill;
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -147,6 +148,23 @@ public class Billing extends Fragment {
 //                dialogEditBill.setContentView(R.layout.income_cate);
 //                dialogEditBill.setCancelable(true);
 //                dialogEditBill.show();
+
+//                alertDialogEditbill = new AlertDialog.Builder(MainActivity.this);
+//                builder.setMessage("รับขนมจีบซาลาเปาเพิ่มมั้ยครับ?");
+//                builder.setPositiveButton("รับ", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        Toast.makeText(getApplicationContext(),
+//                                "ขอบคุณครับ", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                builder.setNegativeButton("ไม่รับ", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        //dialog.dismiss();
+//                    }
+//                });
+//                builder.show();
+
             }
         });
 
