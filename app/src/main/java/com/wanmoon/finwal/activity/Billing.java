@@ -266,15 +266,6 @@ public class Billing extends Fragment {
                 dialog_period = "Period : " + hashmap.get("period");
                 dialog_deadline = "Deadline : " + hashmap.get("deadline");
 
-                //for paid_date
-                if (hashmap.get("paid_date").trim().equals("")){
-                    //null value = unpaid >> textViewPaid_date = gone
-                    textViewPaid_date.setVisibility(View.GONE);
-                } else {
-                    dialog_paid_date = "Paid Date : " + hashmap.get("paid_date");
-                    textViewPaid_date.setText(dialog_paid_date);
-                }
-
                 //bill_id = Integer.parseInt(hashmap.get("get_bill_id"));
                 String str_bill_id = hashmap.get("bill_id") + "";
                 bill_id = Integer.parseInt(str_bill_id);
@@ -290,6 +281,15 @@ public class Billing extends Fragment {
                 textViewStatus_bill.setText(dialog_statusBill);
                 textViewPeriod.setText(dialog_period);
                 textViewDeadline.setText(dialog_deadline);
+
+                //set paid_date text
+                if (hashmap.get("paid_date").trim().equals("Unpaid")){
+                    //null value = unpaid >> textViewPaid_date = gone
+                    textViewPaid_date.setVisibility(View.GONE);
+                } else {
+                    dialog_paid_date = "Paid Date : " + hashmap.get("paid_date");
+                    textViewPaid_date.setText(dialog_paid_date);
+                }
 
                 //set color
                 if (dialog_statusBill.equals("Unpaid")){

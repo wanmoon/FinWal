@@ -178,7 +178,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
 
 
@@ -203,34 +202,50 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Up coming Goal"
+                    android:text="Coming Goal"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/relativeGoal1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <TextView
                         android:id="@+id/textViewGoalTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="10dp"
                         android:text="Goal Title : "
                         android:textStyle="bold"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:id="@+id/textViewDateLeft"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:text="Day left"
-                        android:textSize="16dp" />
-                </RelativeLayout>
+                        android:textSize="16dp"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/textViewSeemore"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="See more"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:textAlignment="gravity"
+                        android:layout_marginRight="10dp"
+                        android:textSize="16dp"/>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textViewProgressBarNoData"

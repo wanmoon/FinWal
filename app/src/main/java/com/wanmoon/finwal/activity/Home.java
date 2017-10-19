@@ -82,6 +82,7 @@ public class Home extends Fragment {
     private String setIncomeMonth;
     private String setExpenseMonth;
     public String date_start;
+    public String see_more;
 
     //progress
     public String data_goal_id;
@@ -113,7 +114,7 @@ public class Home extends Fragment {
     private TextView textViewBillDeadline;
     private TextView textViewBillPeriod;
     private TextView textViewBillNoData;
-
+    public TextView textViewSeemore;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
@@ -278,6 +279,18 @@ public class Home extends Fragment {
         textViewPercentGoal = (TextView) view.findViewById(R.id.textViewPercentGoal);
         textViewMoneyLeftGoal = (TextView) view.findViewById(R.id.textViewMoneyLeftGoal);
         textViewProgressBarNoData = (TextView) view.findViewById(R.id.textViewProgressBarNoData);
+        textViewSeemore = (TextView) view.findViewById(R.id.textViewSeemore);
+
+        textViewSeemore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //fregment to fregment
+                Goal GoalFragment = new Goal();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, GoalFragment);
+                transaction.commit();
+            }
+        });
 
         progress = (RoundCornerProgressBar) view.findViewById(R.id.progress_1);
         progress.setOnClickListener(new View.OnClickListener() {
@@ -811,6 +824,7 @@ public class Home extends Fragment {
             textViewStatusGoal.setVisibility(View.GONE);
             textViewMoneyLeftGoal.setVisibility(View.GONE);
             textViewDateLeft.setVisibility(View.GONE);
+            textViewSeemore.setVisibility(View.GONE);
         } else {
             textViewProgressBarNoData.setVisibility(View.GONE);
             data_goal_id = items.get(0);
@@ -923,6 +937,9 @@ public class Home extends Fragment {
 
         textViewDateLeft.setText(days + " days left");
 
+        //see more
+        see_more = "<u>" + "See more" + "</u>";
+        textViewSeemore.setText((Html.fromHtml(see_more)));
     }
 
     public String getProgressbar(String cust_id) {
