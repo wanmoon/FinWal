@@ -918,27 +918,11 @@ public class Home extends Fragment {
         long diff = thatDay.getTimeInMillis() - today.getTimeInMillis();
         long days = diff / (24 * 60 * 60 * 1000);
 
-        Log.d(TAG, "difffffffffffffffffffffff = " + diff);
+        Log.d(TAG, "diff = " + diff);
         Log.d(TAG, "days = " + days);
 
         textViewDateLeft.setText(days + " days left");
 
-//        //textViewDateLeft
-//        java.text.DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-//        Calendar today = Calendar.getInstance();
-//        Log.d(TAG, "today = " + dateFormat.format(today.getTime()));
-//
-//        String ending_date_day = ending_date.substring(0,2);
-//        String ending_date_month = ending_date.substring(3,5);
-//        String ending_date_year = ending_date.substring(6);
-//
-//        Calendar lastday = Calendar.getInstance();
-//        lastday.set(Calendar.DAY_OF_MONTH, Integer.parseInt(ending_date_day);
-//        lastday.set(Calendar.MONTH, Integer.parseInt(ending_date_month);
-//        lastday.set(Calendar.YEAR, Integer.parseInt(ending_date_year);
-//        Date secondDate = lastday.getTime();
-//
-//        long diff = secondDate.getTime() - dateFormat.format(today.getTime());
     }
 
     public String getProgressbar(String cust_id) {
