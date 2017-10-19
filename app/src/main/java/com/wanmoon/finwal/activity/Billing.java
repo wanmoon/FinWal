@@ -72,6 +72,7 @@ public class Billing extends Fragment {
     public TextView textViewStatus_bill;
     public TextView textViewPeriod;
     public TextView textViewDeadline;
+    public TextView textViewPaid_date;
 
     public Button buttonPaidBill;
     public Button buttonDeleteBill;
@@ -80,6 +81,7 @@ public class Billing extends Fragment {
     public String dialog_statusBill;
     public String dialog_period;
     public String dialog_deadline;
+    public String dialog_paid_date;
 
     public String get_bill_id;
 
@@ -256,6 +258,7 @@ public class Billing extends Fragment {
                 textViewStatus_bill = (TextView) dialogEditBill.findViewById(R.id.textViewStatus_bill);
                 textViewPeriod = (TextView) dialogEditBill.findViewById(R.id.textViewPeriod);
                 textViewDeadline = (TextView) dialogEditBill.findViewById(R.id.textViewDeadline);
+                textViewPaid_date = (TextView) dialogEditBill.findViewById(R.id.textViewPaid_date);
 
                 //setstring
                 dialog_descriptionBill = hashmap.get("description_bill");
@@ -278,6 +281,15 @@ public class Billing extends Fragment {
                 textViewStatus_bill.setText(dialog_statusBill);
                 textViewPeriod.setText(dialog_period);
                 textViewDeadline.setText(dialog_deadline);
+
+                //set paid_date text
+                if (hashmap.get("paid_date").trim().equals("Unpaid")){
+                    //null value = unpaid >> textViewPaid_date = gone
+                    textViewPaid_date.setVisibility(View.GONE);
+                } else {
+                    dialog_paid_date = "Paid Date : " + hashmap.get("paid_date");
+                    textViewPaid_date.setText(dialog_paid_date);
+                }
 
                 //set color
                 if (dialog_statusBill.equals("Unpaid")){
@@ -340,6 +352,7 @@ public class Billing extends Fragment {
         String description_bill;
         String status_bill;
         String deadline;
+        String paid_date;
 
         billList.clear();
 
@@ -353,14 +366,14 @@ public class Billing extends Fragment {
 
             billInfo = data.split(",");
 
-            if(billInfo.length >= 4) {
+            if(billInfo.length >= 5) {
 
                 period = billInfo[0];
                 description_bill = billInfo[1];
                 status_bill = billInfo[2];
                 deadline = billInfo[3];
                 get_bill_id = billInfo[4];
-
+                paid_date = billInfo[5];
 
                 map = new HashMap<String, String>();
                 map.put("period", period);
@@ -368,6 +381,8 @@ public class Billing extends Fragment {
                 map.put("status_bill", status_bill);
                 map.put("deadline", deadline);
                 map.put("bill_id", get_bill_id);
+                map.put("paid_date", paid_date);
+
                 billList.add(map);
             }
         }

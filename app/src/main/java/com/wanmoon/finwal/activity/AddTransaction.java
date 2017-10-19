@@ -1,8 +1,10 @@
 package com.wanmoon.finwal.activity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
@@ -80,7 +82,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
     //connect DB
     String response = null;
-    getHttp http = new getHttp();
+    getHttp http;
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
     //for log
@@ -91,6 +93,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addtransaction);
+
+        http = new getHttp(getApplicationContext());
 
         textViewFinish = (TextView) findViewById(R.id.textViewFinish);
         textViewCancel = (TextView) findViewById(R.id.textViewCancel);
@@ -399,7 +403,15 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
     // ** must have for connect DB
     public class getHttp {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttp(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
 
         void run(String url) throws IOException {
             Request request = new Request.Builder()
@@ -412,13 +424,21 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
                 }
 
                 @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    Log.d(TAG,"onResponse");
-                    Log.d(TAG,"insert success");
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
 
-                    Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
-                    startActivity(i);
-                    finish();
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"insert success");
+
+                            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+                            startActivity(i);
+                            finish();
+                        }
+
+
+                    });
                 }
             });
         }
