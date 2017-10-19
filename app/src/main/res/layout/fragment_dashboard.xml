@@ -76,6 +76,7 @@
                                 android:paddingRight="30dp"
                                 android:paddingTop="20dp"/>
 
+
                         </LinearLayout>
 
 
@@ -127,10 +128,21 @@
 
 
                                         <TextView
+                                            android:id="@+id/textViewIncome"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="INCOME"
+                                            android:textStyle="bold"
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"
+                                            />
+
+                                        <TextView
                                             android:id="@+id/textViewIncomeJan"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Jan"
+                                            android:textSize="16dp"
                                             />
 
                                         <TextView
@@ -138,67 +150,78 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Feb"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                         <TextView
                                             android:id="@+id/textViewIncomeMar"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Mar"
+                                            android:textSize="16dp"
                                             />
                                         <TextView
                                             android:id="@+id/textViewIncomeApr"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Apr"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                         <TextView
                                             android:id="@+id/textViewIncomeMay"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="May"
+                                            android:textSize="16dp"
                                             />
                                         <TextView
                                             android:id="@+id/textViewIncomeJun"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Jun"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                         <TextView
                                             android:id="@+id/textViewIncomeJul"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Jul"
+                                            android:textSize="16dp"
                                            />
                                         <TextView
                                             android:id="@+id/textViewIncomeAug"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Aug"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                         <TextView
                                             android:id="@+id/textViewIncomeSep"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Sep"
+                                            android:textSize="16dp"
                                            />
                                         <TextView
                                             android:id="@+id/textViewIncomeOct"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Oct"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                         <TextView
                                             android:id="@+id/textViewIncomeNov"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Nov"
+                                            android:textSize="16dp"
                                             />
                                         <TextView
                                             android:id="@+id/textViewIncomeDec"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:text="Dec"
-                                            android:textColor="@color/buttonColorGrey"/>
+                                            android:textSize="16dp"
+                                            android:textColor="@color/buttonColorGreen"/>
                                 </LinearLayout>    <!--Income-->
 
 
@@ -220,84 +243,94 @@
                                     android:backgroundTint="@color/backgroundColor">
 
                                     <TextView
+                                        android:id="@+id/textViewExpense"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="EXPENSE"
+                                        android:textStyle="bold"
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"
+                                        />
+
+                                    <TextView
                                         android:id="@+id/textViewExpenseJan"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Jan"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp"
+                                        />
 
                                     <TextView
                                         android:id="@+id/textViewExpenseFeb"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Feb"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseMar"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Mar"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp" />
                                     <TextView
                                         android:id="@+id/textViewExpenseApr"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Apr"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseMay"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="May"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseJun"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Jun"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseJul"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Jul"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseAug"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Aug"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseSep"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="Sep"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseOct"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Oct"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseNov"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Nov"
-                                        android:textAlignment="textStart"/>
+                                        android:textSize="16dp"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseDec"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:text="Dec"
-                                        android:textAlignment="textStart"
-                                        android:textColor="@color/buttonColorGrey"/>
+                                        android:textSize="16dp"
+                                        android:textColor="@color/buttonColorRed"/>
 
 
                                 </LinearLayout><!--Expense-->
@@ -436,8 +469,6 @@
 
 
 
-
-
                                 <com.github.mikephil.charting.charts.PieChart
                                     android:id="@+id/pieChartIncomeMonth"
                                     android:layout_width="match_parent"
@@ -531,22 +562,11 @@
 
 
 
-
-                            <com.github.mikephil.charting.charts.PieChart
-                                android:id="@+id/pieChartIncomeYear"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:paddingBottom="10dp"
-                                android:paddingEnd="10dp"
-                                android:paddingLeft="10dp"
-                                android:paddingRight="10dp"
-                                />
+                                <com.github.mikephil.charting.charts.PieChart
+                                    android:id="@+id/pieChartIncomeYear"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    />
 
 
 

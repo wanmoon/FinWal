@@ -1922,6 +1922,8 @@ public class Dashboard extends Fragment {
 
 
 
+
+
         Log.d(TAG, "addDataSet income month started");
 
         final ArrayList<Float> yDataIncomeMonth = new ArrayList<>();
@@ -1975,11 +1977,11 @@ public class Dashboard extends Fragment {
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.5f);
-        pieDataSet.setValueLinePart2Length(0.7f);
-        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
+      //  pieDataSet.setValueLinePart1Length(0.7f);
+     //   pieDataSet.setValueLinePart2Length(0.9f);
+     //   pieDataSet.setValueLinePart1OffsetPercentage(0.2f);
 
 
         pieDataSet.setColors(colors);
@@ -2121,11 +2123,8 @@ public class Dashboard extends Fragment {
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.5f);
-        pieDataSet.setValueLinePart2Length(0.7f);
-        pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         // add color to dataset
@@ -2243,10 +2242,10 @@ public class Dashboard extends Fragment {
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.5f);
-        pieDataSet.setValueLinePart2Length(0.7f);
+//        pieDataSet.setValueLinePart1Length(0.5f);
+//        pieDataSet.setValueLinePart2Length(0.9f);
        // pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
@@ -2375,11 +2374,8 @@ public class Dashboard extends Fragment {
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-        pieDataSet.setValueLinePart1Length(0.5f);
-        pieDataSet.setValueLinePart2Length(0.7f);
-        //pieDataSet.setValueLinePart1OffsetPercentage(90.f);
 
 
         // add color to dataset
