@@ -66,8 +66,22 @@
         android:layout_marginRight="13dp"
         android:layout_marginStart="13dp"
         android:layout_marginTop="13dp"
-        android:textAlignment="center"
         android:hint="Deadline"
+        android:textAlignment="center"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/textViewPaid_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:hint="Paid Date : -"
+        android:textAlignment="center"
         android:textSize="15dp" />
 
     <LinearLayout
@@ -107,6 +121,7 @@
             android:text="DELETE"
             android:textColor="@color/buttonColorWhite"
             android:textStyle="bold"/>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -39,41 +39,47 @@ import static android.Manifest.permission.CAMERA;
 
 public class Barcode extends AppCompatActivity implements ZXingScannerView.ResultHandler,View.OnClickListener {
     private TextView textViewFinish;
-    private Button editOk;
     private TextView textViewCancel;
 
+    private Button editOk;
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
-    public String price ;
     public String name;
+    public String description;
+    public String price;
     public String cate;
+    public String get_cost;
+
+    public double cost;
+
+    public int currentApiVersion = Build.VERSION.SDK_INT;
+    public int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+
     public  AlertDialog.Builder builder;
 
-    ArrayList<String> Userlist;
+    AddTransaction addTransaction;
 
+    ArrayList<String> Userlist;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
 
+    private final String TAG = "BarcodeActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.barcode);
-
-
-
 
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
 
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
-        int currentApiVersion = Build.VERSION.SDK_INT;
 
         if(currentApiVersion >=  Build.VERSION_CODES.M)
         {
@@ -88,13 +94,11 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
         }
     }
 
-    private boolean checkPermission()
-    {
+    private boolean checkPermission() {
         return (ContextCompat.checkSelfPermission(getApplicationContext(), CAMERA) == PackageManager.PERMISSION_GRANTED);
     }
 
-    private void requestPermission()
-    {
+    private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{CAMERA}, REQUEST_CAMERA);
     }
 
@@ -102,7 +106,6 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     public void onResume() {
         super.onResume();
 
-        int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= android.os.Build.VERSION_CODES.M) {
             if (checkPermission()) {
                 if(scannerView == null) {
@@ -149,8 +152,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
                             }
                         }
                     }
-                }
-                break;
+                } break;
         }
     }
 
@@ -165,11 +167,9 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
     @Override
     public void handleResult(final Result result) {
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference databaseReference = database.getReference();
-
 
         final String myResult = result.getText();
         Log.d("QRCodeScanner", result.getText());
@@ -181,16 +181,28 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(Barcode.this);
+                description = Userlist.get(1);
+                price = Userlist.get(2);
+                cate = Userlist.get(0);
+
+                get_cost = String.format("%.2f", price);
+                cost = Double.parseDouble(price);
+
+                Log.d(TAG,"description = " + description);
+                Log.d(TAG,"cost = " + cost);
+                Log.d(TAG,"cate = " + cate);
+
+                addTransaction = new AddTransaction();
+                addTransaction.addTransactionToDB(cust_id, description, cost, "Expense", cate);
             }
         });
+
         builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 scannerView.resumeCameraPreview(Barcode.this);
             }
         });
-
 
         DatabaseReference databaseReference2 = database.getReference();
         databaseReference2.child("Barcode").child(""+result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -199,23 +211,18 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //cate = dataSnapshot.getValue(String.class);
 
-
-
                 Userlist = new ArrayList<String>();
+
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
-
-
                 }
 
                  builder.setMessage( "Name : "+Userlist.get(1) +  "\n" +
                          "Price : "+Userlist.get(2) + "\n" +
-                         "Category is : "+Userlist.get(0)   );
+                         "Category : "+Userlist.get(0)   );
 
                         AlertDialog alert1 = builder.create();
                         alert1.show();
-
-
                     }
 
                     @Override
@@ -223,19 +230,13 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
                     }
         });
-
-
-
     }
 
     @Override
     public void onClick(View v) {
-
         if(v == textViewFinish){
 
-            finish();
-        }
-        if(v == textViewCancel){
+        } if(v == textViewCancel){
             Intent i=new Intent(this, MainActivity.class);
             startActivity(i);
             finish();
