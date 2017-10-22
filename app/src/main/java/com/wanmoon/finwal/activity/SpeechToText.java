@@ -495,7 +495,7 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
         if(v == textViewFinish){
 
                 addTransaction(cust_id);
-                finish();
+
 
         }
         if(v == textViewCancel){
