@@ -243,13 +243,13 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_billing) {
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, BillingFragment);
+            transaction.replace(R.id.fragment_container, BillingFragment).addToBackStack( "tag" );;
             transaction.commit();
 
         } else if (id == R.id.nav_goal){
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, GoalFragment);
+            transaction.replace(R.id.fragment_container, GoalFragment).addToBackStack( "tag" );;
             transaction.commit();
 
         } else if (id == R.id.nav_dashboard) {
@@ -262,14 +262,14 @@ public class MainActivity extends AppCompatActivity
 
             Dashboard DashboardFragment = new Dashboard();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, DashboardFragment);
+            transaction.replace(R.id.fragment_container, DashboardFragment).addToBackStack( "tag" );
             transaction.commit();
 
             DashboardFragment.setArguments(bundle);
         } else if (id == R.id.nav_history){
             History HistoryFragment = new History();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragment_container, HistoryFragment);
+            transaction.replace(R.id.fragment_container, HistoryFragment).addToBackStack( "tag" );
             transaction.commit();
 
         } else if (id == R.id.nav_logout){

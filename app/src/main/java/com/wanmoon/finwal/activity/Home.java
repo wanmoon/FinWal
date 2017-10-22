@@ -287,7 +287,7 @@ public class Home extends Fragment {
                 //fregment to fregment
                 Goal GoalFragment = new Goal();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, GoalFragment);
+                transaction.replace(R.id.fragment_container, GoalFragment).addToBackStack( "tag" );;;
                 transaction.commit();
             }
         });
@@ -299,7 +299,7 @@ public class Home extends Fragment {
                 //fregment to fregment
                 Goal GoalFragment = new Goal();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, GoalFragment);
+                transaction.replace(R.id.fragment_container, GoalFragment).addToBackStack( "tag" );;;
                 transaction.commit();
             }
         });
@@ -314,7 +314,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Billing bill = new Billing();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, bill);
+                transaction.replace(R.id.fragment_container, bill).addToBackStack( "tag" );;;
                 transaction.commit();
             }
 

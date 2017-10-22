@@ -350,6 +350,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+
     public void visible(){
         //show textview : transaction, category
         imageViewFrame.setVisibility(View.VISIBLE);
