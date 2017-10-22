@@ -242,4 +242,11 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             finish();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(this, MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
+    }
 }

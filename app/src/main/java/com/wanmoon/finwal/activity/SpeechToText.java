@@ -493,8 +493,10 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v == textViewFinish){
-            addTransaction(cust_id);
-            finish();
+
+                addTransaction(cust_id);
+                finish();
+
         }
         if(v == textViewCancel){
             Intent i=new Intent(this, MainActivity.class);
@@ -548,5 +550,12 @@ public class SpeechToText extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i=new Intent(this, MainActivity.class);
+        startActivity(i);
+        super.onBackPressed();
     }
 }
