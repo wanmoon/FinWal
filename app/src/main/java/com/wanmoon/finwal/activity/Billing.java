@@ -28,6 +28,7 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -73,17 +74,20 @@ public class Billing extends Fragment {
     public TextView textViewPeriod;
     public TextView textViewDeadline;
     public TextView textViewPaid_date;
+    public TextView TextViewEmptyResult;
 
     public Button buttonPaidBill;
     public Button buttonDeleteBill;
+    public Button buttonReschedule;
 
     public String dialog_descriptionBill;
     public String dialog_statusBill;
     public String dialog_period;
     public String dialog_deadline;
     public String dialog_paid_date;
-
+    public String newDeadline;
     public String get_bill_id;
+    public String deadline;
 
     public int bill_id;
 
@@ -151,9 +155,8 @@ public class Billing extends Fragment {
         billingListView = (ListView) rootView.findViewById(R.id.listViewBilling);
         dialog_editbill();
 
-        TextView TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
+        TextViewEmptyResult = (TextView) rootView.findViewById(R.id.TextViewEmptyResult);
         billingListView.setEmptyView(TextViewEmptyResult);
-
         billingListView.setAdapter(adapter);
 
         //spinner
@@ -264,7 +267,9 @@ public class Billing extends Fragment {
                 dialog_descriptionBill = hashmap.get("description_bill");
                 dialog_statusBill = hashmap.get("status_bill");
                 dialog_period = "Period : " + hashmap.get("period");
-                dialog_deadline = "Deadline : " + hashmap.get("deadline");
+
+                deadline = hashmap.get("deadline");
+                dialog_deadline = "Deadline : " + deadline;
 
                 //bill_id = Integer.parseInt(hashmap.get("get_bill_id"));
                 String str_bill_id = hashmap.get("bill_id") + "";
@@ -307,7 +312,7 @@ public class Billing extends Fragment {
                     public void onClick(View v) {
                         Log.d(TAG, "onClick Button Paid");
                         //flagSort = (?) > Paid
-                        updateStatus(cust_id, bill_id, 0);
+                        updateStatus(cust_id, bill_id, 0, ""); // 0 = paid
                         billList.remove(position);
                         adapter.notifyDataSetChanged();
                         dialogEditBill.cancel();
@@ -321,7 +326,22 @@ public class Billing extends Fragment {
                     public void onClick(View v) {
                         Log.d(TAG, "onClick Button Deleted");
                         //flagSort = (?) > Deleted
-                        updateStatus(cust_id, bill_id, 1);
+                        updateStatus(cust_id, bill_id, 1, ""); // 1= deleted
+                        billList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
+                    }
+                });
+
+                //reschedule button
+                buttonReschedule = (Button) dialogEditBill.findViewById(R.id.buttonReschedule);
+                buttonReschedule.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "onClick Button reschedule");
+                        //flagSort = (?) > Paid
+                        reschedule(dialog_period, deadline); //change dealine
+                        updateStatus(cust_id, bill_id, 2, newDeadline); // other = unpaid
                         billList.remove(position);
                         adapter.notifyDataSetChanged();
                         dialogEditBill.cancel();
@@ -329,6 +349,43 @@ public class Billing extends Fragment {
                 });
             }
         });
+    }
+
+    public void reschedule(String dialog_period, String deadline){
+        int get_day = Integer.parseInt(deadline.substring(0,2));
+        int get_month = Integer.parseInt(deadline.substring(3,5));
+        int get_year = Integer.parseInt(deadline.substring(6));
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, get_day);
+        cal.set(Calendar.MONTH, get_month-1); // 0-11 so 1 less
+        cal.set(Calendar.YEAR, get_year);
+
+        if (dialog_period.equals("Weekly")){ //week
+            //cal.add(Calendar.DAY_OF_MONTH, 7);
+
+            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "Day = " + cal.get(Calendar.DAY_OF_MONTH));
+        } else if (dialog_period.equals("Monthly")){ //1month
+            //cal.add(Calendar.MONTH, 1);
+
+            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH) + 1);
+        } else if (dialog_period.equals("6 Monthly")){ //6month
+            //cal.add(Calendar.MONTH, 6);
+
+            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH) + 1);
+        } else if (dialog_period.equals("Yearly")){ //yearly
+            //cal.add(Calendar.YEAR, 1);
+
+            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "MONTH = " + cal.get(Calendar.YEAR));
+        }
+
+        newDeadline = cal.get(Calendar.DAY_OF_MONTH) + "-"+ cal.get(Calendar.MONTH) + 1 +"-" + cal.get(Calendar.YEAR);
+        Log.d(TAG, "new_deadline = " + newDeadline);
+
     }
 
     ////////////////////////////////////////////////////////////////////////////////get billing data
@@ -432,11 +489,11 @@ public class Billing extends Fragment {
     }
 
     //////////////////////////////////////////////////////////////////////////////update bill status
-    public void updateStatus(String cust_id, int bill_id, int flagSort){
+    public void updateStatus(String cust_id, int bill_id, int flagSort, String newDeadline){
         try {
             Log.d(TAG,"bill_id = " + bill_id);
             Log.d(TAG,"start select");
-            httpUpdateStatus.run(BASE_URL + "/billUpdateStatus.php?cust_id=" + cust_id + "&bill_id=" + bill_id + "&flagSort=" + flagSort);
+            httpUpdateStatus.run(BASE_URL + "/billUpdateStatus.php?cust_id=" + cust_id + "&bill_id=" + bill_id + "&flagSort=" + flagSort  + "&newDeadline=" + newDeadline);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
