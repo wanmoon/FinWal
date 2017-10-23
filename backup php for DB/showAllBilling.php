@@ -17,28 +17,36 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 $flagSort = $_GET["flagSort"];
-$status = " AND status_bill != 'Deleted' ";
+$status; // = " AND status_bill != 'Deleted' ";
 $sort;
 
 if ($flagSort == 0) {
-	$sort = "status_bill ASC";
+    $status = " AND status_bill = 'Paid' ";
+	//$sort = "status_bill ASC";
+    $sort = "deadline ASC";
 } elseif ($flagSort == 1) {
-	$sort = "status_bill DESC";
+    $status = " AND status_bill = 'Unpaid' ";
+	//$sort = "status_bill DESC";
+    $sort = "deadline ASC";
 } elseif ($flagSort == 3) {
 	$status = " AND status_bill = 'Deleted' ";
     $sort = "deadline ASC";
 } else {
+    $status = " AND status_bill != 'Deleted' ";
 	$sort = "deadline ASC";
 }
 
-$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id'" . $status . " ORDER BY $sort";
+
+//$sql = "SELECT period, description_bill, status_bill, deadline FROM period WHERE cust_id = '$cust_id'" . $status . " ORDER BY $sort";
+
+$sql = "SELECT period, description_bill, status_bill, deadline, bill_id, paid_date FROM period WHERE cust_id = '$cust_id'" . $status . " ORDER BY $sort";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        echo $row['period'] . "," . $row['description_bill'] . "," . $row['status_bill'] . "," . $row['deadline'] . "\n";
+        echo $row['period'] . "," . $row['description_bill'] . "," . $row['status_bill'] . "," . $row['deadline'] . "," . $row['bill_id'] . "," . $row['paid_date'] . "\n";
     }
 } else {
     echo "ERROR : " . $conn->error;

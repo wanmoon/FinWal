@@ -17,16 +17,20 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 $flagSort = $_GET["flagSort"];
-$status = " AND status_goal != 'Deleted' ";
+$status;// = " AND status_goal != 'Deleted' ";
 $sort;
 
 if ($flagSort == 0) { //unacheive =0
+    $status = " AND status_goal = 'Unachieve' ";
 	$sort = "status_goal DESC";
 } elseif ($flagSort == 1) { //achieve =1
+    $status = " AND status_goal = 'Achieved' ";
 	$sort = "status_goal ASC";
 } elseif ($flagSort == 2) { //price low-high =2
+    $status = " AND status_goal != 'Deleted' ";
 	$sort = "budget_goal ASC";
 } elseif ($flagSort == 3) { //price high-low =3
+    $status = " AND status_goal != 'Deleted' ";
 	$sort = "budget_goal DESC";
 } elseif ($flagSort == 5) { //deleted
     $sort = "ending_date DESC";
