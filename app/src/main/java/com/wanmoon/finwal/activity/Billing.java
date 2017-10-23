@@ -91,8 +91,13 @@ public class Billing extends Fragment {
     public String get_bill_id;
     public String deadline;
     public String period;
+    public String str_day;
+    public String str_month;
 
     public int bill_id;
+    public int day;
+    public int month;
+    public int year;
 
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -371,27 +376,45 @@ public class Billing extends Fragment {
         if (period.equals("Weekly")){ //week
             cal.add(Calendar.DAY_OF_MONTH, 7);
 
-            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "period = " + period);
             Log.d(TAG, "Day = " + cal.get(Calendar.DAY_OF_MONTH));
         } if (period.equals("Monthly")){ //1month
             cal.add(Calendar.MONTH, 1);
 
-            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "period = " + period);
             Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH) +1);
         } if (period.equals("6 Monthly")){ //6month
             cal.add(Calendar.MONTH, 6);
 
-            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "period = " + period);
             Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH) + 6);
-        } else { //yearly
+        } else if (period.equals("Yearly")){ //yearly
             // cal.set(Calendar.YEAR, get_year+1);
             cal.add(Calendar.YEAR, 1);
 
-            Log.d(TAG, "dialog_period = " + dialog_period);
+            Log.d(TAG, "period = " + period);
             Log.d(TAG, "YEAR = " + cal.get(Calendar.YEAR));
         }
 
-        newDeadline = cal.get(Calendar.DAY_OF_MONTH) + "-"+ cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        month = cal.get(Calendar.MONTH);
+        year = cal.get(Calendar.YEAR);
+
+        //day '01'
+        if (day<10){
+            str_day = "0"+day;
+        } else {
+            str_day = day + "";
+        }
+
+        //month '01'
+        if(month<10) {
+            str_month = "0"+ month;
+        } else {
+            str_month = month + "";
+        }
+
+        newDeadline = str_day + "-"+ str_month + "-" + year;
         Log.d(TAG, "new_deadline = " + newDeadline);
     }
 
