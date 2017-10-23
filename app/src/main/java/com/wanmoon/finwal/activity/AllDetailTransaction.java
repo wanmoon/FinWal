@@ -235,4 +235,5 @@ public class AllDetailTransaction extends AppCompatActivity implements View.OnCl
             });
         }
     }
+
 }
