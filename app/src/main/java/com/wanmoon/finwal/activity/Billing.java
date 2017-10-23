@@ -370,8 +370,13 @@ public class Billing extends Fragment {
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, get_day);
-        cal.set(Calendar.MONTH, get_month); // 0-11 so 1 less
+        cal.set(Calendar.MONTH, get_month-1); // 0-11 so 1 less
         cal.set(Calendar.YEAR, get_year);
+
+        Log.d(TAG, "cal.set(Calendar.DAY_OF_MONTH, get_day) = " + cal.get(Calendar.DAY_OF_MONTH));
+        Log.d(TAG, "cal.set(Calendar.MONTH, get_month-1) = " + cal.get(Calendar.MONTH));
+        Log.d(TAG, "cal.set(Calendar.YEAR, get_year); = " + cal.get(Calendar.YEAR));
+
 
         if (period.equals("Weekly")){ //week
             cal.add(Calendar.DAY_OF_MONTH, 7);
@@ -382,14 +387,13 @@ public class Billing extends Fragment {
             cal.add(Calendar.MONTH, 1);
 
             Log.d(TAG, "period = " + period);
-            Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH) +1);
+            Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH));
         } if (period.equals("6 Monthly")){ //6month
             cal.add(Calendar.MONTH, 6);
 
             Log.d(TAG, "period = " + period);
-            Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH) + 6);
+            Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH));
         } else if (period.equals("Yearly")){ //yearly
-            // cal.set(Calendar.YEAR, get_year+1);
             cal.add(Calendar.YEAR, 1);
 
             Log.d(TAG, "period = " + period);
@@ -397,7 +401,7 @@ public class Billing extends Fragment {
         }
 
         day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
+        month = cal.get(Calendar.MONTH)+1;
         year = cal.get(Calendar.YEAR);
 
         //day '01'
