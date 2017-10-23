@@ -131,37 +131,40 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
         if(v == textViewFinish){
+            getDescription_goal = editTextGoal.getText().toString();
+            if(getDescription_goal.matches("")){
+               Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
+            } else {
+               //noti
+               Calendar calendar = Calendar.getInstance();
+               calendar.set(Calendar.HOUR_OF_DAY, 22);
+               calendar.set(Calendar.MINUTE, 11);
+               calendar.set(Calendar.SECOND, 1);
+               Intent intent = new Intent(getApplicationContext(), EditGoal.EditGoalNoti.class);
+               PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+               AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+               alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
 
-            //noti
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 22);
-            calendar.set(Calendar.MINUTE, 11);
-            calendar.set(Calendar.SECOND, 1);
-            Intent intent = new Intent(getApplicationContext(), EditGoal.EditGoalNoti.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
+               Log.d(TAG, "get getDescription_goal, budget_goal");
 
-            Log.d(TAG, "get getDescription_goal, budget_goal");
+               String test = suggest_cost + "";
+               float test2 = Float.parseFloat(test);
+               String get_suggest_cost = String.format("%.2f", test2);
 
-            String test = suggest_cost + "";
-            float test2 = Float.parseFloat(test);
-            String get_suggest_cost = String.format("%.2f", test2);
+               addGoalToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, get_suggest_cost);
+               Log.d(TAG, "end addGoalToDB");
 
-            addGoalToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, get_suggest_cost);
-            Log.d(TAG, "end addGoalToDB");
-
-            Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
-            Log.d(TAG,"insert success");
+               Toast.makeText(NewGoal.this, "Success Add Goal", Toast.LENGTH_SHORT).show();
+               Log.d(TAG, "insert success");
+            }
 
         } if(v == textViewCancel){
-            // will open login activity here
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             i.putExtra("newGoal", true);
             startActivity(i);
             finish();
-
         } if (v == calendarViewGoal) {
             addGoal();
         }
@@ -292,6 +295,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     }
     public void onBackPressed() {
         Intent i=new Intent(this, MainActivity.class);
+        i.putExtra("newGoal", true);
         startActivity(i);
         super.onBackPressed();
     }
