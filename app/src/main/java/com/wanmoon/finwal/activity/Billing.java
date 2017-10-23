@@ -28,8 +28,10 @@ import com.wanmoon.finwal.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import okhttp3.Call;
@@ -88,6 +90,7 @@ public class Billing extends Fragment {
     public String newDeadline;
     public String get_bill_id;
     public String deadline;
+    public String period;
 
     public int bill_id;
 
@@ -264,11 +267,12 @@ public class Billing extends Fragment {
                 textViewPaid_date = (TextView) dialogEditBill.findViewById(R.id.textViewPaid_date);
 
                 //setstring
+                period = hashmap.get("period");
+                deadline = hashmap.get("deadline");
+
                 dialog_descriptionBill = hashmap.get("description_bill");
                 dialog_statusBill = hashmap.get("status_bill");
-                dialog_period = "Period : " + hashmap.get("period");
-
-                deadline = hashmap.get("deadline");
+                dialog_period = "Period : " + period;
                 dialog_deadline = "Deadline : " + deadline;
 
                 //bill_id = Integer.parseInt(hashmap.get("get_bill_id"));
@@ -352,40 +356,43 @@ public class Billing extends Fragment {
     }
 
     public void reschedule(String dialog_period, String deadline){
-        int get_day = Integer.parseInt(deadline.substring(0,2));
-        int get_month = Integer.parseInt(deadline.substring(3,5));
-        int get_year = Integer.parseInt(deadline.substring(6));
+        List<String> items_deadline = Arrays.asList(deadline.split("\\s*-\\s*"));
+        Log.d(TAG, "items_deadline = " + items_deadline);
+
+        int get_day = Integer.parseInt(items_deadline.get(0));
+        int get_month = Integer.parseInt(items_deadline.get(1));
+        int get_year = Integer.parseInt(items_deadline.get(2));
 
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.DAY_OF_MONTH, get_day);
-        cal.set(Calendar.MONTH, get_month-1); // 0-11 so 1 less
+        cal.set(Calendar.MONTH, get_month); // 0-11 so 1 less
         cal.set(Calendar.YEAR, get_year);
 
-        if (dialog_period.equals("Weekly")){ //week
-            //cal.add(Calendar.DAY_OF_MONTH, 7);
+        if (period.equals("Weekly")){ //week
+            cal.add(Calendar.DAY_OF_MONTH, 7);
 
             Log.d(TAG, "dialog_period = " + dialog_period);
             Log.d(TAG, "Day = " + cal.get(Calendar.DAY_OF_MONTH));
-        } else if (dialog_period.equals("Monthly")){ //1month
-            //cal.add(Calendar.MONTH, 1);
+        } if (period.equals("Monthly")){ //1month
+            cal.add(Calendar.MONTH, 1);
 
             Log.d(TAG, "dialog_period = " + dialog_period);
-            Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH) + 1);
-        } else if (dialog_period.equals("6 Monthly")){ //6month
-            //cal.add(Calendar.MONTH, 6);
+            Log.d(TAG, "MONTH = " + cal.get(Calendar.MONTH) +1);
+        } if (period.equals("6 Monthly")){ //6month
+            cal.add(Calendar.MONTH, 6);
 
             Log.d(TAG, "dialog_period = " + dialog_period);
-            Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH) + 1);
-        } else if (dialog_period.equals("Yearly")){ //yearly
-            //cal.add(Calendar.YEAR, 1);
+            Log.d(TAG, "6 MONTH = " + cal.get(Calendar.MONTH) + 6);
+        } else { //yearly
+            // cal.set(Calendar.YEAR, get_year+1);
+            cal.add(Calendar.YEAR, 1);
 
             Log.d(TAG, "dialog_period = " + dialog_period);
-            Log.d(TAG, "MONTH = " + cal.get(Calendar.YEAR));
+            Log.d(TAG, "YEAR = " + cal.get(Calendar.YEAR));
         }
 
-        newDeadline = cal.get(Calendar.DAY_OF_MONTH) + "-"+ cal.get(Calendar.MONTH) + 1 +"-" + cal.get(Calendar.YEAR);
+        newDeadline = cal.get(Calendar.DAY_OF_MONTH) + "-"+ cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.YEAR);
         Log.d(TAG, "new_deadline = " + newDeadline);
-
     }
 
     ////////////////////////////////////////////////////////////////////////////////get billing data
@@ -531,13 +538,9 @@ public class Billing extends Fragment {
                             Log.d(TAG,"onResponse");
                             Log.d(TAG,"update success");
                         }
-
-
                     });
                 }
             });
         }
     }
-
-
 }
