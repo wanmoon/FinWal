@@ -76,6 +76,7 @@ public class Home extends Fragment {
     public double current_goal;
     public double current_goalPercent;
     public double moneyleft;
+    public double percent_money;
 
     private String setWalletBalance;
     private String setMonthBalance;
@@ -126,6 +127,7 @@ public class Home extends Fragment {
     public float float_current_goalPercent;
     private float incomePercent;
     private float expensePercent;
+    private  float float_percent_money;
 
     //get current user
     private FirebaseAuth firebaseAuth;
@@ -862,10 +864,17 @@ public class Home extends Fragment {
     public void progressBar(float float_current_goalPercent) {
         Log.d(TAG, "float_current_goalPercent = " + float_current_goalPercent);
 
-        if (float_current_goalPercent >= 50) {
-            progress.setProgressColor(Color.parseColor("#088A4B"));
+        //set bar colour
+        if (float_current_goalPercent <= 20) { //<25%
+            progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
+        } else if (float_current_goalPercent <= 60) { //<50%
+            progress.setProgressColor(Color.parseColor("#cc7200"));
+        } else if (float_current_goalPercent <= 60) { //<50%
+            progress.setProgressColor(Color.parseColor("#ffd400")); //yellow
+        } else if (float_current_goalPercent <= 80) { //<75%
+            progress.setProgressColor(Color.parseColor("#e0ff00"));
         } else {
-            progress.setProgressColor(Color.parseColor("#e54649"));
+            progress.setProgressColor(Color.parseColor("#088A4B")); //green
         }
 
         progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -878,20 +887,11 @@ public class Home extends Fragment {
     }
 
     public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal) {
-        //count day left
-        //settext : description, status, percent, count, moneyleft
-
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
         textViewGoalTitle.setText(description_goal);
         textViewPercentGoal.setText(float_current_goalPercent + "%");
         textViewStatusGoal.setText(status_goal);
-        //set bar colour
-        if (status_goal.equals("Achieved")) {
-            textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
-        } else {
-            textViewStatusGoal.setTextColor(Color.parseColor("#e54649"));
-        }
 
         moneyleft = budget_goal - current_goal;
         Log.d(TAG, "moneyleft = " + moneyleft);
@@ -907,6 +907,8 @@ public class Home extends Fragment {
         if (current_goal >= budget_goal) {
             textViewStatusGoal.setText("Achieved");
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
+        } else {
+            textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
         }
 
         //days left
@@ -915,8 +917,8 @@ public class Home extends Fragment {
         Log.d(TAG, "items_ending_date = " + items_ending_date);
 
         int d = Integer.parseInt(items_ending_date.get(0));
-        int m = Integer.parseInt(items_ending_date.get(1));;
-        int y = Integer.parseInt(items_ending_date.get(2));;
+        int m = Integer.parseInt(items_ending_date.get(1));
+        int y = Integer.parseInt(items_ending_date.get(2));
 
         Log.d(TAG, "d = " + d);
         Log.d(TAG, "m = " + m);

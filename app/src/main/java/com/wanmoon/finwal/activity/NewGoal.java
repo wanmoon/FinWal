@@ -144,7 +144,12 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
 
             Log.d(TAG, "get getDescription_goal, budget_goal");
-            addBillToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, suggest_cost);
+
+            String test = suggest_cost + "";
+            float test2 = Float.parseFloat(test);
+            String get_suggest_cost = String.format("%.2f", test2);
+
+            addGoalToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, get_suggest_cost);
             Log.d(TAG, "end addGoalToDB");
 
             Toast.makeText(NewGoal.this,"Success Add Goal", Toast.LENGTH_SHORT).show();
@@ -245,7 +250,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    public String addBillToDB(String cust_id, String ending_date, String description_goal, double budget_goal, String savingplan, double suggest_cost){
+    public String addGoalToDB(String cust_id, String ending_date, String description_goal, double budget_goal, String savingplan, String suggest_cost){
         try {
             Log.d(TAG,"start goal");
             http.run(BASE_URL + "/insertGoal.php?cust_id=" + cust_id + "&ending_date="+ ending_date +"&description_goal="+ description_goal +"&budget_goal=" + budget_goal +"&savingplan=" + savingplan + "&suggest_cost=" + suggest_cost);
