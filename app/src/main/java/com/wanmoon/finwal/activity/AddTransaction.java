@@ -36,6 +36,14 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private EditText editTextTransaction;
     private EditText editTextHowmuch;
 
+    private Button inc;
+    private Button de;
+
+    private TextView showValue;
+    int counter = 1;
+    private TextView Sum;
+
+
     private TextView textViewCategories;
     private TextView textViewTransaction;
     private TextView textViewFinish;
@@ -74,7 +82,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private String getTransac;
     private String setBold;
 
-    private double getHowMuch;
+    public double getHowMuch;
 
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -95,6 +103,31 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.addtransaction);
 
         http = new getHttp(getApplicationContext());
+
+        showValue = (TextView) findViewById(R.id.textViewCount);
+        Sum = (TextView) findViewById(R.id.textViewSum);
+        inc = (Button)findViewById(R.id.Inc);
+        inc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                counter++;
+                showValue.setText(Integer.toString(counter));
+                Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
+            }
+        });
+        de = (Button)findViewById(R.id.Minus);
+        de.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(counter > 0) {
+
+                    counter--;
+                    showValue.setText(Integer.toString(counter));
+                    Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
+                }
+            }
+        });
 
         textViewFinish = (TextView) findViewById(R.id.textViewFinish);
         textViewCancel = (TextView) findViewById(R.id.textViewCancel);
@@ -450,6 +483,20 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
         Intent i=new Intent(this, MainActivity.class);
         startActivity(i);
         super.onBackPressed();
+    }
+
+
+
+    public void countIn(View view1){
+        if(view1 == inc) {
+            counter++;
+            showValue.setText(Integer.toString(counter));
+        }
+
+    }
+    public void countDE(View view2){
+        counter--;
+        showValue.setText(Integer.toString(counter));
     }
 }
 
