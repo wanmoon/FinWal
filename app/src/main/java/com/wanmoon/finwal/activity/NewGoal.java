@@ -51,9 +51,10 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     private RadioButton radioButtonWeekly;
     private RadioButton radioButtonMonthly;
 
-    private String ending_date;
+    private String ending_date = "";
     private String getDescription_goal;
-    private String savingplan;
+    private String savingplan = "";
+    public String getMoney = "";
 
     private long countDate;
 
@@ -92,6 +93,22 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         radioButtonMonthly = (RadioButton) findViewById(R.id.radioButtonMonthly);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                // find which radio button is selected
+                if(checkedId == R.id.radioButtonDaily) {
+                    savingplan = "Daily";
+                    Log.d(TAG, "savingplan = " + savingplan);
+                } else if(checkedId == R.id.radioButtonWeekly) {
+                    savingplan = "Weekly";
+                    Log.d(TAG, "savingplan = " + savingplan);
+                } else {
+                    savingplan = "Monthly";
+                    Log.d(TAG, "savingplan = " + savingplan);
+                }
+            }
+        });
 
         //set current date on calender
         calendarViewGoal = (CalendarView) findViewById(R.id.calendarViewGoal);
@@ -121,6 +138,7 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 } else {
                     month_str = month + "";
                 }
+
                 ending_date = day_str + "-" + month_str + "-" + year;
                 Log.d(TAG, "ending_date = " + ending_date);
 
@@ -132,104 +150,103 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        if(v == textViewFinish){
-            getDescription_goal = editTextGoal.getText().toString();
-            if(getDescription_goal.matches("")){
-               Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
-            } else {
-               //noti
-               Calendar calendar = Calendar.getInstance();
-               calendar.set(Calendar.HOUR_OF_DAY, 22);
-               calendar.set(Calendar.MINUTE, 11);
-               calendar.set(Calendar.SECOND, 1);
-               Intent intent = new Intent(getApplicationContext(), EditGoal.EditGoalNoti.class);
-               PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-               AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-               alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
+        if(v == textViewFinish) {
+            getData();
 
-               Log.d(TAG, "get getDescription_goal, budget_goal");
+            //noti
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 22);
+            calendar.set(Calendar.MINUTE, 11);
+            calendar.set(Calendar.SECOND, 1);
 
-               String test = suggest_cost + "";
-               float test2 = Float.parseFloat(test);
-               String get_suggest_cost = String.format("%.2f", test2);
-
-               addGoalToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, get_suggest_cost);
-               Log.d(TAG, "end addGoalToDB");
-
-               Toast.makeText(NewGoal.this, "Success Add Goal", Toast.LENGTH_SHORT).show();
-               Log.d(TAG, "insert success");
-            }
+            Intent intent = new Intent(getApplicationContext(), EditGoal.EditGoalNoti.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), alarmManager.INTERVAL_DAY, pendingIntent);
+            Log.d(TAG, "get getDescription_goal, budget_goal");
 
         } if(v == textViewCancel){
             Intent i=new Intent(getApplicationContext(), MainActivity.class);
             i.putExtra("newGoal", true);
             startActivity(i);
             finish();
-        } if (v == calendarViewGoal) {
-            addGoal();
+        }
+    }
+
+    public void getData() {
+        getDescription_goal = editTextGoal.getText().toString();
+        getMoney = editTextCost.getText().toString().trim();
+
+        //check empty
+        if (getDescription_goal.matches("")) { //description
+            Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
+        } else if (getMoney.isEmpty()) { // money
+            Toast.makeText(this, "Budget?", Toast.LENGTH_LONG).show();
+        } else if (ending_date.isEmpty()) { // endingdate (calendar)
+            Toast.makeText(this, "When is your ending date goal?", Toast.LENGTH_LONG).show();
+        } else if (radioGroup.getCheckedRadioButtonId() == -1) { //saving plan
+            Toast.makeText(this, "What is your saving plan?", Toast.LENGTH_LONG).show();
+        } else {
+
+            budget_goal = Double.parseDouble(getMoney);
+
+            Log.d(TAG, "getDescription_goal = " + getDescription_goal);
+            Log.d(TAG, "budget_goal = " + budget_goal);
+            Log.d(TAG, "ending_date = " + ending_date);
+            Log.d(TAG, "countDate = " + countDate);
+
+            //alert dialog
+            suggestion = new AlertDialog.Builder(NewGoal.this).create();
+            suggestion.setTitle("Suggestion Plan");
+
+            //do suggest cost
+            if (savingplan == "Daily") {
+                suggest_cost = budget_goal / countDate;
+                Log.d(TAG, "suggest_cost = " + suggest_cost);
+                suggestion.setMessage("'Daily' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
+
+            } else if (savingplan == "Weekly") {
+                suggest_cost = budget_goal / (countDate / 7);
+                Log.d(TAG, "suggest_cost = " + suggest_cost);
+                suggestion.setMessage("'Weekly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
+
+            } else if (savingplan == "Monthly") {
+                suggest_cost = budget_goal / (countDate / 30);
+                Log.d(TAG, "suggest_cost = " + suggest_cost);
+                suggestion.setMessage("'Monthly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
+            } else {
+                Toast.makeText(this, "Please choose your saving plan?", Toast.LENGTH_LONG).show();
+            }
+
+            suggestion.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                            // will open login activity here
+                            Intent i=new Intent(getApplicationContext(), MainActivity.class);
+                            i.putExtra("newGoal", true);
+                            startActivity(i);
+                            finish();
+                        }
+                    });
+
+            String get_suggest_cost = String.format("%.2f", suggest_cost);
+            Log.d(TAG, "get_suggest_cost = " + get_suggest_cost);
+
+            addGoalToDB(cust_id, ending_date, getDescription_goal, budget_goal, savingplan, get_suggest_cost);
+            Log.d(TAG, "end addGoalToDB");
+
+            Toast.makeText(NewGoal.this, "Success Add Goal", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "insert success");
+
+            suggestion.show();
         }
     }
 
     public double setSuggest_cost(double suggest_cost){
         this.suggest_cost = suggest_cost;
         return suggest_cost;
-    }
-
-    public void addGoal() {
-        getDescription_goal = editTextGoal.getText().toString();
-        String getMoney = editTextCost.getText().toString().trim();
-
-        if(getDescription_goal.matches("")){
-            Toast.makeText(this, "What is your goal?", Toast.LENGTH_LONG).show();
-        } else if (getMoney.isEmpty()){
-            Toast.makeText(this, "Budget?", Toast.LENGTH_LONG).show();
-        } else {
-            budget_goal = Double.parseDouble(getMoney);
-            Log.d(TAG,"budget_goal = " + budget_goal);
-
-            saveEachDay(budget_goal, countDate);
-        }
-    }
-
-    public void saveEachDay(final double budget_goal, final long countDate){
-        Log.d(TAG, "budget_goal = " + budget_goal);
-        Log.d(TAG, "countDate = " + countDate);
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                //alert dialog
-                suggestion = new AlertDialog.Builder(NewGoal.this).create();
-                suggestion.setTitle("Suggestion Plan");
-
-                // find which radio button is selected
-                if(checkedId == R.id.radioButtonDaily) {
-                    savingplan = "Daily";
-                    suggest_cost = budget_goal/countDate;
-                    Log.d(TAG, "savingDay = " + suggest_cost);
-                    suggestion.setMessage("'Daily' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
-                } else if(checkedId == R.id.radioButtonWeekly) {
-                    savingplan = "Weekly";
-                    suggest_cost = budget_goal/(countDate/7);
-                    Log.d(TAG, "savingDay = " + suggest_cost);
-                    suggestion.setMessage("'Weekly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
-                } else {
-                    savingplan = "Monthly";
-                    suggest_cost = budget_goal/(countDate/30);
-                    Log.d(TAG, "savingDay = " + suggest_cost);
-                    suggestion.setMessage("'Monthly' Saving Plan : " + String.format("%.2f", suggest_cost) + " Baht");
-                }
-
-                suggestion.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                suggestion.show();
-            }
-        });
     }
 
     public void countDate(int dayOfMonth, int month, int year){
@@ -248,8 +265,8 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
         if (countDate <= 0){
             Toast.makeText(getApplicationContext(), "You can't set goal date in past, selecte againg",
                     Toast.LENGTH_LONG).show();
-        } else {
-            addGoal();
+//        } else {
+//            addGoal();
         }
     }
 
@@ -283,16 +300,11 @@ public class NewGoal extends AppCompatActivity implements View.OnClickListener {
                 public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG,"onResponse");
                     Log.d(TAG,"insert success");
-
-                    // will open login activity here
-                    Intent i=new Intent(getApplicationContext(), MainActivity.class);
-                    i.putExtra("newGoal", true);
-                    startActivity(i);
-                    finish();
                 }
             });
         }
     }
+
     public void onBackPressed() {
         Intent i=new Intent(this, MainActivity.class);
         i.putExtra("newGoal", true);
