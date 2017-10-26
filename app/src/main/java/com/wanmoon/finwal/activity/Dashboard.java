@@ -126,6 +126,205 @@ public class Dashboard extends Fragment {
 
 
 
+    //line chart category
+    private float sumIncomeJanGift;
+    private float sumIncomeFebGift;
+    private float sumIncomeMarGift;
+    private float sumIncomeAprGift;
+    private float sumIncomeMayGift;
+    private float sumIncomeJunGift;
+    private float sumIncomeJulGift;
+    private float sumIncomeAugGift;
+    private float sumIncomeSepGift;
+    private float sumIncomeOctGift;
+    private float sumIncomeNovGift;
+    private float sumIncomeDecGift;
+
+    private float sumIncomeJanSalary;
+    private float sumIncomeFebSalary;
+    private float sumIncomeMarSalary;
+    private float sumIncomeAprSalary;
+    private float sumIncomeMaySalary;
+    private float sumIncomeJunSalary;
+    private float sumIncomeJulSalary;
+    private float sumIncomeAugSalary;
+    private float sumIncomeSepSalary;
+    private float sumIncomeOctSalary;
+    private float sumIncomeNovSalary;
+    private float sumIncomeDecSalary;
+
+    private float sumIncomeJanExtra;
+    private float sumIncomeFebExtra;
+    private float sumIncomeMarExtra;
+    private float sumIncomeAprExtra;
+    private float sumIncomeMayExtra;
+    private float sumIncomeJunExtra;
+    private float sumIncomeJulExtra;
+    private float sumIncomeAugExtra;
+    private float sumIncomeSepExtra;
+    private float sumIncomeOctExtra;
+    private float sumIncomeNovExtra;
+    private float sumIncomeDecExtra;
+
+    private float sumIncomeJanLoan;
+    private float sumIncomeFebLoan;
+    private float sumIncomeMarLoan;
+    private float sumIncomeAprLoan;
+    private float sumIncomeMayLoan;
+    private float sumIncomeJunLoan;
+    private float sumIncomeJulLoan;
+    private float sumIncomeAugLoan;
+    private float sumIncomeSepLoan;
+    private float sumIncomeOctLoan;
+    private float sumIncomeNovLoan;
+    private float sumIncomeDecLoan;
+
+    private float sumIncomeJanFamily;
+    private float sumIncomeFebFamily;
+    private float sumIncomeMarFamily;
+    private float sumIncomeAprFamily;
+    private float sumIncomeMayFamily;
+    private float sumIncomeJunFamily;
+    private float sumIncomeJulFamily;
+    private float sumIncomeAugFamily;
+    private float sumIncomeSepFamily;
+    private float sumIncomeOctFamily;
+    private float sumIncomeNovFamily;
+    private float sumIncomeDecFamily;
+
+
+    private float sumExpenseJanBill;
+    private float sumExpenseFebBill;
+    private float sumExpenseMarBill;
+    private float sumExpenseAprBill;
+    private float sumExpenseMayBill;
+    private float sumExpenseJunBill;
+    private float sumExpenseJulBill;
+    private float sumExpenseAugBill;
+    private float sumExpenseSepBill;
+    private float sumExpenseOctBill;
+    private float sumExpenseNovBill;
+    private float sumExpenseDecBill;
+
+    private float sumExpenseJanEducation;
+    private float sumExpenseFebEducation;
+    private float sumExpenseMarEducation;
+    private float sumExpenseAprEducation;
+    private float sumExpenseMayEducation;
+    private float sumExpenseJunEducation;
+    private float sumExpenseJulEducation;
+    private float sumExpenseAugEducation;
+    private float sumExpenseSepEducation;
+    private float sumExpenseOctEducation;
+    private float sumExpenseNovEducation;
+    private float sumExpenseDecEducation;
+
+    private float sumExpenseJanEntertainment;
+    private float sumExpenseFebEntertainment;
+    private float sumExpenseMarEntertainment;
+    private float sumExpenseAprEntertainment;
+    private float sumExpenseMayEntertainment;
+    private float sumExpenseJunEntertainment;
+    private float sumExpenseJulEntertainment;
+    private float sumExpenseAugEntertainment;
+    private float sumExpenseSepEntertainment;
+    private float sumExpenseOctEntertainment;
+    private float sumExpenseNovEntertainment;
+    private float sumExpenseDecEntertainment;
+
+    private float sumExpenseJanFood;
+    private float sumExpenseFebFood;
+    private float sumExpenseMarFood;
+    private float sumExpenseAprFood;
+    private float sumExpenseMayFood;
+    private float sumExpenseJunFood;
+    private float sumExpenseJulFood;
+    private float sumExpenseAugFood;
+    private float sumExpenseSepFood;
+    private float sumExpenseOctFood;
+    private float sumExpenseNovFood;
+    private float sumExpenseDecFood;
+
+    private float sumExpenseJanShopping;
+    private float sumExpenseFebShopping;
+    private float sumExpenseMarShopping;
+    private float sumExpenseAprShopping;
+    private float sumExpenseMayShopping;
+    private float sumExpenseJunShopping;
+    private float sumExpenseJulShopping;
+    private float sumExpenseAugShopping;
+    private float sumExpenseSepShopping;
+    private float sumExpenseOctShopping;
+    private float sumExpenseNovShopping;
+    private float sumExpenseDecShopping;
+
+    private float sumExpenseJanTransport;
+    private float sumExpenseFebTransport;
+    private float sumExpenseMarTransport;
+    private float sumExpenseAprTransport;
+    private float sumExpenseMayTransport;
+    private float sumExpenseJunTransport;
+    private float sumExpenseJulTransport;
+    private float sumExpenseAugTransport;
+    private float sumExpenseSepTransport;
+    private float sumExpenseOctTransport;
+    private float sumExpenseNovTransport;
+    private float sumExpenseDecTransport;
+
+    private float sumExpenseJanTravel;
+    private float sumExpenseFebTravel;
+    private float sumExpenseMarTravel;
+    private float sumExpenseAprTravel;
+    private float sumExpenseMayTravel;
+    private float sumExpenseJunTravel;
+    private float sumExpenseJulTravel;
+    private float sumExpenseAugTravel;
+    private float sumExpenseSepTravel;
+    private float sumExpenseOctTravel;
+    private float sumExpenseNovTravel;
+    private float sumExpenseDecTravel;
+
+    private float sumExpenseJanFamilyEx;
+    private float sumExpenseFebFamilyEx;
+    private float sumExpenseMarFamilyEx;
+    private float sumExpenseAprFamilyEx;
+    private float sumExpenseMayFamilyEx;
+    private float sumExpenseJunFamilyEx;
+    private float sumExpenseJulFamilyEx;
+    private float sumExpenseAugFamilyEx;
+    private float sumExpenseSepFamilyEx;
+    private float sumExpenseOctFamilyEx;
+    private float sumExpenseNovFamilyEx;
+    private float sumExpenseDecFamilyEx;
+
+    private float sumExpenseJanHealthcare;
+    private float sumExpenseFebHealthcare;
+    private float sumExpenseMarHealthcare;
+    private float sumExpenseAprHealthcare;
+    private float sumExpenseMayHealthcare;
+    private float sumExpenseJunHealthcare;
+    private float sumExpenseJulHealthcare;
+    private float sumExpenseAugHealthcare;
+    private float sumExpenseSepHealthcare;
+    private float sumExpenseOctHealthcare;
+    private float sumExpenseNovHealthcare;
+    private float sumExpenseDecHealthcare;
+
+    private float sumExpenseJanSaving;
+    private float sumExpenseFebSaving;
+    private float sumExpenseMarSaving;
+    private float sumExpenseAprSaving;
+    private float sumExpenseMaySaving;
+    private float sumExpenseJunSaving;
+    private float sumExpenseJulSaving;
+    private float sumExpenseAugSaving;
+    private float sumExpenseSepSaving;
+    private float sumExpenseOctSaving;
+    private float sumExpenseNovSaving;
+    private float sumExpenseDecSaving;
+
+
+
     //income month
     private double sumIncomeSalaryMonth;
     private double sumIncomeGiftMonth;
@@ -151,7 +350,6 @@ public class Dashboard extends Fragment {
     private double sumExpenseEntertainmentMonth;
     private double sumExpenseFoodAndDrinkMonth;
     private double sumExpenseShoppingMonth;
-
     private double sumExpenseTransportMonth;
     private double sumExpenseTravelMonth;
     private double sumExpenseFamilyAndPersonalMonth;
@@ -164,7 +362,6 @@ public class Dashboard extends Fragment {
     private float expenseFamilyAndPersonalMonthPercent;
     private float expenseFoodAndDrinkMonthPercent;
     private float expenseShoppingMonthPercent;
-
     private float expenseTransportMonthPercent;
     private float expenseEducationMonthPercent;
     private float expenseEntertainmentMonthPercent;
@@ -177,7 +374,6 @@ public class Dashboard extends Fragment {
     private String categoryFamilyAndPersonalMonthExpense;
     private String categoryFoodAndDrinkMonth;
     private String categoryShoppingMonth;
-
     private String categoryTransportMonth;
     private String categoryEducationMonth;
     private String categoryEntertainmentMonth;
@@ -211,7 +407,6 @@ public class Dashboard extends Fragment {
     private double sumExpenseEntertainmentYear;
     private double sumExpenseFoodAndDrinkYear;
     private double sumExpenseShoppingYear;
-
     private double sumExpenseTransportYear;
     private double sumExpenseTravelYear;
     private double sumExpenseFamilyAndPersonalYear;
@@ -224,7 +419,6 @@ public class Dashboard extends Fragment {
     private float expenseFamilyAndPersonalYearPercent;
     private float expenseFoodAndDrinkYearPercent;
     private float expenseShoppingYearPercent;
-
     private float expenseTransportYearPercent;
     private float expenseEducationYearPercent;
     private float expenseEntertainmentYearPercent;
@@ -237,7 +431,6 @@ public class Dashboard extends Fragment {
     private String categoryFamilyAndPersonalYearExpense;
     private String categoryFoodAndDrinkYear;
     private String categoryShoppingYear;
-
     private String categoryTransportYear;
     private String categoryEducationYear;
     private String categoryEntertainmentYear;
@@ -256,6 +449,8 @@ public class Dashboard extends Fragment {
 
     getHttpSumIncomeYear httpSumIncomeYear;
     getHttpSumExpenseYear httpSumExpenseYear;
+
+    getHttpSumLineYearCategory httpSumLineYearCategory;
 
 
     getHttpSumIncomeMonthCategory httpSumIncomeMonthCategory;
@@ -365,6 +560,8 @@ public class Dashboard extends Fragment {
         httpSumIncomeYear = new getHttpSumIncomeYear(getContext());
         httpSumExpenseYear = new getHttpSumExpenseYear(getContext());
 
+        httpSumLineYearCategory = new getHttpSumLineYearCategory(getContext());
+
 
         httpSumIncomeMonthCategory = new getHttpSumIncomeMonthCategory(getContext());
         httpSumExpenseMonthCategory = new getHttpSumExpenseMonthCategory(getContext());
@@ -382,6 +579,8 @@ public class Dashboard extends Fragment {
 
         sumIncomeYear(cust_id);
         sumExpenseYear(cust_id);
+
+        sumLineYearCategory(cust_id);
 
         sumIncomeMonthCategory(cust_id);
         sumExpenseMonthCategory(cust_id);
@@ -465,31 +664,25 @@ public class Dashboard extends Fragment {
 
         ArrayList<Float> integerCollector = new ArrayList<Float>();
         int pointer = 0;
+        ArrayList<String> stringCollector = new ArrayList<String>();
+        int pointerString = 0;
         for (String num : items) {
             if (pointer % 2 == 1) {
                 integerCollector.add(Float.parseFloat(items.get(pointer)));
             }
             pointer++;
-        }
 
-        ArrayList<String> stringCollector = new ArrayList<String>();
-        int pointerString = 0;
-        for (String num : items) {
             if (pointerString % 2 == 0) {
                 stringCollector.add(items.get(pointerString));
             }
             pointerString++;
         }
 
-
         for (int i = 0; i <= stringCollector.size() - 1; i++) {
-
             String check = stringCollector.get(i).trim();
-            Log.d(TAG, "check " + check);
             // jan
             if (check.equals("1")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeJan = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJan " + sumIncomeJan);
@@ -498,14 +691,12 @@ public class Dashboard extends Fragment {
             if (check.equals("2")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeFeb = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeFeb " + sumIncomeFeb);
 
             } //3
             if (check.equals("3")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeMar = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeMar " + sumIncomeMar);
@@ -514,14 +705,12 @@ public class Dashboard extends Fragment {
             if (check.equals("4")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeApr = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeApr " + sumIncomeApr);
 
             } //5
             if (check.equals("5")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeMay = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeMay " + sumIncomeMay);
@@ -530,14 +719,12 @@ public class Dashboard extends Fragment {
             if (check.equals("6")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeJun = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJun " + sumIncomeJun);
 
             } //7
             if (check.equals("7")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeJul = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeJul " + sumIncomeJul);
@@ -546,14 +733,12 @@ public class Dashboard extends Fragment {
             if (check.equals("8")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeAug = integerCollector.get(i);
                 Log.d(TAG, "incomeAug " + sumIncomeAug);
 
             } //9
             if (check.equals("9")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeSep = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeSep " + sumIncomeSep);
@@ -562,7 +747,6 @@ public class Dashboard extends Fragment {
             if (check.equals("10")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeOct = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeOct " + sumIncomeOct);
 
@@ -570,14 +754,12 @@ public class Dashboard extends Fragment {
             if (check.equals("11")) {
                 Log.d(TAG, "check " + check);
 
-
                 sumIncomeNov = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeNov " + sumIncomeNov);
 
             }//12
             if (check.equals("12")) {
                 Log.d(TAG, "check " + check);
-
 
                 sumIncomeDec = integerCollector.get(i);
                 Log.d(TAG, "sumIncomeDec " + sumIncomeDec);
@@ -820,6 +1002,1906 @@ public class Dashboard extends Fragment {
         }
 
     }
+
+
+
+
+    //////////////////////// Income Year line chart ////////////////////////
+
+    public String sumLineYearCategory(String cust_id) {
+        try {
+            Log.d(TAG, "start sumLineYearCategory");
+            httpSumLineYearCategory.run(BASE_URL + "/sumLineYearCategory.php?cust_id=" + cust_id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG, "error catch");
+        }
+        return response;
+    }
+
+    public void showLineYearCategory(String allLineYear) {
+        Log.d(TAG, "allLineYear " + allLineYear);
+        List<String> itemsCate = Arrays.asList(allLineYear.split("\\s*-\\s*"));
+
+        ArrayList<String> stringCate = new ArrayList();
+        int pointerCate = 0;
+        for (String num : itemsCate) {
+            stringCate.add(itemsCate.get(pointerCate));
+            Log.d(TAG, "stringCate " + stringCate);
+
+            String stringCateCheck = itemsCate.get(pointerCate).trim();
+            Log.d(TAG, "stringCateCheck " + stringCateCheck);
+
+            pointerCate++;
+
+            List<String> itemsCate1 = Arrays.asList(stringCateCheck.split("\\s*,\\s*"));
+            Log.d(TAG, "itemsCate1 " + itemsCate1);
+            int pointerCate1 = 0;
+
+            if (itemsCate1.get(0).equals("Gift")) {
+                Log.d(TAG, "itemsCateGift" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    //jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJanGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJanGift " + sumIncomeJanGift);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeFebGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeFebGift " + sumIncomeFebGift);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMarGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMarGift " + sumIncomeMarGift);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAprGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeAprGift " + sumIncomeAprGift);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMayGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMayGift " + sumIncomeMayGift);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJunGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJunGift " + sumIncomeJunGift);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJulGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJulGift " + sumIncomeJulGift);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAugGift = integerCollector.get(i);
+                        Log.d(TAG, "incomeAugGift " + sumIncomeAugGift);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+
+                        sumIncomeSepGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeSepGift " + sumIncomeSepGift);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeOctGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeOctGift " + sumIncomeOctGift);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeNovGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeNovGift " + sumIncomeNovGift);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeDecGift = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeDecGift " + sumIncomeDecGift);
+
+                    }
+
+                }
+
+            }
+            if (itemsCate1.get(0).equals("Salary")) {
+                Log.d(TAG, "itemsCateSalary" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJanSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJanSalary " + sumIncomeJanSalary);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeFebSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeFebSalary " + sumIncomeFebSalary);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMarSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMarSalary " + sumIncomeMarSalary);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAprSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeAprSalary " + sumIncomeAprSalary);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMaySalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMaySalary " + sumIncomeMaySalary);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJunSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJunSalary " + sumIncomeJunSalary);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJulSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJulSalary " + sumIncomeJulSalary);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAugSalary = integerCollector.get(i);
+                        Log.d(TAG, "incomeAugSalary " + sumIncomeAugSalary);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeSepSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeSepSalary " + sumIncomeSepSalary);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeOctSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeOctSalary " + sumIncomeOctSalary);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeNovSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeNovSalary " + sumIncomeNovSalary);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeDecSalary = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeDecSalary " + sumIncomeDecSalary);
+
+                    }
+
+                }
+
+            }
+            if (itemsCate1.get(0).equals("Extra income")) {
+                Log.d(TAG, "itemsCateExtra income" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJanExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJanExtra " + sumIncomeJanExtra);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeFebExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeFebExtra " + sumIncomeFebExtra);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMarExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMarExtra " + sumIncomeMarExtra);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAprExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeAprExtra " + sumIncomeAprExtra);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMayExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMayExtra " + sumIncomeMayExtra);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+
+                        sumIncomeJunExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJunExtra " + sumIncomeJunExtra);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJulExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJulExtra " + sumIncomeJulExtra);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAugExtra = integerCollector.get(i);
+                        Log.d(TAG, "incomeAugExtra " + sumIncomeAugExtra);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeSepExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeSepExtra " + sumIncomeSepExtra);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeOctExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeOctExtra " + sumIncomeOctExtra);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeNovExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeNovExtra " + sumIncomeNovExtra);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeDecExtra = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeDecExtra " + sumIncomeDecExtra);
+
+                    }
+
+                }
+
+            }
+            if (itemsCate1.get(0).equals("Loan")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJanLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJanLoan " + sumIncomeJanLoan);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeFebLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeFebLoan " + sumIncomeFebLoan);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMarLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMarLoan " + sumIncomeMarLoan);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAprLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeAprLoan " + sumIncomeAprLoan);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMayLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMayLoan " + sumIncomeMayLoan);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJunLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJunLoan " + sumIncomeJunLoan);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJulLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJulLoan " + sumIncomeJulLoan);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAugLoan = integerCollector.get(i);
+                        Log.d(TAG, "incomeAugLoan " + sumIncomeAugLoan);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeSepLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeSepLoan " + sumIncomeSepLoan);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeOctLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeOctLoan" + sumIncomeOctLoan);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeNovLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeNovLoan " + sumIncomeNovLoan);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeDecLoan = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeDecLoan " + sumIncomeDecLoan);
+
+                    }
+
+                }
+
+            }
+            if (itemsCate1.get(0).equals("Family and Personal")) {
+                Log.d(TAG, "itemsCateFamily and Personal" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJanFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJanFamily " + sumIncomeJanFamily);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeFebFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeFebFamily " + sumIncomeFebFamily);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMarFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMarFamily " + sumIncomeMarFamily);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAprFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeAprFamily " + sumIncomeAprFamily);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeMayFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeMayFamily " + sumIncomeMayFamily);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJunFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJunFamily " + sumIncomeJunFamily);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeJulFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeJulFamily " + sumIncomeJulFamily);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeAugFamily = integerCollector.get(i);
+                        Log.d(TAG, "incomeAugFamily " + sumIncomeAugFamily);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeSepFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeSepFamily " + sumIncomeSepFamily);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeOctFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeOctFamily " + sumIncomeOctFamily);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeNovFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeNovFamily " + sumIncomeNovFamily);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumIncomeDecFamily = integerCollector.get(i);
+                        Log.d(TAG, "sumIncomeDecFamily " + sumIncomeDecFamily);
+
+                    }
+                }
+            }
+
+
+
+///////////////////////////////Expense////////////////////////////
+            if (itemsCate1.get(0).equals("Bill")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanBill " + sumExpenseJanBill);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebBill " + sumExpenseFebBill);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarBill " + sumExpenseMarBill);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprBill " + sumExpenseAprBill);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayBill " + sumExpenseMayBill);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunBill " + sumExpenseJunBill);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulBill " + sumExpenseJulBill);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugBill " + sumExpenseAugBill);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepBill " + sumExpenseSepBill);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctBill " + sumExpenseOctBill);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNov = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovBill " + sumExpenseNovBill);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecBill = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecBill " + sumExpenseDecBill);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Education")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for (int i = 1; i < itemsCate1.size(); i++) {
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanEducation " + sumExpenseJanEducation);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebEducation " + sumExpenseFebEducation);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarEducation " + sumExpenseMarEducation);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprEducation " + sumExpenseAprEducation);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayEducation " + sumExpenseMayEducation);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunEducation " + sumExpenseJunEducation);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulEducation " + sumExpenseJulEducation);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugEducation " + sumExpenseAugEducation);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepEducation " + sumExpenseSepEducation);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctEducation " + sumExpenseOctEducation);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovEducation " + sumExpenseNovEducation);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecEducation = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecEducation " + sumExpenseDecEducation);
+
+                    }
+                }
+            }
+
+            if (itemsCate1.get(0).equals("Entertainment")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanEntertainment " + sumExpenseJanEntertainment);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebEntertainment " + sumExpenseFebEntertainment);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarEntertainment " + sumExpenseMarEntertainment);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprEntertainment " + sumExpenseAprEntertainment);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayEntertainment " + sumExpenseMayEntertainment);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunEntertainment " + sumExpenseJunEntertainment);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulEntertainment " + sumExpenseJulEntertainment);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugEntertainment " + sumExpenseAugEntertainment);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepEntertainment " + sumExpenseSepEntertainment);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctEntertainment " + sumExpenseOctEntertainment);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovEntertainment " + sumExpenseNovEntertainment);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecEntertainment = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecEntertainment " + sumExpenseDecEntertainment);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Food")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanFood " + sumExpenseJanFood);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebFood " + sumExpenseFebFood);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+
+                        sumExpenseMarFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarFood " + sumExpenseMarFood);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprFood " + sumExpenseAprFood);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayFood " + sumExpenseMayFood);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunFood " + sumExpenseJunFood);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulFood " + sumExpenseJulFood);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugFood " + sumExpenseAugFood);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepFood " + sumExpenseSepFood);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctFood " + sumExpenseOctFood);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovFood " + sumExpenseNovFood);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecFood = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecFood " + sumExpenseDecFood);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Shopping")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanShopping " + sumExpenseJanShopping);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebShopping " + sumExpenseFebShopping);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarShopping " + sumExpenseMarShopping);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprShopping " + sumExpenseAprShopping);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayShopping " + sumExpenseMayShopping);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunShopping " + sumExpenseJunShopping);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulShopping " + sumExpenseJulShopping);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugShopping " + sumExpenseAugShopping);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepShopping " + sumExpenseSepShopping);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctShopping " + sumExpenseOctShopping);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovShopping " + sumExpenseNovShopping);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecShopping = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecShopping " + sumExpenseDecShopping);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Transport")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanTransport " + sumExpenseJanTransport);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebTransport " + sumExpenseFebTransport);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarTransport " + sumExpenseMarTransport);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprTransport " + sumExpenseAprTransport);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayTransport " + sumExpenseMayTransport);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunTransport " + sumExpenseJunTransport);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulTransport " + sumExpenseJulTransport);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugTransport " + sumExpenseAugTransport);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepTransport " + sumExpenseSepTransport);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctTransport " + sumExpenseOctTransport);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovTransport" + sumExpenseNovTransport);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecTransport = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecTransport " + sumExpenseDecTransport);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Travel")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanTravel " + sumExpenseJanTravel);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebTravel " + sumExpenseFebTravel);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarTravel " + sumExpenseMarTravel);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprTravel " + sumExpenseAprTravel);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayTravel " + sumExpenseMayTravel);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunTravel " + sumExpenseJunTravel);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulTravel " + sumExpenseJulTravel);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugTravel " + sumExpenseAugTravel);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepTravel= integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepTravel " + sumExpenseSepTravel);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctTravel " + sumExpenseOctTravel);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovTravel " + sumExpenseNovTravel);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecTravel = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecTravel " + sumExpenseDecTravel);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Family and Personal expens")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanFamilyEx " + sumExpenseJanFamilyEx);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebFamilyEx " + sumExpenseFebFamilyEx);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarFamilyEx " + sumExpenseMarFamilyEx);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprFamilyEx " + sumExpenseAprFamilyEx);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayFamilyEx " + sumExpenseMayFamilyEx);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunFamilyEx " + sumExpenseJunFamilyEx);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulFamilyEx " + sumExpenseJulFamilyEx);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugFamilyEx " + sumExpenseAugFamilyEx);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepFamilyEx " + sumExpenseSepFamilyEx);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctFamilyEx " + sumExpenseOctFamilyEx);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovFamilyEx " + sumExpenseNovFamilyEx);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecFamilyEx = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecFamilyEx " + sumExpenseDecFamilyEx);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Healthcare")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanHealthcare " + sumExpenseJanHealthcare);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebHealthcare " + sumExpenseFebHealthcare);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarHealthcare " + sumExpenseMarHealthcare);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprHealthcare " + sumExpenseAprHealthcare);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMayHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayHealthcare " + sumExpenseMayHealthcare);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunHealthcare " + sumExpenseJunHealthcare);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulHealthcare " + sumExpenseJulHealthcare);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugHealthcare " + sumExpenseAugHealthcare);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepHealthcare " + sumExpenseSepHealthcare);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctHealthcare " + sumExpenseOctHealthcare);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovHealthcare " + sumExpenseNovHealthcare);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecHealthcare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecHealthcare " + sumExpenseDecHealthcare);
+
+                    }
+                }
+
+            }
+
+            if (itemsCate1.get(0).equals("Saving and Investment")) {
+                Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
+
+                ArrayList<String> stringCateData = new ArrayList();
+                ArrayList<String> stringCollector = new ArrayList();
+                int pointerString = 0;
+                ArrayList<Float> integerCollector = new ArrayList();
+                int pointer = 0;
+                Log.d(TAG, "stringCateData " + stringCateData);
+                for(int i =1 ; i<itemsCate1.size() ;i++){
+                    stringCateData.add(itemsCate1.get(i).trim());
+                    //month
+                    if (pointerString % 2 == 0) {
+                        stringCollector.add(stringCateData.get(pointerString));
+                    }
+                    pointerString++;
+                    Log.d(TAG, "stringCollector " + stringCollector);
+
+                    //money
+                    if (pointer % 2 == 1) {
+                        integerCollector.add(Float.parseFloat(stringCateData.get(pointer)));
+                    }
+                    pointer++;
+                    Log.d(TAG, "integerCollector " + integerCollector);
+
+                }
+
+                for (int i = 0; i <= stringCollector.size() - 1; i++) {
+
+                    String check = stringCollector.get(i).trim();
+                    Log.d(TAG, "check " + check);
+                    // jan
+                    if (check.equals("1")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJanSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanSaving " + sumExpenseJanSaving);
+
+                    } //feb
+                    if (check.equals("2")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseFebSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebSaving " + sumExpenseFebSaving);
+
+                    } //3
+                    if (check.equals("3")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMarSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarSaving " + sumExpenseMarSaving);
+
+                    } //4
+                    if (check.equals("4")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAprSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprSaving " + sumExpenseAprSaving);
+
+                    } //5
+                    if (check.equals("5")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseMaySaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMaySaving " + sumExpenseMaySaving);
+
+                    } //6
+                    if (check.equals("6")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJunSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunSaving " + sumExpenseJunSaving);
+
+                    } //7
+                    if (check.equals("7")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseJulSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulSaving " + sumExpenseJulSaving);
+
+                    }//8
+                    if (check.equals("8")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseAugSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugSaving " + sumExpenseAugSaving);
+
+                    } //9
+                    if (check.equals("9")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseSepSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepSaving " + sumExpenseSepSaving);
+
+                    } //10
+                    if (check.equals("10")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseOctSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctSaving " + sumExpenseOctSaving);
+
+                    } //11
+                    if (check.equals("11")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseNovSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovSaving " + sumExpenseNovSaving);
+
+                    }//12
+                    if (check.equals("12")) {
+                        Log.d(TAG, "check " + check);
+
+                        sumExpenseDecSaving = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecSaving " + sumExpenseDecSaving);
+
+                    }
+                }
+
+            }
+
+
+
+        }
+
+    }
+
+
+    // ** must have for connect DB
+    public class getHttpSumLineYearCategory {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpSumLineYearCategory(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG, "onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            try {
+                                showLineYearCategory(response.body().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, "onResponse");
+                            sumAllBalance();
+                        }
+
+
+                    });
+                }
+            });
+        }
+
+    }
+
 
 
 
@@ -1506,6 +3588,7 @@ public class Dashboard extends Fragment {
     }
 
 
+
     public void sumAllBalance() {
         // parse value from main activity month for % pie chart
         Double sumIncomeMonth = getArguments().getDouble("sumIncomeMonth");
@@ -1626,8 +3709,9 @@ public class Dashboard extends Fragment {
         // for line graph
         initData();
         setText();
-
-        ////for pie chart
+        initDataIncomeCategory();
+//
+//        ////for pie chart
         initDataIncome();
         initDataExpense();
         initDataIncomeYear();
@@ -1672,98 +3756,7 @@ public class Dashboard extends Fragment {
 
     // line graph
     private void initData() {
-        Log.d(TAG, "initDataLineChart");
-
         Log.d(TAG, "addDataSet lineChart started");
-        final ArrayList<Float> yDataIncome = new ArrayList<>();
-        final ArrayList<Float> yDataExpense = new ArrayList<>();
-
-
-        if(sumIncomeJan >= 0 || sumExpenseJan >=0){
-            yDataIncome.add(sumIncomeJan);
-
-            yDataExpense.add(sumExpenseJan);
-            Log.d(TAG, "sumIncomeJan = " + sumIncomeJan);
-            Log.d(TAG, "sumExpenseJan = " + sumExpenseJan);
-        }
-        if(sumIncomeFeb >= 0 || sumExpenseFeb >=0){
-            yDataIncome.add(sumIncomeFeb);
-
-            yDataExpense.add(sumExpenseFeb);
-            Log.d(TAG, "sumIncomeFeb = " + sumIncomeFeb);
-            Log.d(TAG, "sumExpenseFeb = " + sumExpenseFeb);
-        }
-        if(sumIncomeMar >= 0 || sumExpenseMar >=0){
-            yDataIncome.add(sumIncomeMar);
-
-            yDataExpense.add(sumExpenseMar);
-            Log.d(TAG, "sumIncomeMar = " + sumIncomeMar);
-            Log.d(TAG, "sumExpenseMar = " + sumExpenseMar);
-        }
-        if(sumIncomeApr >= 0 || sumExpenseApr >=0){
-            yDataIncome.add(sumIncomeApr);
-
-            yDataExpense.add(sumExpenseApr);
-            Log.d(TAG, "sumIncomeApr = " + sumIncomeApr);
-            Log.d(TAG, "sumExpenseApr = " + sumExpenseApr);
-        }
-        if(sumIncomeMay >= 0 || sumExpenseMay >=0){
-            yDataIncome.add(sumIncomeMay);
-
-            yDataExpense.add(sumExpenseMay);
-            Log.d(TAG, "sumIncomeMay = " + sumIncomeMay);
-            Log.d(TAG, "sumExpenseMay = " + sumExpenseMay);
-        }
-        if(sumIncomeJun >= 0 || sumExpenseJun >=0){
-            yDataIncome.add(sumIncomeJun);
-
-            yDataExpense.add(sumExpenseJun);
-            Log.d(TAG, "sumIncomeJun = " + sumIncomeJun);
-            Log.d(TAG, "sumExpenseJun = " + sumExpenseJun);
-        }
-        if(sumIncomeJul >= 0 || sumExpenseJul >=0){
-            yDataIncome.add(sumIncomeJul);
-
-            yDataExpense.add(sumExpenseJul);
-            Log.d(TAG, "sumIncomeJul = " + sumIncomeJul);
-            Log.d(TAG, "sumExpenseJul = " + sumExpenseJul);
-        }
-        if(sumIncomeAug >= 0 || sumExpenseAug >=0){
-            yDataIncome.add(sumIncomeAug);
-
-            yDataExpense.add(sumExpenseAug);
-            Log.d(TAG, "sumIncomeAug = " + sumIncomeAug);
-            Log.d(TAG, "sumExpenseAug = " + sumExpenseAug);
-        }
-        if(sumIncomeSep > 0 || sumExpenseSep >=0){
-            yDataIncome.add(sumIncomeSep);
-
-            yDataExpense.add(sumExpenseSep);
-            Log.d(TAG, "sumIncomeSep = " + sumIncomeSep);
-            Log.d(TAG, "sumExpenseSep = " + sumExpenseSep);
-        }
-        if(sumIncomeOct >= 0 || sumExpenseOct >=0){
-            yDataIncome.add(sumIncomeOct);
-
-            yDataExpense.add(sumExpenseOct);
-            Log.d(TAG, "sumIncomeOct = " + sumIncomeOct);
-            Log.d(TAG, "sumExpenseOct = " + sumExpenseOct);
-        }
-        if(sumIncomeNov >= 0 || sumExpenseNov >=0){
-            yDataIncome.add(sumIncomeNov);
-
-            yDataExpense.add(sumExpenseNov);
-            Log.d(TAG, "sumIncomeNov = " + sumIncomeNov);
-            Log.d(TAG, "sumExpenseNov = " + sumExpenseNov);
-        }
-        if(sumIncomeDec >= 0 || sumExpenseDec >=0){
-            yDataIncome.add(sumIncomeDec);
-
-            yDataExpense.add(sumExpenseDec);
-            Log.d(TAG, "sumIncomeDec = " + sumIncomeDec);
-            Log.d(TAG, "sumExpenseDec = " + sumExpenseDec);
-        }
-
 
         GraphView graph = (GraphView) mView.findViewById(R.id.graph);
         LineGraphSeries<DataPoint> seriesIncome = new LineGraphSeries<>(new DataPoint[]{
@@ -1785,7 +3778,6 @@ public class Dashboard extends Fragment {
                 new DataPoint(12, sumIncomeDec),
 
         });
-
 
 
 
@@ -1894,6 +3886,441 @@ public class Dashboard extends Fragment {
     }
 
 
+    // line graph income category
+    private void initDataIncomeCategory() {
+        Log.d(TAG, "addDataSet initDataCategory started");
+
+        GraphView graph = (GraphView) mView.findViewById(R.id.lineGraphIncomeCategory);
+
+        LineGraphSeries<DataPoint> seriesGift = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJanGift),
+                new DataPoint(2, sumIncomeFebGift),
+                new DataPoint(3, sumIncomeMarGift),
+                new DataPoint(4, sumIncomeAprGift),
+
+                new DataPoint(5, sumIncomeMayGift),
+                new DataPoint(6, sumIncomeJunGift),
+                new DataPoint(7, sumIncomeJulGift),
+                new DataPoint(8, sumIncomeAugGift),
+                new DataPoint(9, sumIncomeSepGift),
+
+                new DataPoint(10, sumIncomeOctGift),
+                new DataPoint(11, sumIncomeNovGift),
+                new DataPoint(12, sumIncomeDecGift),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesSalary = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJanSalary),
+                new DataPoint(2, sumIncomeFebSalary),
+                new DataPoint(3, sumIncomeMarSalary),
+                new DataPoint(4, sumIncomeAprSalary),
+
+                new DataPoint(5, sumIncomeMaySalary),
+                new DataPoint(6, sumIncomeJunSalary),
+                new DataPoint(7, sumIncomeJulSalary),
+                new DataPoint(8, sumIncomeAugSalary),
+                new DataPoint(9, sumIncomeSepSalary),
+
+                new DataPoint(10, sumIncomeOctSalary),
+                new DataPoint(11, sumIncomeNovSalary),
+                new DataPoint(12, sumIncomeDecSalary),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesExtra = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJanExtra),
+                new DataPoint(2, sumIncomeFebExtra),
+                new DataPoint(3, sumIncomeMarExtra),
+                new DataPoint(4, sumIncomeAprExtra),
+
+                new DataPoint(5, sumIncomeMayExtra),
+                new DataPoint(6, sumIncomeJunExtra),
+                new DataPoint(7, sumIncomeJulExtra),
+                new DataPoint(8, sumIncomeAugExtra),
+                new DataPoint(9, sumIncomeSepExtra),
+
+                new DataPoint(10, sumIncomeOctExtra),
+                new DataPoint(11, sumIncomeNovExtra),
+                new DataPoint(12, sumIncomeDecExtra),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesLoan = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJanLoan),
+                new DataPoint(2, sumIncomeFebLoan),
+                new DataPoint(3, sumIncomeMarLoan),
+                new DataPoint(4, sumIncomeAprLoan),
+
+                new DataPoint(5, sumIncomeMayLoan),
+                new DataPoint(6, sumIncomeJunLoan),
+                new DataPoint(7, sumIncomeJulLoan),
+                new DataPoint(8, sumIncomeAugLoan),
+                new DataPoint(9, sumIncomeSepLoan),
+
+                new DataPoint(10, sumIncomeOctLoan),
+                new DataPoint(11, sumIncomeNovLoan),
+                new DataPoint(12, sumIncomeDecLoan),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesFamily = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumIncomeJanFamily),
+                new DataPoint(2, sumIncomeFebFamily),
+                new DataPoint(3, sumIncomeMarFamily),
+                new DataPoint(4, sumIncomeAprFamily),
+
+                new DataPoint(5, sumIncomeMayFamily),
+                new DataPoint(6, sumIncomeJunFamily),
+                new DataPoint(7, sumIncomeJulFamily),
+                new DataPoint(8, sumIncomeAugFamily),
+                new DataPoint(9, sumIncomeSepFamily),
+
+                new DataPoint(10, sumIncomeOctFamily),
+                new DataPoint(11, sumIncomeNovFamily),
+                new DataPoint(12, sumIncomeDecFamily),
+
+        });
+
+
+        ////////////////expense////////////////
+        GraphView graphEx = (GraphView) mView.findViewById(R.id.lineGraphExpenseCategory);
+        LineGraphSeries<DataPoint> seriesBill = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanBill),
+                new DataPoint(2, sumExpenseFebBill),
+                new DataPoint(3, sumExpenseMarBill),
+                new DataPoint(4, sumExpenseAprBill),
+
+                new DataPoint(5, sumExpenseMayBill),
+                new DataPoint(6, sumExpenseJunBill),
+                new DataPoint(7, sumExpenseJulBill),
+                new DataPoint(8, sumExpenseAugBill),
+                new DataPoint(9, sumExpenseSepBill),
+
+                new DataPoint(10, sumExpenseOctBill),
+                new DataPoint(11, sumExpenseNovBill),
+                new DataPoint(12, sumExpenseDecBill),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesEducation = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanEducation),
+                new DataPoint(2, sumExpenseFebEducation),
+                new DataPoint(3, sumExpenseMarEducation),
+                new DataPoint(4, sumExpenseAprEducation),
+
+                new DataPoint(5, sumExpenseMayEducation),
+                new DataPoint(6, sumExpenseJunEducation),
+                new DataPoint(7, sumExpenseJulEducation),
+                new DataPoint(8, sumExpenseAugEducation),
+                new DataPoint(9, sumExpenseSepEducation),
+
+                new DataPoint(10, sumExpenseOctEducation),
+                new DataPoint(11, sumExpenseNovEducation),
+                new DataPoint(12, sumExpenseDecEducation),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesEntertainment = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanEntertainment),
+                new DataPoint(2, sumExpenseFebEntertainment),
+                new DataPoint(3, sumExpenseMarEntertainment),
+                new DataPoint(4, sumExpenseAprEntertainment),
+
+                new DataPoint(5, sumExpenseMayEntertainment),
+                new DataPoint(6, sumExpenseJunEntertainment),
+                new DataPoint(7, sumExpenseJulEntertainment),
+                new DataPoint(8, sumExpenseAugEntertainment),
+                new DataPoint(9, sumExpenseSepEntertainment),
+
+                new DataPoint(10, sumExpenseOctEntertainment),
+                new DataPoint(11, sumExpenseNovEntertainment),
+                new DataPoint(12, sumExpenseDecEntertainment),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesFood = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanFood),
+                new DataPoint(2, sumExpenseFebFood),
+                new DataPoint(3, sumExpenseMarFood),
+                new DataPoint(4, sumExpenseAprFood),
+
+                new DataPoint(5, sumExpenseMayFood),
+                new DataPoint(6, sumExpenseJunFood),
+                new DataPoint(7, sumExpenseJulFood),
+                new DataPoint(8, sumExpenseAugFood),
+                new DataPoint(9, sumExpenseSepFood),
+
+                new DataPoint(10, sumExpenseOctFood),
+                new DataPoint(11, sumExpenseNovFood),
+                new DataPoint(12, sumExpenseDecFood),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesShopping = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanShopping),
+                new DataPoint(2, sumExpenseFebShopping),
+                new DataPoint(3, sumExpenseMarShopping),
+                new DataPoint(4, sumExpenseAprShopping),
+
+                new DataPoint(5, sumExpenseMayShopping),
+                new DataPoint(6, sumExpenseJunShopping),
+                new DataPoint(7, sumExpenseJulShopping),
+                new DataPoint(8, sumExpenseAugShopping),
+                new DataPoint(9, sumExpenseSepShopping),
+
+                new DataPoint(10, sumExpenseOctShopping),
+                new DataPoint(11, sumExpenseNovShopping),
+                new DataPoint(12, sumExpenseDecShopping),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesTransport = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanTransport),
+                new DataPoint(2, sumExpenseFebTransport),
+                new DataPoint(3, sumExpenseMarTransport),
+                new DataPoint(4, sumExpenseAprTransport),
+
+                new DataPoint(5, sumExpenseMayTransport),
+                new DataPoint(6, sumExpenseJunTransport),
+                new DataPoint(7, sumExpenseJulTransport),
+                new DataPoint(8, sumExpenseAugTransport),
+                new DataPoint(9, sumExpenseSepTransport),
+
+                new DataPoint(10, sumExpenseOctTransport),
+                new DataPoint(11, sumExpenseNovTransport),
+                new DataPoint(12, sumExpenseDecTransport),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesTravel = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanTravel),
+                new DataPoint(2, sumExpenseFebTravel),
+                new DataPoint(3, sumExpenseMarTravel),
+                new DataPoint(4, sumExpenseAprTravel),
+
+                new DataPoint(5, sumExpenseMayTravel),
+                new DataPoint(6, sumExpenseJunTravel),
+                new DataPoint(7, sumExpenseJulTravel),
+                new DataPoint(8, sumExpenseAugTravel),
+                new DataPoint(9, sumExpenseSepTravel),
+
+                new DataPoint(10, sumExpenseOctTravel),
+                new DataPoint(11, sumExpenseNovTravel),
+                new DataPoint(12, sumExpenseDecTravel),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesFamilyEx = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanFamilyEx),
+                new DataPoint(2, sumExpenseFebFamilyEx),
+                new DataPoint(3, sumExpenseMarFamilyEx),
+                new DataPoint(4, sumExpenseAprFamilyEx),
+
+                new DataPoint(5, sumExpenseMayFamilyEx),
+                new DataPoint(6, sumExpenseJunFamilyEx),
+                new DataPoint(7, sumExpenseJulFamilyEx),
+                new DataPoint(8, sumExpenseAugFamilyEx),
+                new DataPoint(9, sumExpenseSepFamilyEx),
+
+                new DataPoint(10, sumExpenseOctFamilyEx),
+                new DataPoint(11, sumExpenseNovFamilyEx),
+                new DataPoint(12, sumExpenseDecFamilyEx),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesHealthcare = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanHealthcare),
+                new DataPoint(2, sumExpenseFebHealthcare),
+                new DataPoint(3, sumExpenseMarHealthcare),
+                new DataPoint(4, sumExpenseAprHealthcare),
+
+                new DataPoint(5, sumExpenseMayHealthcare),
+                new DataPoint(6, sumExpenseJunHealthcare),
+                new DataPoint(7, sumExpenseJulHealthcare),
+                new DataPoint(8, sumExpenseAugHealthcare),
+                new DataPoint(9, sumExpenseSepHealthcare),
+
+                new DataPoint(10, sumExpenseOctHealthcare),
+                new DataPoint(11, sumExpenseNovHealthcare),
+                new DataPoint(12, sumExpenseDecHealthcare),
+
+        });
+
+        LineGraphSeries<DataPoint> seriesSaving = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, sumExpenseJanSaving),
+                new DataPoint(2, sumExpenseFebSaving),
+                new DataPoint(3, sumExpenseMarSaving),
+                new DataPoint(4, sumExpenseAprSaving),
+
+                new DataPoint(5, sumExpenseMaySaving),
+                new DataPoint(6, sumExpenseJunSaving),
+                new DataPoint(7, sumExpenseJulSaving),
+                new DataPoint(8, sumExpenseAugSaving),
+                new DataPoint(9, sumExpenseSepSaving),
+
+                new DataPoint(10, sumExpenseOctSaving),
+                new DataPoint(11, sumExpenseNovSaving),
+                new DataPoint(12, sumExpenseDecSaving),
+
+        });
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[]{
+
+                new DataPoint(0, 0),
+                new DataPoint(1, 0),
+                new DataPoint(2, 0),
+                new DataPoint(3, 0),
+                new DataPoint(4, 0),
+
+                new DataPoint(5, 0),
+                new DataPoint(6, 0),
+                new DataPoint(7, 0),
+                new DataPoint(8, 0),
+                new DataPoint(9, 0),
+
+                new DataPoint(10, 0),
+                new DataPoint(11, 0),
+                new DataPoint(12, 0),
+
+        });
+
+
+
+
+        //income
+        graph.addSeries(seriesGift);
+        seriesGift.setThickness(8);
+        seriesGift.setColor(getResources().getColor(R.color.gift));
+
+        graph.addSeries(seriesSalary);
+        seriesSalary.setThickness(8);
+        seriesSalary.setColor(getResources().getColor(R.color.salary));
+
+        graph.addSeries(seriesExtra);
+        seriesExtra.setThickness(8);
+        seriesExtra.setColor(getResources().getColor(R.color.extraIncome));
+
+        graph.addSeries(seriesLoan);
+        seriesLoan.setThickness(8);
+        seriesLoan.setColor(getResources().getColor(R.color.loan));
+
+        graph.addSeries(seriesFamily);
+        seriesFamily.setThickness(8);
+        seriesFamily.setColor(getResources().getColor(R.color.familyAndPersonal));
+
+        // set manual y bounds
+        StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
+        // set manual x bounds
+        staticLabelsFormatter.setHorizontalLabels(new String[] {"","Jan","Feb","Mar","Apr","May","Jun"
+                ,"Jul","Aug","Sep","Oct","Nov","Dec"});
+        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        graph.getViewport().setXAxisBoundsManual(true);
+
+        graph.getGridLabelRenderer().setNumHorizontalLabels(12);
+
+
+
+        //expense
+        graphEx.addSeries(seriesBill);
+        seriesBill.setThickness(8);
+        seriesBill.setColor(getResources().getColor(R.color.bill));
+
+        graphEx.addSeries(seriesEducation);
+        seriesEducation.setThickness(8);
+        seriesEducation.setColor(getResources().getColor(R.color.education));
+
+        graphEx.addSeries(seriesEntertainment);
+        seriesEntertainment.setThickness(8);
+        seriesEntertainment.setColor(getResources().getColor(R.color.entertainment));
+
+        graphEx.addSeries(seriesShopping);
+        seriesShopping.setThickness(8);
+        seriesShopping.setColor(getResources().getColor(R.color.shopping));
+
+        graphEx.addSeries(seriesFood);
+        seriesFood.setThickness(8);
+        seriesFood.setColor(getResources().getColor(R.color.foodAndDrink));
+
+        graphEx.addSeries(seriesTransport);
+        seriesTransport.setThickness(8);
+        seriesTransport.setColor(getResources().getColor(R.color.transport));
+
+        graphEx.addSeries(seriesTravel);
+        seriesTravel.setThickness(8);
+        seriesTravel.setColor(getResources().getColor(R.color.travel));
+
+        graphEx.addSeries(seriesFamilyEx);
+        seriesFamilyEx.setThickness(8);
+        seriesFamilyEx.setColor(getResources().getColor(R.color.familyAndPersonal));
+
+        graphEx.addSeries(seriesHealthcare);
+        seriesHealthcare.setThickness(8);
+        seriesHealthcare.setColor(getResources().getColor(R.color.health));
+
+        graphEx.addSeries(seriesSaving);
+        seriesSaving.setThickness(8);
+        seriesSaving.setColor(getResources().getColor(R.color.savingAndInvestment));
+
+
+        graph.addSeries(series);
+        series.setColor(getResources().getColor(R.color.buttonColorBlack));
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(6);
+        series.setThickness(5);
+
+        graphEx.addSeries(series);
+        series.setColor(getResources().getColor(R.color.buttonColorBlack));
+        series.setDrawDataPoints(true);
+        series.setDataPointsRadius(6);
+        series.setThickness(5);
+
+        // set manual y bounds
+        StaticLabelsFormatter staticLabelsFormatterEx = new StaticLabelsFormatter(graphEx);
+        // set manual x bounds
+        staticLabelsFormatterEx.setHorizontalLabels(new String[] {"","Jan","Feb","Mar","Apr","May","Jun"
+                ,"Jul","Aug","Sep","Oct","Nov","Dec"});
+        graphEx.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatterEx);
+        graphEx.getViewport().setXAxisBoundsManual(true);
+
+        graphEx.getGridLabelRenderer().setNumHorizontalLabels(12);
+
+
+
+
+    }
+
+
 
 
 
@@ -1918,9 +4345,6 @@ public class Dashboard extends Fragment {
         pieChart.setDrawCenterText(true);
         pieChart.setDrawHoleEnabled(true);
         pieChart.setRotationAngle(0);
-
-
-
 
 
 
@@ -2159,7 +4583,6 @@ public class Dashboard extends Fragment {
 
         pieChart = (PieChart) mView.findViewById(R.id.pieChartIncomeYear);
 
-
         pieChart.setDescription("");
         pieChart.setUsePercentValues(true);
         pieChart.setRotationEnabled(true);
@@ -2237,35 +4660,18 @@ public class Dashboard extends Fragment {
 
 
         // create the dataset
-        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "");
+        PieDataSet pieDataSet = new PieDataSet(yEntrysIncomeYear, "" );
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
-//        pieDataSet.setValueLinePart1Length(0.5f);
-//        pieDataSet.setValueLinePart2Length(0.9f);
-       // pieDataSet.setValueLinePart1OffsetPercentage(90.f);
-
 
 
         // add color to dataset
         pieDataSet.setColors(colors);
 
-
-        //add Legend to chart
-        Legend legend = pieChart.getLegend();
-        legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        //legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        legend.setWordWrapEnabled(true);
-        legend.setDrawInside(false);
-        legend.setTextSize(12f);
-        legend.getCalculatedLineSizes();
-        legend.setEnabled(false);
 
         // create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -2374,7 +4780,7 @@ public class Dashboard extends Fragment {
         pieDataSet.setValueTextSize(10);
         pieDataSet.setValueFormatter(new PercentFormatter());
         pieDataSet.setValueTextSize(15);
-        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
+        pieDataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
         pieDataSet.setYValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
 
 

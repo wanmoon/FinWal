@@ -20,44 +20,40 @@ function lineIncomeYear(){
   }
 
   $cust_id = $_GET["cust_id"];
-  $arr_gift = array();
-  $sql_gift = "SELECT month(timestamp) as month ,SUM(cost) AS cost
+  // $arr_gift = array();
+  // $sql_gift = "SELECT month(timestamp) as month ,SUM(cost) AS cost
+  //             FROM transaction
+  //             WHERE cust_id = '$cust_id' AND YEAR(CURDATE())=YEAR(timestamp) AND category = 'Gift' GROUP BY month";
+  // $q_gift = $conn->query($sql_gift);
+  // while($f_gift = $q_gift->fetch_array()){
+  //   $arr_gift[$f_gift['month']] = $f_gift['cost'];
+  // }
+  //
+  // $num=1;
+  // while($num!=13){
+  //   if($arr_gift[$num]==''){
+  //     $arr_gift[$num] = 0;
+  //   }
+  //   $num++;
+  // }
+
+
+  $sql_gift = SELECT month(timestamp) as month ,SUM(cost) AS cost
               FROM transaction
               WHERE cust_id = '$cust_id' AND YEAR(CURDATE())=YEAR(timestamp) AND category = 'Gift' GROUP BY month";
-  $q_gift = $conn->query($sql_gift);
-  while($f_gift = $q_gift->fetch_array()){
-    $arr_gift[$f_gift['month']] = $f_gift['cost'];
-  }
 
-  $num=1;
-  while($num!=13){
-    if($arr_gift[$num]==''){
-      $arr_gift[$num] = 0;
-    }
-    $num++;
-  }
+  $result_gift = $conn->query($sql_gift);
 
-  $arr_salary = array();
-  $sql_salary = "SELECT month(timestamp) as month ,SUM(cost) AS cost
-              FROM transaction
-              WHERE cust_id = '$cust_id' AND YEAR(CURDATE())=YEAR(timestamp) AND category = 'Salary' GROUP BY month";
-  $q_salary = $conn->query($sql_salary);
-  while($f_salary = $q_salary->fetch_array()){
-    $arr_salary[$f_salary['month']] = $f_salary['cost'];
-  }
-
-  $num=1;
-  while($num!=13){
-    if($arr_salary[$num]==''){
-      $arr_salary[$num] = 0;
-    }
-    $num++;
-
+  if ($result_gift->num_rows > 0) {
+      // output data of each row
+      while($row = $result_gift->fetch_assoc()) {
+          echo $row['month'] . "," . $row['income'] . ",";
+      }
+  } else {
+      echo "ERROR : " . $conn->error;
   }
 
 
-  print_r($arr_gift);
-  print_r($arr_salary);
 
 }
 lineIncomeYear();
