@@ -592,20 +592,6 @@ public class Dashboard extends Fragment {
         textViewExpenseNov = (TextView) rootView.findViewById(R.id.textViewExpenseNov);
         textViewExpenseDec = (TextView) rootView.findViewById(R.id.textViewExpenseDec);
 
-//
-//        //income
-//        textViewJan = (TextView) incomeCate.findViewById(R.id.textViewJan);
-//        textViewFeb = (TextView) incomeCate.findViewById(R.id.textViewFeb);
-//        textViewMar = (TextView) incomeCate.findViewById(R.id.textViewMar);
-//        textViewApr = (TextView) incomeCate.findViewById(R.id.textViewApr);
-//        textViewMay = (TextView) incomeCate.findViewById(R.id.textViewMay);
-//        textViewJun = (TextView) incomeCate.findViewById(R.id.textViewJun);
-//        textViewJul = (TextView) incomeCate.findViewById(R.id.textViewJul);
-//        textViewAug = (TextView) incomeCate.findViewById(R.id.textViewAug);
-//        textViewSep = (TextView) incomeCate.findViewById(R.id.textViewSep);
-//        textViewOct = (TextView) incomeCate.findViewById(R.id.textViewOct);
-//        textViewNov = (TextView) incomeCate.findViewById(R.id.textViewNov);
-//        textViewDec = (TextView) incomeCate.findViewById(R.id.textViewDec);
 
 
         httpSumLineYear = new getHttpSumLineYear(getContext());
@@ -618,20 +604,36 @@ public class Dashboard extends Fragment {
         httpSumIncomeYearCategory = new getHttpSumIncomeYearCategory(getContext());
         httpSumExpenseYearCategory = new getHttpSumExpenseYearCategory(getContext());
 
+        //dialog
+        incomeCate = new Dialog(getContext());
+        incomeCate.getWindow();
+        incomeCate.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        incomeCate.setContentView(R.layout.detail_linechart);
+        incomeCate.setCancelable(true);
+
+        //findview
+        //income
+        textViewJan = (TextView) incomeCate.findViewById(R.id.textViewJan);
+        textViewFeb = (TextView) incomeCate.findViewById(R.id.textViewFeb);
+        textViewMar = (TextView) incomeCate.findViewById(R.id.textViewMar);
+        textViewApr = (TextView) incomeCate.findViewById(R.id.textViewApr);
+        textViewMay = (TextView) incomeCate.findViewById(R.id.textViewMay);
+        textViewJun = (TextView) incomeCate.findViewById(R.id.textViewJun);
+        textViewJul = (TextView) incomeCate.findViewById(R.id.textViewJul);
+        textViewAug = (TextView) incomeCate.findViewById(R.id.textViewAug);
+        textViewSep = (TextView) incomeCate.findViewById(R.id.textViewSep);
+        textViewOct = (TextView) incomeCate.findViewById(R.id.textViewOct);
+        textViewNov = (TextView) incomeCate.findViewById(R.id.textViewNov);
+        textViewDec = (TextView) incomeCate.findViewById(R.id.textViewDec);
 
         //transaction button : click then have popup
         buttonSalary = (Button) rootView.findViewById(R.id.buttonSalary);
         buttonSalary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                incomeCate = new Dialog(getContext());
-                incomeCate.getWindow();
-                incomeCate.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                incomeCate.setContentView(R.layout.detail_linechart);
-                incomeCate.setCancelable(true);
                 incomeCate.show();
-
-
+                settextDialog(sumIncomeJanSalary, sumIncomeFebSalary, sumIncomeMarSalary, sumIncomeAprSalary, sumIncomeMaySalary, sumIncomeJunSalary, sumIncomeJulSalary, sumIncomeAugSalary, sumIncomeSepSalary, sumIncomeOctSalary, sumIncomeNovSalary, sumIncomeDecSalary);
+                incomeCate.cancel();
             }
         });
 
@@ -704,7 +706,21 @@ public class Dashboard extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
+    ////////////////////////////////////for dialog
+    public void settextDialog(float jan, float feb, float mar, float apr, float may, float jun, float jul, float aug, float sep, float oct, float nov, float dec){
+        textViewJan.setText("Jan : " + jan);
+        textViewFeb.setText("Feb : " + feb);
+        textViewMar.setText("Mar : " + mar);
+        textViewApr.setText("Apr : " + apr);
+        textViewMay.setText("May : " + may);
+        textViewJun.setText("Jun : " + jun);
+        textViewJul.setText("Jul : " + jul);
+        textViewAug.setText("Aug : " + aug);
+        textViewSep.setText("Sep : " + sep);
+        textViewOct.setText("Oct : " + oct);
+        textViewNov.setText("Nov : " + nov);
+        textViewDec.setText("Dec : " + dec);
+    }
 
     public String sumLineYear(String cust_id) {
         try {
