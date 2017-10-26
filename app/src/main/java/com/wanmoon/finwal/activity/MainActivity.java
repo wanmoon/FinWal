@@ -227,32 +227,30 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
-//            Home HomeFragment = new Home();
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            transaction.replace(R.id.fragment_container, HomeFragment);
-//            transaction.commit();
 
         } else if (id == R.id.nav_billing) {
+            fab_plus.show();
             Billing BillingFragment = new Billing();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, BillingFragment).addToBackStack( "tag" );;
             transaction.commit();
 
         } else if (id == R.id.nav_goal){
+            fab_plus.show();
             Goal GoalFragment = new Goal();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, GoalFragment).addToBackStack( "tag" );;
             transaction.commit();
 
         } else if (id == R.id.nav_dashboard) {
+            fab_plus.hide();
+
             Bundle bundle = new Bundle();
             bundle.putDouble("sumIncomeMonth", sumIncomeMonth);
             bundle.putDouble("sumExpenseMonth", sumExpenseMonth);
@@ -267,6 +265,7 @@ public class MainActivity extends AppCompatActivity
 
             DashboardFragment.setArguments(bundle);
         } else if (id == R.id.nav_history){
+            fab_plus.show();
             History HistoryFragment = new History();
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, HistoryFragment).addToBackStack( "tag" );

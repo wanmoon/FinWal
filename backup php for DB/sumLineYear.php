@@ -17,7 +17,37 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
+//income//
+$sql_income = "SELECT MONTH(timestamp) as month, SUM(cost) as income FROM transaction
+        WHERE transaction='Income' AND YEAR(CURDATE()) =YEAR(timestamp) AND cust_id = '$cust_id' GROUP BY month";
 
+$result_income = $conn->query($sql_income);
+
+if ($result_income->num_rows > 0) {
+    // output data of each row
+    while($row = $result_income->fetch_assoc()) {
+        echo "Income" . "," .  $row['month'] . "," . $row['income'] . "-";
+    }
+} else {
+    echo "" . $conn->error;
+}
+
+//expense//
+$sql_expense = "SELECT MONTH(timestamp) as month, SUM(cost) as expense FROM transaction
+        WHERE transaction='Expense' AND YEAR(CURDATE()) =YEAR(timestamp) AND cust_id = '$cust_id' GROUP BY month";
+
+$result_expense = $conn->query($sql_expense);
+
+if ($result_expense->num_rows > 0) {
+    // output data of each row
+    while($row = $result_expense->fetch_assoc()) {
+        echo "Expense" . "," . $row['month'] . "," . $row['expense'] . "-";
+    }
+} else {
+    echo "" . $conn->error;
+}
+
+//////////////////////////////////////////////////
 //Income
 //gift
 $sql_gift = "SELECT month(timestamp) as month , SUM(cost) as income

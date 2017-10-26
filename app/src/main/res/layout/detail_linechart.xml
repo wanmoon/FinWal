@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!--Income-->
+
+
+        <TextView
+            android:id="@+id/textViewIncome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INCOME"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"
+            />
+
+        <TextView
+            android:id="@+id/textViewIncomeJan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jan"
+            android:textSize="16dp"
+            />
+
+        <TextView
+            android:id="@+id/textViewIncomeFeb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Feb"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+        <TextView
+            android:id="@+id/textViewIncomeMar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mar"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/textViewIncomeApr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apr"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+        <TextView
+            android:id="@+id/textViewIncomeMay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="May"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/textViewIncomeJun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jun"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+        <TextView
+            android:id="@+id/textViewIncomeJul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jul"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/textViewIncomeAug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aug"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+        <TextView
+            android:id="@+id/textViewIncomeSep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sep"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/textViewIncomeOct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oct"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+        <TextView
+            android:id="@+id/textViewIncomeNov"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nov"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/textViewIncomeDec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dec"
+            android:textSize="16dp"
+            android:textColor="@color/buttonColorGreen"/>
+
+</LinearLayout>

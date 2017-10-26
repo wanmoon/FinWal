@@ -310,6 +310,7 @@
                                         android:id="@+id/textViewExpenseSep"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:text="Sep"
                                         android:textSize="16dp"/>
                                     <TextView
                                         android:id="@+id/textViewExpenseOct"
@@ -333,7 +334,7 @@
                                         android:textColor="@color/buttonColorRed"/>
 
 
-                                </LinearLayout><!--Expense-->
+                                </LinearLayout> <!--Expense-->
 
 
                              </LinearLayout>
@@ -769,7 +770,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/round_button"
-                                            android:backgroundTint="@color/familyAndPersonal"
+                                            android:backgroundTint="@color/shopping"
                                             android:padding="5dp"
                                             android:text="Shopping"
                                             android:textSize="8dp" />
@@ -863,7 +864,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/round_button"
-                                            android:backgroundTint="@color/entertainment"
+                                            android:backgroundTint="@color/familyAndPersonal"
                                             android:padding="5dp"
                                             android:text="Family and Personal"
                                             android:textSize="8dp" />
@@ -971,7 +972,6 @@
                             android:layout_marginRight="1dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="1dp"
-                            android:layout_alignParentStart="true"
                             android:backgroundTint="@color/backgroundColor">
 
 
@@ -1060,11 +1060,10 @@
                             android:orientation="vertical"
                             android:layout_marginBottom="5dp"
                             android:layout_marginEnd="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="1dp"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="1dp"
-                            android:layout_alignParentStart="true"
                             android:backgroundTint="@color/backgroundColor">
 
 
