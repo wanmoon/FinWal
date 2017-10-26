@@ -922,8 +922,6 @@
 
 
 
-
-
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -932,12 +930,7 @@
 
 
 
-
-
                     </LinearLayout>
-
-
-
                 </LinearLayout>
 
 
@@ -1066,8 +1059,6 @@
                             android:layout_marginTop="1dp"
                             android:backgroundTint="@color/backgroundColor">
 
-
-
                                 <com.github.mikephil.charting.charts.PieChart
                                     android:id="@+id/pieChartIncomeYear"
                                     android:layout_width="match_parent"
@@ -1083,10 +1074,7 @@
                                     android:paddingLeft="10dp"
                                     android:paddingRight="10dp"/>
 
-
-
                         </LinearLayout>
-
 
 
                         <LinearLayout
@@ -1119,19 +1107,12 @@
                                 android:paddingEnd="10dp"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"  />
-
-
-
                         </LinearLayout>
 
                     </LinearLayout>
 
 
                 </LinearLayout>
-
-
-
-
 
 
 

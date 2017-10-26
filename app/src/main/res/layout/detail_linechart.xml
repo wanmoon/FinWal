@@ -18,7 +18,7 @@
             />
 
         <TextView
-            android:id="@+id/textViewIncomeJan"
+            android:id="@+id/textViewJan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jan"
@@ -26,77 +26,77 @@
             />
 
         <TextView
-            android:id="@+id/textViewIncomeFeb"
+            android:id="@+id/textViewFeb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Feb"
             android:textSize="16dp"
             android:textColor="@color/buttonColorGreen"/>
         <TextView
-            android:id="@+id/textViewIncomeMar"
+            android:id="@+id/textViewMar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mar"
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/textViewIncomeApr"
+            android:id="@+id/textViewApr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Apr"
             android:textSize="16dp"
             android:textColor="@color/buttonColorGreen"/>
         <TextView
-            android:id="@+id/textViewIncomeMay"
+            android:id="@+id/textViewMay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="May"
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/textViewIncomeJun"
+            android:id="@+id/textViewJun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jun"
             android:textSize="16dp"
             android:textColor="@color/buttonColorGreen"/>
         <TextView
-            android:id="@+id/textViewIncomeJul"
+            android:id="@+id/textViewJul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Jul"
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/textViewIncomeAug"
+            android:id="@+id/textViewAug"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aug"
             android:textSize="16dp"
             android:textColor="@color/buttonColorGreen"/>
         <TextView
-            android:id="@+id/textViewIncomeSep"
+            android:id="@+id/textViewSep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sep"
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/textViewIncomeOct"
+            android:id="@+id/textViewOct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Oct"
             android:textSize="16dp"
             android:textColor="@color/buttonColorGreen"/>
         <TextView
-            android:id="@+id/textViewIncomeNov"
+            android:id="@+id/textViewNov"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nov"
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/textViewIncomeDec"
+            android:id="@+id/textViewDec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Dec"
