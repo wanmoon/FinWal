@@ -47,7 +47,7 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     private TextView textViewCategories;
     private TextView textViewTransaction;
     private TextView textViewFinish;
-    private TextView textViewCancel;
+    private TextView textViewCancel  ;
 
     //button income || expense
     private Button buttonPlus;
@@ -104,30 +104,30 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
         http = new getHttp(getApplicationContext());
 
-        showValue = (TextView) findViewById(R.id.textViewCount);
-        Sum = (TextView) findViewById(R.id.textViewSum);
-        inc = (Button)findViewById(R.id.Inc);
-        inc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                counter++;
-                showValue.setText(Integer.toString(counter));
-                Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
-            }
-        });
-        de = (Button)findViewById(R.id.Minus);
-        de.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(counter > 0) {
-
-                    counter--;
-                    showValue.setText(Integer.toString(counter));
-                    Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
-                }
-            }
-        });
+//        showValue = (TextView) findViewById(R.id.textViewCount);
+//        Sum = (TextView) findViewById(R.id.textViewSum);
+//        inc = (Button)findViewById(R.id.Inc);
+//        inc.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                counter++;
+//                showValue.setText(Integer.toString(counter));
+//                Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
+//            }
+//        });
+//        de = (Button)findViewById(R.id.Minus);
+//        de.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(counter > 0) {
+//
+//                    counter--;
+//                    showValue.setText(Integer.toString(counter));
+//                    Sum.setText(String.valueOf(Integer.parseInt(editTextHowmuch.getText().toString())*counter));
+//                }
+//            }
+//        });
 
         textViewFinish = (TextView) findViewById(R.id.textViewFinish);
         textViewCancel = (TextView) findViewById(R.id.textViewCancel);
