@@ -1,106 +1,478 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="0,1,2"
+    android:gravity="center">
+
+    <TableRow
+        android:background="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+        <TableRow
+            android:background="#000000"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1">
 
 
-    <!--Income-->
+
+        </TableRow>
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=" Month "
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
 
 
         <TextView
-            android:id="@+id/textViewIncome"
+            android:id="@+id/textViewJanShow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="INCOME"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"
-            />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="Jan"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/textViewJan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="Jan"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        >
+
+        <TextView
+            android:id="@+id/textViewFebShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Feb"
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/textViewFeb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Feb"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewMarShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="Mar"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewMar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="Mar"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewAprShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Apr"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewApr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Apr"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewMayShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="May"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewMay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="May"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewJunShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Jun"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewJun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Jun"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewJulShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="Jul"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewJul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="Jul"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewAugShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Aug"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewAug"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Aug"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewSepShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="Sep"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewSep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="Sep"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewOctShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Oct"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewOct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Oct"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewNovShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
+            android:text="Nov"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewNov"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="@color/buttonColorBlack"
+            android:textColor="@color/buttonColorWhite"
+            android:gravity="center"
             android:text="Nov"
-            android:textSize="16dp"
-            />
+            android:textSize="16dp" />
+
+
+    </TableRow>
+
+    <TableRow
+        android:background="#000000"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textViewDecShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="0"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:text="Dec"
+            android:textSize="16dp" />
+
         <TextView
             android:id="@+id/textViewDec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="1dp"
+            android:layout_column="1"
+            android:background="#FFFFFF"
+            android:gravity="center"
             android:text="Dec"
-            android:textSize="16dp"
-            android:textColor="@color/buttonColorGreen"/>
+            android:textSize="16dp" />
 
-</LinearLayout>
+
+    </TableRow>
+
+</TableLayout>

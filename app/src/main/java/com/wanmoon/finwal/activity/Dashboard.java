@@ -299,31 +299,31 @@ public class Dashboard extends Fragment {
     private float sumExpenseNovTravel;
     private float sumExpenseDecTravel;
 
-    private float sumExpenseJanFamilyEx;
-    private float sumExpenseFebFamilyEx;
-    private float sumExpenseMarFamilyEx;
-    private float sumExpenseAprFamilyEx;
-    private float sumExpenseMayFamilyEx;
-    private float sumExpenseJunFamilyEx;
-    private float sumExpenseJulFamilyEx;
-    private float sumExpenseAugFamilyEx;
-    private float sumExpenseSepFamilyEx;
-    private float sumExpenseOctFamilyEx;
-    private float sumExpenseNovFamilyEx;
-    private float sumExpenseDecFamilyEx;
+    private float sumExpenseJanFamilyExpense;
+    private float sumExpenseFebFamilyExpense;
+    private float sumExpenseMarFamilyExpense;
+    private float sumExpenseAprFamilyExpense;
+    private float sumExpenseMayFamilyExpense;
+    private float sumExpenseJunFamilyExpense;
+    private float sumExpenseJulFamilyExpense;
+    private float sumExpenseAugFamilyExpense;
+    private float sumExpenseSepFamilyExpense;
+    private float sumExpenseOctFamilyExpense;
+    private float sumExpenseNovFamilyExpense;
+    private float sumExpenseDecFamilyExpense;
 
-    private float sumExpenseJanHealthcare;
-    private float sumExpenseFebHealthcare;
-    private float sumExpenseMarHealthcare;
-    private float sumExpenseAprHealthcare;
-    private float sumExpenseMayHealthcare;
-    private float sumExpenseJunHealthcare;
-    private float sumExpenseJulHealthcare;
-    private float sumExpenseAugHealthcare;
-    private float sumExpenseSepHealthcare;
-    private float sumExpenseOctHealthcare;
-    private float sumExpenseNovHealthcare;
-    private float sumExpenseDecHealthcare;
+    private float sumExpenseJanHealthCare;
+    private float sumExpenseFebHealthCare;
+    private float sumExpenseMarHealthCare;
+    private float sumExpenseAprHealthCare;
+    private float sumExpenseMayHealthCare;
+    private float sumExpenseJunHealthCare;
+    private float sumExpenseJulHealthCare;
+    private float sumExpenseAugHealthCare;
+    private float sumExpenseSepHealthCare;
+    private float sumExpenseOctHealthCare;
+    private float sumExpenseNovHealthCare;
+    private float sumExpenseDecHealthCare;
 
     private float sumExpenseJanSaving;
     private float sumExpenseFebSaving;
@@ -611,6 +611,7 @@ public class Dashboard extends Fragment {
         incomeCate.setContentView(R.layout.detail_linechart);
         incomeCate.setCancelable(true);
 
+
         //findview
         //income
         textViewJan = (TextView) incomeCate.findViewById(R.id.textViewJan);
@@ -627,15 +628,179 @@ public class Dashboard extends Fragment {
         textViewDec = (TextView) incomeCate.findViewById(R.id.textViewDec);
 
         //transaction button : click then have popup
+        //////////income//////////
         buttonSalary = (Button) rootView.findViewById(R.id.buttonSalary);
         buttonSalary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 incomeCate.show();
-                settextDialog(sumIncomeJanSalary, sumIncomeFebSalary, sumIncomeMarSalary, sumIncomeAprSalary, sumIncomeMaySalary, sumIncomeJunSalary, sumIncomeJulSalary, sumIncomeAugSalary, sumIncomeSepSalary, sumIncomeOctSalary, sumIncomeNovSalary, sumIncomeDecSalary);
-                incomeCate.cancel();
+                settextDialog(sumIncomeJanSalary, sumIncomeFebSalary, sumIncomeMarSalary, sumIncomeAprSalary
+                            , sumIncomeMaySalary, sumIncomeJunSalary, sumIncomeJulSalary, sumIncomeAugSalary
+                            , sumIncomeSepSalary, sumIncomeOctSalary, sumIncomeNovSalary, sumIncomeDecSalary);
             }
         });
+
+        buttonLoan = (Button) rootView.findViewById(R.id.buttonLoan);
+        buttonLoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumIncomeJanLoan, sumIncomeFebLoan, sumIncomeMarLoan, sumIncomeAprLoan
+                            , sumIncomeMayLoan, sumIncomeJunLoan, sumIncomeJulLoan, sumIncomeAugLoan
+                            , sumIncomeSepLoan, sumIncomeOctLoan, sumIncomeNovLoan, sumIncomeDecLoan);
+            }
+        });
+
+
+        buttonGift = (Button) rootView.findViewById(R.id.buttonGift);
+        buttonGift.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumIncomeJanGift, sumIncomeFebGift, sumIncomeMarGift, sumIncomeAprGift
+                            , sumIncomeMayGift, sumIncomeJunGift, sumIncomeJulGift, sumIncomeAugGift
+                            , sumIncomeSepGift, sumIncomeOctGift, sumIncomeNovGift, sumIncomeDecGift);
+            }
+        });
+
+        buttonFamilyIncome = (Button) rootView.findViewById(R.id.buttonFamilyIncome);
+        buttonFamilyIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumIncomeJanFamily, sumIncomeFebFamily, sumIncomeMarFamily, sumIncomeAprFamily
+                            , sumIncomeMayFamily, sumIncomeJunFamily, sumIncomeJulFamily, sumIncomeAugFamily
+                            , sumIncomeSepFamily, sumIncomeOctFamily, sumIncomeNovFamily, sumIncomeDecFamily);
+            }
+        });
+
+
+        buttonExtra = (Button) rootView.findViewById(R.id.buttonExtra);
+        buttonExtra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumIncomeJanExtra, sumIncomeFebExtra, sumIncomeMarExtra, sumIncomeAprExtra
+                            , sumIncomeMayExtra, sumIncomeJunExtra, sumIncomeJulExtra, sumIncomeAugExtra
+                            , sumIncomeSepExtra, sumIncomeOctExtra, sumIncomeNovExtra, sumIncomeDecExtra);
+            }
+        });
+
+
+        //////////Expense//////////
+        buttonBill = (Button) rootView.findViewById(R.id.buttonBill);
+        buttonBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanBill, sumExpenseFebBill, sumExpenseMarBill, sumExpenseAprBill
+                            , sumExpenseMayBill, sumExpenseJunBill, sumExpenseJulBill, sumExpenseAugBill
+                            , sumExpenseSepBill, sumExpenseOctBill, sumExpenseNovBill, sumExpenseDecBill);
+            }
+        });
+
+        buttonEducation = (Button) rootView.findViewById(R.id.buttonEducation);
+        buttonEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanEducation, sumExpenseFebEducation, sumExpenseMarEducation, sumExpenseAprEducation
+                            , sumExpenseMayEducation, sumExpenseJunEducation, sumExpenseJulEducation, sumExpenseAugEducation
+                            , sumExpenseSepEducation, sumExpenseOctEducation, sumExpenseNovEducation, sumExpenseDecEducation);
+            }
+        });
+
+        buttonEntertainment = (Button) rootView.findViewById(R.id.buttonEntertainment);
+        buttonEntertainment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanEntertainment, sumExpenseFebEntertainment, sumExpenseMarEntertainment, sumExpenseAprEntertainment
+                            , sumExpenseMayEntertainment, sumExpenseJunEntertainment, sumExpenseJulEntertainment, sumExpenseAugEntertainment
+                            , sumExpenseSepEntertainment, sumExpenseOctEntertainment, sumExpenseNovEntertainment, sumExpenseDecEntertainment);
+            }
+        });
+
+        buttonFood = (Button) rootView.findViewById(R.id.buttonFood);
+        buttonFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanFood, sumExpenseFebFood, sumExpenseMarFood, sumExpenseAprFood
+                            , sumExpenseMayFood, sumExpenseJunFood, sumExpenseJulFood, sumExpenseAugFood
+                            , sumExpenseSepFood, sumExpenseOctFood, sumExpenseNovFood, sumExpenseDecFood);
+            }
+        });
+
+        buttonShopping = (Button) rootView.findViewById(R.id.buttonShopping);
+        buttonShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanShopping, sumExpenseFebShopping, sumExpenseMarShopping, sumExpenseAprShopping
+                            , sumExpenseMayShopping, sumExpenseJunShopping, sumExpenseJulShopping, sumExpenseAugShopping
+                            , sumExpenseSepShopping, sumExpenseOctShopping, sumExpenseNovShopping, sumExpenseDecShopping);
+            }
+        });
+
+        buttonTransport = (Button) rootView.findViewById(R.id.buttonTransport);
+        buttonTransport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanTransport, sumExpenseFebTransport, sumExpenseMarTransport, sumExpenseAprTransport
+                            , sumExpenseMayTransport, sumExpenseJunTransport, sumExpenseJulTransport, sumExpenseAugTransport
+                            , sumExpenseSepTransport, sumExpenseOctTransport, sumExpenseNovTransport, sumExpenseDecTransport);
+            }
+        });
+
+        buttonTravel = (Button) rootView.findViewById(R.id.buttonTravel);
+        buttonTravel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanTravel, sumExpenseFebTravel, sumExpenseMarTravel, sumExpenseAprTravel
+                            , sumExpenseMayTravel, sumExpenseJunTravel, sumExpenseJulTravel, sumExpenseAugTravel
+                            , sumExpenseSepTravel, sumExpenseOctTravel, sumExpenseNovTravel, sumExpenseDecTravel);
+            }
+        });
+
+        buttonHealthCare = (Button) rootView.findViewById(R.id.buttonHealthCare);
+        buttonHealthCare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanHealthCare, sumExpenseFebHealthCare, sumExpenseMarHealthCare, sumExpenseAprHealthCare
+                            , sumExpenseMayHealthCare, sumExpenseJunHealthCare, sumExpenseJulHealthCare, sumExpenseAugHealthCare
+                            , sumExpenseSepHealthCare, sumExpenseOctHealthCare, sumExpenseNovHealthCare, sumExpenseDecHealthCare);
+            }
+        });
+
+        buttonFamilyExpense = (Button) rootView.findViewById(R.id.buttonFamilyExpense);
+        buttonFamilyExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanFamilyExpense, sumExpenseFebFamilyExpense, sumExpenseMarFamilyExpense, sumExpenseAprFamilyExpense
+                            , sumExpenseMayFamilyExpense, sumExpenseJunFamilyExpense, sumExpenseJulFamilyExpense, sumExpenseAugFamilyExpense
+                            , sumExpenseSepFamilyExpense, sumExpenseOctFamilyExpense, sumExpenseNovFamilyExpense, sumExpenseDecFamilyExpense);
+            }
+        });
+
+        buttonSaving = (Button) rootView.findViewById(R.id.buttonSaving);
+        buttonSaving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incomeCate.show();
+                settextDialog(sumExpenseJanSaving, sumExpenseFebSaving, sumExpenseMarSaving, sumExpenseAprSaving
+                            , sumExpenseMaySaving, sumExpenseJunSaving, sumExpenseJulSaving, sumExpenseAugSaving
+                            , sumExpenseSepSaving, sumExpenseOctSaving, sumExpenseNovSaving, sumExpenseDecSaving);
+            }
+        });
+
+
+
+
 
         return rootView;
     }
@@ -708,18 +873,23 @@ public class Dashboard extends Fragment {
 
     ////////////////////////////////////for dialog
     public void settextDialog(float jan, float feb, float mar, float apr, float may, float jun, float jul, float aug, float sep, float oct, float nov, float dec){
-        textViewJan.setText("Jan : " + jan);
-        textViewFeb.setText("Feb : " + feb);
-        textViewMar.setText("Mar : " + mar);
-        textViewApr.setText("Apr : " + apr);
-        textViewMay.setText("May : " + may);
-        textViewJun.setText("Jun : " + jun);
-        textViewJul.setText("Jul : " + jul);
-        textViewAug.setText("Aug : " + aug);
-        textViewSep.setText("Sep : " + sep);
-        textViewOct.setText("Oct : " + oct);
-        textViewNov.setText("Nov : " + nov);
-        textViewDec.setText("Dec : " + dec);
+
+        Log.d(TAG, "settextDialogggggggg settextDialog settextDialog");
+
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+
+        textViewJan.setText(nf.format(jan));
+        textViewFeb.setText(nf.format(feb));
+        textViewMar.setText(nf.format(mar));
+        textViewApr.setText(nf.format(apr));
+        textViewMay.setText(nf.format(may));
+        textViewJun.setText(nf.format(jun));
+        textViewJul.setText(nf.format(jul));
+        textViewAug.setText(nf.format(aug));
+        textViewSep.setText(nf.format(sep));
+        textViewOct.setText(nf.format(oct));
+        textViewNov.setText(nf.format(nov));
+        textViewDec.setText(nf.format(dec));
     }
 
     public String sumLineYear(String cust_id) {
@@ -752,7 +922,7 @@ public class Dashboard extends Fragment {
             Log.d(TAG, "itemsCate1 " + itemsCate1);
             int pointerCate1 = 0;
 
-            //income//
+            ////////////income///////////
             if (itemsCate1.get(0).equals("Income")) {
                 Log.d(TAG, "itemsCateGift" + itemsCate1.get(pointerCate1));
 
@@ -1964,7 +2134,7 @@ public class Dashboard extends Fragment {
 
             }
 
-            if (itemsCate1.get(0).equals("Food")) {
+            if (itemsCate1.get(0).equals("Food and Drink")) {
                 Log.d(TAG, "itemsCateLoan" + itemsCate1.get(pointerCate1));
 
                 ArrayList<String> stringCateData = new ArrayList();
@@ -2480,85 +2650,85 @@ public class Dashboard extends Fragment {
                     if (check.equals("1")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJanFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJanFamilyEx " + sumExpenseJanFamilyEx);
+                        sumExpenseJanFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanFamilyExpense " + sumExpenseJanFamilyExpense);
 
                     } //feb
                     if (check.equals("2")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseFebFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseFebFamilyEx " + sumExpenseFebFamilyEx);
+                        sumExpenseFebFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebFamilyExpense " + sumExpenseFebFamilyExpense);
 
                     } //3
                     if (check.equals("3")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseMarFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseMarFamilyEx " + sumExpenseMarFamilyEx);
+                        sumExpenseMarFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarFamilyExpense " + sumExpenseMarFamilyExpense);
 
                     } //4
                     if (check.equals("4")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseAprFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseAprFamilyEx " + sumExpenseAprFamilyEx);
+                        sumExpenseAprFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprFamilyExpense " + sumExpenseAprFamilyExpense);
 
                     } //5
                     if (check.equals("5")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseMayFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseMayFamilyEx " + sumExpenseMayFamilyEx);
+                        sumExpenseMayFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayFamilyExpense " + sumExpenseMayFamilyExpense);
 
                     } //6
                     if (check.equals("6")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJunFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJunFamilyEx " + sumExpenseJunFamilyEx);
+                        sumExpenseJunFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunFamilyExpense " + sumExpenseJunFamilyExpense);
 
                     } //7
                     if (check.equals("7")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJulFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJulFamilyEx " + sumExpenseJulFamilyEx);
+                        sumExpenseJulFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulFamilyExpense " + sumExpenseJulFamilyExpense);
 
                     }//8
                     if (check.equals("8")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseAugFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseAugFamilyEx " + sumExpenseAugFamilyEx);
+                        sumExpenseAugFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugFamilyExpense " + sumExpenseAugFamilyExpense);
 
                     } //9
                     if (check.equals("9")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseSepFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseSepFamilyEx " + sumExpenseSepFamilyEx);
+                        sumExpenseSepFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepFamilyExpense " + sumExpenseSepFamilyExpense);
 
                     } //10
                     if (check.equals("10")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseOctFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseOctFamilyEx " + sumExpenseOctFamilyEx);
+                        sumExpenseOctFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctFamilyExpense " + sumExpenseOctFamilyExpense);
 
                     } //11
                     if (check.equals("11")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseNovFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseNovFamilyEx " + sumExpenseNovFamilyEx);
+                        sumExpenseNovFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovFamilyExpense " + sumExpenseNovFamilyExpense);
 
                     }//12
                     if (check.equals("12")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseDecFamilyEx = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseDecFamilyEx " + sumExpenseDecFamilyEx);
+                        sumExpenseDecFamilyExpense = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecFamilyExpense " + sumExpenseDecFamilyExpense);
 
                     }
                 }
@@ -2600,85 +2770,85 @@ public class Dashboard extends Fragment {
                     if (check.equals("1")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJanHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJanHealthcare " + sumExpenseJanHealthcare);
+                        sumExpenseJanHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJanHealthCare " + sumExpenseJanHealthCare);
 
                     } //feb
                     if (check.equals("2")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseFebHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseFebHealthcare " + sumExpenseFebHealthcare);
+                        sumExpenseFebHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseFebHealthCare " + sumExpenseFebHealthCare);
 
                     } //3
                     if (check.equals("3")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseMarHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseMarHealthcare " + sumExpenseMarHealthcare);
+                        sumExpenseMarHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMarHealthCare " + sumExpenseMarHealthCare);
 
                     } //4
                     if (check.equals("4")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseAprHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseAprHealthcare " + sumExpenseAprHealthcare);
+                        sumExpenseAprHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAprHealthCare " + sumExpenseAprHealthCare);
 
                     } //5
                     if (check.equals("5")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseMayHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseMayHealthcare " + sumExpenseMayHealthcare);
+                        sumExpenseMayHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseMayHealthCare " + sumExpenseMayHealthCare);
 
                     } //6
                     if (check.equals("6")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJunHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJunHealthcare " + sumExpenseJunHealthcare);
+                        sumExpenseJunHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJunHealthCare " + sumExpenseJunHealthCare);
 
                     } //7
                     if (check.equals("7")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseJulHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseJulHealthcare " + sumExpenseJulHealthcare);
+                        sumExpenseJulHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseJulHealthCare " + sumExpenseJulHealthCare);
 
                     }//8
                     if (check.equals("8")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseAugHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseAugHealthcare " + sumExpenseAugHealthcare);
+                        sumExpenseAugHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseAugHealthCare " + sumExpenseAugHealthCare);
 
                     } //9
                     if (check.equals("9")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseSepHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseSepHealthcare " + sumExpenseSepHealthcare);
+                        sumExpenseSepHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseSepHealthCare " + sumExpenseSepHealthCare);
 
                     } //10
                     if (check.equals("10")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseOctHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseOctHealthcare " + sumExpenseOctHealthcare);
+                        sumExpenseOctHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseOctHealthCare " + sumExpenseOctHealthCare);
 
                     } //11
                     if (check.equals("11")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseNovHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseNovHealthcare " + sumExpenseNovHealthcare);
+                        sumExpenseNovHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseNovHealthCare " + sumExpenseNovHealthCare);
 
                     }//12
                     if (check.equals("12")) {
                         Log.d(TAG, "check " + check);
 
-                        sumExpenseDecHealthcare = integerCollector.get(i);
-                        Log.d(TAG, "sumExpenseDecHealthcare " + sumExpenseDecHealthcare);
+                        sumExpenseDecHealthCare = integerCollector.get(i);
+                        Log.d(TAG, "sumExpenseDecHealthCare " + sumExpenseDecHealthCare);
 
                     }
                 }
@@ -3135,7 +3305,7 @@ public class Dashboard extends Fragment {
             if (check.equals("Healthcare")) {
                 Log.d(TAG, "check " + check);
 
-                categoryHealthCareMonth = "Healthcare";
+                categoryHealthCareMonth = "Health care";
                 Log.d(TAG, "categoryHealthCareMonth " + categoryHealthCareMonth);
 
                 sumExpenseHealthCareMonth = integerExpenseCollector.get(i);
@@ -3477,7 +3647,7 @@ public class Dashboard extends Fragment {
             if (check.equals("Healthcare")) {
                 Log.d(TAG, "check " + check);
 
-                categoryHealthCareYear = "Healthcare";
+                categoryHealthCareYear = "Health care";
                 Log.d(TAG, "categoryHealthCareYear " + categoryHealthCareYear);
 
                 sumExpenseHealthCareYear = integerExpenseCollector.get(i);
@@ -3710,20 +3880,6 @@ public class Dashboard extends Fragment {
         textViewExpenseDec.setText("12 Dec : " + nf.format(sumExpenseDec) );
 
 
-//
-//
-//        textViewJan.setText("1 Jan : " + nf.format(sumIncomeJan) );
-//        textViewFeb.setText("2 Feb : " + nf.format(sumIncomeFeb) );
-//        textViewMar.setText("3 Mar : " + nf.format(sumIncomeMar) );
-//        textViewApr.setText("4 Apr : " + nf.format(sumIncomeApr) );
-//        textViewMay.setText("5 May : " + nf.format(sumIncomeMay) );
-//        textViewJun.setText("6 Jun : " + nf.format(sumIncomeJun) );
-//        textViewJul.setText("7 Jul : " + nf.format(sumIncomeJul) );
-//        textViewAug.setText("8 Aug : " + nf.format(sumIncomeAug) );
-//        textViewSep.setText("9 Sep : " + nf.format(sumIncomeSep) );
-//        textViewOct.setText("10 Oct : " + nf.format(sumIncomeOct) );
-//        textViewNov.setText("11 Nov : " + nf.format(sumIncomeNov) );
-//        textViewDec.setText("12 Dec : " + nf.format(sumIncomeDec) );
     }
 
 
@@ -4113,40 +4269,40 @@ public class Dashboard extends Fragment {
         LineGraphSeries<DataPoint> seriesFamilyEx = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
-                new DataPoint(1, sumExpenseJanFamilyEx),
-                new DataPoint(2, sumExpenseFebFamilyEx),
-                new DataPoint(3, sumExpenseMarFamilyEx),
-                new DataPoint(4, sumExpenseAprFamilyEx),
+                new DataPoint(1, sumExpenseJanFamilyExpense),
+                new DataPoint(2, sumExpenseFebFamilyExpense),
+                new DataPoint(3, sumExpenseMarFamilyExpense),
+                new DataPoint(4, sumExpenseAprFamilyExpense),
 
-                new DataPoint(5, sumExpenseMayFamilyEx),
-                new DataPoint(6, sumExpenseJunFamilyEx),
-                new DataPoint(7, sumExpenseJulFamilyEx),
-                new DataPoint(8, sumExpenseAugFamilyEx),
-                new DataPoint(9, sumExpenseSepFamilyEx),
+                new DataPoint(5, sumExpenseMayFamilyExpense),
+                new DataPoint(6, sumExpenseJunFamilyExpense),
+                new DataPoint(7, sumExpenseJulFamilyExpense),
+                new DataPoint(8, sumExpenseAugFamilyExpense),
+                new DataPoint(9, sumExpenseSepFamilyExpense),
 
-                new DataPoint(10, sumExpenseOctFamilyEx),
-                new DataPoint(11, sumExpenseNovFamilyEx),
-                new DataPoint(12, sumExpenseDecFamilyEx),
+                new DataPoint(10, sumExpenseOctFamilyExpense),
+                new DataPoint(11, sumExpenseNovFamilyExpense),
+                new DataPoint(12, sumExpenseDecFamilyExpense),
 
         });
 
         LineGraphSeries<DataPoint> seriesHealthcare = new LineGraphSeries<>(new DataPoint[]{
 
                 new DataPoint(0, 0),
-                new DataPoint(1, sumExpenseJanHealthcare),
-                new DataPoint(2, sumExpenseFebHealthcare),
-                new DataPoint(3, sumExpenseMarHealthcare),
-                new DataPoint(4, sumExpenseAprHealthcare),
+                new DataPoint(1, sumExpenseJanHealthCare),
+                new DataPoint(2, sumExpenseFebHealthCare),
+                new DataPoint(3, sumExpenseMarHealthCare),
+                new DataPoint(4, sumExpenseAprHealthCare),
 
-                new DataPoint(5, sumExpenseMayHealthcare),
-                new DataPoint(6, sumExpenseJunHealthcare),
-                new DataPoint(7, sumExpenseJulHealthcare),
-                new DataPoint(8, sumExpenseAugHealthcare),
-                new DataPoint(9, sumExpenseSepHealthcare),
+                new DataPoint(5, sumExpenseMayHealthCare),
+                new DataPoint(6, sumExpenseJunHealthCare),
+                new DataPoint(7, sumExpenseJulHealthCare),
+                new DataPoint(8, sumExpenseAugHealthCare),
+                new DataPoint(9, sumExpenseSepHealthCare),
 
-                new DataPoint(10, sumExpenseOctHealthcare),
-                new DataPoint(11, sumExpenseNovHealthcare),
-                new DataPoint(12, sumExpenseDecHealthcare),
+                new DataPoint(10, sumExpenseOctHealthCare),
+                new DataPoint(11, sumExpenseNovHealthCare),
+                new DataPoint(12, sumExpenseDecHealthCare),
 
         });
 
@@ -4479,7 +4635,7 @@ public class Dashboard extends Fragment {
         }
         if (expenseHealthCareMonthPercent > 0) {
             yDataExpenseMonth.add(expenseHealthCareMonthPercent);
-            xDataExpenseMonth.add("Healthcare");
+            xDataExpenseMonth.add("Health care");
             colors.add(getResources().getColor(R.color.health));
         }
         if (expenseSavingAndInvestmentMonthPercent > 0) {
@@ -4699,7 +4855,7 @@ public class Dashboard extends Fragment {
         }
         if(expenseHealthCareYearPercent > 0) {
             yDataExpenseYear.add(expenseHealthCareYearPercent);
-            xDataExpenseYear.add("Healthcare");
+            xDataExpenseYear.add("Health care");
             colors.add(getResources().getColor(R.color.health));
         }
         if(expenseSavingAndInvestmentYearPercent > 0) {
