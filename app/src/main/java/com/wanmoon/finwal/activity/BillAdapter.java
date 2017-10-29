@@ -77,4 +77,5 @@ public class BillAdapter extends BaseAdapter implements SpinnerAdapter{
 
         return view;
     }
+
 }

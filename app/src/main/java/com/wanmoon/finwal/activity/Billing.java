@@ -99,6 +99,9 @@ public class Billing extends Fragment {
     public int month;
     public int year;
 
+
+    String[] notidead;
+
     //**get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
@@ -148,6 +151,8 @@ public class Billing extends Fragment {
 
         ((MainActivity)getActivity()).setTitle("Billing");
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -240,6 +245,8 @@ public class Billing extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
@@ -569,5 +576,12 @@ public class Billing extends Fragment {
                 }
             });
         }
+    }
+    public String[] getDeadline() {
+        if(dialog_deadline != null) {
+            notidead = dialog_deadline.split("-");
+
+        }
+        return this.notidead;
     }
 }

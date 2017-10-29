@@ -1,4 +1,6 @@
 package com.wanmoon.finwal.activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity
     private double sumExpenseYear = -1;
     private double YearBalance;
 
+    public String[] nodeadline;
+
     //get current user
     public FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     public final String cust_id = currentFirebaseUser.getUid();
@@ -78,6 +83,28 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Billing deadline1 = new Billing();
+        nodeadline = deadline1.getDeadline();
+        if(nodeadline != null) {
+        int year = Integer.parseInt(nodeadline[0]);
+        int month = Integer.parseInt(nodeadline[1]);
+        int day = (Integer.parseInt(nodeadline[2])-1);
+
+
+            Calendar sevendayalarm = Calendar.getInstance();
+
+            sevendayalarm.add(Calendar.YEAR, year);
+            sevendayalarm.add(Calendar.MONTH, month);
+            sevendayalarm.add(Calendar.DAY_OF_MONTH, day);
+
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 001, intent, 0);
+
+            AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+            am.set(AlarmManager.RTC_WAKEUP, sevendayalarm.getTimeInMillis(), pendingIntent);
+
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -200,6 +227,7 @@ public class MainActivity extends AppCompatActivity
                 finish();
             }
         });
+
     }
 
 
@@ -305,6 +333,8 @@ public class MainActivity extends AppCompatActivity
         }
         return response;
     }
+
+
 
     public class getHttpIncomeMonth {
         OkHttpClient client;
