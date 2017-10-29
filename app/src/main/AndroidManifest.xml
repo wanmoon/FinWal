@@ -59,8 +59,6 @@
         <activity android:name=".activity.EditGoal" />
         <activity android:name=".activity.Barcode" />
 
-        <activity android:name=".activity.EditBill"></activity>
-
 
     </application>
 

@@ -5,23 +5,23 @@
     android:stretchColumns="0,1,2"
     android:gravity="center">
 
-    <TableRow
-        android:background="#FFFFFF"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
+
+
+    <TextView
+        android:id="@+id/textViewCate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" Cate "
         android:layout_margin="1dp"
-        android:layout_weight="1">
-        <TableRow
-            android:background="#000000"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_margin="1dp"
-            android:layout_weight="1">
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:background="#FFFFFF"
+        android:gravity="center" />
 
 
 
-        </TableRow>
-    </TableRow>
+
 
     <TableRow
         android:background="#000000"
@@ -67,8 +67,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Jan"
             android:textSize="16dp" />
@@ -80,8 +79,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Jan"
             android:textSize="16dp" />
@@ -139,8 +137,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Mar"
             android:textSize="16dp" />
@@ -152,8 +149,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Mar"
             android:textSize="16dp" />
@@ -209,8 +205,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="May"
             android:textSize="16dp" />
@@ -222,8 +217,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="May"
             android:textSize="16dp" />
@@ -279,8 +273,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Jul"
             android:textSize="16dp" />
@@ -292,8 +285,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Jul"
             android:textSize="16dp" />
@@ -349,8 +341,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Sep"
             android:textSize="16dp" />
@@ -362,8 +353,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Sep"
             android:textSize="16dp" />
@@ -419,8 +409,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="0"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Nov"
             android:textSize="16dp" />
@@ -432,8 +421,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_margin="1dp"
             android:layout_column="1"
-            android:background="@color/buttonColorBlack"
-            android:textColor="@color/buttonColorWhite"
+            android:background="@color/backgroundColor"
             android:gravity="center"
             android:text="Nov"
             android:textSize="16dp" />

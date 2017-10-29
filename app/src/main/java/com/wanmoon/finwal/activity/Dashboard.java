@@ -97,6 +97,7 @@ public class Dashboard extends Fragment {
 
 
     //income
+    private TextView textViewCate;
     private TextView textViewJan;
     private TextView textViewFeb;
     private TextView textViewMar;
@@ -613,7 +614,7 @@ public class Dashboard extends Fragment {
 
 
         //findview
-        //income
+        textViewCate = (TextView) incomeCate.findViewById(R.id.textViewCate);
         textViewJan = (TextView) incomeCate.findViewById(R.id.textViewJan);
         textViewFeb = (TextView) incomeCate.findViewById(R.id.textViewFeb);
         textViewMar = (TextView) incomeCate.findViewById(R.id.textViewMar);
@@ -629,6 +630,7 @@ public class Dashboard extends Fragment {
 
         //transaction button : click then have popup
         //////////income//////////
+        String salary = "Salary";
         buttonSalary = (Button) rootView.findViewById(R.id.buttonSalary);
         buttonSalary.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -636,7 +638,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumIncomeJanSalary, sumIncomeFebSalary, sumIncomeMarSalary, sumIncomeAprSalary
                             , sumIncomeMaySalary, sumIncomeJunSalary, sumIncomeJulSalary, sumIncomeAugSalary
-                            , sumIncomeSepSalary, sumIncomeOctSalary, sumIncomeNovSalary, sumIncomeDecSalary);
+                            , sumIncomeSepSalary, sumIncomeOctSalary, sumIncomeNovSalary, sumIncomeDecSalary
+                        , "Salary");
             }
         });
 
@@ -647,7 +650,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumIncomeJanLoan, sumIncomeFebLoan, sumIncomeMarLoan, sumIncomeAprLoan
                             , sumIncomeMayLoan, sumIncomeJunLoan, sumIncomeJulLoan, sumIncomeAugLoan
-                            , sumIncomeSepLoan, sumIncomeOctLoan, sumIncomeNovLoan, sumIncomeDecLoan);
+                            , sumIncomeSepLoan, sumIncomeOctLoan, sumIncomeNovLoan, sumIncomeDecLoan
+                            , "Loan");
             }
         });
 
@@ -659,7 +663,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumIncomeJanGift, sumIncomeFebGift, sumIncomeMarGift, sumIncomeAprGift
                             , sumIncomeMayGift, sumIncomeJunGift, sumIncomeJulGift, sumIncomeAugGift
-                            , sumIncomeSepGift, sumIncomeOctGift, sumIncomeNovGift, sumIncomeDecGift);
+                            , sumIncomeSepGift, sumIncomeOctGift, sumIncomeNovGift, sumIncomeDecGift
+                            , "Gift");
             }
         });
 
@@ -670,7 +675,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumIncomeJanFamily, sumIncomeFebFamily, sumIncomeMarFamily, sumIncomeAprFamily
                             , sumIncomeMayFamily, sumIncomeJunFamily, sumIncomeJulFamily, sumIncomeAugFamily
-                            , sumIncomeSepFamily, sumIncomeOctFamily, sumIncomeNovFamily, sumIncomeDecFamily);
+                            , sumIncomeSepFamily, sumIncomeOctFamily, sumIncomeNovFamily, sumIncomeDecFamily
+                        , "Family and Personal");
             }
         });
 
@@ -682,7 +688,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumIncomeJanExtra, sumIncomeFebExtra, sumIncomeMarExtra, sumIncomeAprExtra
                             , sumIncomeMayExtra, sumIncomeJunExtra, sumIncomeJulExtra, sumIncomeAugExtra
-                            , sumIncomeSepExtra, sumIncomeOctExtra, sumIncomeNovExtra, sumIncomeDecExtra);
+                            , sumIncomeSepExtra, sumIncomeOctExtra, sumIncomeNovExtra, sumIncomeDecExtra
+                        , "Extra income");
             }
         });
 
@@ -695,7 +702,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanBill, sumExpenseFebBill, sumExpenseMarBill, sumExpenseAprBill
                             , sumExpenseMayBill, sumExpenseJunBill, sumExpenseJulBill, sumExpenseAugBill
-                            , sumExpenseSepBill, sumExpenseOctBill, sumExpenseNovBill, sumExpenseDecBill);
+                            , sumExpenseSepBill, sumExpenseOctBill, sumExpenseNovBill, sumExpenseDecBill
+                        , "Bill");
             }
         });
 
@@ -706,7 +714,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanEducation, sumExpenseFebEducation, sumExpenseMarEducation, sumExpenseAprEducation
                             , sumExpenseMayEducation, sumExpenseJunEducation, sumExpenseJulEducation, sumExpenseAugEducation
-                            , sumExpenseSepEducation, sumExpenseOctEducation, sumExpenseNovEducation, sumExpenseDecEducation);
+                            , sumExpenseSepEducation, sumExpenseOctEducation, sumExpenseNovEducation, sumExpenseDecEducation
+                        , "Education");
             }
         });
 
@@ -717,7 +726,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanEntertainment, sumExpenseFebEntertainment, sumExpenseMarEntertainment, sumExpenseAprEntertainment
                             , sumExpenseMayEntertainment, sumExpenseJunEntertainment, sumExpenseJulEntertainment, sumExpenseAugEntertainment
-                            , sumExpenseSepEntertainment, sumExpenseOctEntertainment, sumExpenseNovEntertainment, sumExpenseDecEntertainment);
+                            , sumExpenseSepEntertainment, sumExpenseOctEntertainment, sumExpenseNovEntertainment, sumExpenseDecEntertainment
+                        , "Entertainment");
             }
         });
 
@@ -728,7 +738,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanFood, sumExpenseFebFood, sumExpenseMarFood, sumExpenseAprFood
                             , sumExpenseMayFood, sumExpenseJunFood, sumExpenseJulFood, sumExpenseAugFood
-                            , sumExpenseSepFood, sumExpenseOctFood, sumExpenseNovFood, sumExpenseDecFood);
+                            , sumExpenseSepFood, sumExpenseOctFood, sumExpenseNovFood, sumExpenseDecFood
+                        , "Food and Drink");
             }
         });
 
@@ -739,7 +750,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanShopping, sumExpenseFebShopping, sumExpenseMarShopping, sumExpenseAprShopping
                             , sumExpenseMayShopping, sumExpenseJunShopping, sumExpenseJulShopping, sumExpenseAugShopping
-                            , sumExpenseSepShopping, sumExpenseOctShopping, sumExpenseNovShopping, sumExpenseDecShopping);
+                            , sumExpenseSepShopping, sumExpenseOctShopping, sumExpenseNovShopping, sumExpenseDecShopping
+                        , "Shopping");
             }
         });
 
@@ -750,7 +762,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanTransport, sumExpenseFebTransport, sumExpenseMarTransport, sumExpenseAprTransport
                             , sumExpenseMayTransport, sumExpenseJunTransport, sumExpenseJulTransport, sumExpenseAugTransport
-                            , sumExpenseSepTransport, sumExpenseOctTransport, sumExpenseNovTransport, sumExpenseDecTransport);
+                            , sumExpenseSepTransport, sumExpenseOctTransport, sumExpenseNovTransport, sumExpenseDecTransport
+                        , "Transport");
             }
         });
 
@@ -761,7 +774,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanTravel, sumExpenseFebTravel, sumExpenseMarTravel, sumExpenseAprTravel
                             , sumExpenseMayTravel, sumExpenseJunTravel, sumExpenseJulTravel, sumExpenseAugTravel
-                            , sumExpenseSepTravel, sumExpenseOctTravel, sumExpenseNovTravel, sumExpenseDecTravel);
+                            , sumExpenseSepTravel, sumExpenseOctTravel, sumExpenseNovTravel, sumExpenseDecTravel
+                        , "Travel");
             }
         });
 
@@ -772,7 +786,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanHealthCare, sumExpenseFebHealthCare, sumExpenseMarHealthCare, sumExpenseAprHealthCare
                             , sumExpenseMayHealthCare, sumExpenseJunHealthCare, sumExpenseJulHealthCare, sumExpenseAugHealthCare
-                            , sumExpenseSepHealthCare, sumExpenseOctHealthCare, sumExpenseNovHealthCare, sumExpenseDecHealthCare);
+                            , sumExpenseSepHealthCare, sumExpenseOctHealthCare, sumExpenseNovHealthCare, sumExpenseDecHealthCare
+                        , "Health care");
             }
         });
 
@@ -783,7 +798,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanFamilyExpense, sumExpenseFebFamilyExpense, sumExpenseMarFamilyExpense, sumExpenseAprFamilyExpense
                             , sumExpenseMayFamilyExpense, sumExpenseJunFamilyExpense, sumExpenseJulFamilyExpense, sumExpenseAugFamilyExpense
-                            , sumExpenseSepFamilyExpense, sumExpenseOctFamilyExpense, sumExpenseNovFamilyExpense, sumExpenseDecFamilyExpense);
+                            , sumExpenseSepFamilyExpense, sumExpenseOctFamilyExpense, sumExpenseNovFamilyExpense, sumExpenseDecFamilyExpense
+                        , "Family and Personal");
             }
         });
 
@@ -794,7 +810,8 @@ public class Dashboard extends Fragment {
                 incomeCate.show();
                 settextDialog(sumExpenseJanSaving, sumExpenseFebSaving, sumExpenseMarSaving, sumExpenseAprSaving
                             , sumExpenseMaySaving, sumExpenseJunSaving, sumExpenseJulSaving, sumExpenseAugSaving
-                            , sumExpenseSepSaving, sumExpenseOctSaving, sumExpenseNovSaving, sumExpenseDecSaving);
+                            , sumExpenseSepSaving, sumExpenseOctSaving, sumExpenseNovSaving, sumExpenseDecSaving
+                        , "Saving and Investment");
             }
         });
 
@@ -872,12 +889,14 @@ public class Dashboard extends Fragment {
     }
 
     ////////////////////////////////////for dialog
-    public void settextDialog(float jan, float feb, float mar, float apr, float may, float jun, float jul, float aug, float sep, float oct, float nov, float dec){
+    public void settextDialog(float jan, float feb, float mar, float apr, float may, float jun
+            , float jul, float aug, float sep, float oct, float nov, float dec, String cate){
 
         Log.d(TAG, "settextDialogggggggg settextDialog settextDialog");
 
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
+        textViewCate.setText(cate);
         textViewJan.setText(nf.format(jan));
         textViewFeb.setText(nf.format(feb));
         textViewMar.setText(nf.format(mar));
