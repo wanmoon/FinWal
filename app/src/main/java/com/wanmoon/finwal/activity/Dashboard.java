@@ -4016,19 +4016,20 @@ public class Dashboard extends Fragment {
 
         // set manual y bounds
         StaticLabelsFormatter staticLabelsFormatter = new StaticLabelsFormatter(graph);
-       // staticLabelsFormatter.setVerticalLabels(new String[] {"0","100", "1k", "2k", "5k", "10k", "20k"});
-       // graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+//        staticLabelsFormatter.setVerticalLabels(new String[] {"0","100","500", "1000", "2000" ,"5000" , "7000", "1k", "2k", "5k", "10k", "20k"});
+//        graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
 
         // set manual x bounds
         staticLabelsFormatter.setHorizontalLabels(new String[] {"","Jan","Feb","Mar","Apr","May","Jun"
                 ,"Jul","Aug","Sep","Oct","Nov","Dec"});
         graph.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
-        graph.getViewport().setXAxisBoundsManual(true);
+     //   graph.getViewport().setXAxisBoundsManual(true);
 
 //        graph.getGridLabelRenderer().setVerticalAxisTitle("How much");
 //        graph.getGridLabelRenderer().setHorizontalAxisTitle("Month");
 
-        graph.getGridLabelRenderer().setNumHorizontalLabels(12);
+      //  graph.getGridLabelRenderer().setNumVerticalLabels(12);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(7);
 
 
 

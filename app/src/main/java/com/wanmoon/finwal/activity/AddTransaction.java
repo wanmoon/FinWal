@@ -77,8 +77,8 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
 
     private ImageView imageViewFrame;
 
-    private String transaction;
-    private String cate;
+    public String transaction;
+    public String cate;
     private String getTransac;
     private String setBold;
 
@@ -424,6 +424,12 @@ public class AddTransaction extends AppCompatActivity implements View.OnClickLis
     }
 
     public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
+
+        Log.d(TAG, cust_id + "cust_id");
+        Log.d(TAG, description + "description");
+        Log.d(TAG, cost + "cost");
+        Log.d(TAG, transaction + "transaction");
+        Log.d(TAG, category + "category");
         try {
             Log.d(TAG,"start transaction");
             http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);

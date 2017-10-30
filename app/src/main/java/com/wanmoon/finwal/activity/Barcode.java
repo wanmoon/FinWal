@@ -1,11 +1,13 @@
 package com.wanmoon.finwal.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -26,9 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 import com.wanmoon.finwal.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import static android.Manifest.permission.CAMERA;
 
@@ -48,9 +56,10 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     private static int camId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
     public String name;
-    public String description;
+    public String description="";
     public String price;
-    public String cate;
+    public String category;
+    public String transaction = "Expense";
     public String get_cost;
 
     public double cost;
@@ -60,7 +69,12 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
     public  AlertDialog.Builder builder;
 
-    AddTransaction addTransaction;
+    //connect DB
+    String response = null;
+    getHttp http;
+    public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
+
+
 
     ArrayList<String> Userlist;
 
@@ -74,6 +88,8 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.barcode);
+
+        http = new getHttp(getApplicationContext());
 
         textViewFinish = (TextView)findViewById(R.id.textViewFinish);
         textViewCancel = (TextView)findViewById(R.id.textViewCancel);
@@ -183,17 +199,17 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             public void onClick(DialogInterface dialog, int which) {
                 description = Userlist.get(1);
                 price = Userlist.get(2);
-                cate = Userlist.get(0);
+                category = Userlist.get(0);
 
-                get_cost = String.format("%.2f", price);
                 cost = Double.parseDouble(price);
+                //cost = Double.parseDouble(get_cost);
 
                 Log.d(TAG,"description = " + description);
                 Log.d(TAG,"cost = " + cost);
-                Log.d(TAG,"cate = " + cate);
+                Log.d(TAG,"cate = " + category);
 
-                addTransaction = new AddTransaction();
-                addTransaction.addTransactionToDB(cust_id, description, cost, "Expense", cate);
+              //  addTransaction(cust_id);
+               addTransactionToDB(cust_id, description, cost, transaction, category);
             }
         });
 
@@ -209,28 +225,109 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             @Override
 
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //cate = dataSnapshot.getValue(String.class);
 
-                Userlist = new ArrayList<String>();
+            Userlist = new ArrayList<String>();
+               for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                   Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+               }
 
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
-                }
+               builder.setMessage("Name : " + Userlist.get(1) + "\n" +
+                       "Price : " + Userlist.get(2) + "\n" +
+                       "Category : " + Userlist.get(0));
 
-                 builder.setMessage( "Name : "+Userlist.get(1) +  "\n" +
-                         "Price : "+Userlist.get(2) + "\n" +
-                         "Category : "+Userlist.get(0)   );
+               AlertDialog alert1 = builder.create();
+               alert1.show();
+            }
 
-                        AlertDialog alert1 = builder.create();
-                        alert1.show();
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled (DatabaseError databaseError){
+            }
 
-                    }
+
         });
     }
+//
+//    public void addTransaction(String cust_id) {
+//       // description = Userlist.get(1);
+//      //  String getMoney = editTextHowmuch.getText().toString().trim();
+//
+//        if(description.matches("")){
+//           // scannerView.resumeCameraPreview(Barcode.this);
+//            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
+////        } else if (getMoney.isEmpty()){
+////            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
+//        } else {
+//            //getHowMuch = Double.parseDouble(getMoney);
+//
+//            Log.d(TAG, "get transac, getmoney");
+//
+//            addTransactionToDB(cust_id, description, cost, transaction, category);
+//            Log.d(TAG, "end addTransactionToDB");
+//        }
+//    }
+
+    public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
+
+        Log.d(TAG, cust_id + "cust_id");
+        Log.d(TAG, description + "description");
+        Log.d(TAG, cost + "cost");
+        Log.d(TAG, transaction + "transaction");
+        Log.d(TAG, category + "category");
+        try {
+            Log.d(TAG,"start transaction");
+            http.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+        return response;
+    }
+
+    // ** must have for connect DB
+    public class getHttp {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttp(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"insert success");
+
+                            Intent i = new Intent(getApplicationContext(), AllDetailTransaction.class);
+                            startActivity(i);
+                            finish();
+                        }
+
+
+                    });
+                }
+            });
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
