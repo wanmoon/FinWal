@@ -197,11 +197,11 @@
                     android:layout_alignParentTop="true"
                     android:layout_gravity="center"
                     android:layout_marginBottom="1dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
                     android:text="Coming Goal"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -264,12 +264,12 @@
                     android:layout_height="32dp"
                     android:layout_below="@+id/textViewDateLeft"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
                     app:rcBackgroundPadding="5dp" />
 
                 <RelativeLayout
@@ -312,15 +312,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="0dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginStart="2dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="18dp"
                     android:text="Next Bill"
                     android:textSize="20dp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewSeeMoreBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See more"
+                    android:layout_gravity="right"
+                    android:textAlignment="gravity"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"/>
 
                 <RelativeLayout
                     android:id="@+id/relativeBill"

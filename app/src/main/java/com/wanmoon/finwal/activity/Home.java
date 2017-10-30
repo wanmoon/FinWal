@@ -116,6 +116,7 @@ public class Home extends Fragment {
     private TextView textViewBillPeriod;
     private TextView textViewBillNoData;
     public TextView textViewSeemore;
+    public TextView textViewSeeMoreBill;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
@@ -282,14 +283,25 @@ public class Home extends Fragment {
         textViewMoneyLeftGoal = (TextView) view.findViewById(R.id.textViewMoneyLeftGoal);
         textViewProgressBarNoData = (TextView) view.findViewById(R.id.textViewProgressBarNoData);
         textViewSeemore = (TextView) view.findViewById(R.id.textViewSeemore);
+        textViewSeeMoreBill = (TextView) view.findViewById(R.id.textViewSeeMoreBill);
 
         textViewSeemore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fregment to fregment
+                //fragment to fragment
                 Goal GoalFragment = new Goal();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, GoalFragment).addToBackStack( "tag" );;;
+                transaction.commit();
+            }
+        });
+
+        textViewSeeMoreBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Billing BillingFragment = new Billing();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, BillingFragment).addToBackStack( "tag" );;
                 transaction.commit();
             }
         });
@@ -1039,6 +1051,10 @@ public class Home extends Fragment {
         Log.d(TAG, "deadline = " + deadline);
         Log.d(TAG, "period = " + period);
         Log.d(TAG, "status_bill = " + status_bill);
+
+        //see more
+        see_more = "<u>" + "See more" + "</u>";
+        textViewSeeMoreBill.setText((Html.fromHtml(see_more)));
     }
 
     public String getNextBill(String cust_id) {

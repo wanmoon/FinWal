@@ -13,9 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,11 +42,7 @@ import static android.Manifest.permission.CAMERA;
  * Created by n.knum on 10/15/2017.
  */
 
-public class Barcode extends AppCompatActivity implements ZXingScannerView.ResultHandler,View.OnClickListener {
-    private TextView textViewFinish;
-    private TextView textViewCancel;
-
-    private Button editOk;
+public class Barcode extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
@@ -90,9 +83,6 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
         setContentView(R.layout.barcode);
 
         http = new getHttp(getApplicationContext());
-
-        textViewFinish = (TextView)findViewById(R.id.textViewFinish);
-        textViewCancel = (TextView)findViewById(R.id.textViewCancel);
 
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
@@ -201,14 +191,13 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
                 price = Userlist.get(2);
                 category = Userlist.get(0);
 
-                cost = Double.parseDouble(price);
-                //cost = Double.parseDouble(get_cost);
+                cost = (Double.parseDouble(price));
+                get_cost = String.format("%.2f",cost);
 
                 Log.d(TAG,"description = " + description);
                 Log.d(TAG,"cost = " + cost);
                 Log.d(TAG,"cate = " + category);
 
-              //  addTransaction(cust_id);
                addTransactionToDB(cust_id, description, cost, transaction, category);
             }
         });
@@ -220,52 +209,37 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             }
         });
 
+
         DatabaseReference databaseReference2 = database.getReference();
-        databaseReference2.child("Barcode").child(""+result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
 
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-            Userlist = new ArrayList<String>();
-               for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                   Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
-               }
+                Userlist = new ArrayList<String>();
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+                }
 
-               builder.setMessage("Name : " + Userlist.get(1) + "\n" +
-                       "Price : " + Userlist.get(2) + "\n" +
-                       "Category : " + Userlist.get(0));
+                builder.setMessage("Name : " + Userlist.get(1) + "\n" +
+                        "Price : "  + String.format("%.2f",Double.parseDouble(Userlist.get(2)))  + "\n" +
+                        "Category : " + Userlist.get(0));
 
-               AlertDialog alert1 = builder.create();
-               alert1.show();
+                AlertDialog alert1 = builder.create();
+                alert1.show();
             }
 
 
             @Override
-            public void onCancelled (DatabaseError databaseError){
+            public void onCancelled(DatabaseError databaseError) {
             }
 
 
-        });
+            });
+
+
+
     }
-//
-//    public void addTransaction(String cust_id) {
-//       // description = Userlist.get(1);
-//      //  String getMoney = editTextHowmuch.getText().toString().trim();
-//
-//        if(description.matches("")){
-//           // scannerView.resumeCameraPreview(Barcode.this);
-//            Toast.makeText(this, "What is your transaction?", Toast.LENGTH_LONG).show();
-////        } else if (getMoney.isEmpty()){
-////            Toast.makeText(this, "How much?", Toast.LENGTH_LONG).show();
-//        } else {
-//            //getHowMuch = Double.parseDouble(getMoney);
-//
-//            Log.d(TAG, "get transac, getmoney");
-//
-//            addTransactionToDB(cust_id, description, cost, transaction, category);
-//            Log.d(TAG, "end addTransactionToDB");
-//        }
-//    }
 
     public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
 
@@ -329,16 +303,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if(v == textViewFinish){
 
-        } if(v == textViewCancel){
-            Intent i=new Intent(this, MainActivity.class);
-            startActivity(i);
-            finish();
-        }
-    }
 
     @Override
     public void onBackPressed() {
