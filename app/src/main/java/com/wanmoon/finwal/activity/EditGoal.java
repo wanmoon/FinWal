@@ -73,6 +73,11 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public String description_goal;
     public String status_goal;
     public String savingplan;
+    public Double dayGoal;
+    public Double dayGoal25;
+    public Double checkDayGoal25;
+    public Double checkSavingplan;
+    public Double checkSavingplan25;
 
     public int goal_id;
 
@@ -106,6 +111,33 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         budget_goal = Double.parseDouble(get_budget_goal);
         suggest_cost = Double.parseDouble(get_suggest_cost);
         current_goal = Double.parseDouble(get_current_goal);
+
+
+        // get25% progress bar
+        dayGoal = budget_goal / suggest_cost;
+        Log.d(TAG, "dayGoal = " + dayGoal + savingplan);
+
+        dayGoal25 = dayGoal*25/100;
+        Log.d(TAG, "dayGoal25 = " + dayGoal25 + savingplan);
+
+        //check money 25% that must achieve
+        checkDayGoal25 = dayGoal25*suggest_cost;
+        Log.d(TAG, "checkDayGoal25 = " + checkDayGoal25);
+
+        if(savingplan.equals("Daily")){
+            checkSavingplan = 1.00;
+        }
+        if(savingplan.equals("Weekly")){
+            checkSavingplan = 7.00;
+        }
+        if(savingplan.equals("Monthly")){
+            checkSavingplan = 30.00;
+        }
+        //check day 25% that must achieve / days
+        checkSavingplan25 = checkSavingplan*dayGoal25;
+        Log.d(TAG, "checkSavingplan25 = " + checkSavingplan25);
+
+
 
         //http connect DB
         httpUpdateCurrentGoal = new getHttpUpdateCurrentGoal(getApplicationContext());

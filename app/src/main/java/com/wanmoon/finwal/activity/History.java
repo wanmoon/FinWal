@@ -2,7 +2,6 @@ package com.wanmoon.finwal.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,12 +43,6 @@ public class History extends android.support.v4.app.Fragment  {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-   // private static View rootView;
-
-    private View bView;
-
-    private Typeface tf;
 
     private Spinner spinnerAll;
     private Spinner spinnerAllExpense;

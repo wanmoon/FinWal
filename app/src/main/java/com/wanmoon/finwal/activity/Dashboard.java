@@ -476,7 +476,6 @@ public class Dashboard extends Fragment {
 
 
     private Dialog incomeCate;
-    private Dialog expenseCate;
 
 
 
@@ -564,6 +563,15 @@ public class Dashboard extends Fragment {
         spec.setContent(R.id.tab4);
         spec.setIndicator("Yearly");
         host.addTab(spec);
+
+        TextView x0 = (TextView) host.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        x0.setTextSize(10);
+        TextView x1 = (TextView) host.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        x1.setTextSize(10);
+        TextView x2 = (TextView) host.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+        x2.setTextSize(10);
+        TextView x3 = (TextView) host.getTabWidget().getChildAt(3).findViewById(android.R.id.title);
+        x3.setTextSize(10);
 
 
         //income
