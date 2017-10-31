@@ -73,10 +73,13 @@ public class GoalAdapter extends BaseAdapter implements SpinnerAdapter {
         TextView textViewStatus = (TextView) view.findViewById(R.id.textViewStatus);
         textViewStatus.setText(arrGoal.get(position).get("status_goal").toString());
         if(arrGoal.get(position).get("status_goal").toString().equals("Achieved")){
-            //income : green
+            //achieve : green
             textViewStatus.setTextColor(Color.parseColor("#088A4B"));
+        } else if(arrGoal.get(position).get("status_goal").toString().equals("On Process")){
+            //onprocess : yellow
+            textViewStatus.setTextColor(Color.parseColor("#FABA66"));
         } else if (arrGoal.get(position).get("status_goal").toString().equals("Unachieve") || arrGoal.get(position).get("status_goal").toString().equals("Deleted")){
-            //expense : red
+            //unachieve deleted : red
             textViewStatus.setTextColor(Color.parseColor("#e54649"));
         }
 

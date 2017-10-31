@@ -150,7 +150,7 @@ public class Goal extends Fragment {
                 if (selected.equals("All")){
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 4);
-                } else if (selected.equals("Unachieve")) { //0
+                } else if (selected.equals("On Process")) { //0
                     Log.d(TAG, "selected = " + selected);
                     getAllGoal(cust_id, 0);
                 } else if (selected.equals("Achieved")) { //1
@@ -164,6 +164,9 @@ public class Goal extends Fragment {
                     getAllGoal(cust_id, 3);
                 }  else if (selected.equals("Deleted")) {
                     getAllGoal(cust_id, 5);
+                } else if (selected.equals("Unachieve")) { //6
+                    Log.d(TAG, "selected = " + selected);
+                    getAllGoal(cust_id, 6);
                 }
             }
 

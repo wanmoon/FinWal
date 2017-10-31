@@ -23,6 +23,7 @@
     <string name="failed_add_transaction">Failed to add transaction, please try again</string>
 
     <string-array name="array_spinner_goal">
+        <item>On Process</item>
         <item>Unachieve</item>
         <item>Achieved</item>
         <item>Price : Low-High</item>

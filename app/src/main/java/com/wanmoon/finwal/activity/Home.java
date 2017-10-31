@@ -920,7 +920,7 @@ public class Home extends Fragment {
             textViewStatusGoal.setText("Achieved");
             textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
         } else {
-            textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
+            textViewStatusGoal.setTextColor(Color.parseColor("#FABA66"));
         }
 
         //days left
