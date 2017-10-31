@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,6 +71,7 @@ public class Billing extends Fragment {
     public Spinner spinnerSort;
 
     public Dialog dialogEditBill;
+    public Dialog billCost;
 
     public TextView textViewDescription_bill;
     public TextView textViewStatus_bill;
@@ -81,6 +83,9 @@ public class Billing extends Fragment {
     public Button buttonPaidBill;
     public Button buttonDeleteBill;
     public Button buttonReschedule;
+    public Button buttonOK;
+
+    public EditText editTextHowmuch;
 
     public String dialog_descriptionBill;
     public String dialog_statusBill;
@@ -93,12 +98,15 @@ public class Billing extends Fragment {
     public String period;
     public String str_day;
     public String str_month;
+    public String description_bill;
+    public String getcost;
+
+    public Double getBillcost;
 
     public int bill_id;
     public int day;
     public int month;
     public int year;
-
 
     String[] notidead;
 
@@ -107,8 +115,10 @@ public class Billing extends Fragment {
     public final String cust_id = currentFirebaseUser.getUid();
 
     //**connect DB
+    String response = null;
     getHttp http;
     getHttpUpdateStatus httpUpdateStatus;
+    getHttpToDB httpToDB;
 
     public static final String BASE_URL = "http://finwal.sit.kmutt.ac.th/finwal";
 
@@ -161,6 +171,7 @@ public class Billing extends Fragment {
 
         http = new getHttp(getContext());
         httpUpdateStatus = new getHttpUpdateStatus(getContext());
+        httpToDB = new getHttpToDB(getContext());
 
         //listview
         billList = new ArrayList<HashMap<String, String>>();
@@ -246,8 +257,6 @@ public class Billing extends Fragment {
         mListener = null;
     }
 
-
-
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -328,10 +337,11 @@ public class Billing extends Fragment {
                     public void onClick(View v) {
                         Log.d(TAG, "onClick Button Paid");
                         //flagSort = (?) > Paid
+                        addTransaction();
                         updateStatus(cust_id, bill_id, 0, ""); // 0 = paid
+                        dialogEditBill.cancel();
                         billList.remove(position);
                         adapter.notifyDataSetChanged();
-                        dialogEditBill.cancel();
                     }
                 });
 
@@ -429,8 +439,94 @@ public class Billing extends Fragment {
         Log.d(TAG, "new_deadline = " + newDeadline);
     }
 
+    /////////////////////////////////////////////////////////////////////////////addtransactiontodb
+    public void addTransaction(){
+        description_bill = dialog_descriptionBill + "";
+        //dialog ask for bill's amoung
+        billCost = new Dialog(getActivity());
+        billCost.getWindow();
+        billCost.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        billCost.setContentView(R.layout.billcost);
+        billCost.setCancelable(true);
+        billCost.show();
+
+        //findview
+        editTextHowmuch = (EditText) billCost.findViewById(R.id.editTextHowmuch);
+        buttonOK = (Button) billCost.findViewById(R.id.buttonOK);
+
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get text
+                getcost = editTextHowmuch.getText().toString().trim();
+                getBillcost = Double.parseDouble(getcost);
+
+                Log.d(TAG, "cust_id = " + cust_id);
+                Log.d(TAG, "description_bill = " + description_bill);
+                Log.d(TAG, "getBillcost = " + getBillcost);
+
+                addTransactionToDB(cust_id, description_bill, getBillcost , "Expense", "Bill");
+                billCost.cancel();
+            }
+        });
+    }
+
+    public void addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
+        Log.d(TAG, cust_id + "cust_id");
+        Log.d(TAG, description + "description");
+        Log.d(TAG, cost + "cost");
+        Log.d(TAG, transaction + "transaction");
+        Log.d(TAG, category + "category");
+
+        try {
+            Log.d(TAG,"start transaction");
+            httpToDB.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    // ** must have for connect DB
+    public class getHttpToDB {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpToDB(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"insert success");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
     ////////////////////////////////////////////////////////////////////////////////get billing data
-    public void getAllBilling(String cust_id, int flagSort){
+    public String getAllBilling(String cust_id, int flagSort){
         try {
             Log.d(TAG,"flagSort = " + flagSort);
             Log.d(TAG,"start select");
@@ -440,6 +536,7 @@ public class Billing extends Fragment {
             e.printStackTrace();
             Log.d(TAG,"error catch");
         }
+        return response;
     }
 
     public void showBillingToListView(String allBilling){
@@ -577,6 +674,7 @@ public class Billing extends Fragment {
             });
         }
     }
+
     public String[] getDeadline() {
         if(dialog_deadline != null) {
             notidead = dialog_deadline.split("-");
