@@ -154,6 +154,20 @@ public class Home extends Fragment {
     getHttpDateStart httpDateStart;
     getHttpNextBill httpNextBill;
 
+    public Double dayGoal;
+    public Double dayGoal25;
+    public Double checkMoneyGoal25;
+    public Double checkSavingplan;
+    public Double checkDayGoal25;
+    public Double checkGoalHowLong;
+
+    public Double dayGoal50;
+    public Double checkMoneyGoal50;
+    public Double checkDayGoal50;
+
+    public Double dayGoal75;
+    public Double checkMoneyGoal75;
+    public Double checkDayGoal75;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -318,8 +332,6 @@ public class Home extends Fragment {
             }
         });
 
-        //draw progressbar
-        progressBar(float_current_goalPercent);
 
         //nextbill
         relativeBill = (RelativeLayout) view.findViewById(R.id.relativeBill);
@@ -868,35 +880,11 @@ public class Home extends Fragment {
             current_goalPercent = (current_goal / budget_goal) * 100;
             float_current_goalPercent = Float.parseFloat(String.format("%.2f", current_goalPercent));
 
-            progressBar(float_current_goalPercent);
+         //   progressBar(float_current_goalPercent);
             setDataProcessBar(ending_date, description_goal, status_goal, budget_goal, current_goal);
         }
     }
 
-    public void progressBar(float float_current_goalPercent) {
-        Log.d(TAG, "float_current_goalPercent = " + float_current_goalPercent);
-
-        //set bar colour
-        if (float_current_goalPercent <= 20) { //<25%
-            progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
-        } else if (float_current_goalPercent <= 60) { //<50%
-            progress.setProgressColor(Color.parseColor("#cc7200"));
-        } else if (float_current_goalPercent <= 60) { //<50%
-            progress.setProgressColor(Color.parseColor("#ffd400")); //yellow
-        } else if (float_current_goalPercent <= 80) { //<75%
-            progress.setProgressColor(Color.parseColor("#e0ff00"));
-        } else {
-            progress.setProgressColor(Color.parseColor("#088A4B")); //green
-        }
-
-        progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
-        progress.setMax(100);
-        progress.setProgress(float_current_goalPercent);
-        progress.setContentDescription(float_current_goalPercent + "");
-
-        Log.d(TAG, "finish draw progressbar");
-
-    }
 
     public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal) {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
@@ -907,6 +895,8 @@ public class Home extends Fragment {
 
         moneyleft = budget_goal - current_goal;
         Log.d(TAG, "moneyleft = " + moneyleft);
+
+
 
         //เก็บเกิน goal
         if (moneyleft < 0) { //เกินโกลไปแล้ว
@@ -950,6 +940,88 @@ public class Home extends Fragment {
         Log.d(TAG, "days = " + days);
 
         textViewDateLeft.setText(days + " days left");
+
+        /////// get% progress bar ///////
+        dayGoal = budget_goal / suggest_cost;
+        Log.d(TAG, "dayGoal = " + dayGoal + savingplan);
+
+        dayGoal25 = dayGoal*25/100;
+        Log.d(TAG, "dayGoal25 = " + dayGoal25 + savingplan);
+
+        dayGoal50 = dayGoal*50/100;
+        Log.d(TAG, "dayGoal50 = " + dayGoal50 + savingplan);
+
+        dayGoal75 = dayGoal*75/100;
+        Log.d(TAG, "dayGoal75 = " + dayGoal75 + savingplan);
+
+
+
+        //check money 25% that must achieve
+        checkMoneyGoal25 = dayGoal25*suggest_cost;
+        Log.d(TAG, "checkMoneyGoal25 = " + checkMoneyGoal25);
+
+        //check money 50% that must achieve
+        checkMoneyGoal50 = dayGoal50*suggest_cost;
+        Log.d(TAG, "checkMoneyGoal50 = " + checkMoneyGoal50);
+
+        //check money 75% that must achieve
+        checkMoneyGoal75 = dayGoal75*suggest_cost;
+        Log.d(TAG, "checkMoneyGoal75 = " + checkMoneyGoal75);
+
+
+        if(savingplan.equals("Daily")){
+            checkSavingplan = 1.00;
+        }
+        if(savingplan.equals("Weekly")){
+            checkSavingplan = 7.00;
+        }
+        if(savingplan.equals("Monthly")){
+            checkSavingplan = 30.00;
+        }
+        checkGoalHowLong = checkSavingplan * dayGoal;
+        Log.d(TAG, "checkSavingplan = " + checkSavingplan);
+        Log.d(TAG, "checkGoalHowLong = " + checkGoalHowLong);
+
+        //check day 25% that must achieve / days
+        checkDayGoal25 = checkSavingplan*dayGoal25;
+        Log.d(TAG, "checkDayGoal25 = " + checkDayGoal25);
+
+        //check day 50% that must achieve / days
+        checkDayGoal50 = checkSavingplan*dayGoal50;
+        Log.d(TAG, "checkDayGoal50 = " + checkDayGoal50);
+
+        //check day 75% that must achieve / days
+        checkDayGoal75 = checkSavingplan*dayGoal75;
+        Log.d(TAG, "checkDayGoal75 = " + checkDayGoal75);
+
+
+        //ภายใน checkDayGoal25 ต้องเก็บเงินได้ checkMoneyGoal25 จากเวลา checkGoalHowLong ทั้งหมด
+        if((checkGoalHowLong - checkDayGoal25 >= days) &&(current_goal <checkMoneyGoal25)){
+            textViewStatusGoal.setText("Unachieved");
+            textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
+            progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
+        }
+        if((checkGoalHowLong - checkDayGoal50 >= days) &&(current_goal <checkMoneyGoal50)){
+            textViewStatusGoal.setText("Unachieved");
+            textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
+            progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
+        }
+        if((checkGoalHowLong - checkDayGoal75 >= days) &&(current_goal <checkMoneyGoal75)){
+            textViewStatusGoal.setText("Unachieved");
+            textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
+            progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
+        }
+
+        else{
+            progress.setProgressColor(Color.parseColor("#088A4B")); //green
+        }
+
+
+
+        progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
+        progress.setMax(100);
+        progress.setProgress(float_current_goalPercent);
+        progress.setContentDescription(float_current_goalPercent + "");
 
         //see more
         see_more = "<u>" + "See more" + "</u>";

@@ -20,7 +20,7 @@ $goal_id = $_GET["goal_id"];
 
 //ending_date, description_goal, status_goal, budget_goal, savingplan, suggest_cost, current_goal
 //$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
-$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND status_goal = 'Unachieve' ORDER BY ending_date DESC LIMIT 1";
+$sql = "SELECT * FROM goal WHERE cust_id = '$cust_id' AND status_goal = 'On Process' ORDER BY ending_date DESC LIMIT 1";
 
 $result = $conn->query($sql);
 

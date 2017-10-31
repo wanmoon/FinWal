@@ -75,9 +75,10 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public String savingplan;
     public Double dayGoal;
     public Double dayGoal25;
-    public Double checkDayGoal25;
+    public Double checkMoneyGoal25;
     public Double checkSavingplan;
-    public Double checkSavingplan25;
+    public Double checkDayGoal25;
+    public Double checkGoalHowLong;
 
     public int goal_id;
 
@@ -121,8 +122,8 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         Log.d(TAG, "dayGoal25 = " + dayGoal25 + savingplan);
 
         //check money 25% that must achieve
-        checkDayGoal25 = dayGoal25*suggest_cost;
-        Log.d(TAG, "checkDayGoal25 = " + checkDayGoal25);
+        checkMoneyGoal25 = dayGoal25*suggest_cost;
+        Log.d(TAG, "checkMoneyGoal25 = " + checkMoneyGoal25);
 
         if(savingplan.equals("Daily")){
             checkSavingplan = 1.00;
@@ -134,8 +135,13 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
             checkSavingplan = 30.00;
         }
         //check day 25% that must achieve / days
-        checkSavingplan25 = checkSavingplan*dayGoal25;
-        Log.d(TAG, "checkSavingplan25 = " + checkSavingplan25);
+        checkGoalHowLong = checkSavingplan * dayGoal;
+        Log.d(TAG, "checkSavingplan = " + checkSavingplan);
+        Log.d(TAG, "checkGoalHowLong = " + checkGoalHowLong);
+        checkDayGoal25 = checkSavingplan*dayGoal25;
+        Log.d(TAG, "checkDayGoal25 = " + checkDayGoal25);
+
+
 
 
 
