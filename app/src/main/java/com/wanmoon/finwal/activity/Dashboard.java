@@ -565,13 +565,13 @@ public class Dashboard extends Fragment {
         host.addTab(spec);
 
         TextView x0 = (TextView) host.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
-        x0.setTextSize(10);
+        x0.setTextSize(11);
         TextView x1 = (TextView) host.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
-        x1.setTextSize(10);
+        x1.setTextSize(11);
         TextView x2 = (TextView) host.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
-        x2.setTextSize(10);
+        x2.setTextSize(11);
         TextView x3 = (TextView) host.getTabWidget().getChildAt(3).findViewById(android.R.id.title);
-        x3.setTextSize(10);
+        x3.setTextSize(11);
 
 
         //income

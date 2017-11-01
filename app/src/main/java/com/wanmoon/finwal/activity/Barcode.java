@@ -59,6 +59,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
     public int currentApiVersion = Build.VERSION.SDK_INT;
     public int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+    final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
 
     public  AlertDialog.Builder builder;
 
@@ -209,36 +210,40 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
             }
         });
 
+        for(int j=0;j<dbBarcode.length;j++) {
+            if (myResult.matches(dbBarcode[j]) == true) {
+                DatabaseReference databaseReference2 = database.getReference();
+                databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
 
-        DatabaseReference databaseReference2 = database.getReference();
-        databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                        Userlist = new ArrayList<String>();
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                            Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+                        }
 
-                Userlist = new ArrayList<String>();
-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
-                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
-                }
+                        builder.setMessage("Name : " + Userlist.get(1) + "\n" +
+                                "Price : " + String.format("%.2f", Double.parseDouble(Userlist.get(2))) + "\n" +
+                                "Category : " + Userlist.get(0));
 
-                builder.setMessage("Name : " + Userlist.get(1) + "\n" +
-                        "Price : "  + String.format("%.2f",Double.parseDouble(Userlist.get(2)))  + "\n" +
-                        "Category : " + Userlist.get(0));
+                        AlertDialog alert1 = builder.create();
+                        alert1.show();
+                    }
 
-                AlertDialog alert1 = builder.create();
-                alert1.show();
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+
+                });
+
             }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-
-
-            });
-
-
-
+        }
+        Toast.makeText(this, "This No. no longer in database", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(getApplicationContext(), AddTransaction.class);
+        startActivity(i);
     }
 
     public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){

@@ -1,0 +1,136 @@
+Index: app/src/main/java/com/wanmoon/finwal/activity/Barcode.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/wanmoon/finwal/activity/Barcode.java	(revision 72e2562aba09f9558ad9ab88aa93b589b23679e5)
++++ app/src/main/java/com/wanmoon/finwal/activity/Barcode.java	(revision )
+@@ -59,6 +59,7 @@
+ 
+     public int currentApiVersion = Build.VERSION.SDK_INT;
+     public int currentapiVersion = android.os.Build.VERSION.SDK_INT;
++    final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
+ 
+     public  AlertDialog.Builder builder;
+ 
+@@ -209,36 +210,40 @@
+             }
+         });
+ 
+-
++        for(int j=0;j<dbBarcode.length;j++) {
++            if (myResult.matches(dbBarcode[j]) == true) {
+-        DatabaseReference databaseReference2 = database.getReference();
+-        databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
+-            @Override
++                DatabaseReference databaseReference2 = database.getReference();
++                databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
++                    @Override
+ 
+-            public void onDataChange(DataSnapshot dataSnapshot) {
++                    public void onDataChange(DataSnapshot dataSnapshot) {
+ 
+-                Userlist = new ArrayList<String>();
+-                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+-                    Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
+-                }
++                        Userlist = new ArrayList<String>();
++                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
++                            Userlist.add(String.valueOf(dsp.getValue())); //add result into array list
++                        }
+ 
+-                builder.setMessage("Name : " + Userlist.get(1) + "\n" +
++                        builder.setMessage("Name : " + Userlist.get(1) + "\n" +
+-                        "Price : "  + String.format("%.2f",Double.parseDouble(Userlist.get(2)))  + "\n" +
++                                "Price : " + String.format("%.2f", Double.parseDouble(Userlist.get(2))) + "\n" +
+-                        "Category : " + Userlist.get(0));
++                                "Category : " + Userlist.get(0));
+ 
+-                AlertDialog alert1 = builder.create();
+-                alert1.show();
+-            }
++                        AlertDialog alert1 = builder.create();
++                        alert1.show();
++                    }
+ 
+ 
+-            @Override
+-            public void onCancelled(DatabaseError databaseError) {
+-            }
++                    @Override
++                    public void onCancelled(DatabaseError databaseError) {
++                    }
+ 
+ 
+-            });
++                });
+ 
+-
+-
++            }
++        }
++        Toast.makeText(this, "This No. no longer in database", Toast.LENGTH_LONG).show();
++        Intent i = new Intent(getApplicationContext(), AddTransaction.class);
++        startActivity(i);
+     }
+ 
+     public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision 72e2562aba09f9558ad9ab88aa93b589b23679e5)
++++ .idea/modules.xml	(revision )
+@@ -3,7 +3,6 @@
+   <component name="ProjectModuleManager">
+     <modules>
+       <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+-      <module fileurl="file://$PROJECT_DIR$/FinWal.iml" filepath="$PROJECT_DIR$/FinWal.iml" />
+       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+     </modules>
+   </component>
+\ No newline at end of file
+Index: app/src/main/java/com/wanmoon/finwal/activity/Dashboard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/wanmoon/finwal/activity/Dashboard.java	(revision 72e2562aba09f9558ad9ab88aa93b589b23679e5)
++++ app/src/main/java/com/wanmoon/finwal/activity/Dashboard.java	(revision )
+@@ -565,13 +565,13 @@
+         host.addTab(spec);
+ 
+         TextView x0 = (TextView) host.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+-        x0.setTextSize(10);
++        x0.setTextSize(11);
+         TextView x1 = (TextView) host.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+-        x1.setTextSize(10);
++        x1.setTextSize(11);
+         TextView x2 = (TextView) host.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+-        x2.setTextSize(10);
++        x2.setTextSize(11);
+         TextView x3 = (TextView) host.getTabWidget().getChildAt(3).findViewById(android.R.id.title);
+-        x3.setTextSize(10);
++        x3.setTextSize(11);
+ 
+ 
+         //income
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 72e2562aba09f9558ad9ab88aa93b589b23679e5)
++++ .idea/misc.xml	(revision )
+@@ -1,5 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="EntryPointsManager">
++    <entry_points version="2.0" />
++  </component>
+   <component name="NullableNotNullManager">
+     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />
+     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
+\ No newline at end of file
