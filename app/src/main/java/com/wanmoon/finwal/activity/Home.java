@@ -78,6 +78,24 @@ public class Home extends Fragment {
     public double moneyleft;
     public double percent_money;
 
+    public Double dayGoal;
+    public Double dayGoal25;
+    public Double checkMoneyGoal25;
+    public Double checkSavingplan;
+    public Double checkDayGoal25;
+    public Double checkGoalHowLong;
+
+    public Double dayGoal50;
+    public Double checkMoneyGoal50;
+    public Double checkDayGoal50;
+
+    public Double dayGoal75;
+    public Double checkMoneyGoal75;
+    public Double checkDayGoal75;
+
+    public long days;
+    public long diff;
+
     private String setWalletBalance;
     private String setMonthBalance;
     private String setIncomeMonth;
@@ -128,7 +146,7 @@ public class Home extends Fragment {
     public float float_current_goalPercent;
     private float incomePercent;
     private float expensePercent;
-    private  float float_percent_money;
+    private float float_percent_money;
 
     //get current user
     private FirebaseAuth firebaseAuth;
@@ -154,20 +172,6 @@ public class Home extends Fragment {
     getHttpDateStart httpDateStart;
     getHttpNextBill httpNextBill;
 
-    public Double dayGoal;
-    public Double dayGoal25;
-    public Double checkMoneyGoal25;
-    public Double checkSavingplan;
-    public Double checkDayGoal25;
-    public Double checkGoalHowLong;
-
-    public Double dayGoal50;
-    public Double checkMoneyGoal50;
-    public Double checkDayGoal50;
-
-    public Double dayGoal75;
-    public Double checkMoneyGoal75;
-    public Double checkDayGoal75;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -471,7 +475,6 @@ public class Home extends Fragment {
                             }
                             Log.d(TAG, "onResponse");
                         }
-
                     });
                 }
             });
@@ -753,7 +756,6 @@ public class Home extends Fragment {
         expensePercent = (float) (sumExpenseMonth * (100 / sumIncomeMonth));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
 
-
         //for pie chart
         initData();
     }
@@ -896,8 +898,6 @@ public class Home extends Fragment {
         moneyleft = budget_goal - current_goal;
         Log.d(TAG, "moneyleft = " + moneyleft);
 
-
-
         //เก็บเกิน goal
         if (moneyleft < 0) { //เกินโกลไปแล้ว
             textViewMoneyLeftGoal.setText("0 Baht Left");
@@ -908,9 +908,9 @@ public class Home extends Fragment {
         //update status
         if (current_goal >= budget_goal) {
             textViewStatusGoal.setText("Achieved");
-            textViewStatusGoal.setTextColor(Color.parseColor("#088A4B"));
+            textViewStatusGoal.setTextColor(Color.parseColor("#088A4B")); //green
         } else {
-            textViewStatusGoal.setTextColor(Color.parseColor("#FABA66"));
+            textViewStatusGoal.setTextColor(Color.parseColor("#e67e22")); //yellow
         }
 
         //days left
@@ -933,8 +933,8 @@ public class Home extends Fragment {
 
         Calendar today = Calendar.getInstance();
 
-        long diff = thatDay.getTimeInMillis() - today.getTimeInMillis();
-        long days = diff / (24 * 60 * 60 * 1000);
+        diff = thatDay.getTimeInMillis() - today.getTimeInMillis();
+        days = diff / (24 * 60 * 60 * 1000);
 
         Log.d(TAG, "diff = " + diff);
         Log.d(TAG, "days = " + days);
@@ -953,8 +953,6 @@ public class Home extends Fragment {
 
         dayGoal75 = dayGoal*75/100;
         Log.d(TAG, "dayGoal75 = " + dayGoal75 + savingplan);
-
-
 
         //check money 25% that must achieve
         checkMoneyGoal25 = dayGoal25*suggest_cost;
@@ -997,26 +995,20 @@ public class Home extends Fragment {
 
         //ภายใน checkDayGoal25 ต้องเก็บเงินได้ checkMoneyGoal25 จากเวลา checkGoalHowLong ทั้งหมด
         if((checkGoalHowLong - checkDayGoal25 >= days) &&(current_goal <checkMoneyGoal25)){
-            textViewStatusGoal.setText("Unachieved");
+            textViewStatusGoal.setText("Unachieved On 25%");
             textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
             progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
-        }
-        if((checkGoalHowLong - checkDayGoal50 >= days) &&(current_goal <checkMoneyGoal50)){
-            textViewStatusGoal.setText("Unachieved");
+        } else if((checkGoalHowLong - checkDayGoal50 >= days) &&(current_goal <checkMoneyGoal50)){
+            textViewStatusGoal.setText("Unachieved On 50%");
             textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
             progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
-        }
-        if((checkGoalHowLong - checkDayGoal75 >= days) &&(current_goal <checkMoneyGoal75)){
-            textViewStatusGoal.setText("Unachieved");
+        } else if((checkGoalHowLong - checkDayGoal75 >= days) &&(current_goal <checkMoneyGoal75)){
+            textViewStatusGoal.setText("Unachieved On 75%");
             textViewStatusGoal.setTextColor(Color.parseColor("#Bf4b4b"));
             progress.setProgressColor(Color.parseColor("#Bf4b4b")); //red
-        }
-
-        else{
+        } else{
             progress.setProgressColor(Color.parseColor("#088A4B")); //green
         }
-
-
 
         progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
         progress.setMax(100);
@@ -1081,6 +1073,10 @@ public class Home extends Fragment {
                 }
             });
         }
+    }
+
+    public long getDays(){
+        return days;
     }
 
     //////////////////////////////////////////////////////////////////next bill/////////////////////

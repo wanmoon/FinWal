@@ -286,6 +286,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_marginStart="13dp"
                         android:text="Status"
+                        android:textStyle="bold"
                         android:textSize="16dp" />
 
                     <TextView

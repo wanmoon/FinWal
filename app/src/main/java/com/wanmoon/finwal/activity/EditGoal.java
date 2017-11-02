@@ -73,6 +73,8 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     public String description_goal;
     public String status_goal;
     public String savingplan;
+    public String getMoney;
+
     public Double dayGoal;
     public Double dayGoal25;
     public Double checkMoneyGoal25;
@@ -82,12 +84,12 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
     public int goal_id;
 
+    public long dayleft;
+
     public double budget_goal; //get
     public double suggest_cost; //get
     public double current_goal; //get
     public double getCost;
-
-    public String getMoney;
 
     public HashMap<String, String> hashmap;
 
@@ -113,7 +115,6 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         suggest_cost = Double.parseDouble(get_suggest_cost);
         current_goal = Double.parseDouble(get_current_goal);
 
-
         // get25% progress bar
         dayGoal = budget_goal / suggest_cost;
         Log.d(TAG, "dayGoal = " + dayGoal + savingplan);
@@ -127,23 +128,18 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         if(savingplan.equals("Daily")){
             checkSavingplan = 1.00;
-        }
-        if(savingplan.equals("Weekly")){
+        } if(savingplan.equals("Weekly")){
             checkSavingplan = 7.00;
-        }
-        if(savingplan.equals("Monthly")){
+        } if(savingplan.equals("Monthly")){
             checkSavingplan = 30.00;
         }
+
         //check day 25% that must achieve / days
         checkGoalHowLong = checkSavingplan * dayGoal;
         Log.d(TAG, "checkSavingplan = " + checkSavingplan);
         Log.d(TAG, "checkGoalHowLong = " + checkGoalHowLong);
         checkDayGoal25 = checkSavingplan*dayGoal25;
         Log.d(TAG, "checkDayGoal25 = " + checkDayGoal25);
-
-
-
-
 
         //http connect DB
         httpUpdateCurrentGoal = new getHttpUpdateCurrentGoal(getApplicationContext());
@@ -171,7 +167,8 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 //moethod deleted
-                deleteGoal(cust_id,goal_id);
+                //deleteGoal(cust_id,goal_id);
+                updateStatus(cust_id, goal_id, 2); //deleted
                 //toast deleted goal
                 Toast.makeText(getApplicationContext(), "Deleted Goal Successful", Toast.LENGTH_LONG).show();
             }
@@ -198,9 +195,15 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         setText();
 
-        if (current_goal >= budget_goal){
+        Home home = new Home();
+        dayleft = home.getDays();
+        Log.d(TAG,"dayleft = " + dayleft);
+
+        if (current_goal >= budget_goal){ //achieve
             //change status
-            updateStatus(cust_id, goal_id);
+            updateStatus(cust_id, goal_id, 0);
+        } else if((current_goal >= budget_goal) && (dayleft < 0)){ //unchieved : current_goal >= budget_goal, dayleft<0
+            updateStatus(cust_id, goal_id, 1);
         }
     }
 
@@ -215,6 +218,9 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
         if (status_goal.equals("Achieved")){
             //green
             textViewStatus.setTextColor(Color.parseColor("#088A4B"));
+        } else if (status_goal.equals("On Process")){
+            //yellow
+            textViewStatus.setTextColor(Color.parseColor("#e67e22"));
         } else {
             //red
             textViewStatus.setTextColor(Color.parseColor("#e54649"));
@@ -254,11 +260,11 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
     ///////////////////////// delete goal
-    public void deleteGoal(String cust_id, int goal_id){
+    public void deleteGoal(String cust_id, int goal_id, int flagSort){
         try {
             Log.d(TAG,"goal_id = " + goal_id);
             Log.d(TAG,"start select");
-            httpDeleted.run(BASE_URL + "/goalDeleted.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            httpDeleted.run(BASE_URL + "/goalDeleted.php?cust_id=" + cust_id + "&goal_id=" + goal_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -356,11 +362,11 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
     }
 
     ///////////////////////// update status
-    public void updateStatus(String cust_id, int goal_id){
+    public void updateStatus(String cust_id, int goal_id, int flagSort){
         try {
             Log.d(TAG,"goal_id = " + goal_id);
             Log.d(TAG,"start select");
-            httpUpdateStatus.run(BASE_URL + "/goalUpdateStatus.php?cust_id=" + cust_id + "&goal_id=" + goal_id);
+            httpUpdateStatus.run(BASE_URL + "/goalUpdateStatus.php?cust_id=" + cust_id + "&goal_id=" + goal_id + "&flagSort=" + flagSort);
             Log.d(TAG,"end select");
         } catch (IOException e) {
             e.printStackTrace();
@@ -425,10 +431,6 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 //                setSound(alarmSound).
         setAutoCancel(true);
             notificationManager.notify(100,builder.build());
-
-
-
-
 
         }
     }
