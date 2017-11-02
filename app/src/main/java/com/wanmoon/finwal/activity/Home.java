@@ -171,6 +171,7 @@ public class Home extends Fragment {
     getHttpProgressBar httpProgressBar;
     getHttpDateStart httpDateStart;
     getHttpNextBill httpNextBill;
+    getHttpUpdateStatus httpUpdateStatus;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -236,6 +237,8 @@ public class Home extends Fragment {
         httpDateStart = new getHttpDateStart(getContext());
 
         httpNextBill = new getHttpNextBill(getContext());
+
+        httpUpdateStatus = new getHttpUpdateStatus(getContext());
 
         return rootView;
     }
@@ -1018,6 +1021,62 @@ public class Home extends Fragment {
         //see more
         see_more = "<u>" + "See more" + "</u>";
         textViewSeemore.setText((Html.fromHtml(see_more)));
+
+        //dayleft <0
+        if((current_goal < budget_goal) && (days < 0)){ //unchieved : current_goal >= budget_goal, dayleft<0
+            int goal_id = Integer.parseInt(data_goal_id);
+            updateStatus(cust_id, goal_id, 1);
+        }
+    }
+
+    public void updateStatus(String cust_id, int goal_id, int flagSort){
+        try {
+            Log.d(TAG,"goal_id = " + goal_id);
+            Log.d(TAG,"start select");
+            httpUpdateStatus.run(BASE_URL + "/goalUpdateStatus.php?cust_id=" + cust_id + "&goal_id=" + goal_id + "&flagSort=" + flagSort);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public class getHttpUpdateStatus {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpUpdateStatus(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"update success");
+                        }
+
+
+                    });
+                }
+            });
+        }
     }
 
     public String getProgressbar(String cust_id) {
@@ -1073,10 +1132,6 @@ public class Home extends Fragment {
                 }
             });
         }
-    }
-
-    public long getDays(){
-        return days;
     }
 
     //////////////////////////////////////////////////////////////////next bill/////////////////////

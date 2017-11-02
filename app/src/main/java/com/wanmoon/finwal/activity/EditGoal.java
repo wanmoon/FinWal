@@ -195,15 +195,9 @@ public class EditGoal extends AppCompatActivity implements View.OnClickListener{
 
         setText();
 
-        Home home = new Home();
-        dayleft = home.getDays();
-        Log.d(TAG,"dayleft = " + dayleft);
-
         if (current_goal >= budget_goal){ //achieve
             //change status
             updateStatus(cust_id, goal_id, 0);
-        } else if((current_goal >= budget_goal) && (dayleft < 0)){ //unchieved : current_goal >= budget_goal, dayleft<0
-            updateStatus(cust_id, goal_id, 1);
         }
     }
 
