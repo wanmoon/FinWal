@@ -59,7 +59,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
     public int currentApiVersion = Build.VERSION.SDK_INT;
     public int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-    final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
+
 
     public  AlertDialog.Builder builder;
 
@@ -175,6 +175,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     @Override
     public void handleResult(final Result result) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
 
         DatabaseReference databaseReference = database.getReference();
 
@@ -211,9 +212,9 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
         });
 
         for(int j=0;j<dbBarcode.length;j++) {
-            if (myResult.matches(dbBarcode[j]) == true) {
+            if (result.getText().equals(dbBarcode[j]) == true ){
                 DatabaseReference databaseReference2 = database.getReference();
-                databaseReference2.child("Barcode").child("" + result.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference2.child("Barcode").child("" + dbBarcode[j]).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
 
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -229,6 +230,8 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
                         AlertDialog alert1 = builder.create();
                         alert1.show();
+
+
                     }
 
 
@@ -240,10 +243,14 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
                 });
 
             }
+
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
+
+
         }
-        Toast.makeText(this, "This No. no longer in database", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(getApplicationContext(), AddTransaction.class);
-        startActivity(i);
+
+
     }
 
     public String addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
