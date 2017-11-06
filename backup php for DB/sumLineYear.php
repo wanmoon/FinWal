@@ -17,7 +17,7 @@ if (!$conn) {
 }
 
 $cust_id = $_GET["cust_id"];
-//income//
+//income
 $sql_income = "SELECT MONTH(timestamp) as month, SUM(cost) as income FROM transaction
         WHERE transaction='Income' AND YEAR(CURDATE()) =YEAR(timestamp) AND cust_id = '$cust_id' GROUP BY month";
 
@@ -32,7 +32,7 @@ if ($result_income->num_rows > 0) {
     echo "" . $conn->error;
 }
 
-//expense//
+//expense
 $sql_expense = "SELECT MONTH(timestamp) as month, SUM(cost) as expense FROM transaction
         WHERE transaction='Expense' AND YEAR(CURDATE()) =YEAR(timestamp) AND cust_id = '$cust_id' GROUP BY month";
 
@@ -47,7 +47,8 @@ if ($result_expense->num_rows > 0) {
     echo "" . $conn->error;
 }
 
-//////////////////////////////////////////////////
+
+
 //Income
 //gift
 $sql_gift = "SELECT month(timestamp) as month , SUM(cost) as income
