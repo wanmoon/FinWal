@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -550,6 +552,9 @@ public class History extends android.support.v4.app.Fragment  {
 
     public void sumBalance(){
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
 
         Log.d(TAG,"start settext");
         setIncomeAll = "Total Income : " + "<b>" + nf.format(sumIncomeAll) + "</b>";

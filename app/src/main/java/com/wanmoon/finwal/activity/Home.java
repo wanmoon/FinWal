@@ -40,6 +40,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -922,6 +924,9 @@ public class Home extends Fragment {
 
     public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal) {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
 
         textViewGoalTitle.setText(description_goal);
         textViewPercentGoal.setText(float_current_goalPercent + "%");

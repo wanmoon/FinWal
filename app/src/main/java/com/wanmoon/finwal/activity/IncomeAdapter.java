@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.wanmoon.finwal.R;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +52,9 @@ public class IncomeAdapter extends BaseAdapter {
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         NumberFormat nf = NumberFormat.getNumberInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
         nf.setMinimumFractionDigits(2);
         nf.setMaximumFractionDigits(2);
 

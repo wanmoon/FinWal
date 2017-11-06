@@ -38,6 +38,8 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import com.wanmoon.finwal.R;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -903,6 +905,9 @@ public class Dashboard extends Fragment {
         Log.d(TAG, "settextDialogggggggg settextDialog settextDialog");
 
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
 
         textViewCate.setText(cate);
         textViewJan.setText(nf.format(jan));
@@ -3876,6 +3881,9 @@ public class Dashboard extends Fragment {
 
     public void setText(){
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
 
         //income
         textViewIncomeJan.setText("1 Jan : " + nf.format(sumIncomeJan) );
