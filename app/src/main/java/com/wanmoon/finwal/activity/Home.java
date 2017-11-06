@@ -755,6 +755,9 @@ public class Home extends Fragment {
 
     public void sumAllBalance() {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        DecimalFormatSymbols decimalFormatSymbols = ((DecimalFormat) nf).getDecimalFormatSymbols();
+        decimalFormatSymbols.setCurrencySymbol("฿");
+        ((DecimalFormat) nf).setDecimalFormatSymbols(decimalFormatSymbols);
 
         Log.d(TAG, "All start settext");
         monthBalance = sumIncomeMonth - sumExpenseMonth;
