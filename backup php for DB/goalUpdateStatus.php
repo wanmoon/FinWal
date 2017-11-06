@@ -17,12 +17,22 @@ if (!$conn) {
 
 $cust_id = $_GET["cust_id"];
 $goal_id = $_GET["goal_id"];
+$flagSort = $_GET["flagSort"];
+$status;
+
+if ($flagSort == 0) { //achieved
+	$status = "Achieved";
+} else if ($flagSort == 1) { //unachieve
+	$status = "Unachieve";
+} else { //deleted
+	$status = "Deleted";
+}
 
 //SELECT current_goal FROM `goal` WHERE cust_id = 'NvxF5IzFIlVDRPvGFCq2QJAJ0Kk1' AND goal_id = '38'
 //UPDATE goal SET current_goal = '20' WHERE goal_id = '38' AND cust_id = 'NvxF5IzFIlVDRPvGFCq2QJAJ0Kk1'
 
 //ending_date, description_goal, status_goal, budget_goal, savingplan, suggest_cost, current_goal
-$sql = "UPDATE goal SET status_goal = 'Achieved'  WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
+$sql = "UPDATE goal SET status_goal = '$status'  WHERE cust_id = '$cust_id' AND goal_id = '$goal_id'";
 
 $result = $conn->query($sql);
 

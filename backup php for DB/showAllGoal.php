@@ -21,7 +21,7 @@ $status;// = " AND status_goal != 'Deleted' ";
 $sort;
 
 if ($flagSort == 0) { //unacheive =0
-    $status = " AND status_goal = 'Unachieve' ";
+    $status = " AND status_goal = 'On Process' ";
 	$sort = "status_goal DESC";
 } elseif ($flagSort == 1) { //achieve =1
     $status = " AND status_goal = 'Achieved' ";
@@ -35,6 +35,9 @@ if ($flagSort == 0) { //unacheive =0
 } elseif ($flagSort == 5) { //deleted
     $sort = "ending_date DESC";
     $status = " AND status_goal = 'Deleted' ";
+} elseif ($flagSort == 6) { //deleted
+    $sort = "ending_date DESC";
+    $status = " AND status_goal = 'Unachieve' ";
 } else {
 	$sort = "ending_date DESC"; //time = 4
 }
