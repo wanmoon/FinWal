@@ -1,5 +1,6 @@
 package com.wanmoon.finwal.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -78,6 +82,7 @@ public class Home extends Fragment {
     public double moneyleft;
     public double percent_money;
 
+    public Double getBillcost;
     public Double dayGoal;
     public Double dayGoal25;
     public Double checkMoneyGoal25;
@@ -117,24 +122,43 @@ public class Home extends Fragment {
     private String description_bill;
     private String status_bill;
     private String deadline;
+    private String deadline_str;
+    private String getcost;
+
+    public int bill_id;
 
     public TextView textViewMyWallet;
     public TextView textViewMyIncome;
     public TextView textViewMyExpense;
     public TextView textViewMonthBalance;
+
     public TextView textViewStatusGoal;
     public TextView textViewPercentGoal;
     public TextView textViewMoneyLeftGoal;
     public TextView textViewGoalTitle;
     public TextView textViewDateLeft;
     public TextView textViewProgressBarNoData;
+    public TextView textViewSeemore;
+
     private TextView textViewBillDescription;
     private TextView textViewBillStatus;
     private TextView textViewBillDeadline;
     private TextView textViewBillPeriod;
     private TextView textViewBillNoData;
-    public TextView textViewSeemore;
     public TextView textViewSeeMoreBill;
+    public TextView textViewDescription_bill;
+    public TextView textViewStatus_bill;
+    public TextView textViewPeriod;
+    public TextView textViewDeadline;
+
+    public EditText editTextHowmuch;
+
+    public Button buttonPaidBill;
+    public Button buttonCancel;
+    public Button buttonOK;
+
+    public Dialog dialogBill;
+    public Dialog dialogBillCost;
 
     private LinearLayout linearLayout1;
     private LinearLayout linearLayout2;
@@ -172,6 +196,8 @@ public class Home extends Fragment {
     getHttpDateStart httpDateStart;
     getHttpNextBill httpNextBill;
     getHttpUpdateStatus httpUpdateStatus;
+    getHttpToDB httpToDB;
+    getHttpUpdateStatusBill httpUpdateStatusBill;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -239,6 +265,10 @@ public class Home extends Fragment {
         httpNextBill = new getHttpNextBill(getContext());
 
         httpUpdateStatus = new getHttpUpdateStatus(getContext());
+
+        httpToDB = new getHttpToDB(getContext());
+
+        httpUpdateStatusBill = new getHttpUpdateStatusBill(getContext());
 
         return rootView;
     }
@@ -890,7 +920,6 @@ public class Home extends Fragment {
         }
     }
 
-
     public void setDataProcessBar(String ending_date, String description_goal, String status_goal, double budget_goal, double current_goal) {
         NumberFormat nf = NumberFormat.getCurrencyInstance();
 
@@ -1029,6 +1058,7 @@ public class Home extends Fragment {
         }
     }
 
+    //update status
     public void updateStatus(String cust_id, int goal_id, int flagSort){
         try {
             Log.d(TAG,"goal_id = " + goal_id);
@@ -1079,6 +1109,7 @@ public class Home extends Fragment {
         }
     }
 
+    //progressbar
     public String getProgressbar(String cust_id) {
         try {
             Log.d(TAG, "start progressbar");
@@ -1139,7 +1170,7 @@ public class Home extends Fragment {
         Log.d(TAG, "data " + data);
         List<String> items = Arrays.asList(data.split("\\s*,\\s*"));
 
-        if (items.size() < 5) {
+        if (items.size() < 5) { //no bill
             //visible
             textViewBillNoData.setVisibility(View.VISIBLE);
             relativeBill.setVisibility(View.GONE);
@@ -1158,7 +1189,100 @@ public class Home extends Fragment {
             Log.d(TAG, "status_bill " + status_bill);
             Log.d(TAG, "deadline " + deadline);
 
+            dialogForBill(data_bill_id, period, description_bill, status_bill, deadline);
             setNextBillData(period, description_bill, status_bill, deadline);
+        }
+    }
+
+    public void dialogForBill(String data_bill_id, String period, String description_bill, String status_bill, String deadline){
+        //for bill dialog : check date
+        List<String> deadline_arr = Arrays.asList(deadline.split("\\s*-\\s*"));
+
+        int d = Integer.parseInt(deadline_arr.get(0));
+        int m = Integer.parseInt(deadline_arr.get(1));
+        int y = Integer.parseInt(deadline_arr.get(2));
+
+        Log.d(TAG, "d = " + d);
+        Log.d(TAG, "m = " + m);
+        Log.d(TAG, "y = " + y);
+
+        Calendar thatDay = Calendar.getInstance();
+        thatDay.set(Calendar.DAY_OF_MONTH, d);
+        thatDay.set(Calendar.MONTH, m-1); // 0-11 so 1 less
+        thatDay.set(Calendar.YEAR, y);
+
+        Calendar today = Calendar.getInstance();
+
+        diff = thatDay.getTimeInMillis() - today.getTimeInMillis();
+        days = diff / (24 * 60 * 60 * 1000);
+
+        Log.d(TAG, "diff = " + diff);
+        Log.d(TAG, "days = " + days);
+
+        //check if days = 0 : have dialog
+        if (days == 0){
+            //make dialog
+            dialogBill = new Dialog(getContext());
+            dialogBill.getWindow();
+            dialogBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogBill.setContentView(R.layout.dialogbill_home);
+            dialogBill.setCancelable(true);
+            dialogBill.show();
+
+            ////////////////////////////////dialog's data
+
+            //findviewbtid
+            textViewDescription_bill = (TextView) dialogBill.findViewById(R.id.textViewDescription_bill);
+            textViewStatus_bill = (TextView) dialogBill.findViewById(R.id.textViewStatus_bill);
+            textViewPeriod = (TextView) dialogBill.findViewById(R.id.textViewPeriod);
+            textViewDeadline = (TextView) dialogBill.findViewById(R.id.textViewDeadline);
+
+            period = "Period : " + period;
+            deadline_str = "Deadline : " + deadline;
+            bill_id = Integer.parseInt(data_bill_id);
+
+            Log.d(TAG, "data_bill_id = " + data_bill_id);
+            Log.d(TAG, "period = " + period);
+            Log.d(TAG, "description_bill = " + description_bill);
+            Log.d(TAG, "status_bill = " + status_bill);
+            Log.d(TAG, "deadline_str = " + deadline_str);
+
+            //settext
+            textViewDescription_bill.setText(description_bill);
+            textViewStatus_bill.setText(status_bill);
+            textViewPeriod.setText(period);
+            textViewDeadline.setText(deadline_str);
+
+            //set color
+            if (status_bill.equals("Unpaid")){
+                textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
+            } else {
+                textViewStatus_bill.setTextColor(Color.parseColor("#088A4B")); //green
+            }
+
+            Log.d(TAG, "Start button");
+            ////////////////////////////////dialog's button
+            //paid button
+            buttonPaidBill = (Button) dialogBill.findViewById(R.id.buttonPaidBill);
+            buttonPaidBill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "onClick Button Paid");
+                    //flagSort = (?) > Paid
+                    addTransaction();
+                    updateStatusBill(cust_id, bill_id, 0, ""); // 0 = paid
+                    dialogBill.cancel();
+                }
+            });
+
+            //cancel button
+            buttonCancel = (Button) dialogBill.findViewById(R.id.buttonCancel);
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogBill.cancel();
+                }
+            });
         }
     }
 
@@ -1232,6 +1356,142 @@ public class Home extends Fragment {
             });
         }
     }
+
+    //////////////////////////////////////////////////////////////////////addtransaction for billing
+    public void addTransaction(){
+        //dialog ask for bill's amoung
+        dialogBillCost = new Dialog(getActivity());
+        dialogBillCost.getWindow();
+        dialogBillCost.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogBillCost.setContentView(R.layout.billcost);
+        dialogBillCost.setCancelable(true);
+        dialogBillCost.show();
+
+        //findview
+        editTextHowmuch = (EditText) dialogBillCost.findViewById(R.id.editTextHowmuch);
+        buttonOK = (Button) dialogBillCost.findViewById(R.id.buttonOK);
+
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get text
+                getcost = editTextHowmuch.getText().toString().trim();
+                getBillcost = Double.parseDouble(getcost);
+
+                Log.d(TAG, "cust_id = " + cust_id);
+                Log.d(TAG, "description_bill = " + description_bill);
+                Log.d(TAG, "getBillcost = " + getBillcost);
+
+                addTransactionToDB(cust_id, description_bill, getBillcost , "Expense", "Bill");
+                dialogBillCost.cancel();
+            }
+        });
+    }
+
+    public void addTransactionToDB(String cust_id, String description, double cost, String transaction, String category){
+        Log.d(TAG, cust_id + "cust_id");
+        Log.d(TAG, description + "description");
+        Log.d(TAG, cost + "cost");
+        Log.d(TAG, transaction + "transaction");
+        Log.d(TAG, category + "category");
+
+        try {
+            Log.d(TAG,"start transaction");
+            httpToDB.run(BASE_URL + "/insertTransaction.php?cust_id=" + cust_id+"&description="+ description +"&cost=" + cost +"&transaction=" + transaction +"&category="+category);
+            Log.d(TAG,"end transaction");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    // ** must have for connect DB
+    public class getHttpToDB {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpToDB(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"insert success");
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////update bill status
+    public void updateStatusBill(String cust_id, int bill_id, int flagSort, String newDeadline){
+        try {
+            Log.d(TAG,"bill_id = " + bill_id);
+            Log.d(TAG,"start select");
+            httpUpdateStatus.run(BASE_URL + "/billUpdateStatus.php?cust_id=" + cust_id + "&bill_id=" + bill_id + "&flagSort=" + flagSort  + "&newDeadline=" + newDeadline);
+            Log.d(TAG,"end select");
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d(TAG,"error catch");
+        }
+    }
+
+    public class getHttpUpdateStatusBill {
+        OkHttpClient client;
+        Handler mainHandler;
+        Context context;
+
+        getHttpUpdateStatusBill(Context context) {
+            this.context = context;
+            client = new OkHttpClient();
+            mainHandler = new Handler(context.getMainLooper());
+        }
+
+        void run(String url) throws IOException {
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG,"onFailure" + e.toString());
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    mainHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            Log.d(TAG,"onResponse");
+                            Log.d(TAG,"update success");
+                        }
+                    });
+                }
+            });
+        }
+    } //ประกาศตัวแปล เปลี่ยนชื่อ
+
+
 }
 
 
