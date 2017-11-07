@@ -54,6 +54,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
     public String category;
     public String transaction = "Expense";
     public String get_cost;
+    public String myResult;
 
     public double cost;
 
@@ -99,6 +100,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
                 requestPermission();
             }
         }
+
     }
 
     private boolean checkPermission() {
@@ -174,45 +176,57 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
     @Override
     public void handleResult(final Result result) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
 
-        DatabaseReference databaseReference = database.getReference();
-
-        final String myResult = result.getText();
+        myResult = result.getText();
         Log.d("QRCodeScanner", result.getText());
         Log.d("QRCodeScanner", result.getBarcodeFormat().toString());
 
-        builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Detail of Product");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                description = Userlist.get(1);
-                price = Userlist.get(2);
-                category = Userlist.get(0);
 
-                cost = (Double.parseDouble(price));
-                get_cost = String.format("%.2f",cost);
+            fetchData();
 
-                Log.d(TAG,"description = " + description);
-                Log.d(TAG,"cost = " + cost);
-                Log.d(TAG,"cate = " + category);
 
-               addTransactionToDB(cust_id, description, cost, transaction, category);
-            }
-        });
+            builder = new AlertDialog.Builder(this);
+            fetchData();
+            builder.setTitle("Detail of Product");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    description = Userlist.get(1);
+                    price = Userlist.get(2);
+                    category = Userlist.get(0);
 
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                scannerView.resumeCameraPreview(Barcode.this);
-            }
-        });
+                    cost = (Double.parseDouble(price));
+                    get_cost = String.format("%.2f", cost);
 
+                    Log.d(TAG, "description = " + description);
+                    Log.d(TAG, "cost = " + cost);
+                    Log.d(TAG, "cate = " + category);
+
+                    addTransactionToDB(cust_id, description, cost, transaction, category);
+                }
+            });
+
+            builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    scannerView.resumeCameraPreview(Barcode.this);
+                }
+            });
+
+
+
+
+    }
+
+    public void fetchData(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+
+
+        final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
         for(int j=0;j<dbBarcode.length;j++) {
-            if (result.getText().equals(dbBarcode[j]) == true ){
+            if (myResult.equals(dbBarcode[j]) == true ){
                 DatabaseReference databaseReference2 = database.getReference();
                 databaseReference2.child("Barcode").child("" + dbBarcode[j]).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -244,12 +258,13 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
             }
 
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
 
 
         }
 
+//        Intent i = new Intent(this, MainActivity.class);
+//        startActivity(i);
+        scannerView.resumeCameraPreview(Barcode.this);
 
     }
 
