@@ -107,7 +107,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@color/buttonColorGrey"
-            android:text="Cancel"
+            android:text="Later"
             android:textColor="@color/buttonColorWhite"
             android:textStyle="bold" />
 
