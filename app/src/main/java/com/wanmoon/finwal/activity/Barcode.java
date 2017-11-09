@@ -224,7 +224,7 @@ public class Barcode extends AppCompatActivity implements ZXingScannerView.Resul
 
 
 
-        final String[] dbBarcode = {"4548718726783","4549738916659","8850250008811","8850999321004","4934761170206","8851952350161","8851959132364","8852001128502","8854641001740","8858891300158","8858860100260" };
+        final String[] dbBarcode = {"4548718726783","4549738916659","4934761170206","8850250008811","8850999321004","8851019010137","8858998585077","8851952350161","8851959132364","8852001128502","8852044110243","8854641001740","8858891300158","8858860100253","8858860100260","8858998585076" };
         for(int j=0;j<dbBarcode.length;j++) {
             if (myResult.equals(dbBarcode[j]) == true ){
                 DatabaseReference databaseReference2 = database.getReference();
