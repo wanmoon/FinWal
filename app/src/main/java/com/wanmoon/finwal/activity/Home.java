@@ -3,12 +3,10 @@ package com.wanmoon.finwal.activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -192,10 +190,6 @@ public class Home extends Fragment {
     public PieChart pieChart;
     private View mView;
 
-    //dialog one time per day
-    private boolean isFirstRun = true;
-    private SharedPreferences prefs;
-
     getHttpIncomeMonth httpIncomeMonth;
     getHttpExpenseMonth httpExpenseMonth;
     getHttpIncome httpIncome;
@@ -251,10 +245,6 @@ public class Home extends Fragment {
         ((MainActivity) getActivity()).setTitle("My FinWal");
 
         Log.d(TAG, "end onCreate");
-
-        //show once per day
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        isFirstRun = prefs.getBoolean("isFirstRun", true);
     }
 
     @Override
@@ -446,14 +436,6 @@ public class Home extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        if(dialogBill!=null && dialogBill.isShowing())
-            dialogBill.dismiss();
     }
 
     //////////////////////////////////////////////////////////for month balance/////////////////////
@@ -1244,74 +1226,67 @@ public class Home extends Fragment {
         Log.d(TAG, "diff = " + diff);
         Log.d(TAG, "days = " + days);
 
-        //alert once time per day
-        if(isFirstRun){
+        //check if days = 0 : have dialog
+        if (days <= 0 && status_bill.equals("Unpaid")){
+            //make dialog
+            dialogBill = new Dialog(getContext());
+            dialogBill.getWindow();
+            dialogBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialogBill.setContentView(R.layout.dialogbill_home);
+            dialogBill.setCancelable(true);
+            dialogBill.show();
 
-            //check if days = 0 : have dialog
-            if (days <= 0 && status_bill.equals("Unpaid")){
-                //make dialog
-                dialogBill = new Dialog(getContext());
-                dialogBill.getWindow();
-                dialogBill.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialogBill.setContentView(R.layout.dialogbill_home);
-                dialogBill.setCancelable(true);
-                dialogBill.show();
+            ////////////////////////////////dialog's data
 
-                ////////////////////////////////dialog's data
+            //findviewbtid
+            textViewDescription_bill = (TextView) dialogBill.findViewById(R.id.textViewDescription_bill);
+            textViewStatus_bill = (TextView) dialogBill.findViewById(R.id.textViewStatus_bill);
+            textViewPeriod = (TextView) dialogBill.findViewById(R.id.textViewPeriod);
+            textViewDeadline = (TextView) dialogBill.findViewById(R.id.textViewDeadline);
 
-                //findviewbtid
-                textViewDescription_bill = (TextView) dialogBill.findViewById(R.id.textViewDescription_bill);
-                textViewStatus_bill = (TextView) dialogBill.findViewById(R.id.textViewStatus_bill);
-                textViewPeriod = (TextView) dialogBill.findViewById(R.id.textViewPeriod);
-                textViewDeadline = (TextView) dialogBill.findViewById(R.id.textViewDeadline);
+            period = "Period : " + period;
+            deadline_str = "Deadline : " + deadline;
+            bill_id = Integer.parseInt(data_bill_id);
 
-                period = "Period : " + period;
-                deadline_str = "Deadline : " + deadline;
-                bill_id = Integer.parseInt(data_bill_id);
+            Log.d(TAG, "data_bill_id = " + data_bill_id);
+            Log.d(TAG, "period = " + period);
+            Log.d(TAG, "description_bill = " + description_bill);
+            Log.d(TAG, "status_bill = " + status_bill);
+            Log.d(TAG, "deadline_str = " + deadline_str);
 
-                Log.d(TAG, "data_bill_id = " + data_bill_id);
-                Log.d(TAG, "period = " + period);
-                Log.d(TAG, "description_bill = " + description_bill);
-                Log.d(TAG, "status_bill = " + status_bill);
-                Log.d(TAG, "deadline_str = " + deadline_str);
+            //settext
+            textViewDescription_bill.setText(description_bill);
+            textViewStatus_bill.setText(status_bill);
+            textViewPeriod.setText(period);
+            textViewDeadline.setText(deadline_str);
 
-                //settext
-                textViewDescription_bill.setText(description_bill);
-                textViewStatus_bill.setText(status_bill);
-                textViewPeriod.setText(period);
-                textViewDeadline.setText(deadline_str);
+            //set color
+            textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
 
-                //set color
-                textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
+            Log.d(TAG, "Start button");
+            ////////////////////////////////dialog's button
+            //paid button
+            buttonPaidBill = (Button) dialogBill.findViewById(R.id.buttonPaidBill);
+            buttonPaidBill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "onClick Button Paid");
+                    //flagSort = (?) > Paid
+                    addTransaction();
+                    updateStatusBill(cust_id, bill_id, 0, ""); // 0 = paid
+                    dialogBill.cancel();
+                }
+            });
 
-                Log.d(TAG, "Start button");
-                ////////////////////////////////dialog's button
-                //paid button
-                buttonPaidBill = (Button) dialogBill.findViewById(R.id.buttonPaidBill);
-                buttonPaidBill.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d(TAG, "onClick Button Paid");
-                        //flagSort = (?) > Paid
-                        addTransaction();
-                        updateStatusBill(cust_id, bill_id, 0, ""); // 0 = paid
-                        dialogBill.cancel();
-                    }
-                });
-
-                //cancel button
-                buttonCancel = (Button) dialogBill.findViewById(R.id.buttonCancel);
-                buttonCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogBill.cancel();
-                    }
-                });
-            }
+            //cancel button
+            buttonCancel = (Button) dialogBill.findViewById(R.id.buttonCancel);
+            buttonCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogBill.cancel();
+                }
+            });
         }
-
-        isFirstRun = false;
-        prefs.edit().putBoolean("isFirstRun", isFirstRun).commit();
     }
 
     public void setNextBillData(String period, String description_bill, String status_bill, String deadline) {
