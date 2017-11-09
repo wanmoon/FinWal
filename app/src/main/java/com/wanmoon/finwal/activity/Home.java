@@ -1228,7 +1228,7 @@ public class Home extends Fragment {
         Log.d(TAG, "days = " + days);
 
         //check if days = 0 : have dialog
-        if (days == 0){
+        if (days == 0 && status_bill.equals("Unpaid")){
             //make dialog
             dialogBill = new Dialog(getContext());
             dialogBill.getWindow();
@@ -1262,11 +1262,7 @@ public class Home extends Fragment {
             textViewDeadline.setText(deadline_str);
 
             //set color
-            if (status_bill.equals("Unpaid")){
-                textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
-            } else {
-                textViewStatus_bill.setTextColor(Color.parseColor("#088A4B")); //green
-            }
+            textViewStatus_bill.setTextColor(Color.parseColor("#e54649")); //red
 
             Log.d(TAG, "Start button");
             ////////////////////////////////dialog's button
@@ -1497,9 +1493,7 @@ public class Home extends Fragment {
                 }
             });
         }
-    } //ประกาศตัวแปล เปลี่ยนชื่อ
-
-
+    }
 }
 
 
