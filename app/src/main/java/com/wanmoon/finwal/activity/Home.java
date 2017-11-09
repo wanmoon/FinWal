@@ -1228,7 +1228,7 @@ public class Home extends Fragment {
         Log.d(TAG, "days = " + days);
 
         //check if days = 0 : have dialog
-        if (days == 0 && status_bill.equals("Unpaid")){
+        if (days <= 0 && status_bill.equals("Unpaid")){
             //make dialog
             dialogBill = new Dialog(getContext());
             dialogBill.getWindow();
