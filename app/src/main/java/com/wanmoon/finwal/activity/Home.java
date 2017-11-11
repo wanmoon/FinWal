@@ -787,10 +787,10 @@ public class Home extends Fragment {
         textViewMyWallet.setText((Html.fromHtml(setWalletBalance)));
         Log.d(TAG, "end settext");
 
-        incomePercent = (float) (monthBalance * (100 / sumIncomeMonth));
+        incomePercent = (float) (sumIncomeMonth*100 /(sumIncomeMonth+sumExpenseMonth) );
         Log.d(TAG, "Wallet incomePercent = " + incomePercent);
 
-        expensePercent = (float) (sumExpenseMonth * (100 / sumIncomeMonth));
+        expensePercent = (float) (sumExpenseMonth * 100 / (sumIncomeMonth+sumExpenseMonth ));
         Log.d(TAG, "Wallet expensePercent = " + expensePercent);
 
         //for pie chart
@@ -1048,6 +1048,9 @@ public class Home extends Fragment {
         } else{
             progress.setProgressColor(Color.parseColor("#088A4B")); //green
         }
+
+
+
 
         progress.setProgressBackgroundColor(Color.parseColor("#FFFFFF"));
         progress.setMax(100);
