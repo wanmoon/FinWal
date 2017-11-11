@@ -221,7 +221,7 @@
                         android:layout_marginLeft="10dp"
                         android:text="Goal Title : "
                         android:textStyle="bold"
-                        android:textSize="18dp"
+                        android:textSize="16dp"
                         android:layout_weight="1"/>
 
                     <TextView
@@ -231,7 +231,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:text="Day left"
-                        android:textSize="16dp"
+                        android:textSize="14dp"
                         android:layout_weight="1"
                         android:textAlignment="center" />
 
@@ -244,7 +244,7 @@
                         android:gravity="right"
                         android:textAlignment="gravity"
                         android:layout_marginRight="10dp"
-                        android:textSize="16dp"/>
+                        android:textSize="14dp"/>
                 </LinearLayout>
 
                 <TextView
@@ -269,8 +269,98 @@
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginStart="2dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="1dp"
                     app:rcBackgroundPadding="5dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_btnMonthq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/btnMonthIncomeq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="4"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/btnGoal1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewGoal1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text=""
+                                android:textSize="10dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnGoal2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewGoal2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="25%"
+                                android:textSize="10dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnGoal3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewGoal3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="50%"
+                                android:textSize="10dp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/btnGoal4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewGoal4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:text="75%"
+                                android:textSize="10dp" />
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
 
                 <RelativeLayout
                     android:id="@+id/relativeGoal2"
@@ -287,7 +377,7 @@
                         android:layout_marginStart="13dp"
                         android:text="Status"
                         android:textStyle="bold"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/textViewPercentGoal"
@@ -296,7 +386,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginRight="10dp"
                         android:text="Percent Goal"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
 
                     <TextView
                         android:id="@+id/textViewMoneyLeftGoal"
@@ -305,7 +395,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="10dp"
                         android:text="Money Left"
-                        android:textSize="16dp" />
+                        android:textSize="14dp" />
                 </RelativeLayout>
 
                 <TextView
