@@ -160,6 +160,14 @@ public class History extends android.support.v4.app.Fragment  {
         spec.setIndicator("All expense");
         host.addTab(spec);
 
+        TextView x0 = (TextView) host.getTabWidget().getChildAt(0).findViewById(android.R.id.title);
+        x0.setTextSize(11);
+        TextView x1 = (TextView) host.getTabWidget().getChildAt(1).findViewById(android.R.id.title);
+        x1.setTextSize(11);
+        TextView x2 = (TextView) host.getTabWidget().getChildAt(2).findViewById(android.R.id.title);
+        x2.setTextSize(11);
+
+
         //listview for show alltransaction
         transactionList = new ArrayList<HashMap<String, String>>();
         adapter = new HistoryAdapter(getContext(), transactionList);
