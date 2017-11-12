@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -338,10 +339,9 @@ public class Billing extends Fragment {
                         Log.d(TAG, "onClick Button Paid");
                         //flagSort = (?) > Paid
                         addTransaction();
-                        updateStatus(cust_id, bill_id, 0, ""); // 0 = paid
-                        dialogEditBill.cancel();
                         billList.remove(position);
                         adapter.notifyDataSetChanged();
+                        dialogEditBill.cancel();
                     }
                 });
 
@@ -459,14 +459,20 @@ public class Billing extends Fragment {
             public void onClick(View v) {
                 //get text
                 getcost = editTextHowmuch.getText().toString().trim();
-                getBillcost = Double.parseDouble(getcost);
 
-                Log.d(TAG, "cust_id = " + cust_id);
-                Log.d(TAG, "description_bill = " + description_bill);
-                Log.d(TAG, "getBillcost = " + getBillcost);
+                if (getcost.isEmpty()){
+                    Toast.makeText(billCost.getContext(), "How much?", Toast.LENGTH_LONG).show();
+                } else {
+                    getBillcost = Double.parseDouble(getcost);
 
-                addTransactionToDB(cust_id, description_bill, getBillcost , "Expense", "Bill");
-                billCost.cancel();
+                    Log.d(TAG, "cust_id = " + cust_id);
+                    Log.d(TAG, "description_bill = " + description_bill);
+                    Log.d(TAG, "getBillcost = " + getBillcost);
+
+                    updateStatus(cust_id, bill_id, 0, ""); // 0 = paid
+                    addTransactionToDB(cust_id, description_bill, getBillcost , "Expense", "Bill");
+                    billCost.cancel();
+                }
             }
         });
     }
